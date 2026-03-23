@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gottlieb's Deep Sky Observations</title>
+    <meta name="description" content="A comprehensive database of over 24,000 deep sky observations by Steve Gottlieb, spanning 45+ years of visual astronomy with telescopes from 6 inches to 48 inches.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="nav-logo-icon">✦</span>
+                <span class="nav-logo-text">Gottlieb's Deep Sky</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#explorer">Database</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero / Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <canvas id="starfield"></canvas>
+        </div>
+        <div class="hero-content">
+            <p class="hero-subtitle">A Visual Journey Through the Universe</p>
+            <h1 class="hero-title">Gottlieb's Deep Sky Observations</h1>
+            <p class="hero-desc">Over <strong>24,700</strong> deep sky objects observed and documented by Steve Gottlieb across <strong>45+ years</strong> of visual astronomy — the most comprehensive single-observer record of the NGC, IC, and UGC catalogs ever compiled.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num" id="stat-records">24,773</span>
+                    <span class="stat-label">Objects Observed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">6"–48"</span>
+                    <span class="stat-label">Telescope Range</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">46</span>
+                    <span class="stat-label">Published Articles</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">88</span>
+                    <span class="stat-label">Constellations</span>
+                </div>
+            </div>
+            <div class="hero-actions">
+                <a href="#explorer" class="btn btn-primary">Explore the Database</a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Steve Gottlieb -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Steve Gottlieb</h2>
+            <div class="about-layout">
+                <div class="about-photo-col">
+                    <div class="about-photo-main">
+                        <img src="img/steve_telescope.jpg" alt="Steve Gottlieb at the telescope" loading="lazy">
+                    </div>
+                    <div class="about-photo-grid">
+                        <img src="img/calstar2012.jpg" alt="Steve at CalStar 2012" loading="lazy">
+                        <img src="img/steve_ozsky.jpg" alt="Steve at OzSky Star Safari" loading="lazy">
+                    </div>
+                </div>
+                <div class="about-text-col">
+                    <p class="about-lead">Steve Gottlieb is one of the most prolific visual deep sky observers in the history of amateur astronomy. His decades-long systematic survey of the NGC, IC, and UGC catalogs represents an unparalleled personal record of the deep sky.</p>
+
+                    <p>Born in San Francisco, Gottlieb began serious deep sky observing in 1978, starting with the Messier objects through a 6-inch reflector. What began as a personal exploration of the night sky evolved into a monumental 35-year project: visually observing every object in the New General Catalogue accessible from the northern hemisphere.</p>
+
+                    <p>In 2014, he completed all NGC objects north of −41° declination from his observing sites in northern California. Three years later, after multiple trips to Australia for the far southern sky, he observed his final NGC object — NGC 2932 — on October 18, 2017 at the OzSky Star Safari in New South Wales.</p>
+
+                    <p>Following the NGC, Gottlieb turned his attention to the Index Catalogue (IC), completing its nearly 1,529 galaxy entries. The last IC object, IC 1493, was observed on October 18, 2025 — exactly eight years to the day after finishing the NGC.</p>
+
+                    <h3>Telescopes and Observing</h3>
+                    <p>Throughout his career, Gottlieb has used progressively larger instruments:</p>
+                    <ul class="telescope-list">
+                        <li><strong>6" f/5 reflector</strong> — Early Messier work (1978–1980)</li>
+                        <li><strong>13.1" Odyssey I</strong> — First NGC explorations (1981–1986)</li>
+                        <li><strong>17.5" f/4.5 homemade Dobsonian</strong> — Primary instrument (1987–2002)</li>
+                        <li><strong>18" f/4.3 Starmaster</strong> — Extended surveys (2003–2011)</li>
+                        <li><strong>24" f/3.7 Starstructure</strong> — Current primary telescope (2012–present)</li>
+                        <li><strong>48" Dobsonian</strong> — Over 500 observations using Jimi Lowrey's giant telescope in west Texas</li>
+                    </ul>
+
+                    <h3>Publications and Contributions</h3>
+                    <p>Gottlieb has authored 46 articles for <em>Sky & Telescope</em> and <em>Astronomy</em> magazines, covering topics from galaxy clusters to planetary nebulae, interacting galaxies to Wolf-Rayet bubbles. He is also a contributor to the NGC/IC Project, helping verify historical identifications of thousands of deep sky objects.</p>
+
+                    <p>His work has been recognized with the Astronomical League's Herschel 400 award and he has been a featured speaker at numerous star parties and astronomy conventions across the United States and Australia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction (Steve's own text) -->
+    <section id="introduction" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Introduction</h2>
+            <div class="intro-content">
+                <div class="intro-byline">
+                    <img src="img/steve_portrait1.jpg" alt="Steve Gottlieb" loading="lazy" class="intro-avatar">
+                    <div>
+                        <span class="intro-author">Steve Gottlieb</span>
+                        <span class="intro-date">March 22, 2026</span>
+                    </div>
+                </div>
+                <div class="intro-text" id="intro-text">
+                    <!-- Populated by JS from intro text -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Database Explorer -->
+    <section id="explorer" class="section">
+        <div class="container">
+            <h2 class="section-title">Database Explorer</h2>
+            <p class="section-desc">Search and explore over 24,700 deep sky objects with detailed visual observations, historical context, and cross-references.</p>
+
+            <!-- Quick Lookup -->
+            <div class="explorer-quick">
+                <div class="quick-lookup">
+                    <label for="quick-search">Quick Lookup</label>
+                    <div class="quick-search-row">
+                        <input type="text" id="quick-search" placeholder="Enter object name (e.g., NGC 1, IC 434, M31)" autocomplete="off">
+                        <button id="quick-search-btn" class="btn btn-primary">Search</button>
+                    </div>
+                    <div id="quick-suggestions" class="suggestions-dropdown"></div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="explorer-filters" id="filter-panel">
+                <button class="filter-toggle" id="filter-toggle">
+                    <span>Advanced Filters</span>
+                    <span class="filter-arrow">▾</span>
+                </button>
+                <div class="filter-body" id="filter-body">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label>Catalog</label>
+                            <select id="filter-catalog">
+                                <option value="">All Catalogs</option>
+                                <option value="NGC">NGC</option>
+                                <option value="IC">IC</option>
+                                <option value="UGC">UGC</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Constellation</label>
+                            <select id="filter-con">
+                                <option value="">All Constellations</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Object Type</label>
+                            <select id="filter-type">
+                                <option value="">All Types</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Visual Magnitude</label>
+                            <div class="mag-range">
+                                <input type="number" id="filter-mag-min" placeholder="Min" step="0.1">
+                                <span>to</span>
+                                <input type="number" id="filter-mag-max" placeholder="Max" step="0.1">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Special Lists</label>
+                            <select id="filter-special">
+                                <option value="">No Filter</option>
+                                <option value="top">Gottlieb's Top Objects (308)</option>
+                                <option value="orion">Orion Star Atlas Objects (441)</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Name Contains</label>
+                            <input type="text" id="filter-name" placeholder="e.g., Abell, Arp">
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button id="apply-filters" class="btn btn-primary">Apply Filters</button>
+                        <button id="clear-filters" class="btn btn-secondary">Clear All</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Type Legend -->
+            <div class="type-legend-toggle">
+                <button id="legend-toggle" class="btn-link">Object Type Abbreviations ▾</button>
+            </div>
+            <div id="type-legend" class="type-legend" style="display:none;">
+                <div class="legend-grid" id="legend-grid"></div>
+            </div>
+
+            <!-- Results -->
+            <div class="explorer-results" id="results-area">
+                <div class="results-header" id="results-header" style="display:none;">
+                    <span id="results-count"></span>
+                    <div class="results-sort">
+                        <label>Sort by:</label>
+                        <select id="sort-select">
+                            <option value="name">Name</option>
+                            <option value="ra">Right Ascension</option>
+                            <option value="mag">Magnitude</option>
+                            <option value="con">Constellation</option>
+                            <option value="type">Type</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="results-list" class="results-list"></div>
+                <div id="results-loading" class="results-loading" style="display:none;">
+                    <div class="spinner"></div>
+                    <span>Searching database...</span>
+                </div>
+                <div id="load-more-container" style="display:none;">
+                    <button id="load-more" class="btn btn-secondary">Load More Results</button>
+                </div>
+            </div>
+
+            <!-- Single Object Detail (shown when one object selected) -->
+            <div id="object-detail" class="object-detail" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- Published Articles -->
+    <section id="articles" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Published Articles</h2>
+            <p class="section-desc">Steve Gottlieb has authored 46 articles for <em>Sky & Telescope</em> and <em>Astronomy</em> magazines, guiding observers to some of the most fascinating deep sky targets.</p>
+            <div class="articles-list" id="articles-list"></div>
+        </div>
+    </section>
+
+    <!-- Blog (Stub) -->
+    <section id="blog" class="section">
+        <div class="container">
+            <h2 class="section-title">Observing Reports</h2>
+            <div class="blog-coming-soon">
+                <div class="blog-icon">🔭</div>
+                <h3>Coming Soon</h3>
+                <p>This section will feature observing reports, trip accounts, and stories from the eyepiece — check back for updates from the field.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Gottlieb's Deep Sky Observations</h4>
+                    <p>A comprehensive database of visual deep sky observations spanning over four decades.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#explorer">Database Explorer</a></li>
+                        <li><a href="#articles">Published Articles</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://adventuresindeepspace.com/steve.ngc.htm" target="_blank" rel="noopener">Adventures in Deep Space</a></li>
+                        <li><a href="https://simbad.cds.unistra.fr/simbad/" target="_blank" rel="noopener">SIMBAD Database</a></li>
+                        <li><a href="https://en.wikipedia.org/wiki/Steve_Gottlieb_(amateur_astronomer)" target="_blank" rel="noopener">Wikipedia</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Steve Gottlieb. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

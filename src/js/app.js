@@ -205,6 +205,7 @@
     function setupStarfield() {
         const canvas = $('#starfield');
         if (!canvas) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -437,7 +438,7 @@
             const name = obj.name.toLowerCase();
             const nick = (obj.nickname || '').toLowerCase();
             const other = (obj.other || '').toLowerCase();
-            if (name.includes(q) || nick.includes(q) || other.includes(q)) {
+            if (flexibleMatch(name, q) || flexibleMatch(nick, q) || flexibleMatch(other, q)) {
                 matches.push(obj);
             }
         }
@@ -495,7 +496,7 @@
         }
 
         // Also try with space inserted (e.g., "NGC1" → "NGC 1")
-        const spaced = q.replace(/^(ngc|ic|ugc)(\d)/, '$1 $2');
+        const spaced = q.replace(/^(ngc|ic|ugc|m|abell|arp|hickson|sh|vv|mcg|pgc|leda)(\d)/, '$1 $2');
         if (spaced !== q) {
             const exactSpaced = allData.find(o => o.name.toLowerCase() === spaced);
             if (exactSpaced) {
@@ -589,7 +590,7 @@
         const conDropdown = $('#con-dropdown');
         if (conDropdown) {
             conDropdown.classList.remove('open');
-            conDropdown.querySelectorAll('.con-option').forEach(opt => opt.classList.remove('selected'));
+            conDropdown.querySelectorAll('.multi-select-option').forEach(opt => opt.classList.remove('selected'));
         }
         $('#filter-type').value = '';
         $('#filter-mag-min').value = '';
@@ -668,9 +669,9 @@
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectObject(obj.name); }
         });
 
-        const obsPreview = obj.observations && obj.observations.length > 0 && obj.observations[0].text
-            ? obj.observations[0].text.substring(0, 150) + '...'
-            : '';
+        const obsText = obj.observations && obj.observations.length > 0 && obj.observations[0].text
+            ? obj.observations[0].text : '';
+        const obsPreview = obsText.length > 150 ? obsText.substring(0, 150) + '…' : obsText;
 
         card.innerHTML = `
             <div class="card-header">
@@ -802,10 +803,13 @@
         }
 
         // Open the slide-over panel
+        detail.setAttribute('role', 'dialog');
+        detail.setAttribute('aria-modal', 'true');
+        detail.setAttribute('aria-label', obj.name + ' detail');
         detail.classList.add('open');
         if (backdrop) backdrop.classList.add('open');
         detail.scrollTop = 0;
-        document.body.style.overflow = 'hidden';
+        if (window.innerWidth < 900) document.body.style.overflow = 'hidden';
 
         // Historical "Read more" only when needed
         requestAnimationFrame(() => {
@@ -848,7 +852,12 @@
     function handleHashNavigation() {
         const hash = window.location.hash;
         if (hash.startsWith('#object/')) {
-            const name = decodeURIComponent(hash.substring(8));
+            let name;
+            try {
+                name = decodeURIComponent(hash.substring(8));
+            } catch (e) {
+                return; // malformed percent-encoded sequence
+            }
             if (dataIndex.has(name)) {
                 selectObject(name, false);
             }
@@ -858,6 +867,12 @@
     }
 
     window.addEventListener('popstate', () => handleHashNavigation());
+    window.addEventListener('hashchange', () => {
+        // Close detail panel when navigating to a non-object hash (e.g., nav link clicks)
+        if (!window.location.hash.startsWith('#object/') && $('#object-detail').classList.contains('open')) {
+            closeDetailPanel(false);
+        }
+    });
 
     function detailField(label, value) {
         if (value === null || value === undefined || value === '') return `<div class="detail-field"><span class="field-label">${label}</span><span class="field-value empty">—</span></div>`;
@@ -871,12 +886,12 @@
 
         list.innerHTML = articles.map(a => `
             <div class="article-item">
-                <span class="article-num">#${a.num}</span>
+                <span class="article-num">#${escHtml(a.num)}</span>
                 <div class="article-info">
                     <h4>${escHtml(a.title)}</h4>
-                    <span class="article-meta">${escHtml(a.magazine)} · ${escHtml(a.month)} ${a.year}</span>
+                    <span class="article-meta">${escHtml(a.magazine)} · ${escHtml(a.month)} ${escHtml(a.year)}</span>
                 </div>
-                ${a.url ? `<a href="${escAttr(a.url)}" target="_blank" rel="noopener" class="article-link">${a.urlNote || 'View'} ↗</a>` : '<span></span>'}
+                ${a.url ? `<a href="${escAttr(a.url)}" target="_blank" rel="noopener" class="article-link">${escHtml(a.urlNote || 'View')} ↗</a>` : '<span></span>'}
             </div>
         `).join('');
     }

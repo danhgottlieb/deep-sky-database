@@ -336,13 +336,42 @@ def build_data():
     parsed_records = []
     parse_failures = []
 
+    # Known valid type codes (used to detect type-field leakage)
+    VALID_TYPES = {
+        "", "GX", "OC", "GC", "PN", "**", "Ast", "AST", "*", "RN", "EN", "DN",
+        "SNR", "NF", "Dup", "GX?", "PN?", "OC?", "GC?", "RN?", "EN?", "DN?",
+        "***", "GXGrp", "GXGRP", "GXPr", "GXTrpl", "GXTrp", "GXTrple",
+        "LMC-OC", "LMC-GC", "LMC-GX", "LMC-PN", "LMC-EN", "LMC-RN", "LMC-DN",
+        "LMC-Ast", "LMC-SNR", "LMC-**", "LMC-*",
+        "SMC-OC", "SMC-GC", "SMC-GX", "SMC-PN", "SMC-EN", "SMC-RN",
+        "SMC-Ast", "SMC-SNR", "SMC-**", "SMC-*",
+        "M31-OC", "M31-GC", "M31-GX", "M31-PN", "M31-EN", "M31-RN",
+        "M31-Ast", "M31-**", "M31-*",
+        "M33-OC", "M33-GC", "M33-PN", "M33-EN", "M33-RN", "M33-**",
+        "M33-Ast", "M33-HII", "M33-SNR",
+        "OC:", "PN:", "GC:", "GX:", "RN:", "EN:", "DN:", "Ast:", "**:",
+        "HII", "RV", "WR", "DHII",
+        "NonEx", "Non", "QSO", "Neb", "Star", "DStar",
+    }
+
     for i, (pos, name) in enumerate(positions):
         end = positions[i + 1][0] if i + 1 < len(positions) else len(body)
         raw = body[pos:end]
         rec = parse_record(name, raw)
         if rec:
-            rec["name"] = name  # authoritative name
-            parsed_records.append(rec)
+            # Validate type field — if it looks like prose, the parser mis-split
+            type_val = rec.get("type", "")
+            if type_val and type_val not in VALID_TYPES and len(type_val) > 12:
+                # Type field contains observation text — use old CSV fallback
+                if name in old_rows:
+                    print(f"    Type-field leakage detected for [{name}], using old CSV")
+                    parsed_records.append(make_stub_from_old_csv(name, old_rows[name]))
+                else:
+                    rec["name"] = name
+                    parsed_records.append(rec)
+            else:
+                rec["name"] = name  # authoritative name
+                parsed_records.append(rec)
         else:
             parse_failures.append(name)
 

@@ -975,6 +975,12 @@ img {
     pointer-events: auto;
 }
 
+@media (min-width: 901px) {
+    .detail-backdrop.open {
+        opacity: 0.3;
+    }
+}
+
 .detail-back {
     display: inline-flex;
     align-items: center;
@@ -1125,6 +1131,7 @@ img {
     color: var(--text-secondary);
     line-height: 1.75;
     font-size: 0.95rem;
+    white-space: pre-wrap;
 }
 
 /* Historical */
@@ -1466,6 +1473,10 @@ img {
     .section-title {
         font-size: 1.8rem;
     }
+
+    .object-detail {
+        width: 100vw;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1490,6 +1501,20 @@ img {
     .results-header {
         flex-direction: column;
         gap: 8px;
+    }
+
+    .object-detail {
+        padding: 20px 16px;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-title-group h3 {
+        font-size: 1.4rem;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 }
 

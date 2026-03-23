@@ -150,9 +150,12 @@
             setupFilters();
             handleHashNavigation();
 
-            // Hide loading overlay
+            // Hide and remove loading overlay
             const overlay = $('#loading-overlay');
-            if (overlay) overlay.classList.add('hidden');
+            if (overlay) {
+                overlay.classList.add('hidden');
+                setTimeout(() => overlay.remove(), 500);
+            }
 
             console.log(`Loaded ${allData.length} objects`);
         } catch (e) {
@@ -380,6 +383,7 @@
 
         input.addEventListener('input', () => {
             clearTimeout(searchTimer);
+            suggestionIndex = -1;
             const q = input.value.trim();
             if (q.length < 1) {
                 sugBox.innerHTML = '';
@@ -472,15 +476,32 @@
         return q.toLowerCase().replace(/\s+/g, ' ').trim();
     }
 
+    function flexibleMatch(haystack, needle) {
+        if (haystack.includes(needle)) return true;
+        const spaceless = needle.replace(/\s+/g, '');
+        const spaced = spaceless.replace(/^(ngc|ic|ugc|m|abell|arp|hickson|sh|vv|mcg|pgc|leda)(\d)/, '$1 $2');
+        return haystack.includes(spaceless) || haystack.includes(spaced);
+    }
+
     function doQuickSearch(query) {
         if (!query) return;
         const q = normalizeQuery(query);
 
-        // Exact match first (try dataIndex with various capitalizations)
+        // Exact match first
         const exact = allData.find(o => o.name.toLowerCase() === q);
         if (exact) {
             selectObject(exact.name);
             return;
+        }
+
+        // Also try with space inserted (e.g., "NGC1" → "NGC 1")
+        const spaced = q.replace(/^(ngc|ic|ugc)(\d)/, '$1 $2');
+        if (spaced !== q) {
+            const exactSpaced = allData.find(o => o.name.toLowerCase() === spaced);
+            if (exactSpaced) {
+                selectObject(exactSpaced.name);
+                return;
+            }
         }
 
         // Partial match
@@ -488,7 +509,7 @@
             const name = o.name.toLowerCase();
             const nick = (o.nickname || '').toLowerCase();
             const other = (o.other || '').toLowerCase();
-            return name.includes(q) || nick.includes(q) || other.includes(q);
+            return flexibleMatch(name, q) || flexibleMatch(nick, q) || flexibleMatch(other, q);
         });
 
         if (filteredData.length === 1) {
@@ -565,6 +586,11 @@
         if (conTags) conTags.innerHTML = '';
         const conSearch = $('#filter-con-search');
         if (conSearch) conSearch.value = '';
+        const conDropdown = $('#con-dropdown');
+        if (conDropdown) {
+            conDropdown.classList.remove('open');
+            conDropdown.querySelectorAll('.con-option').forEach(opt => opt.classList.remove('selected'));
+        }
         $('#filter-type').value = '';
         $('#filter-mag-min').value = '';
         $('#filter-mag-max').value = '';
@@ -642,7 +668,7 @@
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectObject(obj.name); }
         });
 
-        const obsPreview = obj.observations && obj.observations.length > 0
+        const obsPreview = obj.observations && obj.observations.length > 0 && obj.observations[0].text
             ? obj.observations[0].text.substring(0, 150) + '...'
             : '';
 
@@ -779,6 +805,7 @@
         detail.classList.add('open');
         if (backdrop) backdrop.classList.add('open');
         detail.scrollTop = 0;
+        document.body.style.overflow = 'hidden';
 
         // Historical "Read more" only when needed
         requestAnimationFrame(() => {
@@ -791,17 +818,27 @@
         });
     }
 
-    function closeDetailPanel() {
+    function closeDetailPanel(updateUrl) {
+        if (updateUrl === undefined) updateUrl = true;
         const detail = $('#object-detail');
         const backdrop = $('#detail-backdrop');
         detail.classList.remove('open');
         if (backdrop) backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+        if (updateUrl && window.location.hash.startsWith('#object/')) {
+            history.replaceState(null, '', window.location.pathname + window.location.search + '#explorer');
+        }
     }
 
     // Backdrop click closes detail panel
     (function setupBackdrop() {
         document.addEventListener('click', (e) => {
             if (e.target.id === 'detail-backdrop') {
+                closeDetailPanel();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && $('#object-detail').classList.contains('open')) {
                 closeDetailPanel();
             }
         });
@@ -815,13 +852,15 @@
             if (dataIndex.has(name)) {
                 selectObject(name, false);
             }
+        } else {
+            closeDetailPanel(false);
         }
     }
 
     window.addEventListener('popstate', () => handleHashNavigation());
 
     function detailField(label, value) {
-        if (!value) return `<div class="detail-field"><span class="field-label">${label}</span><span class="field-value empty">—</span></div>`;
+        if (value === null || value === undefined || value === '') return `<div class="detail-field"><span class="field-label">${label}</span><span class="field-value empty">—</span></div>`;
         return `<div class="detail-field"><span class="field-label">${label}</span><span class="field-value">${escHtml(value)}</span></div>`;
     }
 
@@ -845,13 +884,14 @@
     // --- Utilities ---
     const _escDiv = document.createElement('div');
     function escHtml(str) {
-        if (!str) return '';
-        _escDiv.textContent = str;
+        if (str === null || str === undefined || str === '') return '';
+        _escDiv.textContent = String(str);
         return _escDiv.innerHTML;
     }
 
     function escAttr(str) {
-        return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        if (str === null || str === undefined) return '';
+        return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
     // --- Start ---

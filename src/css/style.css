@@ -1150,7 +1150,7 @@ img {
 }
 
 .historical-text.expanded {
-    max-height: none;
+    max-height: 5000px;
 }
 
 .historical-text:not(.expanded)::after {

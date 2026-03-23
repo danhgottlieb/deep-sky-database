@@ -16,8 +16,13 @@
     let suggestionIndex = -1;
     const dataIndex = new Map();
     let selectedConstellations = [];
+    let selectedCatalogs = [];
     let searchTimer;
     let resizeTimer;
+    let blogData = [];
+    let blogFiltered = [];
+    let blogDisplayed = 0;
+    const BLOG_PAGE = 24;
 
     // Type abbreviation key
     const TYPE_KEY = {
@@ -126,6 +131,8 @@
     async function init() {
         setupNav();
         setupStarfield();
+        setupCarousel();
+        setupScrollReveal();
         setupIntro();
         setupLegend();
 
@@ -140,6 +147,14 @@
             allData = await dataRes.json();
             metadata = await metaRes.json();
             articles = await artRes.json();
+
+            // Load blog index (non-blocking)
+            fetch('blog/blog_index.json').then(r => r.ok ? r.json() : []).then(data => {
+                blogData = data || [];
+                blogFiltered = blogData;
+                renderBlog();
+                setupBlogSearch();
+            }).catch(() => {});
 
             // Build name index
             allData.forEach(o => dataIndex.set(o.name, o));
@@ -201,57 +216,72 @@
         sections.forEach(s => observer.observe(s));
     }
 
-    // --- Starfield ---
+    // --- Shooting Stars overlay (background image handled by CSS) ---
     function setupStarfield() {
         const canvas = $('#starfield');
         if (!canvas) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         const ctx = canvas.getContext('2d');
-        let stars = [];
+        let shootingStars = [];
+        let nextShootingAt = Date.now() + 2000 + Math.random() * 4000;
         let animId;
 
         function resize() {
-            canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = canvas.parentElement.offsetHeight;
-            generateStars();
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
 
-        function generateStars() {
-            stars = [];
-            const count = Math.floor((canvas.width * canvas.height) / 2000);
-            for (let i = 0; i < count; i++) {
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    r: Math.random() * 1.5 + 0.3,
-                    alpha: Math.random() * 0.8 + 0.2,
-                    speed: Math.random() * 0.0008 + 0.0002,
-                    phase: Math.random() * Math.PI * 2
-                });
-            }
+        function spawnShootingStar() {
+            const w = canvas.width, h = canvas.height;
+            const angle = (10 + Math.random() * 160) * Math.PI / 180;
+            const speed = 6 + Math.random() * 8;
+            const vx = Math.cos(angle) * speed * (Math.random() > 0.5 ? 1 : -1);
+            const vy = Math.sin(angle) * speed;
+            shootingStars.push({
+                x: Math.random() * w,
+                y: Math.random() * h * 0.3,
+                vx, vy,
+                life: 0,
+                maxLife: 30 + Math.random() * 45,
+                tailLen: 50 + Math.random() * 100
+            });
+            nextShootingAt = Date.now() + 3000 + Math.random() * 8000;
         }
 
         function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Subtle radial gradient background
-            const grd = ctx.createRadialGradient(
-                canvas.width / 2, canvas.height / 2, 0,
-                canvas.width / 2, canvas.height / 2, canvas.width * 0.7
-            );
-            grd.addColorStop(0, '#0f1520');
-            grd.addColorStop(1, '#0a0e17');
-            ctx.fillStyle = grd;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            const w = canvas.width, h = canvas.height;
+            ctx.clearRect(0, 0, w, h);
 
             const t = Date.now();
-            for (const s of stars) {
-                const twinkle = Math.sin(t * s.speed + s.phase) * 0.3 + 0.7;
+            if (t >= nextShootingAt) spawnShootingStar();
+
+            for (let i = shootingStars.length - 1; i >= 0; i--) {
+                const ss = shootingStars[i];
+                ss.x += ss.vx;
+                ss.y += ss.vy;
+                ss.life++;
+                const progress = ss.life / ss.maxLife;
+                const alpha = progress < 0.12 ? progress / 0.12
+                            : progress > 0.65 ? 1 - (progress - 0.65) / 0.35 : 1;
+                const len = Math.hypot(ss.vx, ss.vy);
+                const tailX = ss.x - (ss.vx / len) * ss.tailLen;
+                const tailY = ss.y - (ss.vy / len) * ss.tailLen;
+                const sg = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
+                sg.addColorStop(0, `rgba(255,255,255,${alpha * 0.9})`);
+                sg.addColorStop(0.25, `rgba(200,220,255,${alpha * 0.4})`);
+                sg.addColorStop(1, 'rgba(200,220,255,0)');
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(200, 210, 240, ${s.alpha * twinkle})`;
+                ctx.moveTo(ss.x, ss.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.strokeStyle = sg;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(ss.x, ss.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${alpha * 0.85})`;
                 ctx.fill();
+                if (ss.life >= ss.maxLife) shootingStars.splice(i, 1);
             }
 
             animId = requestAnimationFrame(draw);
@@ -264,16 +294,79 @@
         resize();
         draw();
 
-        // Pause animation when not visible
-        const heroObserver = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                if (!animId) draw();
-            } else {
-                cancelAnimationFrame(animId);
-                animId = null;
-            }
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) { cancelAnimationFrame(animId); animId = null; }
+            else if (!animId) draw();
         });
-        heroObserver.observe($('.hero'));
+    }
+
+    // --- Photo Carousel ---
+    function setupCarousel() {
+        const carousel = $('#about-carousel');
+        if (!carousel) return;
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const dotsContainer = $('#carousel-dots');
+        if (slides.length < 2) return;
+
+        let current = 0;
+        let timer;
+
+        // Build dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `Photo ${i + 1}`);
+            dot.addEventListener('click', () => goTo(i));
+            dotsContainer.appendChild(dot);
+        });
+        const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+        function goTo(idx) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = idx;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+            resetTimer();
+        }
+
+        function next() { goTo((current + 1) % slides.length); }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timer = setInterval(next, 5000);
+        }
+
+        // Pause on hover
+        carousel.addEventListener('mouseenter', () => clearInterval(timer));
+        carousel.addEventListener('mouseleave', resetTimer);
+
+        // Pause when not visible
+        const cObserver = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) resetTimer();
+            else clearInterval(timer);
+        });
+        cObserver.observe(carousel);
+
+        resetTimer();
+    }
+
+    // --- Scroll Reveal ---
+    function setupScrollReveal() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        if (!reveals.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        reveals.forEach(el => observer.observe(el));
     }
 
     // --- Intro ---
@@ -307,6 +400,8 @@
     function buildFilters() {
         // Multi-select constellation filter
         buildConstellationFilter();
+        // Multi-select catalog filter
+        buildCatalogFilter();
 
         // Types
         const typeSelect = $('#filter-type');
@@ -339,7 +434,7 @@
             });
             dropdown.innerHTML = filtered.map(c => {
                 const isSelected = selectedConstellations.includes(c);
-                return `<div class="multi-select-option${isSelected ? ' selected' : ''}" data-value="${c}">${c} — ${CON_NAMES[c] || c}</div>`;
+                return `<div class="multi-select-option${isSelected ? ' selected' : ''}" data-value="${c}">${CON_NAMES[c] || c}</div>`;
             }).join('');
 
             dropdown.querySelectorAll('.multi-select-option').forEach(opt => {
@@ -356,7 +451,7 @@
 
         function renderTags() {
             tagsEl.innerHTML = selectedConstellations.map(c =>
-                `<span class="multi-select-tag">${c} <button data-value="${c}">&times;</button></span>`
+                `<span class="multi-select-tag">${CON_NAMES[c] || c} <button data-value="${c}">&times;</button></span>`
             ).join('');
             tagsEl.querySelectorAll('button').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -372,6 +467,60 @@
         searchInput.addEventListener('focus', () => { dropdown.classList.add('open'); renderDropdown(searchInput.value.trim().toLowerCase()); });
         searchInput.addEventListener('input', () => renderDropdown(searchInput.value.trim().toLowerCase()));
         document.addEventListener('click', (e) => { if (!e.target.closest('#filter-con-container')) dropdown.classList.remove('open'); });
+
+        renderDropdown();
+    }
+
+    function buildCatalogFilter() {
+        const container = $('#filter-catalog-container');
+        const searchInput = $('#filter-catalog-search');
+        const tagsEl = $('#catalog-tags');
+        const dropdown = $('#catalog-dropdown');
+
+        if (!container || !searchInput || !tagsEl || !dropdown) return;
+
+        const catalogs = ['NGC', 'IC', 'UGC', 'Other'];
+
+        function renderDropdown(filter) {
+            filter = filter || '';
+            const filtered = catalogs.filter(c =>
+                !filter || c.toLowerCase().includes(filter)
+            );
+            dropdown.innerHTML = filtered.map(c => {
+                const isSelected = selectedCatalogs.includes(c);
+                return `<div class="multi-select-option${isSelected ? ' selected' : ''}" data-value="${c}">${c}</div>`;
+            }).join('');
+
+            dropdown.querySelectorAll('.multi-select-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const val = opt.dataset.value;
+                    const idx = selectedCatalogs.indexOf(val);
+                    if (idx >= 0) selectedCatalogs.splice(idx, 1);
+                    else selectedCatalogs.push(val);
+                    renderCatalogTags();
+                    renderDropdown(searchInput.value.trim().toLowerCase());
+                });
+            });
+        }
+
+        function renderCatalogTags() {
+            tagsEl.innerHTML = selectedCatalogs.map(c =>
+                `<span class="multi-select-tag">${c} <button data-value="${c}">&times;</button></span>`
+            ).join('');
+            tagsEl.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const val = btn.dataset.value;
+                    selectedCatalogs = selectedCatalogs.filter(x => x !== val);
+                    renderCatalogTags();
+                    renderDropdown(searchInput.value.trim().toLowerCase());
+                });
+            });
+        }
+
+        searchInput.addEventListener('focus', () => { dropdown.classList.add('open'); renderDropdown(searchInput.value.trim().toLowerCase()); });
+        searchInput.addEventListener('input', () => renderDropdown(searchInput.value.trim().toLowerCase()));
+        document.addEventListener('click', (e) => { if (!e.target.closest('#filter-catalog-container')) dropdown.classList.remove('open'); });
 
         renderDropdown();
     }
@@ -438,9 +587,16 @@
             const name = obj.name.toLowerCase();
             const nick = (obj.nickname || '').toLowerCase();
             const other = (obj.other || '').toLowerCase();
-            if (flexibleMatch(name, q) || flexibleMatch(nick, q) || flexibleMatch(other, q)) {
-                matches.push(obj);
+            let matchedAlt = '';
+            if (flexibleMatch(name, q) || flexibleMatch(nick, q)) {
+                // matched by primary name or nickname — no alt needed
+            } else if (flexibleMatch(other, q)) {
+                // matched via alternate name — find which one
+                matchedAlt = findMatchingAlt(obj.other, q);
+            } else {
+                continue;
             }
+            matches.push({ obj, matchedAlt });
         }
 
         suggestionIndex = -1;
@@ -450,9 +606,9 @@
             return;
         }
 
-        container.innerHTML = `<div class="suggestions-list">${matches.map(m =>
+        container.innerHTML = `<div class="suggestions-list">${matches.map(({ obj: m, matchedAlt }) =>
             `<div class="suggestion-item" data-name="${escAttr(m.name)}">
-                <span class="suggestion-name">${escHtml(m.name)}${m.nickname ? ' — ' + escHtml(m.nickname) : ''}</span>
+                <span class="suggestion-name">${escHtml(m.name)}${m.nickname ? ' — ' + escHtml(m.nickname) : ''}${matchedAlt ? ' <span class="suggestion-alt">(' + escHtml(matchedAlt) + ')</span>' : ''}</span>
                 <span class="suggestion-type">${escHtml(m.type || '—')}</span>
             </div>`
         ).join('')}</div>`;
@@ -484,9 +640,27 @@
         return haystack.includes(spaceless) || haystack.includes(spaced);
     }
 
+    // Find which specific alternate name matched the query
+    function findMatchingAlt(otherField, query) {
+        if (!otherField) return '';
+        // Split on ' = ' to get individual names
+        const parts = otherField.split(/\s*=\s*/);
+        for (const part of parts) {
+            if (part.toLowerCase().includes(query)) return part.trim();
+        }
+        // Fallback: flexible match
+        for (const part of parts) {
+            if (flexibleMatch(part.toLowerCase(), query)) return part.trim();
+        }
+        return otherField.split('=')[0].trim();
+    }
+
+    let lastSearchQuery = '';
+
     function doQuickSearch(query) {
         if (!query) return;
-        const q = normalizeQuery(query);
+        lastSearchQuery = normalizeQuery(query);
+        const q = lastSearchQuery;
 
         // Exact match first
         const exact = allData.find(o => o.name.toLowerCase() === q);
@@ -543,7 +717,6 @@
     }
 
     function applyFilters() {
-        const catalog = $('#filter-catalog').value;
         const type = $('#filter-type').value;
         const magMin = parseFloat($('#filter-mag-min').value);
         const magMax = parseFloat($('#filter-mag-max').value);
@@ -551,7 +724,7 @@
         const nameFilter = normalizeQuery($('#filter-name').value);
 
         filteredData = allData.filter(o => {
-            if (catalog && o.catalog !== catalog) return false;
+            if (selectedCatalogs.length > 0 && !selectedCatalogs.includes(o.catalog)) return false;
             if (selectedConstellations.length > 0 && !selectedConstellations.includes(o.con)) return false;
             if (type && o.type !== type) return false;
             if (special === 'top' && !o.isTopObject) return false;
@@ -673,11 +846,22 @@
             ? obj.observations[0].text : '';
         const obsPreview = obsText.length > 150 ? obsText.substring(0, 150) + '…' : obsText;
 
+        // Show matched alternate name if search was via the 'other' field
+        let altMatch = '';
+        if (lastSearchQuery && obj.other) {
+            const nameMatch = flexibleMatch(obj.name.toLowerCase(), lastSearchQuery);
+            const nickMatch = flexibleMatch((obj.nickname || '').toLowerCase(), lastSearchQuery);
+            if (!nameMatch && !nickMatch) {
+                altMatch = findMatchingAlt(obj.other, lastSearchQuery);
+            }
+        }
+
         card.innerHTML = `
             <div class="card-header">
                 <div>
                     <div class="card-name">${escHtml(obj.name)}</div>
                     ${obj.nickname ? `<div class="card-nickname">${escHtml(obj.nickname)}</div>` : ''}
+                    ${altMatch ? `<div class="card-alt-match">Also known as: ${escHtml(altMatch)}</div>` : ''}
                 </div>
                 <div class="card-badges">
                     ${obj.type ? `<span class="badge badge-type">${escHtml(obj.type)}</span>` : ''}
@@ -686,7 +870,7 @@
                 </div>
             </div>
             <div class="card-meta">
-                ${obj.con ? `<span class="meta-item"><span class="meta-label">Con:</span> <span class="meta-value">${escHtml(obj.con)}</span></span>` : ''}
+                ${obj.con ? `<span class="meta-item"><span class="meta-label">Con:</span> <span class="meta-value">${escHtml(CON_NAMES[obj.con] || obj.con)}</span></span>` : ''}
                 ${obj.vmag ? `<span class="meta-item"><span class="meta-label">Mag:</span> <span class="meta-value">${escHtml(obj.vmag)}</span></span>` : ''}
                 ${obj.size ? `<span class="meta-item"><span class="meta-label">Size:</span> <span class="meta-value">${escHtml(obj.size)}</span></span>` : ''}
                 ${obj.ra ? `<span class="meta-item"><span class="meta-label">RA:</span> <span class="meta-value">${escHtml(obj.ra)}</span></span>` : ''}
@@ -761,7 +945,7 @@
                 ${detailField('Visual Mag', obj.vmag)}
                 ${detailField('Blue Mag', obj.bmag)}
                 ${detailField('Surface Brightness', obj.sb)}
-                ${detailField('Constellation', obj.con ? `${obj.con} — ${CON_NAMES[obj.con] || obj.con}` : '')}
+                ${detailField('Constellation', obj.con ? (CON_NAMES[obj.con] || obj.con) : '')}
                 ${detailField('Classification', obj.class)}
                 ${detailField('Discovery Date', obj.discoveryDate)}
                 ${detailField('Catalog', obj.catalog)}
@@ -779,8 +963,7 @@
             ${obj.showHistorical && obj.historical ? `
                 <div class="detail-historical">
                     <h4>Historical Background</h4>
-                    <div class="historical-text" id="hist-text">${escHtml(obj.historical).replace(/\n/g, '<br>')}</div>
-                    <button class="btn-link historical-read-more" id="hist-read-more">Read more</button>
+                    <div class="historical-text">${escHtml(obj.historical).replace(/\n/g, '<br>')}</div>
                 </div>
             ` : ''}
         `;
@@ -789,17 +972,6 @@
         const backBtn = detail.querySelector('#detail-back-btn');
         if (backBtn) {
             backBtn.addEventListener('click', () => closeDetailPanel());
-        }
-
-        const histReadMore = detail.querySelector('#hist-read-more');
-        if (histReadMore) {
-            histReadMore.addEventListener('click', () => {
-                const el = detail.querySelector('#hist-text');
-                if (el) {
-                    el.classList.toggle('expanded');
-                    histReadMore.textContent = el.classList.contains('expanded') ? 'Show less' : 'Read more';
-                }
-            });
         }
 
         // Open the slide-over panel
@@ -811,15 +983,6 @@
         detail.scrollTop = 0;
         if (window.innerWidth < 900) document.body.style.overflow = 'hidden';
 
-        // Historical "Read more" only when needed
-        requestAnimationFrame(() => {
-            const histEl = detail.querySelector('#hist-text');
-            const moreBtn = detail.querySelector('.historical-read-more');
-            if (histEl && moreBtn && histEl.scrollHeight <= histEl.clientHeight) {
-                histEl.classList.add('expanded');
-                moreBtn.style.display = 'none';
-            }
-        });
     }
 
     function closeDetailPanel(updateUrl) {
@@ -877,6 +1040,47 @@
     function detailField(label, value) {
         if (value === null || value === undefined || value === '') return `<div class="detail-field"><span class="field-label">${label}</span><span class="field-value empty">—</span></div>`;
         return `<div class="detail-field"><span class="field-label">${label}</span><span class="field-value">${escHtml(value)}</span></div>`;
+    }
+
+    // --- Blog / Observing Reports ---
+    function renderBlog() {
+        const grid = $('#blog-grid');
+        if (!grid) return;
+        const toShow = blogFiltered.slice(0, blogDisplayed + BLOG_PAGE);
+        blogDisplayed = toShow.length;
+
+        grid.innerHTML = toShow.map(b => `
+            <a href="blog/${escAttr(b.filename)}" class="blog-card">
+                <div class="blog-card-title">${escHtml(b.title)}</div>
+                <div class="blog-card-meta">
+                    <span class="blog-card-date">${escHtml(b.date)}</span>
+                    ${b.images ? `<span class="blog-card-images">📷 ${b.images}</span>` : ''}
+                </div>
+            </a>
+        `).join('');
+
+        const btn = $('#blog-load-more-container');
+        if (btn) btn.style.display = blogDisplayed < blogFiltered.length ? '' : 'none';
+    }
+
+    function setupBlogSearch() {
+        const input = $('#blog-search');
+        const loadMoreBtn = $('#blog-load-more');
+        if (!input) return;
+
+        input.addEventListener('input', () => {
+            const q = input.value.trim().toLowerCase();
+            blogFiltered = q ? blogData.filter(b =>
+                b.title.toLowerCase().includes(q) ||
+                b.date.toLowerCase().includes(q)
+            ) : blogData;
+            blogDisplayed = 0;
+            renderBlog();
+        });
+
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => renderBlog());
+        }
     }
 
     // --- Articles ---

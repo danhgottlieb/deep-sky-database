@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gottlieb's Deep Sky Observations</title>
-    <meta name="description" content="A comprehensive database of over 24,000 deep sky observations by Steve Gottlieb, spanning 45+ years of visual astronomy with telescopes from 6 inches to 48 inches.">
+    <title>Steve Gottlieb's Deep Sky</title>
+    <meta name="description" content="A comprehensive database of over 24,000 deep sky observations by Steve Gottlieb, spanning 45+ years of visual astronomy with telescopes from 6 inches to 82 inches.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Full-page animated space background -->
+    <div id="starfield-bg"></div>
+    <canvas id="starfield"></canvas>
+
     <!-- Navigation -->
     <nav id="main-nav">
         <div class="nav-container">
             <a href="#home" class="nav-logo">
                 <span class="nav-logo-icon">✦</span>
-                <span class="nav-logo-text">Gottlieb's Deep Sky</span>
+                <span class="nav-logo-text">Steve Gottlieb's Deep Sky</span>
             </a>
             <button class="nav-toggle" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
@@ -34,12 +38,10 @@
 
     <!-- Hero / Home Section -->
     <section id="home" class="hero">
-        <div class="hero-bg">
-            <canvas id="starfield"></canvas>
-        </div>
+        <div class="hero-bg"></div>
         <div class="hero-content">
             <p class="hero-subtitle">A Visual Journey Through the Universe</p>
-            <h1 class="hero-title">Gottlieb's Deep Sky Observations</h1>
+            <h1 class="hero-title">Steve Gottlieb's Deep Sky</h1>
             <p class="hero-desc">Over <strong>24,700</strong> deep sky objects observed and documented by Steve Gottlieb across <strong>45+ years</strong> of visual astronomy — the most comprehensive single-observer record of the NGC, IC, and UGC catalogs ever compiled.</p>
             <div class="hero-stats">
                 <div class="stat">
@@ -47,17 +49,14 @@
                     <span class="stat-label">Objects Observed</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-num">6"–48"</span>
+                    <span class="stat-num">6"–82"</span>
                     <span class="stat-label">Telescope Range</span>
                 </div>
                 <div class="stat">
                     <span class="stat-num">46</span>
                     <span class="stat-label">Published Articles</span>
                 </div>
-                <div class="stat">
-                    <span class="stat-num">88</span>
-                    <span class="stat-label">Constellations</span>
-                </div>
+
             </div>
             <div class="hero-actions">
                 <a href="#explorer" class="btn btn-primary">Explore the Database</a>
@@ -70,38 +69,45 @@
         </div>
     </section>
 
+    <div class="cosmic-divider"></div>
+
     <!-- About Steve Gottlieb -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">About Steve Gottlieb</h2>
+            <h2 class="section-title reveal">About Steve Gottlieb</h2>
             <div class="about-layout">
-                <div class="about-photo-col">
-                    <div class="about-photo-main">
-                        <img src="img/steve_telescope.jpg" alt="Steve Gottlieb at the telescope" loading="lazy">
-                    </div>
-                    <div class="about-photo-grid">
-                        <img src="img/calstar2012.jpg" alt="Steve at CalStar 2012" loading="lazy">
-                        <img src="img/steve_ozsky.jpg" alt="Steve at OzSky Star Safari" loading="lazy">
+                <div class="about-photo-col reveal reveal-left">
+                    <div class="about-carousel" id="about-carousel">
+                        <div class="carousel-track">
+                            <img src="img/steve_telescope.jpg" alt="Steve Gottlieb at the telescope" class="carousel-slide active">
+                            <img src="img/calstar2012.jpg" alt="Steve at CalStar 2012" class="carousel-slide">
+                            <img src="img/steve_ozsky.jpg" alt="Steve at OzSky Star Safari" class="carousel-slide">
+                            <img src="img/steve_fullsize.jpg" alt="Steve Gottlieb with the 48-inch telescope" class="carousel-slide" style="object-position: 75% 70%;">
+                            <img src="img/steve_portrait1.jpg" alt="Steve Gottlieb portrait" class="carousel-slide">
+                            <img src="img/steve_portrait2.jpg" alt="Steve Gottlieb portrait" class="carousel-slide">
+                        </div>
+                        <div class="carousel-dots" id="carousel-dots"></div>
                     </div>
                 </div>
-                <div class="about-text-col">
-                    <p class="about-lead">Steve Gottlieb is one of the most prolific visual deep sky observers in the history of amateur astronomy — and the only person known to have visually observed every object in the New General Catalogue. His decades-long systematic survey of the NGC, IC, and UGC catalogs represents an unparalleled personal record of the deep sky.</p>
+                <div class="about-text-col reveal reveal-right">
+                    <p class="about-lead">Steve Gottlieb is one of the most prolific visual deep sky observers in the history of amateur astronomy, and the only person known to have visually observed every object in the New General Catalogue. His decades-long systematic survey of the NGC, IC, and UGC catalogs represents an unparalleled personal record of the deep sky.</p>
 
                     <p>Born in Los Angeles, California in 1949, Gottlieb earned a master's degree in mathematics from UC Berkeley in 1973 and went on to teach high school math in the East Bay for 37 years. He began serious deep sky observing in the late 1970s, starting with the Messier objects through a 6-inch reflector. What began as a personal exploration of the night sky evolved into a monumental multi-decade project: visually observing every object in the New General Catalogue.</p>
 
-                    <p>In 2014, he completed all NGC objects north of −41° declination from his observing sites in northern California. Three years later, after multiple trips to Australia for the far southern sky, he observed his final NGC object — NGC 2932 — on October 18, 2017 at the OzSky Star Safari in New South Wales, becoming the only person known to have accomplished this feat.</p>
+                    <p>In 2014, he completed all NGC objects north of −41° declination from his observing sites in northern California. Three years later, after multiple trips to Australia for the far southern sky, he observed his final NGC object, NGC 2932, on October 18, 2017 at the OzSky Star Safari in New South Wales, becoming the only person known to have accomplished this feat.</p>
 
-                    <p>Following the NGC, Gottlieb turned his attention to the Index Catalogue (IC), completing its nearly 1,529 entries. The last IC object, IC 1493, was observed on October 18, 2025 — exactly eight years to the day after finishing the NGC.</p>
+                    <p>Following the NGC, Gottlieb turned his attention to the Index Catalogue (IC), completing its nearly 1,529 entries. The last IC object, IC 1493, was observed on October 18, 2025, exactly eight years to the day after finishing the NGC.</p>
 
                     <h3>Telescopes and Observing</h3>
                     <p>Throughout his career, Gottlieb has used progressively larger instruments:</p>
                     <ul class="telescope-list">
-                        <li><strong>6" f/5 reflector</strong> — Early Messier work (1978–1980)</li>
-                        <li><strong>13.1" Odyssey I</strong> — First NGC explorations (1981–1986)</li>
-                        <li><strong>17.5" f/4.5 homemade Dobsonian</strong> — Primary instrument (1987–2002)</li>
-                        <li><strong>18" f/4.3 Starmaster</strong> — Extended surveys (2003–2011)</li>
-                        <li><strong>24" f/3.7 Starstructure</strong> — Current primary telescope (2012–present)</li>
-                        <li><strong>48" Dobsonian</strong> — Over 500 observations using Jimi Lowrey's giant telescope in west Texas</li>
+                        <li><strong>6" f/5 reflector</strong>: Early Messier work (1978–1980)</li>
+                        <li><strong>13.1" Odyssey I</strong>: First NGC explorations (1981–1986)</li>
+                        <li><strong>17.5" f/4.5 homemade Dobsonian</strong>: Primary instrument (1987–2002)</li>
+                        <li><strong>18" f/4.3 Starmaster</strong>: Extended surveys (2003–2011)</li>
+                        <li><strong>24" f/3.7 Starstructure</strong>: Current primary telescope (2012–present)</li>
+                        <li><strong>48" Dobsonian</strong>: Over 500 observations using Jimi Lowrey's giant telescope in west Texas</li>
+                        <li><strong>82" Otto Struve Telescope</strong>: Observations at McDonald Observatory</li>
                     </ul>
 
                     <h3>Publications and Contributions</h3>
@@ -111,13 +117,15 @@
         </div>
     </section>
 
+    <div class="cosmic-divider cosmic-divider-gold cosmic-divider-to-alt"></div>
+
     <!-- Introduction (Steve's own text) -->
     <section id="introduction" class="section section-alt">
         <div class="container">
-            <h2 class="section-title">Introduction</h2>
-            <div class="intro-content">
+            <h2 class="section-title reveal">Introduction</h2>
+            <div class="intro-content reveal">
                 <div class="intro-byline">
-                    <img src="img/steve_portrait1.jpg" alt="Portrait of Steve Gottlieb" loading="lazy" class="intro-avatar">
+                    <img src="img/steve_portrait3.jpg" alt="Portrait of Steve Gottlieb" loading="lazy" class="intro-avatar">
                     <div>
                         <span class="intro-author">Steve Gottlieb</span>
                         <span class="intro-date">March 22, 2026</span>
@@ -130,11 +138,13 @@
         </div>
     </section>
 
+    <div class="cosmic-divider cosmic-divider-from-alt"></div>
+
     <!-- Database Explorer -->
     <section id="explorer" class="section">
         <div class="container">
-            <h2 class="section-title">Database Explorer</h2>
-            <p class="section-desc">Search and explore over 24,700 deep sky objects with detailed visual observations, historical context, and cross-references.</p>
+            <h2 class="section-title reveal">Database Explorer</h2>
+            <p class="section-desc reveal">Search and explore over 24,700 deep sky objects with detailed visual observations, historical context, and cross-references.</p>
 
             <!-- Quick Lookup -->
             <div class="explorer-quick">
@@ -157,14 +167,12 @@
                 <div class="filter-body" id="filter-body">
                     <div class="filter-grid">
                         <div class="filter-group">
-                            <label for="filter-catalog">Catalog</label>
-                            <select id="filter-catalog">
-                                <option value="">All Catalogs</option>
-                                <option value="NGC">NGC</option>
-                                <option value="IC">IC</option>
-                                <option value="UGC">UGC</option>
-                                <option value="Other">Other</option>
-                            </select>
+                            <label>Catalog</label>
+                            <div class="multi-select" id="filter-catalog-container">
+                                <input type="text" id="filter-catalog-search" placeholder="Search catalogs..." autocomplete="off">
+                                <div class="multi-select-tags" id="catalog-tags"></div>
+                                <div class="multi-select-dropdown" id="catalog-dropdown"></div>
+                            </div>
                         </div>
                         <div class="filter-group">
                             <label for="filter-con-search">Constellation</label>
@@ -248,23 +256,32 @@
     <div id="object-detail" class="object-detail"></div>
     <div class="detail-backdrop" id="detail-backdrop"></div>
 
+    <div class="cosmic-divider cosmic-divider-purple cosmic-divider-to-alt"></div>
+
     <!-- Published Articles -->
     <section id="articles" class="section section-alt">
         <div class="container">
-            <h2 class="section-title">Published Articles</h2>
-            <p class="section-desc">Steve Gottlieb has authored 46 articles for <em>Sky & Telescope</em> and <em>Astronomy</em> magazines, guiding observers to some of the most fascinating deep sky targets.</p>
+            <h2 class="section-title reveal">Published Articles</h2>
+            <p class="section-desc reveal">Steve Gottlieb has authored 46 articles for <em>Sky & Telescope</em> and <em>Astronomy</em> magazines, guiding observers to some of the most fascinating deep sky targets.</p>
             <div class="articles-list" id="articles-list"></div>
         </div>
     </section>
 
-    <!-- Blog (Stub) -->
+    <div class="cosmic-divider cosmic-divider-from-alt"></div>
+
+    <!-- Blog / Observing Reports -->
     <section id="blog" class="section">
         <div class="container">
-            <h2 class="section-title">Observing Reports</h2>
-            <div class="blog-coming-soon">
-                <div class="blog-icon">✦</div>
-                <h3>Coming Soon</h3>
-                <p>This section will feature observing reports, trip accounts, and stories from the eyepiece — check back for updates from the field.</p>
+            <h2 class="section-title reveal">Observing Reports</h2>
+            <p class="section-desc reveal">Field reports from the eyepiece — observing sessions, trip accounts, and detailed notes from dark sky sites across the globe.</p>
+            <div class="blog-filters" id="blog-filters">
+                <input type="text" id="blog-search" placeholder="Search reports..." class="blog-search-input">
+            </div>
+            <div class="blog-grid" id="blog-grid">
+                <!-- Populated by JS from blog_index.json -->
+            </div>
+            <div id="blog-load-more-container" style="display:none;">
+                <button id="blog-load-more" class="btn btn-secondary">Load More Reports</button>
             </div>
         </div>
     </section>
@@ -274,7 +291,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>Gottlieb's Deep Sky Observations</h4>
+                    <h4>Steve Gottlieb's Deep Sky</h4>
                     <p>A comprehensive database of visual deep sky observations spanning over four decades.</p>
                 </div>
                 <div class="footer-col">
@@ -291,12 +308,13 @@
                     <ul>
                         <li><a href="https://adventuresindeepspace.com/steve.ngc.htm" target="_blank" rel="noopener">Adventures in Deep Space ↗</a></li>
                         <li><a href="https://simbad.cds.unistra.fr/simbad/" target="_blank" rel="noopener">SIMBAD Database ↗</a></li>
-                        <li><a href="https://en.wikipedia.org/wiki/Steve_Gottlieb_(amateur_astronomer)" target="_blank" rel="noopener">Wikipedia ↗</a></li>
+                        <li><a href="https://en.wikipedia.org/wiki/Steve_Gottlieb_(amateur_astronomer)" target="_blank" rel="noopener">Steve Gottlieb's Wikipedia ↗</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Steve Gottlieb. All rights reserved.</p>
+                <p class="footer-photo-credit">Background image: "Antares and Rho Ophiuchi" by Adam Block/Steward Observatory/University of Arizona. Licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/us/" target="_blank" rel="noopener">CC BY-SA 3.0 US</a>. Image darkened for background use.</p>
             </div>
         </div>
     </footer>

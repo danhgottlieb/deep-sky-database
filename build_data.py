@@ -35,12 +35,35 @@ RA_DEC_RE = re.compile(
 )
 
 # Observation header: aperture" (date):
-# Negative lookbehind ensures the aperture isn't part of a larger number (no digit or dot before)
+# Observation headers: aperture" (date/location info):
+# Handles all variants: "17.5" (several dates 3/28/87 to 3/24/90):",
+# "18" (7/10/02 - Magellan Observatory, Australia):", "13.1" (4/28/84 and 5/27/84):", etc.
+# Negative lookbehind ensures the aperture isn't part of a larger number.
+#
+# Also handles non-inch apertures:
+#   Binoculars:  10x30mm IS binoculars:  /  15x50mm (10/14/23):
+#   Small scopes: 80mm (2/16/07):
+#   Naked-eye:   Naked-eye (6/29/02 - Bargo):  /  Naked-eye:
 OBS_SPLIT_RE = re.compile(
-    r'(?<![\d.])(?=\d+\.?\d*"\s*\(\d{1,2}/\d{1,2}/\d{2,4}\))'
+    r'(?:'
+    r'(?<![\d.])(?=\d+\.?\d*"\s*\([^)]+\)\s*:)'   # inch aperture: 17.5" (date):
+    r'|(?<!\d)(?=\d+x\d+mm[^:]*:)'                 # binoculars: 10x30mm ...:
+    r'|(?<!\d)(?=\d+mm\s*\([^)]+\)\s*:)'            # mm aperture: 80mm (date):
+    r'|(?=Naked-eye[\s(][^:]*:)'                     # Naked-eye (date): or Naked-eye:
+    r'|(?=Naked-eye:)'                               # Naked-eye: (no parens)
+    r')'
 )
 OBS_HEADER_RE = re.compile(
-    r'^(\d+\.?\d*)"\s*\((\d{1,2}/\d{1,2}/\d{2,4})\)\s*:\s*'
+    r'^(\d+\.?\d*)"\s*\(([^)]+)\)\s*:\s*'            # inch: 17.5" (date):
+)
+OBS_HEADER_BINO_RE = re.compile(
+    r'^(\d+x\d+mm[^:]*?)(?:\s*\(([^)]+)\))?\s*:\s*'  # binoculars: 10x30mm ... (date):
+)
+OBS_HEADER_MM_RE = re.compile(
+    r'^(\d+mm)\s*\(([^)]+)\)\s*:\s*'                  # mm aperture: 80mm (date):
+)
+OBS_HEADER_NAKED_RE = re.compile(
+    r'^(Naked-eye)\s*(?:\(([^)]+)\))?\s*:\s*'          # Naked-eye (date):
 )
 
 
@@ -161,8 +184,16 @@ def split_remainder(remainder):
     if not remainder:
         return "", "", ""
 
-    # Locate start of VisualObservations
-    obs_match = re.search(r'(\d+\.?\d*)"[ \t]*\(\d{1,2}/\d{1,2}/\d{2,4}\)', remainder)
+    # Locate start of VisualObservations — permissive pattern matches
+    # all date formats: standard dates, locations, multiple dates, etc.
+    # Also matches binocular, mm-aperture, and naked-eye observations.
+    obs_match = re.search(r'(?<!\d)(\d+\.?\d*)"[ \t]*\([^)]+\)\s*:', remainder)
+    if not obs_match:
+        obs_match = re.search(r'\d+x\d+mm[^:]*:', remainder)
+    if not obs_match:
+        obs_match = re.search(r'\d+mm\s*\([^)]+\)\s*:', remainder)
+    if not obs_match:
+        obs_match = re.search(r'Naked-eye[\s(:][^:]*:', remainder)
 
     if obs_match:
         obs_pos = obs_match.start()
@@ -271,6 +302,7 @@ def split_observations(text):
         part = part.strip()
         if not part:
             continue
+        # Try inch aperture first
         m = OBS_HEADER_RE.match(part)
         if m:
             observations.append({
@@ -278,11 +310,39 @@ def split_observations(text):
                 "date": m.group(2),
                 "text": part[m.end() :].strip(),
             })
-        else:
-            if observations:
-                observations[-1]["text"] += " " + part
-            elif part:
-                observations.append({"aperture": "", "date": "", "text": part})
+            continue
+        # Binoculars: 10x30mm IS binoculars (date): or 10x30mm IS binoculars:
+        m = OBS_HEADER_BINO_RE.match(part)
+        if m:
+            observations.append({
+                "aperture": m.group(1).strip(),
+                "date": m.group(2) or "",
+                "text": part[m.end() :].strip(),
+            })
+            continue
+        # mm aperture: 80mm (date):
+        m = OBS_HEADER_MM_RE.match(part)
+        if m:
+            observations.append({
+                "aperture": m.group(1),
+                "date": m.group(2),
+                "text": part[m.end() :].strip(),
+            })
+            continue
+        # Naked-eye: or Naked-eye (date):
+        m = OBS_HEADER_NAKED_RE.match(part)
+        if m:
+            observations.append({
+                "aperture": "Naked-eye",
+                "date": m.group(2) or "",
+                "text": part[m.end() :].strip(),
+            })
+            continue
+        # No header matched — append to previous or create headerless entry
+        if observations:
+            observations[-1]["text"] += " " + part
+        elif part:
+            observations.append({"aperture": "", "date": "", "text": part})
     return observations
 
 

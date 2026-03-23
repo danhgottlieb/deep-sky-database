@@ -91,7 +91,7 @@
 
                     <p>In 2014, he completed all NGC objects north of −41° declination from his observing sites in northern California. Three years later, after multiple trips to Australia for the far southern sky, he observed his final NGC object — NGC 2932 — on October 18, 2017 at the OzSky Star Safari in New South Wales.</p>
 
-                    <p>Following the NGC, Gottlieb turned his attention to the Index Catalogue (IC), completing its nearly 1,529 galaxy entries. The last IC object, IC 1493, was observed on October 18, 2025 — exactly eight years to the day after finishing the NGC.</p>
+                    <p>Following the NGC, Gottlieb turned his attention to the Index Catalogue (IC), completing its nearly 1,529 entries. The last IC object, IC 1493, was observed on October 18, 2025 — exactly eight years to the day after finishing the NGC.</p>
 
                     <h3>Telescopes and Observing</h3>
                     <p>Throughout his career, Gottlieb has used progressively larger instruments:</p>
@@ -106,8 +106,6 @@
 
                     <h3>Publications and Contributions</h3>
                     <p>Gottlieb has authored 46 articles for <em>Sky & Telescope</em> and <em>Astronomy</em> magazines, covering topics from galaxy clusters to planetary nebulae, interacting galaxies to Wolf-Rayet bubbles. He is also a contributor to the NGC/IC Project, helping verify historical identifications of thousands of deep sky objects.</p>
-
-                    <p>His work has been recognized with the Astronomical League's Herschel 400 award and he has been a featured speaker at numerous star parties and astronomy conventions across the United States and Australia.</p>
                 </div>
             </div>
         </div>
@@ -152,14 +150,14 @@
 
             <!-- Filters -->
             <div class="explorer-filters" id="filter-panel">
-                <button class="filter-toggle" id="filter-toggle">
+                <button class="filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-body">
                     <span>Advanced Filters</span>
                     <span class="filter-arrow">▾</span>
                 </button>
                 <div class="filter-body" id="filter-body">
                     <div class="filter-grid">
                         <div class="filter-group">
-                            <label>Catalog</label>
+                            <label for="filter-catalog">Catalog</label>
                             <select id="filter-catalog">
                                 <option value="">All Catalogs</option>
                                 <option value="NGC">NGC</option>
@@ -169,19 +167,21 @@
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label>Constellation</label>
-                            <select id="filter-con">
-                                <option value="">All Constellations</option>
-                            </select>
+                            <label for="filter-con-search">Constellation</label>
+                            <div class="multi-select" id="filter-con-container">
+                                <input type="text" id="filter-con-search" placeholder="Search constellations..." autocomplete="off">
+                                <div class="multi-select-tags" id="con-tags"></div>
+                                <div class="multi-select-dropdown" id="con-dropdown"></div>
+                            </div>
                         </div>
                         <div class="filter-group">
-                            <label>Object Type</label>
+                            <label for="filter-type">Object Type</label>
                             <select id="filter-type">
                                 <option value="">All Types</option>
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label>Visual Magnitude</label>
+                            <label for="filter-mag-min">Visual Magnitude</label>
                             <div class="mag-range">
                                 <input type="number" id="filter-mag-min" placeholder="Min" step="0.1">
                                 <span>to</span>
@@ -189,7 +189,7 @@
                             </div>
                         </div>
                         <div class="filter-group">
-                            <label>Special Lists</label>
+                            <label for="filter-special">Special Lists</label>
                             <select id="filter-special">
                                 <option value="">No Filter</option>
                                 <option value="top">Gottlieb's Top Objects (308)</option>
@@ -197,7 +197,7 @@
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label>Name Contains</label>
+                            <label for="filter-name">Name Contains</label>
                             <input type="text" id="filter-name" placeholder="e.g., Abell, Arp">
                         </div>
                     </div>
@@ -241,8 +241,9 @@
                 </div>
             </div>
 
-            <!-- Single Object Detail (shown when one object selected) -->
-            <div id="object-detail" class="object-detail" style="display:none;"></div>
+            <!-- Single Object Detail (slide-over panel) -->
+            <div id="object-detail" class="object-detail"></div>
+            <div class="detail-backdrop" id="detail-backdrop"></div>
         </div>
     </section>
 
@@ -260,7 +261,7 @@
         <div class="container">
             <h2 class="section-title">Observing Reports</h2>
             <div class="blog-coming-soon">
-                <div class="blog-icon">🔭</div>
+                <div class="blog-icon">✦</div>
                 <h3>Coming Soon</h3>
                 <p>This section will feature observing reports, trip accounts, and stories from the eyepiece — check back for updates from the field.</p>
             </div>
@@ -287,9 +288,9 @@
                 <div class="footer-col">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="https://adventuresindeepspace.com/steve.ngc.htm" target="_blank" rel="noopener">Adventures in Deep Space</a></li>
-                        <li><a href="https://simbad.cds.unistra.fr/simbad/" target="_blank" rel="noopener">SIMBAD Database</a></li>
-                        <li><a href="https://en.wikipedia.org/wiki/Steve_Gottlieb_(amateur_astronomer)" target="_blank" rel="noopener">Wikipedia</a></li>
+                        <li><a href="https://adventuresindeepspace.com/steve.ngc.htm" target="_blank" rel="noopener">Adventures in Deep Space ↗</a></li>
+                        <li><a href="https://simbad.cds.unistra.fr/simbad/" target="_blank" rel="noopener">SIMBAD Database ↗</a></li>
+                        <li><a href="https://en.wikipedia.org/wiki/Steve_Gottlieb_(amateur_astronomer)" target="_blank" rel="noopener">Wikipedia ↗</a></li>
                     </ul>
                 </div>
             </div>
@@ -298,6 +299,11 @@
             </div>
         </div>
     </footer>
+
+    <div class="data-loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <span>Loading 24,773 objects…</span>
+    </div>
 
     <script src="js/app.js"></script>
 </body>

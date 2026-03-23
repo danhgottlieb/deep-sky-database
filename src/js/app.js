@@ -14,30 +14,63 @@
     const PAGE_SIZE = 50;
     let currentSort = 'name';
     let suggestionIndex = -1;
+    const dataIndex = new Map();
+    let selectedConstellations = [];
+    let searchTimer;
+    let resizeTimer;
 
     // Type abbreviation key
     const TYPE_KEY = {
         'GX': 'Galaxy', '**': 'Double Star', '*': 'Single Star', '***': 'Triple Star',
-        'PN': 'Planetary Nebula', 'GC': 'Globular Cluster', 'OC': 'Open Cluster',
+        '****': 'Quadruple Star', '4*': 'Quadruple Star', '5*': 'Quintuple Star',
+        'PN': 'Planetary Nebula', 'PN:': 'Planetary Nebula (uncertain)', 'PN?': 'Possible Planetary Nebula',
+        'GC': 'Globular Cluster', 'OC': 'Open Cluster', 'OC:': 'Open Cluster (uncertain)', 'OC?': 'Possible Open Cluster',
         'EN': 'Emission Nebula', 'RN': 'Reflection Nebula', 'DN': 'Dark Nebula',
-        'SNR': 'Supernova Remnant', 'AST': 'Asterism', 'QSR': 'Quasar',
-        'GXCL': 'Galaxy Cluster', 'GXPair': 'Galaxy Pair', 'GXGroup': 'Galaxy Group',
-        'KNT': 'Knot', 'PPN': 'Proto-Planetary Nebula', 'NF': 'Not Found',
-        'Dup': 'Duplicate Entry', 'Non': 'Non-existent', 'RV': 'RV Tauri Variable',
-        'BH': 'Black Hole', 'EN+RN': 'Emission + Reflection Nebula',
-        'NB': 'Nebula', 'HII': 'HII Region', 'Neb': 'Nebula',
+        'E+R': 'Emission + Reflection Nebula', 'E/R': 'Emission/Reflection Nebula',
+        'C+N': 'Cluster + Nebula',
+        'SNR': 'Supernova Remnant', 'AST': 'Asterism', 'Ast': 'Asterism',
+        'AST?': 'Possible Asterism', 'Ast?': 'Possible Asterism',
+        'QSR': 'Quasar', 'QSO': 'Quasi-Stellar Object',
+        'GXCL': 'Galaxy Cluster', 'GXPair': 'Galaxy Pair',
+        'GXTrpl': 'Galaxy Triple', 'GXTrp': 'Galaxy Triple',
+        'GXGrp': 'Galaxy Group', 'GXGRP': 'Galaxy Group',
+        'KNT': 'Knot', 'PPN': 'Proto-Planetary Nebula',
+        'NF': 'Not Found', 'Dup': 'Duplicate Entry', 'Non': 'Non-existent',
+        'RV': 'Red Variable Star', 'MW': 'Milky Way Star Cloud',
+        'OBAss': 'OB Association', 'SySt': 'Symbiotic Star',
+        'UCD': 'Ultra Compact Dwarf', 'SymBN': 'Symbiotic Bipolar Nebula',
+        'ProtoPlanetaryDisc': 'Protoplanetary Disc',
+        'BH': 'Black Hole', 'NB': 'Nebula', 'HII': 'HII Region', 'Neb': 'Nebula',
         'WR': 'Wolf-Rayet Shell', 'WR-neb': 'Wolf-Rayet Nebula',
-        'SMC-OC': 'SMC Open Cluster', 'SMC-GC': 'SMC Globular Cluster',
-        'SMC-EN': 'SMC Emission Nebula', 'SMC-GX': 'SMC Galaxy',
-        'LMC-OC': 'LMC Open Cluster', 'LMC-GC': 'LMC Globular Cluster',
-        'LMC-EN': 'LMC Emission Nebula', 'LMC-GX': 'LMC Galaxy',
+        'LMC-OC': 'LMC Open Cluster', 'LMC-OC:': 'LMC Open Cluster (uncertain)',
+        'LMC-GC': 'LMC Globular Cluster', 'LMC-GC:': 'LMC Globular Cluster (uncertain)',
+        'LMC-EN': 'LMC Emission Nebula', 'LMC-C+N': 'LMC Cluster + Nebula',
         'LMC-PN': 'LMC Planetary Nebula', 'LMC-SNR': 'LMC Supernova Remnant',
+        'LMC-Ass': 'LMC Association', 'LMC-SGS': 'LMC Supergiant Shell',
+        'LMC-SGS?': 'LMC Possible Supergiant Shell', 'LMC-YPC': 'LMC Young Pop. Cluster',
+        'SMC-OC': 'SMC Open Cluster', 'SMC-EN': 'SMC Emission Nebula',
+        'SMC-C+N': 'SMC Cluster + Nebula', 'SMC-E/R': 'SMC Emission/Reflection Nebula',
         'M31-GC': 'M31 Globular Cluster', 'M31-OC': 'M31 Open Cluster',
-        'M31-EN': 'M31 Emission Nebula', 'M31-GX': 'M31 Galaxy',
-        'M33-EN': 'M33 Emission Nebula', 'M33-GC': 'M33 Globular Cluster',
-        'Cen A-GC': 'Centaurus A Globular Cluster',
-        'N253-GC': 'NGC 253 Globular Cluster',
-        'Forn A-GC': 'Fornax A Globular Cluster'
+        'M31-*': 'M31 Star', 'M31-HII': 'M31 HII Region', 'M31-Assn': 'M31 Association',
+        'M33-*': 'M33 Star', 'M33-SC': 'M33 Star Cloud', 'M33-HII': 'M33 HII Region',
+        'M33-KNT': 'M33 Knot', 'M33-KNT+SC': 'M33 Knot + Star Cloud',
+        'M33-OC': 'M33 Open Cluster', 'M33-CL': 'M33 Cluster', 'M33-GC': 'M33 Globular Cluster',
+        'Fornax-GC': 'Fornax Dwarf Globular Cluster',
+        'NGC6822-KNT': 'NGC 6822 Knot', 'NGC6822-GC': 'NGC 6822 Globular Cluster',
+        'M101-KNT': 'M101 Knot', 'M74-HII': 'M74 HII Region', 'M100-KNT': 'M100 Knot',
+        'NGC55-KNT': 'NGC 55 Knot', 'N4656-KNT': 'NGC 4656 Knot',
+        'NGC2403-KNT': 'NGC 2403 Knot', 'NGC2445-KNT': 'NGC 2445 Knot',
+        'NGC4236-KNT': 'NGC 4236 Knot', 'NGC4449-KNT': 'NGC 4449 Knot',
+        'NGC4631-KNT': 'NGC 4631 Knot', 'NGC7793-KNT': 'NGC 7793 Knot',
+        'NGC4559-KNT': 'NGC 4559 Knot', 'NGC247-KNT': 'NGC 247 Knot',
+        'NGC2276-HII': 'NGC 2276 HII Region', 'NGC5921-HII': 'NGC 5921 HII Region',
+        'NGC3423-KNT': 'NGC 3423 Knot', 'NGC3938-KNT': 'NGC 3938 Knot',
+        'NGC4490-HII': 'NGC 4490 HII Region', 'NGC4536-KNT': 'NGC 4536 Knot',
+        'IC10-KNT': 'IC 10 Knot', 'NGC925-KNT': 'NGC 925 Knot',
+        'NGC1073-HII': 'NGC 1073 HII Region', 'NGC1097-HII': 'NGC 1097 HII Region',
+        'NGC1313-HII': 'NGC 1313 HII Region', 'NGC3184-KNT': 'NGC 3184 Knot',
+        'NGC4214-KNT': 'NGC 4214 Knot', 'NGC4395-KNT': 'NGC 4395 Knot',
+        'NGC4535-HII': 'NGC 4535 HII Region', 'NGC7479-HII': 'NGC 7479 HII Region'
     };
 
     // Constellation full names
@@ -61,7 +94,7 @@
         'Pav': 'Pavo', 'Peg': 'Pegasus', 'Per': 'Perseus', 'Phe': 'Phoenix',
         'Pic': 'Pictor', 'PsA': 'Piscis Austrinus', 'Psc': 'Pisces', 'Pup': 'Puppis',
         'Pyx': 'Pyxis', 'Ret': 'Reticulum', 'Scl': 'Sculptor', 'Sco': 'Scorpius',
-        'Sct': 'Scutum', 'Ser': 'Serpens', 'Sex': 'Sextans', 'Sge': 'Sagitta',
+        'Sct': 'Scutum', 'Ser': 'Serpens', 'SerCd': 'Serpens Cauda', 'Sex': 'Sextans', 'Sge': 'Sagitta',
         'Sgr': 'Sagittarius', 'Tau': 'Taurus', 'Tel': 'Telescopium',
         'TrA': 'Triangulum Australe', 'Tri': 'Triangulum', 'Tuc': 'Tucana',
         'UMa': 'Ursa Major', 'UMi': 'Ursa Minor', 'Vel': 'Vela', 'Vir': 'Virgo',
@@ -103,19 +136,29 @@
                 fetch('metadata.json'),
                 fetch('articles.json')
             ]);
+            if (!dataRes.ok || !metaRes.ok || !artRes.ok) throw new Error('Failed to load data');
             allData = await dataRes.json();
             metadata = await metaRes.json();
             articles = await artRes.json();
+
+            // Build name index
+            allData.forEach(o => dataIndex.set(o.name, o));
 
             buildFilters();
             renderArticles();
             setupSearch();
             setupFilters();
+            handleHashNavigation();
+
+            // Hide loading overlay
+            const overlay = $('#loading-overlay');
+            if (overlay) overlay.classList.add('hidden');
 
             console.log(`Loaded ${allData.length} objects`);
         } catch (e) {
             console.error('Failed to load data:', e);
-            $('#results-list').innerHTML = '<p style="color:var(--red);padding:24px;">Failed to load database. Please refresh the page.</p>';
+            const overlay = $('#loading-overlay');
+            if (overlay) overlay.innerHTML = '<span style="color:var(--red);">Failed to load database. Please refresh.</span>';
         }
     }
 
@@ -131,6 +174,11 @@
         // Close mobile nav on link click
         $$('.nav-links a').forEach(a => {
             a.addEventListener('click', () => links.classList.remove('open'));
+        });
+
+        // Close mobile nav on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#main-nav')) links.classList.remove('open');
         });
 
         // Active nav tracking
@@ -205,7 +253,10 @@
             animId = requestAnimationFrame(draw);
         }
 
-        window.addEventListener('resize', resize);
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(resize, 200);
+        });
         resize();
         draw();
 
@@ -250,16 +301,8 @@
 
     // --- Build Filter Options ---
     function buildFilters() {
-        // Constellations
-        const conSelect = $('#filter-con');
-        if (metadata.constellations) {
-            metadata.constellations.forEach(c => {
-                const opt = document.createElement('option');
-                opt.value = c;
-                opt.textContent = `${c} — ${CON_NAMES[c] || c}`;
-                conSelect.appendChild(opt);
-            });
-        }
+        // Multi-select constellation filter
+        buildConstellationFilter();
 
         // Types
         const typeSelect = $('#filter-type');
@@ -274,6 +317,61 @@
         }
     }
 
+    function buildConstellationFilter() {
+        const container = $('#filter-con-container');
+        const searchInput = $('#filter-con-search');
+        const tagsEl = $('#con-tags');
+        const dropdown = $('#con-dropdown');
+
+        if (!container || !searchInput || !tagsEl || !dropdown) return;
+
+        const constellations = metadata.constellations || [];
+
+        function renderDropdown(filter) {
+            filter = filter || '';
+            const filtered = constellations.filter(c => {
+                const full = CON_NAMES[c] || c;
+                return !filter || c.toLowerCase().includes(filter) || full.toLowerCase().includes(filter);
+            });
+            dropdown.innerHTML = filtered.map(c => {
+                const isSelected = selectedConstellations.includes(c);
+                return `<div class="multi-select-option${isSelected ? ' selected' : ''}" data-value="${c}">${c} — ${CON_NAMES[c] || c}</div>`;
+            }).join('');
+
+            dropdown.querySelectorAll('.multi-select-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const val = opt.dataset.value;
+                    const idx = selectedConstellations.indexOf(val);
+                    if (idx >= 0) selectedConstellations.splice(idx, 1);
+                    else selectedConstellations.push(val);
+                    renderTags();
+                    renderDropdown(searchInput.value.trim().toLowerCase());
+                });
+            });
+        }
+
+        function renderTags() {
+            tagsEl.innerHTML = selectedConstellations.map(c =>
+                `<span class="multi-select-tag">${c} <button data-value="${c}">&times;</button></span>`
+            ).join('');
+            tagsEl.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const val = btn.dataset.value;
+                    selectedConstellations = selectedConstellations.filter(x => x !== val);
+                    renderTags();
+                    renderDropdown(searchInput.value.trim().toLowerCase());
+                });
+            });
+        }
+
+        searchInput.addEventListener('focus', () => { dropdown.classList.add('open'); renderDropdown(searchInput.value.trim().toLowerCase()); });
+        searchInput.addEventListener('input', () => renderDropdown(searchInput.value.trim().toLowerCase()));
+        document.addEventListener('click', (e) => { if (!e.target.closest('#filter-con-container')) dropdown.classList.remove('open'); });
+
+        renderDropdown();
+    }
+
     // --- Search ---
     function setupSearch() {
         const input = $('#quick-search');
@@ -281,12 +379,13 @@
         const sugBox = $('#quick-suggestions');
 
         input.addEventListener('input', () => {
+            clearTimeout(searchTimer);
             const q = input.value.trim();
             if (q.length < 1) {
                 sugBox.innerHTML = '';
                 return;
             }
-            showSuggestions(q, sugBox);
+            searchTimer = setTimeout(() => showSuggestions(q, sugBox), 150);
         });
 
         input.addEventListener('keydown', (e) => {
@@ -333,7 +432,8 @@
             if (matches.length >= 10) break;
             const name = obj.name.toLowerCase();
             const nick = (obj.nickname || '').toLowerCase();
-            if (name.includes(q) || nick.includes(q)) {
+            const other = (obj.other || '').toLowerCase();
+            if (name.includes(q) || nick.includes(q) || other.includes(q)) {
                 matches.push(obj);
             }
         }
@@ -341,7 +441,7 @@
         suggestionIndex = -1;
 
         if (matches.length === 0) {
-            container.innerHTML = '';
+            container.innerHTML = '<div class="suggestions-list"><div class="suggestion-item" style="color:var(--text-muted);cursor:default;">No objects found</div></div>';
             return;
         }
 
@@ -354,6 +454,7 @@
 
         container.querySelectorAll('.suggestion-item').forEach(item => {
             item.addEventListener('click', () => {
+                if (!item.dataset.name) return;
                 selectObject(item.dataset.name);
                 container.innerHTML = '';
                 $('#quick-search').value = item.dataset.name;
@@ -375,7 +476,7 @@
         if (!query) return;
         const q = normalizeQuery(query);
 
-        // Exact match first
+        // Exact match first (try dataIndex with various capitalizations)
         const exact = allData.find(o => o.name.toLowerCase() === q);
         if (exact) {
             selectObject(exact.name);
@@ -403,8 +504,9 @@
         const body = $('#filter-body');
 
         toggle.addEventListener('click', () => {
-            toggle.classList.toggle('open');
+            const isOpen = toggle.classList.toggle('open');
             body.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
 
         $('#apply-filters').addEventListener('click', applyFilters);
@@ -412,13 +514,14 @@
         $('#sort-select').addEventListener('change', () => {
             currentSort = $('#sort-select').value;
             sortResults();
+            displayedCount = 0;
+            $('#results-list').innerHTML = '';
             renderResults();
         });
     }
 
     function applyFilters() {
         const catalog = $('#filter-catalog').value;
-        const con = $('#filter-con').value;
         const type = $('#filter-type').value;
         const magMin = parseFloat($('#filter-mag-min').value);
         const magMax = parseFloat($('#filter-mag-max').value);
@@ -427,16 +530,8 @@
 
         filteredData = allData.filter(o => {
             if (catalog && o.catalog !== catalog) return false;
-            if (con && o.con !== con) return false;
+            if (selectedConstellations.length > 0 && !selectedConstellations.includes(o.con)) return false;
             if (type && o.type !== type) return false;
-            if (!isNaN(magMin) && o.vmag) {
-                const mag = parseFloat(o.vmag);
-                if (isNaN(mag) || mag < magMin) return false;
-            }
-            if (!isNaN(magMax) && o.vmag) {
-                const mag = parseFloat(o.vmag);
-                if (isNaN(mag) || mag > magMax) return false;
-            }
             if (special === 'top' && !o.isTopObject) return false;
             if (special === 'orion' && !o.isOrionAtlas) return false;
             if (nameFilter) {
@@ -448,7 +543,7 @@
             return true;
         });
 
-        // Handle empty mag filter — don't filter out objects without vmag
+        // Magnitude filter — applied separately so objects without vmag aren't excluded when no mag filter set
         if (!isNaN(magMin) || !isNaN(magMax)) {
             filteredData = filteredData.filter(o => {
                 if (!o.vmag) return false;
@@ -465,7 +560,11 @@
 
     function clearFilters() {
         $('#filter-catalog').value = '';
-        $('#filter-con').value = '';
+        selectedConstellations = [];
+        const conTags = $('#con-tags');
+        if (conTags) conTags.innerHTML = '';
+        const conSearch = $('#filter-con-search');
+        if (conSearch) conSearch.value = '';
         $('#filter-type').value = '';
         $('#filter-mag-min').value = '';
         $('#filter-mag-max').value = '';
@@ -475,18 +574,22 @@
         $('#results-header').style.display = 'none';
         $('#results-list').innerHTML = '';
         $('#load-more-container').style.display = 'none';
-        $('#object-detail').style.display = 'none';
+        closeDetailPanel();
     }
 
     // --- Results ---
     function showResults() {
-        $('#object-detail').style.display = 'none';
+        closeDetailPanel();
         sortResults();
         displayedCount = 0;
         $('#results-list').innerHTML = '';
         renderResults();
         $('#results-header').style.display = 'flex';
         $('#results-count').textContent = `${filteredData.length.toLocaleString()} objects found`;
+
+        if (filteredData.length === 0) {
+            $('#results-list').innerHTML = '<div style="text-align:center;padding:48px 24px;color:var(--text-muted)"><p style="font-size:1.1rem;margin-bottom:8px;">No objects match your search.</p><p>Try broadening your filters or checking the spelling.</p></div>';
+        }
 
         // Scroll to results
         document.getElementById('results-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -532,7 +635,12 @@
     function createObjectCard(obj) {
         const card = document.createElement('div');
         card.className = 'object-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
         card.addEventListener('click', () => selectObject(obj.name));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectObject(obj.name); }
+        });
 
         const obsPreview = obj.observations && obj.observations.length > 0
             ? obj.observations[0].text.substring(0, 150) + '...'
@@ -555,6 +663,7 @@
                 ${obj.vmag ? `<span class="meta-item"><span class="meta-label">Mag:</span> <span class="meta-value">${escHtml(obj.vmag)}</span></span>` : ''}
                 ${obj.size ? `<span class="meta-item"><span class="meta-label">Size:</span> <span class="meta-value">${escHtml(obj.size)}</span></span>` : ''}
                 ${obj.ra ? `<span class="meta-item"><span class="meta-label">RA:</span> <span class="meta-value">${escHtml(obj.ra)}</span></span>` : ''}
+                ${obj.dec ? `<span class="meta-item"><span class="meta-label">Dec:</span> <span class="meta-value">${escHtml(obj.dec)}</span></span>` : ''}
                 ${obj.observations ? `<span class="meta-item"><span class="meta-label">Obs:</span> <span class="meta-value">${obj.observations.length}</span></span>` : ''}
             </div>
             ${obsPreview ? `<div class="card-obs-preview">${escHtml(obsPreview)}</div>` : ''}
@@ -562,16 +671,43 @@
         return card;
     }
 
-    // --- Object Detail ---
-    function selectObject(name) {
-        const obj = allData.find(o => o.name === name);
+    // --- Object Detail (slide-over panel) ---
+    function selectObject(name, pushState) {
+        if (pushState === undefined) pushState = true;
+        const obj = dataIndex.get(name);
         if (!obj) return;
 
+        if (pushState) {
+            history.pushState({ object: name }, '', '#object/' + encodeURIComponent(name));
+        }
+
         const detail = $('#object-detail');
+        const backdrop = $('#detail-backdrop');
         const simbadUrl = `https://simbad.cds.unistra.fr/simbad/sim-id?Ident=${encodeURIComponent(obj.name)}&submit=submit+id`;
 
+        const obsCount = obj.observations ? obj.observations.length : 0;
+        const obsSection = obsCount > 0 ? `
+                <div class="detail-observations">
+                    <h4>Visual Observations (${obsCount})</h4>
+                    ${obj.observations.map(obs => `
+                        <div class="observation">
+                            <div class="obs-header">
+                                ${obs.aperture ? `<span class="obs-aperture">${escHtml(obs.aperture)}</span>` : ''}
+                                ${obs.date ? `<span class="obs-date">${escHtml(obs.date)}</span>` : ''}
+                            </div>
+                            <div class="obs-text">${escHtml(obs.text)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : `
+                <div class="detail-observations">
+                    <h4>Visual Observations</h4>
+                    <p style="color:var(--text-muted);font-style:italic;padding:16px 0;">No observations recorded</p>
+                </div>
+            `;
+
         detail.innerHTML = `
-            <button class="detail-back" onclick="document.getElementById('object-detail').style.display='none';document.getElementById('results-area').scrollIntoView({behavior:'smooth'});">
+            <button class="detail-back" id="detail-back-btn">
                 ← Back to results
             </button>
             <div class="detail-header">
@@ -611,37 +747,78 @@
                 </div>
             ` : ''}
 
-            ${obj.observations && obj.observations.length > 0 ? `
-                <div class="detail-observations">
-                    <h4>Visual Observations (${obj.observations.length})</h4>
-                    ${obj.observations.map(obs => `
-                        <div class="observation">
-                            <div class="obs-header">
-                                ${obs.aperture ? `<span class="obs-aperture">${escHtml(obs.aperture)}</span>` : ''}
-                                ${obs.date ? `<span class="obs-date">${escHtml(obs.date)}</span>` : ''}
-                            </div>
-                            <div class="obs-text">${escHtml(obs.text)}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            ` : ''}
+            ${obsSection}
 
             ${obj.showHistorical && obj.historical ? `
                 <div class="detail-historical">
                     <h4>Historical Background</h4>
                     <div class="historical-text" id="hist-text">${escHtml(obj.historical).replace(/\n/g, '<br>')}</div>
-                    <button class="btn-link historical-read-more" onclick="
-                        var el = document.getElementById('hist-text');
-                        el.classList.toggle('expanded');
-                        this.textContent = el.classList.contains('expanded') ? 'Show less' : 'Read more';
-                    ">Read more</button>
+                    <button class="btn-link historical-read-more" id="hist-read-more">Read more</button>
                 </div>
             ` : ''}
         `;
 
-        detail.style.display = 'block';
-        detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Attach event listeners (no inline onclick)
+        const backBtn = detail.querySelector('#detail-back-btn');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => closeDetailPanel());
+        }
+
+        const histReadMore = detail.querySelector('#hist-read-more');
+        if (histReadMore) {
+            histReadMore.addEventListener('click', () => {
+                const el = detail.querySelector('#hist-text');
+                if (el) {
+                    el.classList.toggle('expanded');
+                    histReadMore.textContent = el.classList.contains('expanded') ? 'Show less' : 'Read more';
+                }
+            });
+        }
+
+        // Open the slide-over panel
+        detail.classList.add('open');
+        if (backdrop) backdrop.classList.add('open');
+        detail.scrollTop = 0;
+
+        // Historical "Read more" only when needed
+        requestAnimationFrame(() => {
+            const histEl = detail.querySelector('#hist-text');
+            const moreBtn = detail.querySelector('.historical-read-more');
+            if (histEl && moreBtn && histEl.scrollHeight <= histEl.clientHeight) {
+                histEl.classList.add('expanded');
+                moreBtn.style.display = 'none';
+            }
+        });
     }
+
+    function closeDetailPanel() {
+        const detail = $('#object-detail');
+        const backdrop = $('#detail-backdrop');
+        detail.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('open');
+    }
+
+    // Backdrop click closes detail panel
+    (function setupBackdrop() {
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'detail-backdrop') {
+                closeDetailPanel();
+            }
+        });
+    })();
+
+    // --- URL Hash Routing ---
+    function handleHashNavigation() {
+        const hash = window.location.hash;
+        if (hash.startsWith('#object/')) {
+            const name = decodeURIComponent(hash.substring(8));
+            if (dataIndex.has(name)) {
+                selectObject(name, false);
+            }
+        }
+    }
+
+    window.addEventListener('popstate', () => handleHashNavigation());
 
     function detailField(label, value) {
         if (!value) return `<div class="detail-field"><span class="field-label">${label}</span><span class="field-value empty">—</span></div>`;
@@ -666,11 +843,11 @@
     }
 
     // --- Utilities ---
+    const _escDiv = document.createElement('div');
     function escHtml(str) {
         if (!str) return '';
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
+        _escDiv.textContent = str;
+        return _escDiv.innerHTML;
     }
 
     function escAttr(str) {

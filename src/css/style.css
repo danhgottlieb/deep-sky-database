@@ -1159,6 +1159,34 @@ img {
     }
 }
 
+/* Override Aladin Lite UI panel colors for readability */
+#aladin-lite-div .aladin-layersControl-container,
+#aladin-lite-div .aladin-box {
+    background: rgba(20, 20, 30, 0.95) !important;
+    color: #e0e0e0 !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+}
+#aladin-lite-div .aladin-box select,
+#aladin-lite-div .aladin-box input {
+    background: rgba(40, 40, 55, 0.9) !important;
+    color: #e0e0e0 !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+}
+#aladin-lite-div .aladin-box label,
+#aladin-lite-div .aladin-box span,
+#aladin-lite-div .aladin-box p,
+#aladin-lite-div .aladin-box div {
+    color: #e0e0e0 !important;
+}
+#aladin-lite-div .aladin-box a {
+    color: #8cb4ff !important;
+}
+#aladin-lite-div .aladin-box button {
+    background: rgba(60, 60, 80, 0.9) !important;
+    color: #e0e0e0 !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
 .detail-title-group h3 {
     font-size: 1.8rem;
     font-weight: 700;

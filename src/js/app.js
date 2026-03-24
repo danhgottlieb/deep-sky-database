@@ -154,6 +154,9 @@
                 blogFiltered = blogData;
                 renderBlog();
                 setupBlogSearch();
+                // Update hero stat with actual count
+                const reportStat = document.getElementById('stat-reports');
+                if (reportStat) reportStat.textContent = blogData.length.toLocaleString();
             }).catch(() => {});
 
             // Build name index

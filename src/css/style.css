@@ -1129,6 +1129,36 @@ img {
     gap: 16px;
 }
 
+/* --- Aladin Lite Sky Atlas viewer --- */
+.aladin-wrapper {
+    margin-bottom: 24px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+}
+#aladin-lite-div {
+    width: 100%;
+    height: 400px;
+}
+.aladin-survey-label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ccc;
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 10;
+}
+@media (max-width: 600px) {
+    #aladin-lite-div {
+        height: 280px;
+    }
+}
+
 .detail-title-group h3 {
     font-size: 1.8rem;
     font-weight: 700;

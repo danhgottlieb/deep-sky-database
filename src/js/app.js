@@ -1017,6 +1017,11 @@
                 </div>
             </div>
 
+            <div class="aladin-wrapper" id="aladin-wrapper">
+                <div id="aladin-lite-div"></div>
+                <div class="aladin-survey-label" id="aladin-survey-label"></div>
+            </div>
+
             <div class="detail-grid">
                 ${detailField('Right Ascension', obj.ra)}
                 ${detailField('Declination', obj.dec)}
@@ -1063,6 +1068,9 @@
         detail.scrollTop = 0;
         if (window.innerWidth < 900) document.body.style.overflow = 'hidden';
 
+        // Initialize Aladin Lite viewer for this object
+        initAladinViewer(obj);
+
     }
 
     function closeDetailPanel(updateUrl) {
@@ -1075,6 +1083,94 @@
         if (updateUrl && window.location.hash.startsWith('#object/')) {
             history.replaceState(null, '', window.location.pathname + window.location.search + '#explorer');
         }
+    }
+
+    // --- Aladin Lite Sky Atlas viewer ---
+    let aladinInstance = null;
+
+    function parseRA(ra) {
+        // "05 35 17.1" -> degrees
+        if (!ra) return null;
+        const parts = ra.trim().split(/\s+/);
+        if (parts.length < 2) return null;
+        const h = parseFloat(parts[0]);
+        const m = parseFloat(parts[1]);
+        const s = parts.length > 2 ? parseFloat(parts[2]) : 0;
+        return (h + m / 60 + s / 3600) * 15; // hours to degrees
+    }
+
+    function parseDec(dec) {
+        // "+41 16 08" or "-05 23 27" -> degrees
+        if (!dec) return null;
+        const str = dec.trim();
+        const sign = str.startsWith('-') ? -1 : 1;
+        const parts = str.replace(/^[+-]/, '').trim().split(/\s+/);
+        if (parts.length < 2) return null;
+        const d = parseFloat(parts[0]);
+        const m = parseFloat(parts[1]);
+        const s = parts.length > 2 ? parseFloat(parts[2]) : 0;
+        return sign * (d + m / 60 + s / 3600);
+    }
+
+    function initAladinViewer(obj) {
+        const container = document.getElementById('aladin-lite-div');
+        const label = document.getElementById('aladin-survey-label');
+        if (!container) return;
+
+        const raDeg = parseRA(obj.ra);
+        const decDeg = parseDec(obj.dec);
+        if (raDeg === null || decDeg === null) {
+            container.parentElement.style.display = 'none';
+            return;
+        }
+        container.parentElement.style.display = '';
+
+        // Pick best survey based on sky coverage:
+        // SDSS9: roughly Dec > -5° and specific RA ranges (north galactic cap ~35%)
+        // PanSTARRS DR1: Dec > -30° (3/4 of sky)
+        // DSS2: full sky
+        let surveyId, surveyName;
+        if (decDeg > -5) {
+            surveyId = 'P/SDSS9/color';
+            surveyName = 'SDSS9';
+        } else if (decDeg > -30) {
+            surveyId = 'P/PanSTARRS/DR1/color-z-zg-g';
+            surveyName = 'PanSTARRS DR1';
+        } else {
+            surveyId = 'P/DSS2/color';
+            surveyName = 'DSS2';
+        }
+
+        // Wait for Aladin Lite WASM to initialize
+        if (typeof A === 'undefined' || !A.init) {
+            container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px;">Loading sky atlas…</p>';
+            return;
+        }
+
+        A.init.then(() => {
+            container.innerHTML = '';
+            aladinInstance = null;
+
+            aladinInstance = A.aladin('#aladin-lite-div', {
+                target: raDeg.toFixed(6) + ' ' + decDeg.toFixed(6),
+                fov: 0.25,
+                survey: surveyId,
+                cooFrame: 'ICRS',
+                showReticle: true,
+                showZoomControl: true,
+                showFullscreenControl: true,
+                showLayersControl: true,
+                showGotoControl: false,
+                showShareControl: false,
+                showSimbadPointerControl: false,
+                showProjectionControl: false,
+                showCooGridControl: false,
+                showFrame: true,
+                projection: 'SIN',
+            });
+
+            if (label) label.textContent = surveyName;
+        });
     }
 
     // Backdrop click closes detail panel

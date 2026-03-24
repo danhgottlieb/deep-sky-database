@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steve Gottlieb's Deep Sky</title>
     <meta name="description" content="A comprehensive database of over 24,000 deep sky observations by Steve Gottlieb, spanning 45+ years of visual astronomy with telescopes from 6 inches to 82 inches.">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -30,8 +30,8 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#introduction">Introduction</a></li>
                 <li><a href="#explorer">Database</a></li>
-                <li><a href="#articles">Articles</a></li>
                 <li><a href="#blog">Observing Reports</a></li>
+                <li><a href="#articles">Articles</a></li>
             </ul>
         </div>
     </nav>
@@ -266,19 +266,8 @@
 
     <div class="cosmic-divider cosmic-divider-purple cosmic-divider-to-alt"></div>
 
-    <!-- Published Articles -->
-    <section id="articles" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title reveal">Published Articles</h2>
-            <p class="section-desc reveal">Steve Gottlieb has authored 46 articles for <em>Sky & Telescope</em> and <em>Astronomy</em> magazines, guiding observers to some of the most fascinating deep sky targets.</p>
-            <div class="articles-list" id="articles-list"></div>
-        </div>
-    </section>
-
-    <div class="cosmic-divider cosmic-divider-from-alt"></div>
-
     <!-- Blog / Observing Reports -->
-    <section id="blog" class="section">
+    <section id="blog" class="section section-alt">
         <div class="container">
             <h2 class="section-title reveal">Observing Reports</h2>
             <p class="section-desc reveal">Field reports from the eyepiece — observing sessions, trip accounts, and detailed notes from dark sky sites across the globe.</p>
@@ -292,6 +281,17 @@
             <div id="blog-load-more-container" style="display:none;">
                 <button id="blog-load-more" class="btn btn-secondary">Load More Reports</button>
             </div>
+        </div>
+    </section>
+
+    <div class="cosmic-divider cosmic-divider-from-alt"></div>
+
+    <!-- Published Articles -->
+    <section id="articles" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Published Articles</h2>
+            <p class="section-desc reveal">Steve Gottlieb has authored 46 articles for <em>Sky & Telescope</em> and <em>Astronomy</em> magazines, guiding observers to some of the most fascinating deep sky targets.</p>
+            <div class="articles-list" id="articles-list"></div>
         </div>
     </section>
 
@@ -333,6 +333,6 @@
         <span>Loading 24,773 objects…</span>
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="js/app.js?v=3"></script>
 </body>
 </html>

@@ -781,6 +781,8 @@
                 // Apply the collection filter
                 if (col === 'top') {
                     filteredData = allData.filter(o => o.isTopObject);
+                } else if (col === 'orion') {
+                    filteredData = allData.filter(o => o.isOrionAtlas);
                 } else {
                     filteredData = allData.filter(o => o.catalog === col);
                 }

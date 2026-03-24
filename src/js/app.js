@@ -979,7 +979,7 @@
 
         const detail = $('#object-detail');
         const backdrop = $('#detail-backdrop');
-        const simbadUrl = `https://simbad.cds.unistra.fr/simbad/sim-id?Ident=${encodeURIComponent(obj.name)}&submit=submit+id`;
+        const simbadUrl = `https://simbad.cds.unistra.fr/simbad/sim-coo?Coord=${encodeURIComponent(obj.ra + ' ' + obj.dec)}&CooFrame=FK5&CooEpoch=2000&CooEqui=2000&CooDefinedFrames=none&Radius=0.2&Radius.unit=arcmin&submit=submit+query`;
 
         const obsCount = obj.observations ? obj.observations.length : 0;
         const obsSection = obsCount > 0 ? `

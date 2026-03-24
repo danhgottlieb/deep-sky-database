@@ -1013,7 +1013,7 @@
                     ${obj.other ? `<div class="detail-other">${escHtml(obj.other)}</div>` : ''}
                 </div>
                 <div class="detail-actions">
-                    ${obj.type ? `<span class="badge badge-type">${escHtml(obj.type)}${TYPE_KEY[obj.type] ? ' — ' + TYPE_KEY[obj.type] : ''}</span>` : ''}
+                    ${obj.type ? `<span class="badge badge-type">${TYPE_KEY[obj.type] || escHtml(obj.type)}</span>` : ''}
                     ${obj.isTopObject ? '<span class="badge badge-top">★ Gottlieb\'s Top</span>' : ''}
                     ${obj.isOrionAtlas ? '<span class="badge badge-orion">Orion Atlas</span>' : ''}
                     <a href="${simbadUrl}" target="_blank" rel="noopener" class="btn btn-secondary" style="padding:6px 16px;font-size:0.85rem;">

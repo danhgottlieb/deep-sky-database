@@ -62,7 +62,7 @@ html {
     z-index: 0;
     pointer-events: none;
     background: #0a0e17 url('../img/rho_ophiuchi_bg.jpg') center top / 100% auto no-repeat;
-    filter: brightness(0.35) saturate(0.8);
+    filter: brightness(0.55) saturate(0.85);
 }
 /* Shooting stars overlay canvas */
 #starfield {
@@ -673,6 +673,52 @@ img {
     color: var(--purple);
     margin-left: 6px;
     font-style: italic;
+}
+
+/* --- Quick Collection Buttons --- */
+.quick-collection-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.btn-collection {
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: rgba(20, 28, 43, 0.85);
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.02em;
+}
+.btn-collection:hover {
+    border-color: var(--accent);
+    color: var(--text-bright);
+    background: rgba(96, 165, 250, 0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.1);
+}
+.btn-collection.active {
+    border-color: var(--accent);
+    color: var(--text-bright);
+    background: rgba(96, 165, 250, 0.18);
+    box-shadow: 0 0 16px rgba(96, 165, 250, 0.2);
+}
+
+@media (max-width: 600px) {
+    .quick-collection-buttons {
+        gap: 8px;
+    }
+    .btn-collection {
+        padding: 8px 16px;
+        font-size: 0.82rem;
+    }
 }
 
 /* --- Filters --- */

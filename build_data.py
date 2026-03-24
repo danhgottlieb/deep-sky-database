@@ -74,7 +74,7 @@ def read_old_csv():
     names = []
     refs = {}
     old_rows = {}
-    with open(OLD_CSV, "r", encoding="utf-8", errors="replace") as f:
+    with open(OLD_CSV, "r", encoding="mac_roman") as f:
         for row in csv.reader(f):
             if not row:
                 continue
@@ -174,6 +174,47 @@ def parse_record(name, raw_text):
     }
 
 
+def _split_desc_date(text):
+    """Split 'NGCDesc,DiscoveryDate[,extra]' using date-pattern anchoring.
+
+    The NGC description can contain commas, so simple rfind(",") fails.
+    Instead, scan for a known date pattern to anchor the split.
+    Returns (ngc_desc, disc_date, after_date).
+    """
+    if not text:
+        return "", "", ""
+    text = text.strip()
+
+    # Search for date patterns anywhere in the text (not just at end)
+    # Standard: "18 Nov 1886"
+    m = re.search(r',\s*(\d{1,2}\s+[A-Z][a-z]{2,8}\s+\d{4})\s*(?:,|$)', text)
+    if not m:
+        # Month Year: "Dec 1893"
+        m = re.search(r',\s*([A-Z][a-z]{2,8}\s+\d{4})\s*(?:,|$)', text)
+    if not m:
+        # "- YYYY", "- Mon YYYY", or "* Mon YYYY"
+        m = re.search(r',\s*([*\-]\s*(?:[A-Z][a-z]{2,8}\s+)?\d{3,4})\s*(?:,|$)', text)
+    if not m:
+        # Bare year at end: ",905" or ",1834-35"
+        m = re.search(r',\s*(\d{3,4}(?:-\d{2,4})?)\s*$', text)
+    if not m:
+        # Bare dash
+        m = re.search(r',\s*(-)\s*(?:,|$)', text)
+
+    if m:
+        ngc_desc = text[:m.start()].strip()
+        disc_date = m.group(1).strip()
+        after = text[m.end():].strip()
+        return ngc_desc, disc_date, after
+
+    # No date found — single value: could be date or desc
+    if re.match(r'\d{1,2}\s+[A-Z][a-z]+\s+\d{4}$', text):
+        return "", text, ""
+    if re.match(r'-\s*\d{3,4}$', text):
+        return "", text, ""
+    return text, "", ""
+
+
 def split_remainder(remainder):
     """Split NGCDescription,DiscoveryDate,VisualObservations.
 
@@ -205,38 +246,47 @@ def split_remainder(remainder):
             vis_obs = remainder.strip()
             before_obs = ""
 
-        # Separate NGCDescription from DiscoveryDate
-        last_c = before_obs.rfind(",")
-        if last_c >= 0:
-            ngc_desc = before_obs[:last_c].strip()
-            disc_date = before_obs[last_c + 1 :].strip()
-        else:
-            # Single value: could be date or description
-            if re.match(r"\d{1,2}\s+[A-Z][a-z]+\s+\d{4}$", before_obs.strip()):
-                ngc_desc, disc_date = "", before_obs.strip()
-            elif re.match(r"- \d{4}$", before_obs.strip()):
-                ngc_desc, disc_date = "", before_obs.strip()
-            else:
-                ngc_desc, disc_date = before_obs.strip(), ""
+        # Separate NGCDescription from DiscoveryDate using date anchor
+        ngc_desc, disc_date, after_date = _split_desc_date(before_obs)
+
+        # Any text after the date (e.g., "= * 1.6' W of NGC 410") belongs in vis_obs
+        if after_date:
+            vis_obs = after_date + ", " + vis_obs if vis_obs else after_date
 
         return ngc_desc, disc_date, vis_obs
     else:
-        # No observations: split into desc, date, empty obs
-        last_c = remainder.rfind(",")
-        if last_c >= 0:
-            tail = remainder[last_c + 1 :].strip()
-            head = remainder[:last_c]
-            if re.search(r"\d{3,4}$", tail) and len(tail) < 50:
-                second_c = head.rfind(",")
-                if second_c >= 0:
-                    return head[:second_c].strip(), head[second_c + 1 :].strip(), tail
-                return head.strip(), tail, ""
-            else:
-                second_c = head.rfind(",")
-                if second_c >= 0:
-                    return head[:second_c].strip(), head[second_c + 1 :].strip(), tail
-                return head.strip(), "", tail
-        return remainder.strip(), "", ""
+        # No observations: remainder = NGCDescription,DiscoveryDate[,extra note]
+        # Use date pattern to anchor the discovery date field
+        date_match = re.search(
+            r',\s*(\d{1,2}\s+[A-Z][a-z]{2,8}\s+\d{4})\s*(?:,|$)', remainder
+        )
+        if not date_match:
+            date_match = re.search(
+                r',\s*([A-Z][a-z]{2,8}\s+\d{4})\s*(?:,|$)', remainder
+            )
+        if not date_match:
+            # "- YYYY", "- Mon YYYY", or "* Mon YYYY"
+            date_match = re.search(
+                r',\s*([*\-]\s*(?:[A-Z][a-z]{2,8}\s+)?\d{3,4})\s*(?:,|$)', remainder
+            )
+        if not date_match:
+            # Bare year: ",905" or ",1834-35"
+            date_match = re.search(
+                r',\s*(\d{3,4}(?:-\d{2,4})?)\s*(?:,|$)', remainder
+            )
+        if not date_match:
+            # Bare dash
+            date_match = re.search(r',\s*(-)\s*(?:,|$)', remainder)
+
+        if date_match:
+            disc_date = date_match.group(1).strip()
+            ngc_desc = remainder[:date_match.start()].strip()
+            after_date = remainder[date_match.end():].strip()
+            if after_date:
+                return ngc_desc, disc_date, after_date
+            return ngc_desc, disc_date, ""
+        else:
+            return remainder.strip(), "", ""
 
 
 def make_stub_from_old_csv(name, row):
@@ -269,7 +319,7 @@ def parse_historical(path, known_names):
     Entries are separated by 2+ consecutive newlines.
     Each entry is Name,text.
     """
-    with open(path, "r", encoding="utf-8", errors="replace") as f:
+    with open(path, "r", encoding="mac_roman") as f:
         raw = f.read()
 
     records = {}
@@ -383,7 +433,7 @@ def build_data():
 
     # -- 2. Parse full CSV using name-based boundaries --
     print("\n[2] Parsing full CSV...")
-    with open(MAIN_CSV, "r", encoding="utf-8", errors="replace") as f:
+    with open(MAIN_CSV, "r", encoding="mac_roman") as f:
         full_text = f.read()
     header_end = full_text.index("\n") + 1
     body = full_text[header_end:]

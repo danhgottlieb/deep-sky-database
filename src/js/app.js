@@ -216,7 +216,7 @@
         sections.forEach(s => observer.observe(s));
     }
 
-    // --- Shooting Stars overlay (background image handled by CSS) ---
+    // --- Shooting Stars & Satellites overlay (background image handled by CSS) ---
     function setupStarfield() {
         const canvas = $('#starfield');
         if (!canvas) return;
@@ -224,7 +224,9 @@
 
         const ctx = canvas.getContext('2d');
         let shootingStars = [];
-        let nextShootingAt = Date.now() + 2000 + Math.random() * 4000;
+        let satellites = [];
+        let nextShootingAt = Date.now() + 4000 + Math.random() * 8000;
+        let nextSatelliteAt = Date.now() + 60000 + Math.random() * 120000;
         let animId;
 
         function resize() {
@@ -246,7 +248,29 @@
                 maxLife: 30 + Math.random() * 45,
                 tailLen: 50 + Math.random() * 100
             });
-            nextShootingAt = Date.now() + 3000 + Math.random() * 8000;
+            nextShootingAt = Date.now() + 6000 + Math.random() * 14000;
+        }
+
+        function spawnSatellite() {
+            const w = canvas.width, h = canvas.height;
+            // Satellites move slowly in a straight line across the screen
+            const fromLeft = Math.random() > 0.5;
+            const startX = fromLeft ? -10 : w + 10;
+            const endX = fromLeft ? w + 10 : -10;
+            const startY = 20 + Math.random() * h * 0.5;
+            const endY = startY + (Math.random() - 0.5) * h * 0.3;
+            const dist = Math.hypot(endX - startX, endY - startY);
+            const speed = 0.6 + Math.random() * 0.4;
+            satellites.push({
+                x: startX, y: startY,
+                vx: ((endX - startX) / dist) * speed,
+                vy: ((endY - startY) / dist) * speed,
+                life: 0,
+                maxLife: Math.ceil(dist / speed),
+                brightness: 0.5 + Math.random() * 0.3
+            });
+            // Next satellite in 1-4 minutes
+            nextSatelliteAt = Date.now() + 60000 + Math.random() * 180000;
         }
 
         function draw() {
@@ -255,7 +279,9 @@
 
             const t = Date.now();
             if (t >= nextShootingAt) spawnShootingStar();
+            if (t >= nextSatelliteAt) spawnSatellite();
 
+            // Draw shooting stars
             for (let i = shootingStars.length - 1; i >= 0; i--) {
                 const ss = shootingStars[i];
                 ss.x += ss.vx;
@@ -282,6 +308,22 @@
                 ctx.fillStyle = `rgba(255,255,255,${alpha * 0.85})`;
                 ctx.fill();
                 if (ss.life >= ss.maxLife) shootingStars.splice(i, 1);
+            }
+
+            // Draw satellites — small steady dot moving slowly
+            for (let i = satellites.length - 1; i >= 0; i--) {
+                const sat = satellites[i];
+                sat.x += sat.vx;
+                sat.y += sat.vy;
+                sat.life++;
+                const progress = sat.life / sat.maxLife;
+                const fade = progress < 0.05 ? progress / 0.05
+                           : progress > 0.95 ? (1 - progress) / 0.05 : 1;
+                ctx.beginPath();
+                ctx.arc(sat.x, sat.y, 1.2, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,240,${sat.brightness * fade})`;
+                ctx.fill();
+                if (sat.life >= sat.maxLife) satellites.splice(i, 1);
             }
 
             animId = requestAnimationFrame(draw);
@@ -714,6 +756,34 @@
             $('#results-list').innerHTML = '';
             renderResults();
         });
+
+        // Quick collection buttons
+        document.querySelectorAll('.btn-collection').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const col = btn.dataset.collection;
+                const wasActive = btn.classList.contains('active');
+
+                // Deactivate all collection buttons
+                document.querySelectorAll('.btn-collection').forEach(b => b.classList.remove('active'));
+
+                if (wasActive) {
+                    // Toggle off — clear and show all
+                    clearFilters();
+                    return;
+                }
+
+                // Activate this button
+                btn.classList.add('active');
+
+                // Apply the collection filter
+                if (col === 'top') {
+                    filteredData = allData.filter(o => o.isTopObject);
+                } else {
+                    filteredData = allData.filter(o => o.catalog === col);
+                }
+                showResults();
+            });
+        });
     }
 
     function applyFilters() {
@@ -754,7 +824,16 @@
     }
 
     function clearFilters() {
-        $('#filter-catalog').value = '';
+        const catSearch = $('#filter-catalog-search');
+        if (catSearch) catSearch.value = '';
+        selectedCatalogs = [];
+        const catTags = $('#catalog-tags');
+        if (catTags) catTags.innerHTML = '';
+        const catDropdown = $('#catalog-dropdown');
+        if (catDropdown) {
+            catDropdown.classList.remove('open');
+            catDropdown.querySelectorAll('.multi-select-option').forEach(opt => opt.classList.remove('selected'));
+        }
         selectedConstellations = [];
         const conTags = $('#con-tags');
         if (conTags) conTags.innerHTML = '';
@@ -770,6 +849,7 @@
         $('#filter-mag-max').value = '';
         $('#filter-special').value = '';
         $('#filter-name').value = '';
+        document.querySelectorAll('.btn-collection').forEach(b => b.classList.remove('active'));
         filteredData = [];
         $('#results-header').style.display = 'none';
         $('#results-list').innerHTML = '';

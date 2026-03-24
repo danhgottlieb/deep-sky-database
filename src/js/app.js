@@ -22,7 +22,7 @@
     let blogData = [];
     let blogFiltered = [];
     let blogDisplayed = 0;
-    const BLOG_PAGE = 24;
+    const BLOG_PAGE = 200;
 
     // Type abbreviation key
     const TYPE_KEY = {
@@ -1123,21 +1123,61 @@
     }
 
     // --- Blog / Observing Reports ---
+    function parseBlogDate(dateStr) {
+        // Parse varied date formats into a sortable timestamp
+        // "August 18, 2023", "Jul 20, 2008", "June 12-16, 2020", "Feb 13/15, 2018", "Jul 2008"
+        if (!dateStr) return 0;
+        const s = dateStr.replace(/(\d+)[-\/]\d+/, '$1'); // "12-16" → "12", "13/15" → "13"
+        const d = new Date(s);
+        return isNaN(d.getTime()) ? 0 : d.getTime();
+    }
+
+    function extractYear(dateStr) {
+        const m = dateStr && dateStr.match(/\b((?:19|20)\d{2})\b/);
+        return m ? m[1] : 'Unknown';
+    }
+
     function renderBlog() {
         const grid = $('#blog-grid');
         if (!grid) return;
-        const toShow = blogFiltered.slice(0, blogDisplayed + BLOG_PAGE);
+
+        // Sort by date descending (most recent first)
+        const sorted = [...blogFiltered].sort((a, b) => parseBlogDate(b.date) - parseBlogDate(a.date));
+
+        const toShow = sorted.slice(0, blogDisplayed + BLOG_PAGE);
         blogDisplayed = toShow.length;
 
-        grid.innerHTML = toShow.map(b => `
-            <a href="blog/${escAttr(b.filename)}" class="blog-card">
-                <div class="blog-card-title">${escHtml(b.title)}</div>
-                <div class="blog-card-meta">
-                    <span class="blog-card-date">${escHtml(b.date)}</span>
-                    ${b.images ? `<span class="blog-card-images">📷 ${b.images}</span>` : ''}
-                </div>
-            </a>
+        // Group by year
+        const groups = [];
+        let currentYear = null;
+        for (const b of toShow) {
+            const yr = extractYear(b.date);
+            if (yr !== currentYear) {
+                groups.push({ year: yr, items: [] });
+                currentYear = yr;
+            }
+            groups[groups.length - 1].items.push(b);
+        }
+
+        // Strip year from displayed date for compactness (year is in heading)
+        const shortDate = (d, yr) => d ? d.replace(/,?\s*\b\d{4}\b/, '').replace(/\s+/g, ' ').trim() : '';
+
+        grid.innerHTML = groups.map(g => `
+            <div class="blog-year-group">
+                <h3 class="blog-year-heading">${escHtml(g.year)}</h3>
+                ${g.items.map(b => `
+                    <a href="blog/${escAttr(b.filename)}" class="blog-card">
+                        <span class="blog-card-date">${escHtml(shortDate(b.date, g.year))}</span>
+                        <span class="blog-card-title">${escHtml(b.title)}</span>
+                        ${b.images ? `<span class="blog-card-images">📷 ${b.images}</span>` : ''}
+                    </a>
+                `).join('')}
+            </div>
         `).join('');
+
+        // Report count
+        const countEl = $('#blog-report-count');
+        if (countEl) countEl.textContent = `${blogFiltered.length} report${blogFiltered.length !== 1 ? 's' : ''}`;
 
         const btn = $('#blog-load-more-container');
         if (btn) btn.style.display = blogDisplayed < blogFiltered.length ? '' : 'none';

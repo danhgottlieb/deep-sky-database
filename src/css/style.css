@@ -61,7 +61,7 @@ html {
     height: 100%;
     z-index: 0;
     pointer-events: none;
-    background: #0a0e17 url('../img/rho_ophiuchi_bg.jpg') center top / 100% auto no-repeat;
+    background: #0a0e17 url('../img/rho_ophiuchi_bg.jpg') center top / cover no-repeat;
     filter: brightness(0.55) saturate(0.85);
 }
 /* Shooting stars overlay canvas */
@@ -191,6 +191,11 @@ img {
     border-radius: 2px;
     transition: all 0.3s;
 }
+
+/* Short labels and icons hidden on desktop */
+.nav-short { display: none; }
+.nav-full { display: inline; }
+.nav-icon { display: none; }
 
 /* --- Hero Section --- */
 .hero {
@@ -1070,6 +1075,8 @@ img {
     font-size: 1.15rem;
     font-weight: 600;
     color: var(--text-bright);
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .card-nickname {
@@ -1774,28 +1781,80 @@ img {
 }
 
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: var(--nav-height);
-        left: 0;
-        right: 0;
-        background: rgba(10, 14, 23, 0.98);
-        flex-direction: column;
-        padding: 16px;
-        border-bottom: 1px solid var(--border);
+    /* Always-visible compact nav bar on mobile */
+    #main-nav {
+        height: auto;
     }
 
-    .nav-links.open {
-        display: flex;
+    .nav-container {
+        flex-wrap: wrap;
+        padding: 0 8px;
+        height: auto;
+    }
+
+    .nav-logo {
+        height: 48px;
+        font-size: 0.9rem;
+        gap: 6px;
+    }
+
+    .nav-logo-icon {
+        font-size: 1.1rem;
     }
 
     .nav-toggle {
-        display: flex;
+        display: none;
     }
 
+    .nav-links {
+        display: flex;
+        width: 100%;
+        gap: 0;
+        justify-content: space-around;
+        border-top: 1px solid var(--border);
+        padding: 4px 0 2px;
+    }
+
+    .nav-links li {
+        flex: 1;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1px;
+        padding: 4px 2px;
+        font-size: 0.62rem;
+        border-radius: 4px;
+        white-space: nowrap;
+        line-height: 1.2;
+    }
+
+    .nav-links a.active {
+        box-shadow: none;
+        background: rgba(96, 165, 250, 0.15);
+        color: var(--text-bright);
+    }
+
+    /* Show icons + short labels, hide full labels */
+    .nav-icon {
+        display: block;
+        font-size: 1.05rem;
+        line-height: 1;
+    }
+    .nav-short { display: block; }
+    .nav-full { display: none; }
+
+    /* Adjust scroll padding for taller nav */
+    html { scroll-padding-top: 88px; }
+
     .hero-stats {
-        gap: 24px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px 24px;
+        justify-items: center;
     }
 
     .stat-num {
@@ -1829,12 +1888,69 @@ img {
     .object-detail {
         width: 100vw;
     }
+
+    .hero-desc {
+        font-size: 1rem;
+        max-width: 100%;
+        margin-bottom: 32px;
+    }
+
+    .hero-scroll-hint {
+        bottom: 16px;
+    }
+
+    .card-meta {
+        gap: 8px 12px;
+    }
+
+    .intro-text {
+        font-size: 1.05rem;
+    }
+
+    .section-desc {
+        font-size: 0.95rem;
+        margin-bottom: 32px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .nav-container {
+        padding: 0 16px;
+    }
+
+    .results-header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .legend-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .about-lead {
+        font-size: 1rem;
+    }
+
+    .nav-links a {
+        padding: 12px 16px;
+        font-size: 1rem;
+    }
+
+    .bio-modal-overlay {
+        padding: 20px 12px;
+    }
+
+    .detail-title-group h3 {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
     .hero-stats {
-        flex-direction: column;
-        gap: 16px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px 16px;
     }
 
     .hero-actions {
@@ -1864,9 +1980,224 @@ img {
     }
 
     .detail-title-group h3 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         overflow-wrap: break-word;
         word-break: break-word;
+    }
+
+    .hero-content {
+        padding: 80px 12px 50px;
+    }
+
+    .hero-desc {
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+    }
+
+    .hero-subtitle {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+    }
+
+    .hero-scroll-hint {
+        display: none;
+    }
+
+    .section {
+        padding: 48px 0;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .section-desc {
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .nav-container {
+        padding: 0 12px;
+    }
+
+    .bio-modal {
+        padding: 24px 16px 20px;
+    }
+
+    .bio-modal-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .bio-modal-header {
+        margin-bottom: 20px;
+    }
+
+    .bio-modal-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .bio-modal-body {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+
+    .card-meta {
+        gap: 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    .card-obs-preview {
+        font-size: 0.85rem;
+    }
+
+    .observation {
+        padding: 12px 14px;
+    }
+
+    .obs-header {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .detail-ngc-desc {
+        padding: 12px 14px;
+    }
+
+    .object-card {
+        padding: 14px;
+    }
+
+    .stat-num {
+        font-size: 1.1rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .article-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 12px 14px;
+    }
+
+    .article-num {
+        display: none;
+    }
+
+    .article-link {
+        grid-column: 1;
+        justify-self: start;
+    }
+
+    .intro-text {
+        font-size: 0.95rem;
+    }
+
+    #about.section {
+        padding: 24px 0 16px;
+    }
+
+    .footer-bottom p {
+        font-size: 0.78rem;
+    }
+
+    .filter-toggle {
+        padding: 12px 14px;
+        font-size: 0.9rem;
+    }
+
+    .filter-body {
+        padding: 0 14px 14px;
+    }
+
+    .filter-body.open {
+        padding-top: 14px;
+    }
+
+    .quick-search-row input::placeholder {
+        font-size: 0.85rem;
+    }
+
+    .explorer-quick {
+        margin-bottom: 24px;
+    }
+
+    .detail-grid {
+        padding: 14px;
+    }
+
+    .detail-actions {
+        flex-wrap: wrap;
+    }
+
+    .card-name {
+        font-size: 1.05rem;
+    }
+}
+
+/* --- Extra small screens (≤360px) --- */
+@media (max-width: 360px) {
+    .hero-content {
+        padding: 72px 8px 40px;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .nav-logo-text {
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 1.35rem;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        width: 100%;
+    }
+
+    .hero-actions {
+        width: 100%;
+    }
+
+    .stat-num {
+        font-size: 1rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    .btn-collection {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+    }
+
+    .detail-title-group h3 {
+        font-size: 1.15rem;
+    }
+
+    .intro-carousel-wrap {
+        max-width: 280px;
     }
 }
 

@@ -53,6 +53,10 @@ OBS_SPLIT_RE = re.compile(
     r'|(?=Naked-eye:)'                               # Naked-eye: (no parens)
     r')'
 )
+# NV split applied only to headerless chunks (not inside telescope observations)
+OBS_SPLIT_NV_RE = re.compile(
+    r'(?=NV\s+at\s+\d+x[^:;]*[;:])'                # Night vision: NV at 1x ... : or ;
+)
 OBS_HEADER_RE = re.compile(
     r'^(\d+\.?\d*)"\s*\(([^)]+)\)\s*:\s*'            # inch: 17.5" (date):
 )
@@ -64,6 +68,9 @@ OBS_HEADER_MM_RE = re.compile(
 )
 OBS_HEADER_NAKED_RE = re.compile(
     r'^(Naked-eye)\s*(?:\(([^)]+)\))?\s*:\s*'          # Naked-eye (date):
+)
+OBS_HEADER_NV_RE = re.compile(
+    r'^(NV\s+at\s+\d+x)[^:]*?(?:\s*\(([^)]+)\))?\s*[;:]\s*'  # NV at 1x (date): or NV at 3x;
 )
 
 
@@ -227,14 +234,20 @@ def split_remainder(remainder):
 
     # Locate start of VisualObservations — permissive pattern matches
     # all date formats: standard dates, locations, multiple dates, etc.
-    # Also matches binocular, mm-aperture, and naked-eye observations.
-    obs_match = re.search(r'(?<!\d)(\d+\.?\d*)"[ \t]*\([^)]+\)\s*:', remainder)
-    if not obs_match:
-        obs_match = re.search(r'\d+x\d+mm[^:]*:', remainder)
-    if not obs_match:
-        obs_match = re.search(r'\d+mm\s*\([^)]+\)\s*:', remainder)
-    if not obs_match:
-        obs_match = re.search(r'Naked-eye[\s(:][^:]*:', remainder)
+    # Also matches binocular, mm-aperture, naked-eye, and NV observations.
+    # Find the EARLIEST match across all observation header patterns.
+    obs_patterns = [
+        re.compile(r'(?<!\d)(\d+\.?\d*)"[ \t]*\([^)]+\)\s*:'),   # inch aperture
+        re.compile(r'\d+x\d+mm[^:]*:'),                           # binoculars
+        re.compile(r'\d+mm\s*\([^)]+\)\s*:'),                     # mm aperture
+        re.compile(r'Naked-eye[\s(:][^:]*:'),                      # Naked-eye
+        re.compile(r'NV\s+at\s+\d+x[^:;]*[;:]'),                  # Night vision
+    ]
+    obs_match = None
+    for pat in obs_patterns:
+        m = pat.search(remainder)
+        if m and (obs_match is None or m.start() < obs_match.start()):
+            obs_match = m
 
     if obs_match:
         obs_pos = obs_match.start()
@@ -341,13 +354,20 @@ def parse_historical(path, known_names):
 # -- observations splitter --------------------------------------------
 
 def split_observations(text):
-    """Split VisualObservations into [{aperture, date, text}, ...]."""
+    """Split VisualObservations into [{aperture, date, text}, ...].
+
+    Two-pass approach: first split by telescope/binocular/naked-eye headers,
+    then sub-split any headerless chunks by NV (night-vision) patterns.
+    For telescope observations, any trailing NV observations in the text
+    body are extracted as separate observations (but NV mentions that are
+    part of the telescope observation text are kept intact).
+    """
     if not text or not text.strip():
         return []
     text = text.strip()
 
     parts = OBS_SPLIT_RE.split(text)
-    observations = []
+    raw_obs = []
     for part in parts:
         part = part.strip()
         if not part:
@@ -355,7 +375,7 @@ def split_observations(text):
         # Try inch aperture first
         m = OBS_HEADER_RE.match(part)
         if m:
-            observations.append({
+            raw_obs.append({
                 "aperture": m.group(1) + '"',
                 "date": m.group(2),
                 "text": part[m.end() :].strip(),
@@ -364,7 +384,7 @@ def split_observations(text):
         # Binoculars: 10x30mm IS binoculars (date): or 10x30mm IS binoculars:
         m = OBS_HEADER_BINO_RE.match(part)
         if m:
-            observations.append({
+            raw_obs.append({
                 "aperture": m.group(1).strip(),
                 "date": m.group(2) or "",
                 "text": part[m.end() :].strip(),
@@ -373,7 +393,7 @@ def split_observations(text):
         # mm aperture: 80mm (date):
         m = OBS_HEADER_MM_RE.match(part)
         if m:
-            observations.append({
+            raw_obs.append({
                 "aperture": m.group(1),
                 "date": m.group(2),
                 "text": part[m.end() :].strip(),
@@ -382,17 +402,69 @@ def split_observations(text):
         # Naked-eye: or Naked-eye (date):
         m = OBS_HEADER_NAKED_RE.match(part)
         if m:
-            observations.append({
+            raw_obs.append({
                 "aperture": "Naked-eye",
                 "date": m.group(2) or "",
                 "text": part[m.end() :].strip(),
             })
             continue
-        # No header matched — append to previous or create headerless entry
-        if observations:
-            observations[-1]["text"] += " " + part
-        elif part:
-            observations.append({"aperture": "", "date": "", "text": part})
+        # Headerless chunk — sub-split by NV patterns
+        nv_parts = OBS_SPLIT_NV_RE.split(part)
+        for nv_part in nv_parts:
+            nv_part = nv_part.strip()
+            if not nv_part:
+                continue
+            m = OBS_HEADER_NV_RE.match(nv_part)
+            if m:
+                raw_obs.append({
+                    "aperture": m.group(1).strip(),
+                    "date": m.group(2) or "",
+                    "text": nv_part[m.end() :].strip(),
+                })
+                continue
+            # No header matched — append to previous or create headerless entry
+            if raw_obs:
+                raw_obs[-1]["text"] += " " + nv_part
+            elif nv_part:
+                raw_obs.append({"aperture": "", "date": "", "text": nv_part})
+
+    # Second pass: extract trailing NV observations from telescope obs text.
+    # NV at the very start of the text describes the same observing session
+    # (e.g. "14.5" (date): NV at 24x; ..."). But NV patterns that appear
+    # later in the text body are separate observations.
+    observations = []
+    for obs in raw_obs:
+        if obs["aperture"] and obs["aperture"] not in ("Naked-eye",) and not obs["aperture"].startswith("NV"):
+            full_text = obs["text"]
+            nv_matches = list(OBS_SPLIT_NV_RE.finditer(full_text))
+            if nv_matches:
+                # Find the first NV with substantial text before it
+                split_pos = None
+                for match in nv_matches:
+                    if match.start() > 20:
+                        split_pos = match.start()
+                        break
+                if split_pos is not None:
+                    obs["text"] = full_text[:split_pos].strip()
+                    observations.append(obs)
+                    # Process remaining text as NV observations
+                    remaining = full_text[split_pos:]
+                    nv_parts = OBS_SPLIT_NV_RE.split(remaining)
+                    for nv_part in nv_parts:
+                        nv_part = nv_part.strip()
+                        if not nv_part:
+                            continue
+                        m = OBS_HEADER_NV_RE.match(nv_part)
+                        if m:
+                            observations.append({
+                                "aperture": m.group(1).strip(),
+                                "date": m.group(2) or "",
+                                "text": nv_part[m.end():].strip(),
+                            })
+                        elif observations:
+                            observations[-1]["text"] += " " + nv_part
+                    continue
+        observations.append(obs)
     return observations
 
 
@@ -413,6 +485,24 @@ def should_show_historical(name, catalog):
         return False
     suffix = name[len(catalog) :].strip()
     return bool(re.match(r"^\d+$", suffix))
+
+
+# Hard-coded overrides for Messier numbers missing from the "other" field
+_MESSIER_OVERRIDES = {
+    "NGC 5866": "M102",
+}
+
+_MESSIER_RE = re.compile(r'\bM(\d+)\b')
+
+def _extract_messier(other: str, name: str, is_messier: bool) -> str:
+    """Return the Messier designation (e.g. 'M31') or '' if not a Messier object."""
+    if not is_messier:
+        return ""
+    if name in _MESSIER_OVERRIDES:
+        return _MESSIER_OVERRIDES[name]
+    # Match M## but also M##a/M##b variants (e.g. M51a → M51)
+    m = re.search(r'\bM(\d+)[ab]?\b', other)
+    return f"M{m.group(1)}" if m else ""
 
 
 # -- main pipeline -----------------------------------------------------
@@ -552,6 +642,8 @@ def build_data():
             "catalogNumber": cat_num,
             "isTopObject": "t" in ref,
             "isOrionAtlas": "o" in ref,
+            "isMessier": "m" in ref,
+            "messierNumber": _extract_messier(rec.get("other", ""), name, "m" in ref),
             "references": ref,
         })
 
@@ -564,6 +656,7 @@ def build_data():
 
     top_count = sum(1 for o in output if o["isTopObject"])
     orion_count = sum(1 for o in output if o["isOrionAtlas"])
+    messier_count = sum(1 for o in output if o["isMessier"])
 
     metadata = {
         "totalRecords": len(output),

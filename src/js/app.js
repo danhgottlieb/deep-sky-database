@@ -107,21 +107,39 @@
     };
 
     // Steve's intro text
-    const INTRO_TEXT = `<p>Here are my observing notes for every non-stellar object in the entire NGC, which was compiled by John Louis Dreyer in 1888. This famous catalogue includes 7840 entries discovered visually up to that date, the majority from William Herschel and his son John Herschel. As far as I know, these notes are the only detailed visual journal of the entire NGC by a single observer, covering the entire sky from the north to south celestial pole. In addition, I've included visual notes on 2517 objects from the IC (Index Catalogues of 1894 and 1907) for a total of 10,357 NGC/IC designations.</p>
+    const INTRO_TEXT = `<p>Here are my observing notes for every non-stellar object in the <a href="https://en.wikipedia.org/wiki/New_General_Catalogue" target="_blank" rel="noopener">New General Catalogue (NGC) of Nebulae and Clusters of Stars</a>, which was compiled by John Louis Dreyer in 1888, as well as Dreyer's first <a href="https://en.wikipedia.org/wiki/New_General_Catalogue" target="_blank" rel="noopener">Index Catalogue (IC&nbsp;I)</a>, published in 1895. The famous NGC includes 7840 entries discovered visually up to that date, the majority from William Herschel and his son John Herschel during systematic surveys of the northern and southern skies from England and South Africa. The database include visual notes on the 1500 objects in the IC&nbsp;I, published in 1895. This represents the only visual journal of the entire NGC and IC&nbsp;I by a single observer, covering the northern to southern celestial poles. In total, there are visual description for 10,357 NGC/IC designations, including the second Index Catalogue (IC&nbsp;II) from 1908. Beyond the NGC and IC, you'll find observing notes on thousands of additional galaxies, clusters, planetaries, emission/reflection nebulae, and double stars.</p>
 
-<p>In 2014, I completed a 35-year project of observing every NGC object north of &minus;41&deg; declination. These were all the NGCs accessible from my home in northern California. At that time I had also covered most of the far southern sky from several previous trips to Australia, with 300 NGCs remaining that were not visible from the United States. After a few additional observing trips to the southern hemisphere, I completed the last remaining 34 NGCs on October 18th, 2017 at the OzSky Star Safari, which took place on the Markdale Homestead, a large working sheep ranch and country estate 3&frac12; hour drive west of Sydney. The final object was NGC 2932 using an 18-inch Obsession.</p>
+<p>In 2014, I completed a 35-year project of observing every NGC object north of &minus;41&deg; declination. These roughly 6,800 NGCs were accessible from my home in northern California. At that time I had also covered most of the far southern sky from several previous trips to Australia and had 300 NGCs remaining that were unobservable from the United States. After a few additional trips to the southern hemisphere, I completed the last remaining 34 NGCs on October 18th, 2017 at the OzSky Star Safari which took place on the Markdale Homestead, a large working sheep ranch and country estate, a 3&frac12; hour drive west of Sydney. The final object viewed was NGC 2932 using an 18-inch f/4.5 reflector.</p>
 
-<p>After that date I've started to focus on observing the remaining few hundred galaxies (out of 1529 entries) in the first Index Catalogue (IC I). The vast majority of these were faint galaxies, with over half the total discovered by Stéphane Javelle, who observed with a 30-inch f/23 refractor at the Nice observatory in France. This time I completed the catalog (except for a very few photographic discoveries) in northern California on a cattle ranch. The last object was IC 1493 = LEDA 1458643, a faint smudge in Pegasus (B&nbsp;=&nbsp;16.7, V&nbsp;=&nbsp;15.9, according to SDSS photometry), which was observed on October 18th, 2025, exactly 8 years to the day after finishing the NGC.</p>
+<p>After that milestone, I've started to focus on observing objects in the first Index Catalogue (IC&nbsp;I), which contains 1529 additional discoveries made between 1888 and 1894. The vast majority of these are faint galaxies with blue magnitudes as low as 18th magnitude. Over half were found by the French astronomer St&eacute;phane Javelle, who observed with a 30-inch f/23 refractor at the Nice observatory in southern France. E.E. Barnard and Sherburne Burnham discovered the very faintest IC&nbsp;I galaxies in an Ursa Major cluster known as AGC 1783 using the 36-inch Lick Observatory refractor. By 2014, I only had a few hundred objects remaining and I completed the catalog (except for a handful of photographic nebulae near the Pleiades) on October 18th, 2025, exactly 8 years to the day after finishing the NGC. This time I was observing in northern California on a cattle ranch with my 24&Prime; and the last object observed was IC&nbsp;1493 = LEDA&nbsp;1458643, a faint smudge in Pegasus (B&nbsp;=&nbsp;16.7, V&nbsp;=&nbsp;15.9).</p>
 
-<p>All my observations and notes were made at fairly dark observing sites used by clubs and individuals in the San Francisco bay area as well as various northern California star parties at Lassen National Park and northeastern California. In addition, a large number of summer observations were made at high elevation sites in the Sierras or the White Mountains east of Bishop. Generally, these observations were made with SQM readings from 21.3&ndash;21.9. Deep southern objects were observed on 8 weeklong observing trips to Australia using 14&Prime; to 30&Prime; scopes that were provided by Zane Hammond at his &ldquo;Magellan Observatory&rdquo; and at several OzSky Star Safaris. Some southern observations were also made using Ray Cash's 13&Prime; travel scope that I brought to Costa Rica and with a C-8 from the southern end of Baja.</p>
+<p>All my observations and notes were made at fairly dark observing sites used by clubs and individuals in the San Francisco bay area, as well as various northern California star parties, such as Lassen National Park and the <a href="https://goldenstatestarparty.org/" target="_blank" rel="noopener">Golden State Star Party</a> (GSSP) in Adin. In addition, a large number of summer observations were made at high elevation sites in the Sierras or the White Mountains east of Bishop (Grandview campground). Generally, observations were made with SQM readings from 21.3&ndash;21.9. Deep southern objects were observed on 11 weeklong observing trips to Australia using 14&Prime; to 30&Prime; scopes that were provided by Zane Hammond at his &ldquo;Magellan Observatory&rdquo; and at several OzSky Star Safaris. Some southern observations were also made using Ray Cash's 13&Prime; travel scope that I brought to Costa Rica and with a C-8 from southern Baja.</p>
 
-<p>I began taking notes on the Messier objects using a 6&Prime; f/5 reflector in 1978. Three years later I started exploring fainter NGCs with a 13.1&Prime; Odyssey I. The vast majority of my notes, though, were made with a 17.5&Prime; f/4.5 homemade dob (1987&ndash;2002) and an 18&Prime; f/4.3 Starmaster (2003&ndash;2011). Since 2012 I've used a 24&Prime; f/3.7 Starstructure. I've also taken detailed notes on over 500 NGC and IC objects using Jimi Lowrey's 48&Prime; gigantic dobsonian from west Texas. In general, you'll find multiple observations of many NGCs, so their visual appearances can be compared through a variety of apertures.</p>
+<p>I began taking notes on the Messier objects using a 6&Prime; f/5 reflector in 1978 and a C-8 in 1980. Two years later I started exploring fainter NGCs with a 13.1&Prime; Odyssey I. The vast majority of my notes, though, were made with a 17.5&Prime; f/4.5 homemade dob (1987&ndash;2002) and an 18&Prime; f/4.3 Starmaster (2003&ndash;2011). Since 2012 I've used a 24&Prime; f/3.7 Starstructure, as well as a 14.5&Prime; f/4.3 Starmaster. I've also taken detailed notes on over 650 NGC and IC objects using Jimi Lowrey's 48&Prime; f/4.0 mega-sized dobsonian from west Texas. In general, you'll find multiple observations for many NGCs, so their visual appearances can be compared through a variety of apertures.</p>
 
-<p>All of the NGC/IC identifications have been checked for historical accuracy as part of the <a href="http://haroldcorwin.net/ngcic/" target="_blank" rel="noopener">NGC/IC Project</a> (database no longer available but see <a href="http://haroldcorwin.net/ngcic/" target="_blank" rel="noopener">Harold Corwin's site</a>). At the end of my visual observations of each NGC, I've included historical discovery information such as the observer's name, date, telescope, and the original discovery descriptions. Modern catalogue discrepancies and errors are also discussed.</p>
+<p>All of the NGC/IC identifications were checked for historical accuracy as part of the <a href="https://en.wikipedia.org/wiki/New_General_Catalogue" target="_blank" rel="noopener">NGC/IC Project</a>. At the end of my visual observations of each NGC, I've included historical discovery information such as the observer's name, date, telescope, and the original discovery descriptions. Modern catalogue discrepancies and errors are also discussed in detail.</p>
 
-<p>In addition to the NGC and IC, the final link includes observations of nearly 1200 galaxies in the Uppsala General Catalogue (UGC), which are not in the NGC or IC. These are generally fainter galaxies that are at least 1&prime; in diameter on the first National Geographic&ndash;Palomar Observatory Sky Survey (POSS).</p>
+<p>You'll also find my observations of over 1600 galaxies from the <a href="https://en.wikipedia.org/wiki/Uppsala_General_Catalogue" target="_blank" rel="noopener">Uppsala General Catalogue</a> (UGC). These are generally fainter galaxies at least 1&prime; in diameter that were discovered on the first <a href="https://en.wikipedia.org/wiki/National_Geographic_Society_%E2%80%93_Palomar_Observatory_Sky_Survey" target="_blank" rel="noopener">National Geographic&ndash;Palomar Observatory Sky Survey</a> (POSS). Additional galaxy catalogues include the <a href="https://en.wikipedia.org/wiki/Morphological_Catalogue_of_Galaxies" target="_blank" rel="noopener">Morphological Catalogue of Galaxies</a> (MCG), <a href="https://en.wikipedia.org/wiki/Catalogue_of_Galaxies_and_of_Clusters_of_Galaxies" target="_blank" rel="noopener">Catalogue of Galaxies and Clusters of Galaxies</a> (CGCG), and the <a href="https://en.wikipedia.org/wiki/Principal_Galaxies_Catalogue" target="_blank" rel="noopener">Principal Galaxy Catalogue</a> (PGC). For a comprehensive list of common deep sky catalogues of different types of objects see <a href="http://www.messier.seds.org/xtra/supp/cats.html" target="_blank" rel="noopener">this page</a>.</p>
 
-<p>I want to acknowledge the investigative work of Dr. Harold Corwin and Dr. Wolfgang Steinicke, who I've communicated with for many years on a number of identification problems. Harold Corwin provides precise positions and extensive historical notes on thousands of NGC and IC objects at <a href="http://haroldcorwin.net/ngcic/" target="_blank" rel="noopener">haroldcorwin.net/ngcic/</a>. Wolfgang Steinicke provides biographical information on 172 NGC/IC astronomers, as well as a number of historically accurate catalogues in .xls format on his web site at <a href="http://www.klima-luft.de/steinicke/index_e.htm" target="_blank" rel="noopener">klima-luft.de/steinicke</a>. For those interested in learning more on the history of the NGC, I highly recommend Wolfgang's book <em>Observing and Cataloguing Nebulae and Star Clusters</em>.</p>`;
+<p>I want to acknowledge the investigative work of Dr. Harold Corwin and Dr. Wolfgang Steinicke, who I've communicated with for many years on a number of identification problems. Harold Corwin provides precise positions and extensive historical notes on thousands of NGC and IC objects at <a href="http://haroldcorwin.net/ngcic/" target="_blank" rel="noopener">haroldcorwin.net/ngcic/</a>. Wolfgang Steinicke, who has authored several books on William Herschel and the history of the NGC, has a website at <a href="http://www.klima-luft.de/steinicke/index_e.htm" target="_blank" rel="noopener">klima-luft.de/steinicke</a>. There you'll find biographical information on 172 NGC/IC astronomers, as well as a numerous historically accurate catalogues in .xls format. For those interested in learning more on the history of the NGC, I highly recommend Wolfgang's book <em>Observing and Cataloguing Nebulae and Star Clusters</em>.</p>
+
+<h3>Telescopes Used in These Observations</h3>
+<div class="telescopes-with-photo">
+<ul class="telescope-list">
+    <li><strong>6&Prime; f/5 reflector</strong>: Early Messier work (1978&ndash;1980)</li>
+    <li><strong>C-8 Schmidt-Cassegrain</strong>: Finished the Messier list, many NGCs (1980&ndash;1984)</li>
+    <li><strong>13.1&Prime; Odyssey I</strong>: First NGC explorations (1981&ndash;1986)</li>
+    <li><strong>17.5&Prime; f/4.5 homemade Dobsonian</strong>: Primary instrument (1987&ndash;2002)</li>
+    <li><strong>18&Prime; f/4.3 Starmaster</strong>: Extended surveys (2003&ndash;2011)</li>
+    <li><strong>24&Prime; f/3.7 Starstructure</strong>: Current primary telescope (2012&ndash;present)</li>
+    <li><strong>25&Prime; f/5.0 Obsession</strong>: Observations in Australia (2015&ndash;2025)</li>
+    <li><strong>30&Prime; f/4.5 Obsession</strong>: Observations in Australia (2010&ndash;2019)</li>
+    <li><strong>48&Prime; Dobsonian</strong>: Over 500 observations using Jimi Lowrey's giant telescope in west Texas</li>
+    <li><strong>82&Prime; Otto Struve Telescope</strong>: Observations at McDonald Observatory</li>
+    <li><strong>PVS-14 Gen 3 Night Vision (NV) device</strong></li>
+</ul>
+<img src="img/steve_with_scope.jpg" alt="Steve Gottlieb with a large Dobsonian telescope" class="telescopes-photo">
+</div>`;
 
     // --- DOM References ---
     const $ = (sel) => document.querySelector(sel);
@@ -134,6 +152,7 @@
         setupCarousel();
         setupScrollReveal();
         setupIntro();
+        setupBioToggle();
         setupLegend();
 
         // Load data
@@ -418,6 +437,29 @@
     function setupIntro() {
         const el = $('#intro-text');
         if (el) el.innerHTML = INTRO_TEXT;
+    }
+
+    // --- Bio Modal ---
+    function setupBioToggle() {
+        const btn = $('#bio-toggle-btn');
+        const overlay = $('#bio-modal-overlay');
+        const closeBtn = $('#bio-modal-close');
+        if (!btn || !overlay) return;
+        btn.addEventListener('click', () => {
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+        function closeModal() {
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+        });
     }
 
     // --- Type Legend ---
@@ -783,6 +825,8 @@
                     filteredData = allData.filter(o => o.isTopObject);
                 } else if (col === 'orion') {
                     filteredData = allData.filter(o => o.isOrionAtlas);
+                } else if (col === 'messier') {
+                    filteredData = allData.filter(o => o.isMessier);
                 } else {
                     filteredData = allData.filter(o => o.catalog === col);
                 }
@@ -804,6 +848,7 @@
             if (type && o.type !== type) return false;
             if (special === 'top' && !o.isTopObject) return false;
             if (special === 'orion' && !o.isOrionAtlas) return false;
+            if (special === 'messier' && !o.isMessier) return false;
             if (nameFilter) {
                 const n = o.name.toLowerCase();
                 const nick = (o.nickname || '').toLowerCase();
@@ -944,7 +989,7 @@
         card.innerHTML = `
             <div class="card-header">
                 <div>
-                    <div class="card-name">${escHtml(obj.name)}</div>
+                    <div class="card-name">${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${escHtml(obj.name)}</div>
                     ${obj.nickname ? `<div class="card-nickname">${escHtml(obj.nickname)}</div>` : ''}
                     ${altMatch ? `<div class="card-alt-match">Also known as: ${escHtml(altMatch)}</div>` : ''}
                 </div>
@@ -952,6 +997,7 @@
                     ${obj.type ? `<span class="badge badge-type">${escHtml(obj.type)}</span>` : ''}
                     ${obj.isTopObject ? '<span class="badge badge-top">★ Top</span>' : ''}
                     ${obj.isOrionAtlas ? '<span class="badge badge-orion">Orion</span>' : ''}
+                    ${obj.isMessier ? '<span class="badge badge-messier">M</span>' : ''}
                 </div>
             </div>
             <div class="card-meta">
@@ -1008,7 +1054,7 @@
             </button>
             <div class="detail-header">
                 <div class="detail-title-group">
-                    <h3>${escHtml(obj.name)}</h3>
+                    <h3>${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${escHtml(obj.name)}</h3>
                     ${obj.nickname ? `<div class="detail-nickname">${escHtml(obj.nickname)}</div>` : ''}
                     ${obj.other ? `<div class="detail-other">${escHtml(obj.other)}</div>` : ''}
                 </div>
@@ -1016,6 +1062,7 @@
                     ${obj.type ? `<span class="badge badge-type">${TYPE_KEY[obj.type] || escHtml(obj.type)}</span>` : ''}
                     ${obj.isTopObject ? '<span class="badge badge-top">★ Gottlieb\'s Top</span>' : ''}
                     ${obj.isOrionAtlas ? '<span class="badge badge-orion">Orion Atlas</span>' : ''}
+                    ${obj.isMessier ? '<span class="badge badge-messier">Messier</span>' : ''}
                     <a href="${simbadUrl}" target="_blank" rel="noopener" class="btn btn-secondary" style="padding:6px 16px;font-size:0.85rem;">
                         SIMBAD ↗
                     </a>

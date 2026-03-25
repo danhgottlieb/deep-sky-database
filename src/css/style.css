@@ -407,12 +407,138 @@ img {
     line-height: 1.7;
 }
 
-/* --- About Section --- */
-.about-layout {
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 48px;
-    align-items: start;
+/* --- About Section (compact) --- */
+#about.section {
+    padding: 40px 0 24px;
+}
+
+.about-compact {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.about-lead {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 16px;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+.btn-bio-toggle {
+    display: inline-block;
+    background: transparent;
+    color: var(--accent);
+    border: none;
+    border-bottom: 1px dashed rgba(99, 102, 241, 0.4);
+    padding: 4px 2px;
+    border-radius: 0;
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.02em;
+}
+.btn-bio-toggle:hover {
+    border-bottom-color: var(--accent);
+    color: var(--text-bright);
+}
+
+/* --- Bio Modal --- */
+.bio-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    overflow-y: auto;
+}
+.bio-modal-overlay.open {
+    display: flex;
+}
+.bio-modal {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    max-width: 720px;
+    width: 100%;
+    padding: 48px 40px 40px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    animation: modalSlideIn 0.35s ease;
+}
+@keyframes modalSlideIn {
+    from { opacity: 0; transform: translateY(-20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.bio-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    padding: 4px 8px;
+}
+.bio-modal-close:hover {
+    color: var(--text-bright);
+}
+.bio-modal-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+.bio-modal-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 58% 8%;
+    border: 3px solid rgba(96, 165, 250, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    margin-bottom: 16px;
+}
+.bio-modal-header h2 {
+    color: var(--text-bright);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+.bio-modal-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+.bio-modal-body p {
+    margin-bottom: 16px;
+}
+.bio-modal-body em {
+    color: var(--text-primary);
+}
+
+/* --- Introduction Section --- */
+.intro-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.intro-carousel-wrap {
+    float: left;
+    width: 320px;
+    margin: 0 32px 20px 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
 }
 
 /* Photo Carousel */
@@ -476,30 +602,24 @@ img {
     transform: scale(1.25);
 }
 
-.about-text-col {
-    font-size: 1rem;
-    line-height: 1.75;
-}
+/* (about-text-col removed — now using about-compact + bio modal) */
 
-.about-lead {
-    font-size: 1.15rem;
-    color: var(--text-bright);
-    font-weight: 500;
-    margin-bottom: 20px;
-    line-height: 1.7;
+.telescopes-with-photo {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
 }
-
-.about-text-col p {
-    margin-bottom: 16px;
-    color: var(--text-secondary);
+.telescopes-with-photo .telescope-list {
+    flex: 1;
+    min-width: 0;
 }
-
-.about-text-col h3 {
-    color: var(--text-bright);
-    font-size: 1.2rem;
-    margin-top: 32px;
-    margin-bottom: 12px;
-    font-weight: 600;
+.telescopes-photo {
+    width: 280px;
+    flex-shrink: 0;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255,255,255,0.06);
 }
 
 .telescope-list {
@@ -526,49 +646,19 @@ img {
     color: var(--text-primary);
 }
 
-/* --- Introduction Section --- */
-.intro-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.intro-byline {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
-}
-
-.intro-avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: 58% 8%;
-    border: 2px solid rgba(96, 165, 250, 0.3);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.intro-author {
-    display: block;
-    font-weight: 600;
-    color: var(--text-bright);
-    font-size: 1.05rem;
-}
-
-.intro-date {
-    display: block;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-}
+/* (old bio toggle/expandable removed — now using bio modal) */
 
 .intro-text {
     font-family: var(--font-serif);
     font-size: 1.15rem;
     line-height: 1.85;
     color: var(--text-secondary);
+}
+
+.intro-text::after {
+    content: '';
+    display: table;
+    clear: both;
 }
 
 .intro-text p {
@@ -1025,6 +1115,11 @@ img {
 .badge-orion {
     background: rgba(167, 139, 250, 0.15);
     color: var(--purple);
+}
+
+.badge-messier {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
 }
 
 .card-meta {
@@ -1638,13 +1733,30 @@ img {
 
 /* --- Responsive --- */
 @media (max-width: 900px) {
-    .about-layout {
-        grid-template-columns: 1fr;
+    .intro-carousel-wrap {
+        float: none;
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto 24px;
     }
 
-    .about-photo-col {
-        max-width: 400px;
-        margin: 0 auto;
+    .telescopes-with-photo {
+        flex-direction: column;
+    }
+    .telescopes-photo {
+        width: 100%;
+        max-width: 320px;
+        align-self: center;
+    }
+
+    .bio-modal {
+        padding: 32px 20px 24px;
+        margin: 20px 0;
+    }
+
+    .bio-modal-photo {
+        width: 120px;
+        height: 120px;
     }
 
     .footer-grid {

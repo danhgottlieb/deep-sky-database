@@ -23,6 +23,7 @@
     let blogFiltered = [];
     let blogDisplayed = 0;
     const BLOG_PAGE = 200;
+    let activeCollection = '';
 
     // Type abbreviation key
     const TYPE_KEY = {
@@ -819,6 +820,7 @@
 
                 // Activate this button
                 btn.classList.add('active');
+                activeCollection = col;
 
                 // Apply the collection filter
                 if (col === 'top') {
@@ -874,6 +876,7 @@
     }
 
     function clearFilters() {
+        activeCollection = '';
         const catSearch = $('#filter-catalog-search');
         if (catSearch) catSearch.value = '';
         selectedCatalogs = [];
@@ -932,7 +935,11 @@
                 case 'mag': return (parseFloat(a.vmag) || 99) - (parseFloat(b.vmag) || 99);
                 case 'con': return (a.con || '').localeCompare(b.con || '');
                 case 'type': return (a.type || '').localeCompare(b.type || '');
-                default: return naturalSort(a.name, b.name);
+                default:
+                    if (activeCollection === 'messier') {
+                        return naturalSort(a.messierNumber || '', b.messierNumber || '');
+                    }
+                    return naturalSort(a.name, b.name);
             }
         });
     }
@@ -1006,11 +1013,17 @@
                 ${obj.size ? `<span class="meta-item"><span class="meta-label">Size:</span> <span class="meta-value">${escHtml(obj.size)}</span></span>` : ''}
                 ${obj.ra ? `<span class="meta-item"><span class="meta-label">RA:</span> <span class="meta-value">${escHtml(obj.ra)}</span></span>` : ''}
                 ${obj.dec ? `<span class="meta-item"><span class="meta-label">Dec:</span> <span class="meta-value">${escHtml(obj.dec)}</span></span>` : ''}
-                ${obj.observations ? `<span class="meta-item"><span class="meta-label">Obs:</span> <span class="meta-value">${obj.observations.length}</span></span>` : ''}
+                ${obj.observations ? `<span class="meta-item"><span class="meta-label">Obs:</span> <span class="meta-value">${countVisualObs(obj.observations)}</span></span>` : ''}
             </div>
             ${obsPreview ? `<div class="card-obs-preview">${escHtml(obsPreview)}</div>` : ''}
         `;
         return card;
+    }
+
+    // Count actual visual observations, excluding "=" identification notes
+    function countVisualObs(observations) {
+        if (!observations || observations.length === 0) return 0;
+        return observations.filter(o => !(o.text && o.text.startsWith('='))).length;
     }
 
     // --- Object Detail (slide-over panel) ---
@@ -1025,13 +1038,32 @@
 
         const detail = $('#object-detail');
         const backdrop = $('#detail-backdrop');
-        const simbadUrl = `https://simbad.cds.unistra.fr/simbad/sim-coo?Coord=${encodeURIComponent(obj.ra + ' ' + obj.dec)}&CooFrame=FK5&CooEpoch=2000&CooEqui=2000&CooDefinedFrames=none&Radius=0.2&Radius.unit=arcmin&submit=submit+query`;
+        const simbadUrl = `https://simbad.cds.unistra.fr/simbad/sim-coo?Coord=${encodeURIComponent(obj.ra + ' ' + obj.dec)}&CooFrame=FK5&CooEpoch=2000&CooEqui=2000&CooDefinedFrames=none&Radius=0.1&Radius.unit=arcmin&submit=submit+query`;
 
-        const obsCount = obj.observations ? obj.observations.length : 0;
-        const obsSection = obsCount > 0 ? `
+        // Process NGC/IC description: move special "=" patterns to observations section
+        const ngcDescExcludePattern = /=\s*(Not found|Nonexistent|Plate flaw|No visible nebulosity)\b/;
+        let displayNgcDesc = obj.ngcDescription || '';
+        let extractedDescNote = null;
+        const ngcDescMatch = displayNgcDesc.match(ngcDescExcludePattern);
+        if (ngcDescMatch) {
+            const idx = displayNgcDesc.indexOf(ngcDescMatch[0]);
+            extractedDescNote = displayNgcDesc.substring(idx).trim();
+            displayNgcDesc = displayNgcDesc.substring(0, idx).replace(/[,\s]+$/, '').trim();
+        }
+
+        // Count real visual observations (exclude "=" identification notes)
+        const realObsCount = countVisualObs(obj.observations);
+        const hasObs = (obj.observations && obj.observations.length > 0) || extractedDescNote;
+
+        const obsSection = hasObs ? `
                 <div class="detail-observations">
-                    <h4>Visual Observations (${obsCount})</h4>
-                    ${obj.observations.map(obs => `
+                    <h4>Visual Observations (${realObsCount})</h4>
+                    ${extractedDescNote ? `
+                        <div class="observation">
+                            <div class="obs-text">${escHtml(extractedDescNote)}</div>
+                        </div>
+                    ` : ''}
+                    ${(obj.observations || []).map(obs => `
                         <div class="observation">
                             <div class="obs-header">
                                 ${obs.aperture ? `<span class="obs-aperture">${escHtml(obs.aperture)}</span>` : ''}
@@ -1088,10 +1120,10 @@
                 ${detailField('Catalog', obj.catalog)}
             </div>
 
-            ${obj.ngcDescription ? `
+            ${displayNgcDesc ? `
                 <div class="detail-ngc-desc">
                     <h4>NGC/IC Description</h4>
-                    <p>${escHtml(obj.ngcDescription)}</p>
+                    <p>${escHtml(displayNgcDesc)}</p>
                 </div>
             ` : ''}
 
@@ -1177,21 +1209,9 @@
         }
         container.parentElement.style.display = '';
 
-        // Pick best survey based on sky coverage:
-        // SDSS9: roughly Dec > -5° and specific RA ranges (north galactic cap ~35%)
-        // PanSTARRS DR1: Dec > -30° (3/4 of sky)
-        // DSS2: full sky
-        let surveyId, surveyName;
-        if (decDeg > -5) {
-            surveyId = 'P/SDSS9/color';
-            surveyName = 'SDSS9';
-        } else if (decDeg > -30) {
-            surveyId = 'P/PanSTARRS/DR1/color-z-zg-g';
-            surveyName = 'PanSTARRS DR1';
-        } else {
-            surveyId = 'P/DSS2/color';
-            surveyName = 'DSS2';
-        }
+        // Use DSS Colored survey for all objects (full sky coverage)
+        const surveyId = 'P/DSS2/color';
+        const surveyName = 'DSS Colored';
 
         // Wait for Aladin Lite WASM to initialize
         if (typeof A === 'undefined' || !A.init) {

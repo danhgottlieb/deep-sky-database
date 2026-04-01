@@ -931,6 +931,34 @@ img {
     width: 80px;
 }
 
+.ra-range {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ra-range > span {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.ra-input-group {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.ra-input-group input {
+    width: 56px;
+}
+
+.ra-unit {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
 .filter-actions {
     display: flex;
     gap: 12px;

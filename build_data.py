@@ -330,24 +330,39 @@ def parse_historical(path, known_names):
     """Parse historical.txt -> {name: text}.
 
     Entries are separated by 2+ consecutive newlines.
-    Each entry is Name,text.
+    Each entry is Name,text.  Continuation paragraphs (those whose
+    text before the first comma is NOT a known object name) are merged
+    into the preceding entry so multi-paragraph histories are preserved.
     """
     with open(path, "r", encoding="mac_roman") as f:
         raw = f.read()
 
     records = {}
     entries = re.split(r"\n{2,}", raw)
+    last_name = None
     for entry in entries:
         entry = entry.strip()
         if not entry:
             continue
         ci = entry.find(",")
         if ci <= 0:
+            # No comma — treat as continuation of previous entry
+            if last_name:
+                records[last_name] += "\n\n" + entry
             continue
         ename = entry[:ci].strip()
         text = entry[ci + 1 :].strip()
-        if ename:
-            records[ename] = text
+        if ename in known_names:
+            # New named entry
+            if ename in records:
+                records[ename] += "\n\n" + text
+            else:
+                records[ename] = text
+            last_name = ename
+        elif last_name:
+            # Not a known name — continuation paragraph of previous entry
+            records[last_name] += "\n\n" + entry
+        # else: orphan text before any named entry, skip
     return records
 
 

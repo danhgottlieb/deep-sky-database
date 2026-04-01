@@ -251,6 +251,16 @@
         let nextShootingAt = Date.now() + 4000 + Math.random() * 8000;
         let nextSatelliteAt = Date.now() + 60000 + Math.random() * 120000;
         let animId;
+        let homeVisible = true;
+
+        // Track whether the home section is in view
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            const homeObserver = new IntersectionObserver(([entry]) => {
+                homeVisible = entry.isIntersecting;
+            }, { threshold: 0.05 });
+            homeObserver.observe(homeSection);
+        }
 
         function resize() {
             canvas.width = window.innerWidth;
@@ -300,11 +310,14 @@
             const w = canvas.width, h = canvas.height;
             ctx.clearRect(0, 0, w, h);
 
-            const t = Date.now();
-            if (t >= nextShootingAt) spawnShootingStar();
-            if (t >= nextSatelliteAt) spawnSatellite();
+            // Only spawn new shooting stars/satellites when home section is visible
+            if (homeVisible) {
+                const t = Date.now();
+                if (t >= nextShootingAt) spawnShootingStar();
+                if (t >= nextSatelliteAt) spawnSatellite();
+            }
 
-            // Draw shooting stars
+            // Draw shooting stars (let existing ones finish their animation)
             for (let i = shootingStars.length - 1; i >= 0; i--) {
                 const ss = shootingStars[i];
                 ss.x += ss.vx;
@@ -567,7 +580,7 @@
 
         if (!container || !searchInput || !tagsEl || !dropdown) return;
 
-        const catalogs = ['NGC', 'IC', 'UGC', 'Other'];
+        const catalogs = ['Messier', 'NGC', 'IC', 'UGC', 'Other'];
 
         function renderDropdown(filter) {
             filter = filter || '';
@@ -667,11 +680,31 @@
         });
     }
 
+    // Check if a query is a Messier number (M1..M110)
+    function parseMessierQuery(q) {
+        const m = q.match(/^m\s*(\d{1,3})$/);
+        if (!m) return null;
+        const num = parseInt(m[1], 10);
+        return (num >= 1 && num <= 110) ? 'M' + num : null;
+    }
+
     function showSuggestions(query, container) {
         const q = normalizeQuery(query);
         const matches = [];
+
+        // If the query is a Messier number, find that object first
+        const messierKey = parseMessierQuery(q);
+        if (messierKey) {
+            const messierObj = allData.find(o => o.messierNumber === messierKey);
+            if (messierObj) {
+                matches.push({ obj: messierObj, matchedAlt: '', messierFirst: true });
+            }
+        }
+
         for (const obj of allData) {
             if (matches.length >= 10) break;
+            // Skip if already added as Messier priority match
+            if (matches.length > 0 && matches[0].messierFirst && obj === matches[0].obj) continue;
             const name = obj.name.toLowerCase();
             const nick = (obj.nickname || '').toLowerCase();
             const other = (obj.other || '').toLowerCase();
@@ -694,12 +727,16 @@
             return;
         }
 
-        container.innerHTML = `<div class="suggestions-list">${matches.map(({ obj: m, matchedAlt }) =>
-            `<div class="suggestion-item" data-name="${escAttr(m.name)}">
-                <span class="suggestion-name">${escHtml(m.name)}${m.nickname ? ' — ' + escHtml(m.nickname) : ''}${matchedAlt ? ' <span class="suggestion-alt">(' + escHtml(matchedAlt) + ')</span>' : ''}</span>
+        container.innerHTML = `<div class="suggestions-list">${matches.map(({ obj: m, matchedAlt, messierFirst }) => {
+            // For Messier priority matches, show as "M1 (NGC 1952)" instead of "NGC 1952"
+            const displayName = messierFirst && m.messierNumber
+                ? m.messierNumber + ' (' + m.name + ')'
+                : m.name;
+            return `<div class="suggestion-item" data-name="${escAttr(m.name)}">
+                <span class="suggestion-name">${escHtml(displayName)}${m.nickname ? ' — ' + escHtml(m.nickname) : ''}${matchedAlt ? ' <span class="suggestion-alt">(' + escHtml(matchedAlt) + ')</span>' : ''}</span>
                 <span class="suggestion-type">${escHtml(m.type || '—')}</span>
-            </div>`
-        ).join('')}</div>`;
+            </div>`;
+        }).join('')}</div>`;
 
         container.querySelectorAll('.suggestion-item').forEach(item => {
             item.addEventListener('click', () => {
@@ -749,6 +786,16 @@
         if (!query) return;
         lastSearchQuery = normalizeQuery(query);
         const q = lastSearchQuery;
+
+        // Check for Messier number query — resolve to the actual object
+        const messierKey = parseMessierQuery(q);
+        if (messierKey) {
+            const messierObj = allData.find(o => o.messierNumber === messierKey);
+            if (messierObj) {
+                selectObject(messierObj.name);
+                return;
+            }
+        }
 
         // Exact match first
         const exact = allData.find(o => o.name.toLowerCase() === q);
@@ -837,15 +884,41 @@
         });
     }
 
+    // Parse RA string "HH MM SS.s" to decimal hours
+    function raToHours(ra) {
+        if (!ra) return null;
+        const parts = ra.trim().split(/\s+/);
+        if (parts.length < 2) return null;
+        const h = parseFloat(parts[0]);
+        const m = parseFloat(parts[1]);
+        const s = parts.length > 2 ? parseFloat(parts[2]) : 0;
+        return h + m / 60 + s / 3600;
+    }
+
     function applyFilters() {
         const type = $('#filter-type').value;
         const magMin = parseFloat($('#filter-mag-min').value);
         const magMax = parseFloat($('#filter-mag-max').value);
+        const raMinH = $('#filter-ra-min-h').value;
+        const raMinM = $('#filter-ra-min-m').value;
+        const raMaxH = $('#filter-ra-max-h').value;
+        const raMaxM = $('#filter-ra-max-m').value;
         const special = $('#filter-special').value;
         const nameFilter = normalizeQuery($('#filter-name').value);
 
+        // Build RA range in decimal hours
+        const hasRaMin = raMinH !== '';
+        const hasRaMax = raMaxH !== '';
+        let raMin = null, raMax = null;
+        if (hasRaMin) raMin = parseInt(raMinH, 10) + (raMinM ? parseInt(raMinM, 10) / 60 : 0);
+        if (hasRaMax) raMax = parseInt(raMaxH, 10) + (raMaxM ? parseInt(raMaxM, 10) / 60 : 0);
+
         filteredData = allData.filter(o => {
-            if (selectedCatalogs.length > 0 && !selectedCatalogs.includes(o.catalog)) return false;
+            if (selectedCatalogs.length > 0) {
+                const matchesCatalog = selectedCatalogs.includes(o.catalog) ||
+                    (selectedCatalogs.includes('Messier') && o.isMessier);
+                if (!matchesCatalog) return false;
+            }
             if (selectedConstellations.length > 0 && !selectedConstellations.includes(o.con)) return false;
             if (type && o.type !== type) return false;
             if (special === 'top' && !o.isTopObject) return false;
@@ -868,6 +941,25 @@
                 if (isNaN(mag)) return false;
                 if (!isNaN(magMin) && mag < magMin) return false;
                 if (!isNaN(magMax) && mag > magMax) return false;
+                return true;
+            });
+        }
+
+        // RA filter — supports wrap-around (e.g., 22h to 02h)
+        if (raMin !== null || raMax !== null) {
+            filteredData = filteredData.filter(o => {
+                const objRA = raToHours(o.ra);
+                if (objRA === null) return false;
+                if (raMin !== null && raMax !== null) {
+                    if (raMin <= raMax) {
+                        return objRA >= raMin && objRA <= raMax;
+                    } else {
+                        // Wrap-around: e.g., 22h to 02h
+                        return objRA >= raMin || objRA <= raMax;
+                    }
+                }
+                if (raMin !== null && objRA < raMin) return false;
+                if (raMax !== null && objRA > raMax) return false;
                 return true;
             });
         }
@@ -900,6 +992,10 @@
         $('#filter-type').value = '';
         $('#filter-mag-min').value = '';
         $('#filter-mag-max').value = '';
+        $('#filter-ra-min-h').value = '';
+        $('#filter-ra-min-m').value = '';
+        $('#filter-ra-max-h').value = '';
+        $('#filter-ra-max-m').value = '';
         $('#filter-special').value = '';
         $('#filter-name').value = '';
         document.querySelectorAll('.btn-collection').forEach(b => b.classList.remove('active'));
@@ -1132,7 +1228,7 @@
             ${obj.showHistorical && obj.historical ? `
                 <div class="detail-historical">
                     <h4>Historical Background</h4>
-                    <div class="historical-text">${escHtml(obj.historical).replace(/\n/g, '<br>')}</div>
+                    <div class="historical-text">${obj.historical.split(/\n\n+/).map(p => '<p>' + escHtml(p.trim()) + '</p>').join('')}</div>
                 </div>
             ` : ''}
         `;

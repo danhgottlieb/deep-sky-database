@@ -1464,6 +1464,10 @@ img {
     line-height: 1.8;
 }
 
+.historical-text p + p {
+    margin-top: 1em;
+}
+
 /* --- Articles Section --- */
 .articles-list {
     max-width: 800px;
@@ -1838,13 +1842,21 @@ img {
         display: flex;
         width: 100%;
         gap: 0;
-        justify-content: space-around;
         border-top: 1px solid var(--border);
         padding: 4px 0 2px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;          /* Firefox */
+        -ms-overflow-style: none;       /* IE/Edge */
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;                  /* Chrome/Safari */
     }
 
     .nav-links li {
-        flex: 1;
+        flex: 0 0 auto;
+        min-width: calc(100% / 6);
         text-align: center;
     }
 
@@ -1853,7 +1865,7 @@ img {
         flex-direction: column;
         align-items: center;
         gap: 1px;
-        padding: 4px 2px;
+        padding: 4px 6px;
         font-size: 0.62rem;
         border-radius: 4px;
         white-space: nowrap;

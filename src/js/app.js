@@ -1456,7 +1456,8 @@
             const q = input.value.trim().toLowerCase();
             blogFiltered = q ? blogData.filter(b =>
                 b.title.toLowerCase().includes(q) ||
-                b.date.toLowerCase().includes(q)
+                b.date.toLowerCase().includes(q) ||
+                (b.objects && b.objects.toLowerCase().includes(q))
             ) : blogData;
             blogDisplayed = 0;
             renderBlog();

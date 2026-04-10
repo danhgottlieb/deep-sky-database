@@ -852,12 +852,14 @@
     function setupRaWrap(id, min, max) {
         const el = document.getElementById(id);
         if (!el) return;
-        el.addEventListener('input', () => {
+        const wrap = () => {
             let v = parseInt(el.value, 10);
             if (isNaN(v)) return;
             if (v > max) el.value = min;
             else if (v < min) el.value = max;
-        });
+        };
+        el.addEventListener('input', wrap);
+        el.addEventListener('change', wrap);
     }
 
     // Parse RA string "HH MM SS.s" to decimal hours

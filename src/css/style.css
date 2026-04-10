@@ -771,49 +771,7 @@ img {
 }
 
 /* --- Quick Collection Buttons --- */
-.quick-collection-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    margin-bottom: 24px;
-}
-
-.btn-collection {
-    padding: 10px 24px;
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    background: rgba(20, 28, 43, 0.85);
-    color: var(--text-secondary);
-    font-size: 0.92rem;
-    font-weight: 500;
-    font-family: var(--font-sans);
-    cursor: pointer;
-    transition: all 0.25s;
-    letter-spacing: 0.02em;
-}
-.btn-collection:hover {
-    border-color: var(--accent);
-    color: var(--text-bright);
-    background: rgba(96, 165, 250, 0.12);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.1);
-}
-.btn-collection.active {
-    border-color: var(--accent);
-    color: var(--text-bright);
-    background: rgba(96, 165, 250, 0.18);
-    box-shadow: 0 0 16px rgba(96, 165, 250, 0.2);
-}
-
 @media (max-width: 600px) {
-    .quick-collection-buttons {
-        gap: 8px;
-    }
-    .btn-collection {
-        padding: 8px 16px;
-        font-size: 0.82rem;
-    }
     .blog-card {
         flex-wrap: wrap;
         gap: 2px 12px;
@@ -840,40 +798,10 @@ img {
     margin-bottom: 24px;
 }
 
-.filter-toggle {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 20px;
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.filter-arrow {
-    transition: transform 0.3s;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.filter-toggle.open .filter-arrow {
-    transform: rotate(180deg);
-}
-
 .filter-body {
-    display: none;
-    padding: 0 20px 20px;
-    border-top: 1px solid var(--border);
-}
-
-.filter-body.open {
     display: block;
-    padding-top: 20px;
+    padding: 20px 20px 20px;
+    border-top: 1px solid var(--border);
 }
 
 .filter-grid {
@@ -1530,6 +1458,22 @@ img {
     color: var(--accent-hover);
 }
 
+.article-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.article-pdf-link {
+    background: rgba(250, 204, 21, 0.12);
+    color: #facc15;
+}
+
+.article-pdf-link:hover {
+    background: rgba(250, 204, 21, 0.22);
+    color: #fde68a;
+}
+
 /* --- Observing Reports Listing --- */
 .blog-filters {
     max-width: 560px;
@@ -2152,17 +2096,8 @@ img {
         font-size: 0.78rem;
     }
 
-    .filter-toggle {
-        padding: 12px 14px;
-        font-size: 0.9rem;
-    }
-
     .filter-body {
-        padding: 0 14px 14px;
-    }
-
-    .filter-body.open {
-        padding-top: 14px;
+        padding: 14px;
     }
 
     .quick-search-row input::placeholder {
@@ -2225,11 +2160,6 @@ img {
 
     .stat-label {
         font-size: 0.7rem;
-    }
-
-    .btn-collection {
-        padding: 6px 12px;
-        font-size: 0.78rem;
     }
 
     .detail-title-group h3 {

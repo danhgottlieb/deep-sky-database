@@ -580,7 +580,7 @@
 
         if (!container || !searchInput || !tagsEl || !dropdown) return;
 
-        const catalogs = ['Messier', 'NGC', 'IC', 'UGC', 'Other'];
+        const catalogs = ['Messier', 'NGC', 'IC', 'UGC', 'Orion DeepMap', "Gottlieb's favorites"];
 
         function renderDropdown(filter) {
             filter = filter || '';
@@ -831,15 +831,6 @@
 
     // --- Filters ---
     function setupFilters() {
-        const toggle = $('#filter-toggle');
-        const body = $('#filter-body');
-
-        toggle.addEventListener('click', () => {
-            const isOpen = toggle.classList.toggle('open');
-            body.classList.toggle('open');
-            toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
-
         $('#apply-filters').addEventListener('click', applyFilters);
         $('#clear-filters').addEventListener('click', clearFilters);
         $('#sort-select').addEventListener('change', () => {
@@ -850,37 +841,22 @@
             renderResults();
         });
 
-        // Quick collection buttons
-        document.querySelectorAll('.btn-collection').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const col = btn.dataset.collection;
-                const wasActive = btn.classList.contains('active');
+        // RA spinner wrap-around: hours 0↔23, minutes 0↔59
+        setupRaWrap('filter-ra-min-h', 0, 23);
+        setupRaWrap('filter-ra-max-h', 0, 23);
+        setupRaWrap('filter-ra-min-m', 0, 59);
+        setupRaWrap('filter-ra-max-m', 0, 59);
+    }
 
-                // Deactivate all collection buttons
-                document.querySelectorAll('.btn-collection').forEach(b => b.classList.remove('active'));
-
-                if (wasActive) {
-                    // Toggle off — clear and show all
-                    clearFilters();
-                    return;
-                }
-
-                // Activate this button
-                btn.classList.add('active');
-                activeCollection = col;
-
-                // Apply the collection filter
-                if (col === 'top') {
-                    filteredData = allData.filter(o => o.isTopObject);
-                } else if (col === 'orion') {
-                    filteredData = allData.filter(o => o.isOrionAtlas);
-                } else if (col === 'messier') {
-                    filteredData = allData.filter(o => o.isMessier);
-                } else {
-                    filteredData = allData.filter(o => o.catalog === col);
-                }
-                showResults();
-            });
+    // Continuous wrap-around for RA number inputs
+    function setupRaWrap(id, min, max) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', () => {
+            let v = parseInt(el.value, 10);
+            if (isNaN(v)) return;
+            if (v > max) el.value = min;
+            else if (v < min) el.value = max;
         });
     }
 
@@ -903,7 +879,6 @@
         const raMinM = $('#filter-ra-min-m').value;
         const raMaxH = $('#filter-ra-max-h').value;
         const raMaxM = $('#filter-ra-max-m').value;
-        const special = $('#filter-special').value;
         const nameFilter = normalizeQuery($('#filter-name').value);
 
         // Build RA range in decimal hours
@@ -916,14 +891,13 @@
         filteredData = allData.filter(o => {
             if (selectedCatalogs.length > 0) {
                 const matchesCatalog = selectedCatalogs.includes(o.catalog) ||
-                    (selectedCatalogs.includes('Messier') && o.isMessier);
+                    (selectedCatalogs.includes('Messier') && o.isMessier) ||
+                    (selectedCatalogs.includes('Orion DeepMap') && o.isOrionAtlas) ||
+                    (selectedCatalogs.includes("Gottlieb's favorites") && o.isTopObject);
                 if (!matchesCatalog) return false;
             }
             if (selectedConstellations.length > 0 && !selectedConstellations.includes(o.con)) return false;
             if (type && o.type !== type) return false;
-            if (special === 'top' && !o.isTopObject) return false;
-            if (special === 'orion' && !o.isOrionAtlas) return false;
-            if (special === 'messier' && !o.isMessier) return false;
             if (nameFilter) {
                 const n = o.name.toLowerCase();
                 const nick = (o.nickname || '').toLowerCase();
@@ -996,9 +970,7 @@
         $('#filter-ra-min-m').value = '';
         $('#filter-ra-max-h').value = '';
         $('#filter-ra-max-m').value = '';
-        $('#filter-special').value = '';
         $('#filter-name').value = '';
-        document.querySelectorAll('.btn-collection').forEach(b => b.classList.remove('active'));
         filteredData = [];
         $('#results-header').style.display = 'none';
         $('#results-list').innerHTML = '';
@@ -1098,8 +1070,8 @@
                 </div>
                 <div class="card-badges">
                     ${obj.type ? `<span class="badge badge-type">${escHtml(obj.type)}</span>` : ''}
-                    ${obj.isTopObject ? '<span class="badge badge-top">★ Top</span>' : ''}
-                    ${obj.isOrionAtlas ? '<span class="badge badge-orion">Orion</span>' : ''}
+                    ${obj.isTopObject ? '<span class="badge badge-top">★ Favorites</span>' : ''}
+                    ${obj.isOrionAtlas ? '<span class="badge badge-orion">DeepMap</span>' : ''}
                     ${obj.isMessier ? '<span class="badge badge-messier">M</span>' : ''}
                 </div>
             </div>
@@ -1188,8 +1160,8 @@
                 </div>
                 <div class="detail-actions">
                     ${obj.type ? `<span class="badge badge-type">${TYPE_KEY[obj.type] || escHtml(obj.type)}</span>` : ''}
-                    ${obj.isTopObject ? '<span class="badge badge-top">★ Gottlieb\'s Top</span>' : ''}
-                    ${obj.isOrionAtlas ? '<span class="badge badge-orion">Orion Atlas</span>' : ''}
+                    ${obj.isTopObject ? '<span class="badge badge-top">★ Gottlieb\'s Favorites</span>' : ''}
+                    ${obj.isOrionAtlas ? '<span class="badge badge-orion">Orion DeepMap</span>' : ''}
                     ${obj.isMessier ? '<span class="badge badge-messier">Messier</span>' : ''}
                     <a href="${simbadUrl}" target="_blank" rel="noopener" class="btn btn-secondary" style="padding:6px 16px;font-size:0.85rem;">
                         SIMBAD ↗
@@ -1473,6 +1445,13 @@
         const list = $('#articles-list');
         if (!list || !articles.length) return;
 
+        // PDF mapping for articles with downloadable PDFs
+        const articlePdfs = {
+            39: 'articles/lets-get-together.pdf',
+            42: 'articles/david-todds-deep-sky-discoveries.pdf',
+            43: 'articles/shakhbazian-galaxy-groups.pdf'
+        };
+
         list.innerHTML = articles.map(a => `
             <div class="article-item">
                 <span class="article-num">#${escHtml(a.num)}</span>
@@ -1480,7 +1459,10 @@
                     <h4>${escHtml(a.title)}</h4>
                     <span class="article-meta">${escHtml(a.magazine)} · ${escHtml(a.month)} ${escHtml(a.year)}</span>
                 </div>
-                ${a.url ? `<a href="${escAttr(a.url)}" target="_blank" rel="noopener" class="article-link">${escHtml(a.urlNote || 'View')} ↗</a>` : '<span></span>'}
+                <div class="article-actions">
+                    ${a.url ? `<a href="${escAttr(a.url)}" target="_blank" rel="noopener" class="article-link">${escHtml(a.urlNote || 'View')} ↗</a>` : ''}
+                    ${articlePdfs[a.num] ? `<a href="${escAttr(articlePdfs[a.num])}" target="_blank" rel="noopener" class="article-link article-pdf-link">Read article ↗</a>` : ''}
+                </div>
             </div>
         `).join('');
     }

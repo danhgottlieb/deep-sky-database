@@ -163,22 +163,9 @@
                 </div>
             </div>
 
-            <!-- Quick Collection Buttons -->
-            <div class="quick-collection-buttons" id="quick-collections">
-                <button class="btn btn-collection" data-collection="messier">🌌 Messier Catalog</button>
-                <button class="btn btn-collection" data-collection="NGC">NGC Catalog</button>
-                <button class="btn btn-collection" data-collection="IC">IC Catalog</button>
-                <button class="btn btn-collection" data-collection="UGC">UGC Catalog</button>
-                <button class="btn btn-collection" data-collection="orion">🗺️ Orion DeepMap 600</button>
-            </div>
-
-            <!-- Filters -->
+            <!-- Filters (always visible) -->
             <div class="explorer-filters" id="filter-panel">
-                <button class="filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-body">
-                    <span>Advanced Filters</span>
-                    <span class="filter-arrow">▾</span>
-                </button>
-                <div class="filter-body" id="filter-body">
+                <div class="filter-body open" id="filter-body">
                     <div class="filter-grid">
                         <div class="filter-group">
                             <label>Catalog</label>
@@ -227,15 +214,6 @@
                                     <span class="ra-unit">m</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="filter-group">
-                            <label for="filter-special">Special Lists</label>
-                            <select id="filter-special">
-                                <option value="">No Filter</option>
-                                <option value="top">Gottlieb's Top Objects (308)</option>
-                                <option value="messier">Messier Catalog</option>
-                                <option value="orion">Orion Star Atlas Objects (441)</option>
-                            </select>
                         </div>
                         <div class="filter-group">
                             <label for="filter-name">Name Contains</label>

@@ -1146,13 +1146,12 @@ img {
     width: min(700px, 90vw);
     background: var(--bg-card);
     border-left: 1px solid var(--border);
-    padding: 32px;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
     z-index: 500;
     transform: translateX(100%);
     transition: transform 0.3s ease;
     box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
-    -webkit-overflow-scrolling: touch;
 }
 
 .object-detail.open {
@@ -1181,7 +1180,7 @@ img {
 }
 
 .detail-back {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 6px;
     color: var(--accent);
@@ -1190,15 +1189,21 @@ img {
     background: var(--bg-card);
     border: none;
     font-family: var(--font-sans);
-    margin: -32px -32px 20px;
     padding: 14px 32px;
-    position: sticky;
-    top: 0;
     z-index: 10;
     border-bottom: 1px solid var(--border);
-    width: calc(100% + 64px);
+    flex-shrink: 0;
+    width: 100%;
+    text-align: left;
 }
 .detail-back:hover { color: var(--accent-hover); }
+
+.detail-scroll {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 32px;
+}
 
 .detail-header {
     display: flex;
@@ -1978,13 +1983,15 @@ img {
     }
 
     .object-detail {
-        padding: 20px 16px;
+        /* padding now on .detail-scroll */
     }
 
     .detail-back {
-        margin: -20px -16px 20px;
         padding: 14px 16px;
-        width: calc(100% + 32px);
+    }
+
+    .detail-scroll {
+        padding: 20px 16px;
     }
 
     .detail-grid {

@@ -1351,6 +1351,7 @@
             <button class="detail-back" id="detail-back-btn">
                 ← Back to results
             </button>
+            <div class="detail-scroll">
             <div class="detail-header">
                 <div class="detail-title-group">
                     <h3>${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${escHtml(obj.name)}</h3>
@@ -1402,6 +1403,7 @@
                     <div class="historical-text">${obj.historical.split(/\n\n+/).map(p => '<p>' + escHtml(p.trim()) + '</p>').join('')}</div>
                 </div>
             ` : ''}
+            </div>
         `;
 
         // Attach event listeners (no inline onclick)
@@ -1416,7 +1418,8 @@
         detail.setAttribute('aria-label', obj.name + ' detail');
         detail.classList.add('open');
         if (backdrop) backdrop.classList.add('open');
-        detail.scrollTop = 0;
+        const scrollArea = detail.querySelector('.detail-scroll');
+        if (scrollArea) scrollArea.scrollTop = 0;
         if (window.innerWidth < 900) document.body.style.overflow = 'hidden';
 
         // Initialize Aladin Lite viewer for this object

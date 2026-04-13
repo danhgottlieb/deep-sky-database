@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steve Gottlieb's Deep Sky</title>
     <meta name="description" content="A comprehensive database of over 24,000 deep sky observations by Steve Gottlieb, spanning 45+ years of visual astronomy with telescopes from 6 inches to 82 inches.">
-    <link rel="stylesheet" href="css/style.css?v=17">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="css/style.css?v=18">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -49,7 +50,11 @@
                     <span class="stat-label">Objects Observed</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-num">6"–82"</span>
+                    <span class="stat-num" id="stat-observations">…</span>
+                    <span class="stat-label">Total Observations</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">3"–82"</span>
                     <span class="stat-label">Telescope Range</span>
                 </div>
                 <div class="stat">
@@ -149,12 +154,12 @@
     <section id="explorer" class="section">
         <div class="container">
             <h2 class="section-title reveal">Database Explorer</h2>
-            <p class="section-desc reveal">Search and explore over 24,700 deep sky objects with detailed visual observations, historical context, and cross-references.</p>
+            <p class="section-desc reveal" id="explorer-desc">Search and explore over 24,700 deep sky objects with detailed visual observations, historical context, and cross-references.</p>
 
             <!-- Quick Lookup -->
             <div class="explorer-quick">
                 <div class="quick-lookup">
-                    <label for="quick-search">Quick Lookup</label>
+                    <label for="quick-search">Quick Lookup (single object)</label>
                     <div class="quick-search-row">
                         <input type="text" id="quick-search" placeholder="Enter object name (e.g., NGC 1, IC 434, M31)" autocomplete="off">
                         <button id="quick-search-btn" class="btn btn-primary">Search</button>
@@ -165,6 +170,7 @@
 
             <!-- Filters (always visible) -->
             <div class="explorer-filters" id="filter-panel">
+                <label class="filter-panel-title">Search using multiple filters</label>
                 <div class="filter-body open" id="filter-body">
                     <div class="filter-grid">
                         <div class="filter-group">
@@ -184,10 +190,12 @@
                             </div>
                         </div>
                         <div class="filter-group">
-                            <label for="filter-type">Object Type</label>
-                            <select id="filter-type">
-                                <option value="">All Types</option>
-                            </select>
+                            <label>Object Type</label>
+                            <div class="multi-select" id="filter-type-container">
+                                <input type="text" id="filter-type-search" placeholder="Search object types..." autocomplete="off">
+                                <div class="multi-select-tags" id="type-tags"></div>
+                                <div class="multi-select-dropdown" id="type-dropdown"></div>
+                            </div>
                         </div>
                         <div class="filter-group">
                             <label for="filter-mag-min">Visual Magnitude</label>
@@ -216,15 +224,27 @@
                             </div>
                         </div>
                         <div class="filter-group">
-                            <label for="filter-name">Name Contains</label>
-                            <input type="text" id="filter-name" placeholder="e.g., Abell, Arp">
+                            <label>Name Contains</label>
+                            <div class="multi-select" id="filter-name-container">
+                                <input type="text" id="filter-name" placeholder="e.g., Abell, Arp">
+                                <div class="multi-select-tags" id="name-tags"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="filter-actions">
                         <button id="apply-filters" class="btn btn-primary">Apply Filters</button>
                         <button id="clear-filters" class="btn btn-secondary">Clear All</button>
                     </div>
+                    <p class="filter-directions">Directions: Use one or more of these filters to select objects. For Catalogs, Constellation, Object Type, and Name Contains, you can make multiple selections. When finished, hit Apply.</p>
                 </div>
+            </div>
+
+            <!-- Catalog Legend -->
+            <div class="type-legend-toggle">
+                <button id="catalog-legend-toggle" class="btn-link">Catalog Name Abbreviations ▾</button>
+            </div>
+            <div id="catalog-legend" class="type-legend" style="display:none;">
+                <div class="legend-grid" id="catalog-legend-grid"></div>
             </div>
 
             <!-- Type Legend -->
@@ -275,7 +295,7 @@
             <h2 class="section-title reveal">Observing Reports</h2>
             <p class="section-desc reveal">Field reports from the eyepiece — observing sessions, trip accounts, and detailed notes from dark sky sites across the globe.</p>
             <div class="blog-filters" id="blog-filters">
-                <input type="text" id="blog-search" placeholder="Search reports by object name, title, date or location…" class="blog-search-input">
+                <input type="text" id="blog-search" placeholder="Search by object name, title, date or location…" class="blog-search-input">
             </div>
             <div class="blog-report-count" id="blog-report-count"></div>
             <div class="blog-grid" id="blog-grid">
@@ -338,6 +358,6 @@
     </div>
 
     <script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
-    <script src="js/app.js?v=16"></script>
+    <script src="js/app.js?v=17"></script>
 </body>
 </html>

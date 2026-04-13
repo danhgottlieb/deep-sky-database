@@ -798,6 +798,21 @@ img {
     margin-bottom: 24px;
 }
 
+.filter-panel-title {
+    display: block;
+    font-weight: 500;
+    padding: 14px 20px 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.filter-directions {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
 .filter-body {
     display: block;
     padding: 20px 20px 20px;
@@ -1170,11 +1185,16 @@ img {
     color: var(--accent);
     font-size: 0.9rem;
     cursor: pointer;
-    background: none;
+    background: var(--bg-card);
     border: none;
     font-family: var(--font-sans);
-    margin-bottom: 20px;
-    padding: 0;
+    margin: -32px -32px 20px;
+    padding: 14px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--border);
+    width: calc(100% + 64px);
 }
 .detail-back:hover { color: var(--accent-hover); }
 
@@ -1689,7 +1709,7 @@ img {
     background: var(--bg-card);
     border: 1px solid var(--border-light);
     border-radius: var(--radius);
-    max-height: 200px;
+    max-height: 280px;
     overflow-y: auto;
     z-index: 50;
     display: none;
@@ -1957,6 +1977,12 @@ img {
 
     .object-detail {
         padding: 20px 16px;
+    }
+
+    .detail-back {
+        margin: -20px -16px 20px;
+        padding: 14px 16px;
+        width: calc(100% + 32px);
     }
 
     .detail-grid {

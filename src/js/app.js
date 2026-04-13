@@ -17,6 +17,8 @@
     const dataIndex = new Map();
     let selectedConstellations = [];
     let selectedCatalogs = [];
+    let selectedTypes = [];
+    let selectedNames = [];
     let searchTimer;
     let resizeTimer;
     let blogData = [];
@@ -77,6 +79,45 @@
         'NGC1313-HII': 'NGC 1313 HII Region', 'NGC3184-KNT': 'NGC 3184 Knot',
         'NGC4214-KNT': 'NGC 4214 Knot', 'NGC4395-KNT': 'NGC 4395 Knot',
         'NGC4535-HII': 'NGC 4535 HII Region', 'NGC7479-HII': 'NGC 7479 HII Region'
+    };
+
+    // Catalog abbreviation key
+    const CATALOG_KEY = {
+        'ACO': 'Abell-Corwin-Olowin galaxy clusters',
+        'AGC': 'Abell Galaxy Cluster',
+        'BU': 'Sherburne Burnham double stars',
+        'Ced': 'Cederblad bright diffuse nebulae',
+        'CGCG': 'Catalog of Galaxies and Clusters of Galaxies',
+        'Cr': 'Collinder open clusters',
+        'Do': 'Dolidze open clusters',
+        'ESO': 'European Southern Observatory',
+        'H': 'Haro planetary nebulae',
+        'HCG': 'Hickson Compact Groups',
+        'He': 'Henize planetary nebulae',
+        'K': 'Kohoutek planetary nebulae',
+        'KTG': 'Karachentsev galaxy triplets',
+        'KUG': 'Kiso Ultraviolet-excess Galaxies',
+        'LBN': 'Lynds Bright Nebulae',
+        'LDN': 'Lynds Dark Nebulae',
+        'LMC-N': 'Henize emission nebulae in the LMC',
+        'M': 'Messier catalog or Minkowski planetary nebulae',
+        'M31-G': 'Globular clusters in M31',
+        'MCG': 'Morphological Catalogue of Galaxies',
+        'Mrk': 'Markarian ultraviolet-excess galaxies',
+        'OGC': 'Ogle Galaxy Catalogue',
+        'Pe': 'Perek planetary nebula',
+        'Ru': 'Ruprecht open cluster',
+        'S-L': 'Shapley-Lindsay LMC open cluster',
+        'Sh 2': 'Sharpless emission nebulae',
+        'SHK': 'Shakhbazian compact galaxy groups',
+        'SMC-N': 'Henize emission nebulae in the SMC',
+        'STF': 'Wilhelm Struve double stars',
+        'STT': 'Otto Struve double star',
+        'Tr': 'Trumpler open cluster',
+        'UGC': 'Uppsala Galaxy Catalogue',
+        'UGCA': 'Uppsala Galaxy Catalogue Addendum',
+        'vdB': 'van den Bergh reflection nebulae',
+        'VV': 'Vorontsov-Velyaminov interacting galaxies'
     };
 
     // Constellation full names
@@ -181,6 +222,14 @@
 
             // Build name index
             allData.forEach(o => dataIndex.set(o.name, o));
+
+            // Compute and display total observations
+            const totalObs = allData.reduce((sum, o) => sum + countVisualObs(o.observations), 0);
+            const obsStat = document.getElementById('stat-observations');
+            if (obsStat) obsStat.textContent = totalObs.toLocaleString();
+            // Update explorer description with total observation count
+            const explorerDesc = document.getElementById('explorer-desc');
+            if (explorerDesc) explorerDesc.textContent = `Search and explore over 24,700 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
 
             buildFilters();
             renderArticles();
@@ -495,6 +544,24 @@
             legend.style.display = shown ? 'none' : 'block';
             btn.textContent = shown ? 'Object Type Abbreviations ▾' : 'Object Type Abbreviations ▴';
         });
+
+        // Catalog abbreviation legend
+        const catGrid = $('#catalog-legend-grid');
+        const catBtn = $('#catalog-legend-toggle');
+        const catLegend = $('#catalog-legend');
+
+        if (catGrid && catBtn && catLegend) {
+            const catEntries = Object.entries(CATALOG_KEY).sort((a, b) => a[0].localeCompare(b[0]));
+            catGrid.innerHTML = catEntries.map(([abbr, full]) =>
+                `<div class="legend-item"><span class="legend-abbr">${escHtml(abbr)}</span><span class="legend-full">${escHtml(full)}</span></div>`
+            ).join('');
+
+            catBtn.addEventListener('click', () => {
+                const shown = catLegend.style.display !== 'none';
+                catLegend.style.display = shown ? 'none' : 'block';
+                catBtn.textContent = shown ? 'Catalog Name Abbreviations ▾' : 'Catalog Name Abbreviations ▴';
+            });
+        }
     }
 
     // --- Build Filter Options ---
@@ -503,18 +570,20 @@
         buildConstellationFilter();
         // Multi-select catalog filter
         buildCatalogFilter();
+        // Multi-select type filter
+        buildTypeFilter();
+        // Multi-select name filter
+        buildNameFilter();
+    }
 
-        // Types
-        const typeSelect = $('#filter-type');
-        if (metadata.types) {
-            Object.entries(metadata.types).forEach(([t, count]) => {
-                const opt = document.createElement('option');
-                opt.value = t;
-                const fullName = TYPE_KEY[t] ? ` — ${TYPE_KEY[t]}` : '';
-                opt.textContent = `${t}${fullName} (${count})`;
-                typeSelect.appendChild(opt);
-            });
+    // Extract HCG designation from an object (from name or 'other' field)
+    function getHcgDesignation(obj) {
+        if (obj.name.startsWith('HCG')) return obj.name;
+        if (obj.other) {
+            const m = obj.other.match(/HCG\s*\d+[A-Ga-g]?/);
+            if (m) return m[0];
         }
+        return null;
     }
 
     function buildConstellationFilter() {
@@ -580,7 +649,7 @@
 
         if (!container || !searchInput || !tagsEl || !dropdown) return;
 
-        const catalogs = ['Messier', 'NGC', 'IC', 'UGC', 'Orion DeepMap', "Gottlieb's favorites"];
+        const catalogs = ['Messier', 'NGC', 'IC', 'UGC', 'Hickson Compact Groups', 'Orion DeepMap', "Gottlieb's favorites"];
 
         function renderDropdown(filter) {
             filter = filter || '';
@@ -624,6 +693,98 @@
         document.addEventListener('click', (e) => { if (!e.target.closest('#filter-catalog-container')) dropdown.classList.remove('open'); });
 
         renderDropdown();
+    }
+
+    function buildTypeFilter() {
+        const container = $('#filter-type-container');
+        const searchInput = $('#filter-type-search');
+        const tagsEl = $('#type-tags');
+        const dropdown = $('#type-dropdown');
+
+        if (!container || !searchInput || !tagsEl || !dropdown) return;
+
+        const types = metadata.types ? Object.entries(metadata.types).map(([t, count]) => {
+            const fullName = TYPE_KEY[t] ? ` — ${TYPE_KEY[t]}` : '';
+            return { value: t, label: `${t}${fullName} (${count})` };
+        }) : [];
+
+        function renderDropdown(filter) {
+            filter = filter || '';
+            const filtered = types.filter(t =>
+                !filter || t.value.toLowerCase().includes(filter) || t.label.toLowerCase().includes(filter)
+            );
+            dropdown.innerHTML = filtered.map(t => {
+                const isSelected = selectedTypes.includes(t.value);
+                return `<div class="multi-select-option${isSelected ? ' selected' : ''}" data-value="${t.value}">${t.label}</div>`;
+            }).join('');
+
+            dropdown.querySelectorAll('.multi-select-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const val = opt.dataset.value;
+                    const idx = selectedTypes.indexOf(val);
+                    if (idx >= 0) selectedTypes.splice(idx, 1);
+                    else selectedTypes.push(val);
+                    renderTypeTags();
+                    renderDropdown(searchInput.value.trim().toLowerCase());
+                });
+            });
+        }
+
+        function renderTypeTags() {
+            tagsEl.innerHTML = selectedTypes.map(t => {
+                const fullName = TYPE_KEY[t] || t;
+                return `<span class="multi-select-tag">${fullName} <button data-value="${t}">&times;</button></span>`;
+            }).join('');
+            tagsEl.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const val = btn.dataset.value;
+                    selectedTypes = selectedTypes.filter(x => x !== val);
+                    renderTypeTags();
+                    renderDropdown(searchInput.value.trim().toLowerCase());
+                });
+            });
+        }
+
+        searchInput.addEventListener('focus', () => { dropdown.classList.add('open'); renderDropdown(searchInput.value.trim().toLowerCase()); });
+        searchInput.addEventListener('input', () => renderDropdown(searchInput.value.trim().toLowerCase()));
+        document.addEventListener('click', (e) => { if (!e.target.closest('#filter-type-container')) dropdown.classList.remove('open'); });
+
+        renderDropdown();
+    }
+
+    function buildNameFilter() {
+        const container = $('#filter-name-container');
+        const searchInput = $('#filter-name');
+        const tagsEl = $('#name-tags');
+
+        if (!container || !searchInput || !tagsEl) return;
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const val = searchInput.value.trim();
+                if (val && !selectedNames.includes(val.toLowerCase())) {
+                    selectedNames.push(val.toLowerCase());
+                    renderNameTags();
+                    searchInput.value = '';
+                }
+            }
+        });
+
+        function renderNameTags() {
+            tagsEl.innerHTML = selectedNames.map(n =>
+                `<span class="multi-select-tag">${escHtml(n)} <button data-value="${n}">&times;</button></span>`
+            ).join('');
+            tagsEl.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const val = btn.dataset.value;
+                    selectedNames = selectedNames.filter(x => x !== val);
+                    renderNameTags();
+                });
+            });
+        }
     }
 
     // --- Search ---
@@ -874,14 +1035,18 @@
     }
 
     function applyFilters() {
-        const type = $('#filter-type').value;
         const magMin = parseFloat($('#filter-mag-min').value);
         const magMax = parseFloat($('#filter-mag-max').value);
         const raMinH = $('#filter-ra-min-h').value;
         const raMinM = $('#filter-ra-min-m').value;
         const raMaxH = $('#filter-ra-max-h').value;
         const raMaxM = $('#filter-ra-max-m').value;
-        const nameFilter = normalizeQuery($('#filter-name').value);
+
+        // Collect any text still in the name input that hasn't been added as a tag
+        const nameInput = $('#filter-name');
+        const pendingName = nameInput ? normalizeQuery(nameInput.value) : '';
+        const allNameFilters = [...selectedNames];
+        if (pendingName && !allNameFilters.includes(pendingName)) allNameFilters.push(pendingName);
 
         // Build RA range in decimal hours
         const hasRaMin = raMinH !== '';
@@ -892,19 +1057,22 @@
 
         filteredData = allData.filter(o => {
             if (selectedCatalogs.length > 0) {
+                const refs = o.references || '';
                 const matchesCatalog = selectedCatalogs.includes(o.catalog) ||
                     (selectedCatalogs.includes('Messier') && o.isMessier) ||
                     (selectedCatalogs.includes('Orion DeepMap') && o.isOrionAtlas) ||
-                    (selectedCatalogs.includes("Gottlieb's favorites") && o.isTopObject);
+                    (selectedCatalogs.includes("Gottlieb's favorites") && o.isTopObject) ||
+                    (selectedCatalogs.includes('Hickson Compact Groups') && refs.includes('h'));
                 if (!matchesCatalog) return false;
             }
             if (selectedConstellations.length > 0 && !selectedConstellations.includes(o.con)) return false;
-            if (type && o.type !== type) return false;
-            if (nameFilter) {
+            if (selectedTypes.length > 0 && !selectedTypes.includes(o.type)) return false;
+            if (allNameFilters.length > 0) {
                 const n = o.name.toLowerCase();
                 const nick = (o.nickname || '').toLowerCase();
                 const other = (o.other || '').toLowerCase();
-                if (!n.includes(nameFilter) && !nick.includes(nameFilter) && !other.includes(nameFilter)) return false;
+                const matchesAny = allNameFilters.some(nf => n.includes(nf) || nick.includes(nf) || other.includes(nf));
+                if (!matchesAny) return false;
             }
             return true;
         });
@@ -930,7 +1098,6 @@
                     if (raMin <= raMax) {
                         return objRA >= raMin && objRA <= raMax;
                     } else {
-                        // Wrap-around: e.g., 22h to 02h
                         return objRA >= raMin || objRA <= raMax;
                     }
                 }
@@ -938,6 +1105,15 @@
                 if (raMax !== null && objRA > raMax) return false;
                 return true;
             });
+        }
+
+        // If HCG catalog is selected, set active collection for sorting
+        if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Hickson Compact Groups') {
+            activeCollection = 'hcg';
+        } else if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Messier') {
+            activeCollection = 'messier';
+        } else {
+            activeCollection = '';
         }
 
         showResults();
@@ -965,7 +1141,19 @@
             conDropdown.classList.remove('open');
             conDropdown.querySelectorAll('.multi-select-option').forEach(opt => opt.classList.remove('selected'));
         }
-        $('#filter-type').value = '';
+        selectedTypes = [];
+        const typeTags = $('#type-tags');
+        if (typeTags) typeTags.innerHTML = '';
+        const typeSearch = $('#filter-type-search');
+        if (typeSearch) typeSearch.value = '';
+        const typeDropdown = $('#type-dropdown');
+        if (typeDropdown) {
+            typeDropdown.classList.remove('open');
+            typeDropdown.querySelectorAll('.multi-select-option').forEach(opt => opt.classList.remove('selected'));
+        }
+        selectedNames = [];
+        const nameTags = $('#name-tags');
+        if (nameTags) nameTags.innerHTML = '';
         $('#filter-mag-min').value = '';
         $('#filter-mag-max').value = '';
         $('#filter-ra-min-h').value = '';
@@ -1008,6 +1196,11 @@
                 default:
                     if (activeCollection === 'messier') {
                         return naturalSort(a.messierNumber || '', b.messierNumber || '');
+                    }
+                    if (activeCollection === 'hcg') {
+                        const hA = getHcgDesignation(a) || '';
+                        const hB = getHcgDesignation(b) || '';
+                        return naturalSort(hA, hB);
                     }
                     return naturalSort(a.name, b.name);
             }
@@ -1063,10 +1256,14 @@
             }
         }
 
+        // HCG designation prefix (similar to Messier)
+        const hcgDesig = (activeCollection === 'hcg') ? getHcgDesignation(obj) : null;
+        const hcgPrefix = (hcgDesig && hcgDesig !== obj.name) ? escHtml(hcgDesig) + ' = ' : '';
+
         card.innerHTML = `
             <div class="card-header">
                 <div>
-                    <div class="card-name">${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${escHtml(obj.name)}</div>
+                    <div class="card-name">${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${hcgPrefix}${escHtml(obj.name)}</div>
                     ${obj.nickname ? `<div class="card-nickname">${escHtml(obj.nickname)}</div>` : ''}
                     ${altMatch ? `<div class="card-alt-match">Also known as: ${escHtml(altMatch)}</div>` : ''}
                 </div>
@@ -1449,6 +1646,9 @@
 
         // PDF mapping for articles with downloadable PDFs
         const articlePdfs = {
+            24: 'articles/digging-deep-in-messier-83.pdf',
+            25: 'articles/seeking-interacting-galaxies.pdf',
+            30: 'articles/galaxies-in-collision.pdf',
             39: 'articles/lets-get-together.pdf',
             42: 'articles/david-todds-deep-sky-discoveries.pdf',
             43: 'articles/shakhbazian-galaxy-groups.pdf'

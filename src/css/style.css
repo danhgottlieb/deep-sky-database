@@ -685,7 +685,7 @@ img {
     display: block;
     font-weight: 500;
     margin-bottom: 8px;
-    color: var(--text-secondary);
+    color: #facc15;
     font-size: 0.9rem;
 }
 
@@ -794,7 +794,7 @@ img {
 /* --- Filters --- */
 .explorer-filters {
     background: var(--bg-card);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: var(--radius-lg);
     margin-bottom: 24px;
 }
@@ -802,8 +802,8 @@ img {
 .filter-panel-title {
     display: block;
     font-weight: 500;
-    padding: 14px 20px 0;
-    color: var(--text-secondary);
+    margin-bottom: 8px;
+    color: #facc15;
     font-size: 0.9rem;
 }
 
@@ -817,7 +817,6 @@ img {
 .filter-body {
     display: block;
     padding: 20px 20px 20px;
-    border-top: 1px solid var(--border);
 }
 
 .filter-grid {

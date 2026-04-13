@@ -1140,15 +1140,15 @@ img {
 /* --- Object Detail (slide-over panel) --- */
 .object-detail {
     position: fixed;
-    top: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
+    top: 0;
     right: 0;
     bottom: 0;
     width: min(700px, 90vw);
     background: var(--bg-card);
     border-left: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    z-index: 500;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1001;
     transform: translateX(100%);
     transition: transform 0.3s ease;
     box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
@@ -1162,7 +1162,7 @@ img {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 499;
+    z-index: 1000;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
@@ -1180,9 +1180,7 @@ img {
 }
 
 .detail-back {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: block;
     color: var(--accent);
     font-size: 0.9rem;
     cursor: pointer;
@@ -1190,18 +1188,14 @@ img {
     border: none;
     font-family: var(--font-sans);
     padding: 14px 32px;
-    z-index: 10;
+    padding-top: calc(14px + env(safe-area-inset-top, 0px));
     border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
     width: 100%;
     text-align: left;
 }
 .detail-back:hover { color: var(--accent-hover); }
 
 .detail-scroll {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     padding: 32px;
 }
 
@@ -1988,6 +1982,7 @@ img {
 
     .detail-back {
         padding: 14px 16px;
+        padding-top: calc(14px + env(safe-area-inset-top, 0px));
     }
 
     .detail-scroll {

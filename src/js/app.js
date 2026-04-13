@@ -1418,8 +1418,7 @@
         detail.setAttribute('aria-label', obj.name + ' detail');
         detail.classList.add('open');
         if (backdrop) backdrop.classList.add('open');
-        const scrollArea = detail.querySelector('.detail-scroll');
-        if (scrollArea) scrollArea.scrollTop = 0;
+        detail.scrollTop = 0;
         if (window.innerWidth < 900) document.body.style.overflow = 'hidden';
 
         // Initialize Aladin Lite viewer for this object

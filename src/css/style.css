@@ -49,7 +49,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: var(--nav-height);
+    scroll-padding-top: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
 }
 
 /* --- Full-page background image --- */
@@ -115,7 +115,8 @@ img {
     top: 0;
     left: 0;
     right: 0;
-    height: var(--nav-height);
+    height: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
     background: rgba(10, 14, 23, 0.88);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
@@ -1139,7 +1140,7 @@ img {
 /* --- Object Detail (slide-over panel) --- */
 .object-detail {
     position: fixed;
-    top: var(--nav-height);
+    top: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
     right: 0;
     bottom: 0;
     width: min(700px, 90vw);
@@ -1151,6 +1152,7 @@ img {
     transform: translateX(100%);
     transition: transform 0.3s ease;
     box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
+    -webkit-overflow-scrolling: touch;
 }
 
 .object-detail.open {

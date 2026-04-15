@@ -207,8 +207,8 @@
     "objects": "ABELL 2151, ABELL 2197, ABELL 2199, ARP 42, CGCG 076-042, CGCG 224-51, CGCG 224-52, CGCG 257-007, CGCG 448-029, CGCG 448-030, HICKSON 73, IC 4526, M 51, M51, NGC 2573, NGC 2573A, NGC 3172, NGC 5526, NGC 5759, NGC 5829, NGC 5829., NGC 6146, NGC 6175, NGC 6500, NGC 6501, NGC 6563, NGC 7006, PGC 17485, PGC 50803, PGC 63531, PGC 63532, PGC 63534, PGC 65907, PGC 65908, PGC 67244, UGC 10417, UGC 10610, UGC 10987, UGC 11465, UGC 11797, UGC 11798, UGC 11801, UGC 3211A, VV 289, VV 289a, VV 289b, VV 289b., VV 7"
   },
   {
-    "title": "GSSP",
-    "date": "July 2008",
+    "title": "OR: GSSP (July 2-5, 2008)",
+    "date": "July 2, 2008",
     "slug": "gssp",
     "filename": "gssp.html",
     "images": 1,
@@ -415,7 +415,7 @@
   },
   {
     "title": "Observing Adventure in Australia (Part I)",
-    "date": "October 2017",
+    "date": "October 15, 2017",
     "slug": "observing-adventure-in-australia-part-i",
     "filename": "observing-adventure-in-australia-part-i.html",
     "images": 9,
@@ -424,7 +424,7 @@
   },
   {
     "title": "Observing Adventure in Australia (Part II)",
-    "date": "October 15, 2017",
+    "date": "October 17, 2017",
     "slug": "observing-adventure-in-australia-part-ii",
     "filename": "observing-adventure-in-australia-part-ii.html",
     "images": 7,
@@ -513,8 +513,8 @@
     "objects": "IC 4802, M10, M12, M2, M22, M4, M5, NGC 5897, NGC 6284, NGC 6540, NGC 6642, NGC 6717"
   },
   {
-    "title": "OR 3: LMC Sampler from Australia",
-    "date": "April 2008",
+    "title": "OR 3: LMC Sampler from Australia, 4/4/08-4/12/08",
+    "date": "April 5, 2008",
     "slug": "or-3-lmc-sampler-from-australia",
     "filename": "or-3-lmc-sampler-from-australia.html",
     "images": 1,
@@ -711,8 +711,8 @@
     "objects": "ARP 106, ARP 238, CGCG 294-027, CGCG 315-043, CGCG 315-044, MRK 220, MRK 221, MRK 231, NGC 4109, NGC 4111, NGC 4111., NGC 4117, NGC 4118, NGC 4145, NGC 4145A, NGC 4211, NGC 4211A, NGC 4510, NGC 4512, NGC 4513, NGC 4521, NGC 4545, NGC 4644, NGC 4644B, NGC 4646, NGC 4669, PGC 2686685, PGC 3441759, PGC 41549, UGC 7089, UGC 7094, UGC 7175, UGC 7287, UGC 7700, UGC 7905, UGC 8058, UGC 8335, VV 196a, VV 196b, VV 199, VV 250, VV 708"
   },
   {
-    "title": "September 2019 Observing Report from CalStar",
-    "date": "September 2019",
+    "title": "OR: CalStar (Sep. 25-28, 2019)",
+    "date": "September 25, 2019",
     "slug": "september-2019-observing-report-from-calstar",
     "filename": "september-2019-observing-report-from-calstar.html",
     "images": 8,
@@ -898,15 +898,6 @@
     "images": 1,
     "content_length": 7280,
     "objects": "PGC 932285"
-  },
-  {
-    "title": "Uranus' moons",
-    "date": "July 2007",
-    "slug": "uranus-moons",
-    "filename": "uranus-moons.html",
-    "images": 1,
-    "content_length": 3571,
-    "objects": ""
   },
   {
     "title": "Venus Occultation",

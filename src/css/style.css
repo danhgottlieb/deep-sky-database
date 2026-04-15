@@ -1193,6 +1193,12 @@ img {
     text-align: left;
 }
 .detail-back:hover { color: var(--accent-hover); }
+#detail-back-btn-bottom {
+    border-bottom: none;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+}
 
 .detail-scroll {
     padding: 32px;

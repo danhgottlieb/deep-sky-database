@@ -27,6 +27,9 @@
     const BLOG_PAGE = 200;
     let activeCollection = '';
 
+    // Multi-object Quick Lookup state
+    const quickLookupState = { locked: [], activeText: '' };
+
     // Type abbreviation key
     const TYPE_KEY = {
         'GX': 'Galaxy', '**': 'Double Star', '*': 'Single Star', '***': 'Triple Star',
@@ -788,6 +791,47 @@
     }
 
     // --- Search ---
+    function resolveObjectName(text) {
+        const q = normalizeQuery(text);
+        if (!q) return null;
+        // Messier shortcut
+        const messierKey = parseMessierQuery(q);
+        if (messierKey) {
+            const obj = allData.find(o => o.messierNumber === messierKey);
+            if (obj) return obj.name;
+        }
+        // Exact match
+        const exact = allData.find(o => o.name.toLowerCase() === q);
+        if (exact) return exact.name;
+        // With space inserted
+        const spaced = q.replace(/^(ngc|ic|ugc|m|abell|arp|hickson|sh|vv|mcg|pgc|leda)(\d)/, '$1 $2');
+        if (spaced !== q) {
+            const exactSpaced = allData.find(o => o.name.toLowerCase() === spaced);
+            if (exactSpaced) return exactSpaced.name;
+        }
+        // Single partial match
+        const partials = allData.filter(o => {
+            const name = o.name.toLowerCase();
+            const nick = (o.nickname || '').toLowerCase();
+            const other = (o.other || '').toLowerCase();
+            return flexibleMatch(name, q) || flexibleMatch(nick, q) || flexibleMatch(other, q);
+        });
+        if (partials.length === 1) return partials[0].name;
+        return null;
+    }
+
+    function parseQuickLookupInput(raw) {
+        const parts = raw.split(',');
+        const locked = [];
+        for (let i = 0; i < parts.length - 1; i++) {
+            const seg = parts[i].trim();
+            const resolved = resolveObjectName(seg);
+            if (resolved && !locked.includes(resolved)) locked.push(resolved);
+        }
+        const activeText = parts[parts.length - 1];
+        return { locked, activeText };
+    }
+
     function setupSearch() {
         const input = $('#quick-search');
         const btn = $('#quick-search-btn');
@@ -796,43 +840,75 @@
         input.addEventListener('input', () => {
             clearTimeout(searchTimer);
             suggestionIndex = -1;
-            const q = input.value.trim();
-            if (q.length < 1) {
+            const raw = input.value;
+            if (raw.trim().length < 1) {
+                quickLookupState.locked = [];
+                quickLookupState.activeText = '';
                 sugBox.innerHTML = '';
                 return;
             }
-            searchTimer = setTimeout(() => showSuggestions(q, sugBox), 150);
+            if (raw.includes(',')) {
+                const parsed = parseQuickLookupInput(raw);
+                quickLookupState.locked = parsed.locked;
+                quickLookupState.activeText = parsed.activeText;
+                searchTimer = setTimeout(() => showMultiSuggestions(sugBox), 150);
+            } else {
+                quickLookupState.locked = [];
+                quickLookupState.activeText = raw.trim();
+                searchTimer = setTimeout(() => showSuggestions(raw.trim(), sugBox), 150);
+            }
         });
 
         input.addEventListener('keydown', (e) => {
-            const items = sugBox.querySelectorAll('.suggestion-item');
+            const items = sugBox.querySelectorAll('.suggestion-item[data-name]');
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
                 suggestionIndex = Math.min(suggestionIndex + 1, items.length - 1);
                 highlightSuggestion(items);
+                if (items[suggestionIndex]) items[suggestionIndex].scrollIntoView({ block: 'nearest' });
             } else if (e.key === 'ArrowUp') {
                 e.preventDefault();
                 suggestionIndex = Math.max(suggestionIndex - 1, -1);
                 highlightSuggestion(items);
+                if (suggestionIndex >= 0 && items[suggestionIndex]) items[suggestionIndex].scrollIntoView({ block: 'nearest' });
             } else if (e.key === 'Enter') {
                 e.preventDefault();
                 if (suggestionIndex >= 0 && items[suggestionIndex]) {
                     const name = items[suggestionIndex].dataset.name;
                     selectObject(name);
-                    sugBox.innerHTML = '';
-                    input.value = name;
-                } else {
+                    if (quickLookupState.locked.length === 0) {
+                        sugBox.innerHTML = '';
+                        input.value = name;
+                    }
+                } else if (!input.value.includes(',')) {
                     doQuickSearch(input.value.trim());
                     sugBox.innerHTML = '';
                 }
             } else if (e.key === 'Escape') {
                 sugBox.innerHTML = '';
+            } else if (e.key === 'Backspace' && quickLookupState.locked.length > 0) {
+                // If active text is empty and backspace is pressed, remove last locked item
+                const parts = input.value.split(',');
+                const lastPart = parts[parts.length - 1];
+                if (lastPart.trim() === '' && parts.length > 1) {
+                    e.preventDefault();
+                    quickLookupState.locked.pop();
+                    if (quickLookupState.locked.length === 0) {
+                        input.value = '';
+                        sugBox.innerHTML = '';
+                    } else {
+                        input.value = quickLookupState.locked.join(', ') + ', ';
+                        setTimeout(() => showMultiSuggestions(sugBox), 50);
+                    }
+                }
             }
         });
 
         btn.addEventListener('click', () => {
-            doQuickSearch(input.value.trim());
-            sugBox.innerHTML = '';
+            if (!input.value.includes(',')) {
+                doQuickSearch(input.value.trim());
+                sugBox.innerHTML = '';
+            }
         });
 
         // Click outside to close
@@ -907,6 +983,97 @@
                 $('#quick-search').value = item.dataset.name;
             });
         });
+    }
+
+    function showMultiSuggestions(container) {
+        const locked = quickLookupState.locked;
+        const activeText = quickLookupState.activeText.trim();
+        suggestionIndex = -1;
+
+        // Build locked items section
+        const lockedHtml = locked.length > 0 ? `
+            <div class="suggestion-section-label" style="padding:6px 12px;font-size:0.75rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Selected Objects (${locked.length})</div>
+            ${locked.map(name => {
+                const obj = dataIndex.get(name);
+                return `<div class="suggestion-item suggestion-locked" data-name="${escAttr(name)}" style="background:var(--bg-card);border-left:3px solid var(--accent);">
+                    <span class="suggestion-name">✓ ${escHtml(name)}${obj && obj.nickname ? ' — ' + escHtml(obj.nickname) : ''}</span>
+                    <span class="suggestion-type">${obj ? escHtml(obj.type || '—') : '—'}</span>
+                </div>`;
+            }).join('')}
+        ` : '';
+
+        // Build active suggestions section
+        let activeHtml = '';
+        if (activeText.length >= 1) {
+            const q = normalizeQuery(activeText);
+            const matches = [];
+            const messierKey = parseMessierQuery(q);
+            if (messierKey) {
+                const messierObj = allData.find(o => o.messierNumber === messierKey);
+                if (messierObj && !locked.includes(messierObj.name)) {
+                    matches.push({ obj: messierObj, matchedAlt: '', messierFirst: true });
+                }
+            }
+            for (const obj of allData) {
+                if (matches.length >= 10) break;
+                if (locked.includes(obj.name)) continue;
+                if (matches.length > 0 && matches[0].messierFirst && obj === matches[0].obj) continue;
+                const name = obj.name.toLowerCase();
+                const nick = (obj.nickname || '').toLowerCase();
+                const other = (obj.other || '').toLowerCase();
+                let matchedAlt = '';
+                if (flexibleMatch(name, q) || flexibleMatch(nick, q)) {
+                    // matched
+                } else if (flexibleMatch(other, q)) {
+                    matchedAlt = findMatchingAlt(obj.other, q);
+                } else {
+                    continue;
+                }
+                matches.push({ obj, matchedAlt });
+            }
+            if (matches.length > 0) {
+                activeHtml = `
+                    <div class="suggestion-section-label" style="padding:6px 12px;font-size:0.75rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;border-top:1px solid var(--border-color);">Suggestions</div>
+                    ${matches.map(({ obj: m, matchedAlt, messierFirst }) => {
+                        const displayName = messierFirst && m.messierNumber
+                            ? m.messierNumber + ' (' + m.name + ')'
+                            : m.name;
+                        return `<div class="suggestion-item" data-name="${escAttr(m.name)}">
+                            <span class="suggestion-name">${escHtml(displayName)}${m.nickname ? ' — ' + escHtml(m.nickname) : ''}${matchedAlt ? ' <span class="suggestion-alt">(' + escHtml(matchedAlt) + ')</span>' : ''}</span>
+                            <span class="suggestion-type">${escHtml(m.type || '—')}</span>
+                        </div>`;
+                    }).join('')}
+                `;
+            }
+        }
+
+        if (!lockedHtml && !activeHtml) {
+            container.innerHTML = '';
+            return;
+        }
+
+        container.innerHTML = `<div class="suggestions-list" style="max-height:400px;overflow-y:auto;">${lockedHtml}${activeHtml}</div>`;
+
+        // Attach click handlers
+        container.querySelectorAll('.suggestion-item[data-name]').forEach(item => {
+            item.addEventListener('click', () => {
+                if (!item.dataset.name) return;
+                selectObject(item.dataset.name);
+            });
+        });
+    }
+
+    function restoreQuickLookupList() {
+        const sugBox = $('#quick-suggestions');
+        const input = $('#quick-search');
+        if (!sugBox || quickLookupState.locked.length === 0) return;
+        // Restore the input text
+        input.value = quickLookupState.locked.join(', ') + ', ';
+        // Re-render the locked list
+        quickLookupState.activeText = '';
+        showMultiSuggestions(sugBox);
+        // Focus the input so user can continue
+        input.focus();
     }
 
     function highlightSuggestion(items) {
@@ -1404,13 +1571,23 @@
                 </div>
             ` : ''}
             </div>
+            <button class="detail-back" id="detail-back-btn-bottom">
+                ← Back to results
+            </button>
         `;
 
         // Attach event listeners (no inline onclick)
         const backBtn = detail.querySelector('#detail-back-btn');
-        if (backBtn) {
-            backBtn.addEventListener('click', () => closeDetailPanel());
-        }
+        const backBtnBottom = detail.querySelector('#detail-back-btn-bottom');
+        const handleBack = () => {
+            closeDetailPanel();
+            // If multi-object Quick Lookup list exists, restore it
+            if (quickLookupState.locked.length > 0) {
+                restoreQuickLookupList();
+            }
+        };
+        if (backBtn) backBtn.addEventListener('click', handleBack);
+        if (backBtnBottom) backBtnBottom.addEventListener('click', handleBack);
 
         // Open the slide-over panel
         detail.setAttribute('role', 'dialog');

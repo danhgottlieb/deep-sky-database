@@ -6,7 +6,7 @@
     <title>Steve Gottlieb's Deep Sky</title>
     <meta name="description" content="A comprehensive database of over 24,000 deep sky observations by Steve Gottlieb, spanning 45+ years of visual astronomy with telescopes from 6 inches to 82 inches.">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=20">
+    <link rel="stylesheet" href="css/style.css?v=21">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -206,6 +206,16 @@
                             </div>
                         </div>
                         <div class="filter-group">
+                            <label for="filter-aperture">Aperture</label>
+                            <select id="filter-aperture">
+                                <option value="all">All</option>
+                                <option value="9-">9&quot; or less</option>
+                                <option value="10-16">10&quot; to 16&quot;</option>
+                                <option value="17-24">17&quot; to 24&quot;</option>
+                                <option value="25+">25&quot; or more</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
                             <label for="filter-ra-min-h">Right Ascension</label>
                             <div class="ra-range">
                                 <div class="ra-input-group">
@@ -358,7 +368,7 @@
     </div>
 
     <script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
-    <script src="js/app.js?v=18"></script>
+    <script src="js/app.js?v=19"></script>
     <script data-goatcounter="https://deepsky.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>

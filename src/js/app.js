@@ -27,8 +27,7 @@
     const BLOG_PAGE = 200;
     let activeCollection = '';
 
-    // Multi-object Quick Lookup state
-    const quickLookupState = { locked: [], activeText: '' };
+    let selectedAperture = 'all';
 
     // Type abbreviation key
     const TYPE_KEY = {
@@ -791,47 +790,6 @@
     }
 
     // --- Search ---
-    function resolveObjectName(text) {
-        const q = normalizeQuery(text);
-        if (!q) return null;
-        // Messier shortcut
-        const messierKey = parseMessierQuery(q);
-        if (messierKey) {
-            const obj = allData.find(o => o.messierNumber === messierKey);
-            if (obj) return obj.name;
-        }
-        // Exact match
-        const exact = allData.find(o => o.name.toLowerCase() === q);
-        if (exact) return exact.name;
-        // With space inserted
-        const spaced = q.replace(/^(ngc|ic|ugc|m|abell|arp|hickson|sh|vv|mcg|pgc|leda)(\d)/, '$1 $2');
-        if (spaced !== q) {
-            const exactSpaced = allData.find(o => o.name.toLowerCase() === spaced);
-            if (exactSpaced) return exactSpaced.name;
-        }
-        // Single partial match
-        const partials = allData.filter(o => {
-            const name = o.name.toLowerCase();
-            const nick = (o.nickname || '').toLowerCase();
-            const other = (o.other || '').toLowerCase();
-            return flexibleMatch(name, q) || flexibleMatch(nick, q) || flexibleMatch(other, q);
-        });
-        if (partials.length === 1) return partials[0].name;
-        return null;
-    }
-
-    function parseQuickLookupInput(raw) {
-        const parts = raw.split(',');
-        const locked = [];
-        for (let i = 0; i < parts.length - 1; i++) {
-            const seg = parts[i].trim();
-            const resolved = resolveObjectName(seg);
-            if (resolved && !locked.includes(resolved)) locked.push(resolved);
-        }
-        const activeText = parts[parts.length - 1];
-        return { locked, activeText };
-    }
-
     function setupSearch() {
         const input = $('#quick-search');
         const btn = $('#quick-search-btn');
@@ -840,23 +798,12 @@
         input.addEventListener('input', () => {
             clearTimeout(searchTimer);
             suggestionIndex = -1;
-            const raw = input.value;
-            if (raw.trim().length < 1) {
-                quickLookupState.locked = [];
-                quickLookupState.activeText = '';
+            const raw = input.value.trim();
+            if (raw.length < 1) {
                 sugBox.innerHTML = '';
                 return;
             }
-            if (raw.includes(',')) {
-                const parsed = parseQuickLookupInput(raw);
-                quickLookupState.locked = parsed.locked;
-                quickLookupState.activeText = parsed.activeText;
-                searchTimer = setTimeout(() => showMultiSuggestions(sugBox), 150);
-            } else {
-                quickLookupState.locked = [];
-                quickLookupState.activeText = raw.trim();
-                searchTimer = setTimeout(() => showSuggestions(raw.trim(), sugBox), 150);
-            }
+            searchTimer = setTimeout(() => showSuggestions(raw, sugBox), 150);
         });
 
         input.addEventListener('keydown', (e) => {
@@ -876,39 +823,20 @@
                 if (suggestionIndex >= 0 && items[suggestionIndex]) {
                     const name = items[suggestionIndex].dataset.name;
                     selectObject(name);
-                    if (quickLookupState.locked.length === 0) {
-                        sugBox.innerHTML = '';
-                        input.value = name;
-                    }
-                } else if (!input.value.includes(',')) {
+                    sugBox.innerHTML = '';
+                    input.value = name;
+                } else {
                     doQuickSearch(input.value.trim());
                     sugBox.innerHTML = '';
                 }
             } else if (e.key === 'Escape') {
                 sugBox.innerHTML = '';
-            } else if (e.key === 'Backspace' && quickLookupState.locked.length > 0) {
-                // If active text is empty and backspace is pressed, remove last locked item
-                const parts = input.value.split(',');
-                const lastPart = parts[parts.length - 1];
-                if (lastPart.trim() === '' && parts.length > 1) {
-                    e.preventDefault();
-                    quickLookupState.locked.pop();
-                    if (quickLookupState.locked.length === 0) {
-                        input.value = '';
-                        sugBox.innerHTML = '';
-                    } else {
-                        input.value = quickLookupState.locked.join(', ') + ', ';
-                        setTimeout(() => showMultiSuggestions(sugBox), 50);
-                    }
-                }
             }
         });
 
         btn.addEventListener('click', () => {
-            if (!input.value.includes(',')) {
-                doQuickSearch(input.value.trim());
-                sugBox.innerHTML = '';
-            }
+            doQuickSearch(input.value.trim());
+            sugBox.innerHTML = '';
         });
 
         // Click outside to close
@@ -928,6 +856,7 @@
     function showSuggestions(query, container) {
         const q = normalizeQuery(query);
         const matches = [];
+        const addedNames = new Set();
 
         // If the query is a Messier number, find that object first
         const messierKey = parseMessierQuery(q);
@@ -935,13 +864,43 @@
             const messierObj = allData.find(o => o.messierNumber === messierKey);
             if (messierObj) {
                 matches.push({ obj: messierObj, matchedAlt: '', messierFirst: true });
+                addedNames.add(messierObj.name);
             }
         }
 
+        // Exact match by primary name (highest priority after Messier)
+        const spaced = q.replace(/^(ngc|ic|ugc|m|abell|arp|hickson|sh|vv|mcg|pgc|leda)(\d)/, '$1 $2');
+        for (const obj of allData) {
+            if (addedNames.has(obj.name)) continue;
+            const name = obj.name.toLowerCase();
+            if (name === q || name === spaced) {
+                matches.push({ obj, matchedAlt: '' });
+                addedNames.add(obj.name);
+                break;
+            }
+        }
+
+        // Exact match by alternate name
+        for (const obj of allData) {
+            if (addedNames.has(obj.name)) continue;
+            if (obj.other) {
+                const alts = obj.other.split(/\s*=\s*/);
+                for (const alt of alts) {
+                    const altNorm = alt.trim().toLowerCase();
+                    if (altNorm === q || altNorm === spaced) {
+                        matches.push({ obj, matchedAlt: alt.trim() });
+                        addedNames.add(obj.name);
+                        break;
+                    }
+                }
+            }
+            if (addedNames.size > 0 && addedNames.has(obj.name)) break;
+        }
+
+        // Partial matches (fill up to 10 total)
         for (const obj of allData) {
             if (matches.length >= 10) break;
-            // Skip if already added as Messier priority match
-            if (matches.length > 0 && matches[0].messierFirst && obj === matches[0].obj) continue;
+            if (addedNames.has(obj.name)) continue;
             const name = obj.name.toLowerCase();
             const nick = (obj.nickname || '').toLowerCase();
             const other = (obj.other || '').toLowerCase();
@@ -955,6 +914,7 @@
                 continue;
             }
             matches.push({ obj, matchedAlt });
+            addedNames.add(obj.name);
         }
 
         suggestionIndex = -1;
@@ -985,97 +945,6 @@
         });
     }
 
-    function showMultiSuggestions(container) {
-        const locked = quickLookupState.locked;
-        const activeText = quickLookupState.activeText.trim();
-        suggestionIndex = -1;
-
-        // Build locked items section
-        const lockedHtml = locked.length > 0 ? `
-            <div class="suggestion-section-label" style="padding:6px 12px;font-size:0.75rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Selected Objects (${locked.length})</div>
-            ${locked.map(name => {
-                const obj = dataIndex.get(name);
-                return `<div class="suggestion-item suggestion-locked" data-name="${escAttr(name)}" style="background:var(--bg-card);border-left:3px solid var(--accent);">
-                    <span class="suggestion-name">✓ ${escHtml(name)}${obj && obj.nickname ? ' — ' + escHtml(obj.nickname) : ''}</span>
-                    <span class="suggestion-type">${obj ? escHtml(obj.type || '—') : '—'}</span>
-                </div>`;
-            }).join('')}
-        ` : '';
-
-        // Build active suggestions section
-        let activeHtml = '';
-        if (activeText.length >= 1) {
-            const q = normalizeQuery(activeText);
-            const matches = [];
-            const messierKey = parseMessierQuery(q);
-            if (messierKey) {
-                const messierObj = allData.find(o => o.messierNumber === messierKey);
-                if (messierObj && !locked.includes(messierObj.name)) {
-                    matches.push({ obj: messierObj, matchedAlt: '', messierFirst: true });
-                }
-            }
-            for (const obj of allData) {
-                if (matches.length >= 10) break;
-                if (locked.includes(obj.name)) continue;
-                if (matches.length > 0 && matches[0].messierFirst && obj === matches[0].obj) continue;
-                const name = obj.name.toLowerCase();
-                const nick = (obj.nickname || '').toLowerCase();
-                const other = (obj.other || '').toLowerCase();
-                let matchedAlt = '';
-                if (flexibleMatch(name, q) || flexibleMatch(nick, q)) {
-                    // matched
-                } else if (flexibleMatch(other, q)) {
-                    matchedAlt = findMatchingAlt(obj.other, q);
-                } else {
-                    continue;
-                }
-                matches.push({ obj, matchedAlt });
-            }
-            if (matches.length > 0) {
-                activeHtml = `
-                    <div class="suggestion-section-label" style="padding:6px 12px;font-size:0.75rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;border-top:1px solid var(--border-color);">Suggestions</div>
-                    ${matches.map(({ obj: m, matchedAlt, messierFirst }) => {
-                        const displayName = messierFirst && m.messierNumber
-                            ? m.messierNumber + ' (' + m.name + ')'
-                            : m.name;
-                        return `<div class="suggestion-item" data-name="${escAttr(m.name)}">
-                            <span class="suggestion-name">${escHtml(displayName)}${m.nickname ? ' — ' + escHtml(m.nickname) : ''}${matchedAlt ? ' <span class="suggestion-alt">(' + escHtml(matchedAlt) + ')</span>' : ''}</span>
-                            <span class="suggestion-type">${escHtml(m.type || '—')}</span>
-                        </div>`;
-                    }).join('')}
-                `;
-            }
-        }
-
-        if (!lockedHtml && !activeHtml) {
-            container.innerHTML = '';
-            return;
-        }
-
-        container.innerHTML = `<div class="suggestions-list" style="max-height:400px;overflow-y:auto;">${lockedHtml}${activeHtml}</div>`;
-
-        // Attach click handlers
-        container.querySelectorAll('.suggestion-item[data-name]').forEach(item => {
-            item.addEventListener('click', () => {
-                if (!item.dataset.name) return;
-                selectObject(item.dataset.name);
-            });
-        });
-    }
-
-    function restoreQuickLookupList() {
-        const sugBox = $('#quick-suggestions');
-        const input = $('#quick-search');
-        if (!sugBox || quickLookupState.locked.length === 0) return;
-        // Restore the input text
-        input.value = quickLookupState.locked.join(', ') + ', ';
-        // Re-render the locked list
-        quickLookupState.activeText = '';
-        showMultiSuggestions(sugBox);
-        // Focus the input so user can continue
-        input.focus();
-    }
-
     function highlightSuggestion(items) {
         items.forEach((item, i) => {
             item.classList.toggle('highlighted', i === suggestionIndex);
@@ -1084,6 +953,66 @@
 
     function normalizeQuery(q) {
         return q.toLowerCase().replace(/\s+/g, ' ').trim();
+    }
+
+    // Name Contains match: if query ends with a digit, the character following
+    // the matched substring must NOT be a digit (prevents "NGC 72" matching "NGC 720")
+    function nameContainsMatch(haystack, needle) {
+        if (!needle) return false;
+        const endsWithDigit = /\d$/.test(needle);
+        if (!endsWithDigit) return haystack.includes(needle);
+        // Use regex: needle followed by non-digit or end of string
+        const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(escaped + '(?!\\d)');
+        return re.test(haystack);
+    }
+
+    // Parse aperture string to inches (returns null if unrecognizable)
+    function parseApertureInches(apertureStr) {
+        if (!apertureStr) return null;
+        const s = apertureStr.trim();
+        if (/^naked-eye$/i.test(s)) return 0;
+        // Match inches: "24\"", "17.5\"", "6\"", etc.
+        const inchMatch = s.match(/^(\d+\.?\d*)\s*"/);
+        if (inchMatch) return parseFloat(inchMatch[1]);
+        // Match binoculars/finders: "16x80mm", "15x50mm IS binoculars", "13x80mm finder"
+        const binoMatch = s.match(/(\d+)\s*x\s*(\d+)\s*mm/i);
+        if (binoMatch) return parseFloat(binoMatch[2]) / 25.4;
+        // Match standalone mm: "50mm", "80mm", "30mm"
+        const mmMatch = s.match(/^(\d+)\s*mm/);
+        if (mmMatch) return parseFloat(mmMatch[1]) / 25.4;
+        // NV, etc. — not a recognizable aperture
+        return null;
+    }
+
+    // Check if an object has any observation matching the selected aperture range
+    function objectMatchesAperture(obj, range) {
+        if (range === 'all') return true;
+        if (!obj.observations || obj.observations.length === 0) return false;
+        return obj.observations.some(obs => {
+            let inches = parseApertureInches(obs.aperture);
+            // If aperture field is empty, try parsing from start of text
+            if (inches === null && obs.text) {
+                const t = obs.text.trim();
+                if (/^Naked-eye/i.test(t)) inches = 0;
+                else {
+                    const textInch = t.match(/^(\d+\.?\d*)\s*["″]/);
+                    if (textInch) inches = parseFloat(textInch[1]);
+                    else {
+                        const textBino = t.match(/^(\d+)\s*x\s*(\d+)/);
+                        if (textBino) inches = parseFloat(textBino[2]) / 25.4;
+                    }
+                }
+            }
+            if (inches === null) return false;
+            switch (range) {
+                case '9-': return inches <= 9;
+                case '10-16': return inches >= 10 && inches <= 16;
+                case '17-24': return inches >= 17 && inches <= 24;
+                case '25+': return inches >= 25;
+                default: return true;
+            }
+        });
     }
 
     function flexibleMatch(haystack, needle) {
@@ -1238,7 +1167,7 @@
                 const n = o.name.toLowerCase();
                 const nick = (o.nickname || '').toLowerCase();
                 const other = (o.other || '').toLowerCase();
-                const matchesAny = allNameFilters.some(nf => n.includes(nf) || nick.includes(nf) || other.includes(nf));
+                const matchesAny = allNameFilters.some(nf => nameContainsMatch(n, nf) || nameContainsMatch(nick, nf) || nameContainsMatch(other, nf));
                 if (!matchesAny) return false;
             }
             return true;
@@ -1272,6 +1201,13 @@
                 if (raMax !== null && objRA > raMax) return false;
                 return true;
             });
+        }
+
+        // Aperture filter
+        const apertureSelect = $('#filter-aperture');
+        selectedAperture = apertureSelect ? apertureSelect.value : 'all';
+        if (selectedAperture !== 'all') {
+            filteredData = filteredData.filter(o => objectMatchesAperture(o, selectedAperture));
         }
 
         // If HCG catalog is selected, set active collection for sorting
@@ -1328,6 +1264,9 @@
         $('#filter-ra-max-h').value = '';
         $('#filter-ra-max-m').value = '';
         $('#filter-name').value = '';
+        const apertureSelect = $('#filter-aperture');
+        if (apertureSelect) apertureSelect.value = 'all';
+        selectedAperture = 'all';
         filteredData = [];
         $('#results-header').style.display = 'none';
         $('#results-list').innerHTML = '';
@@ -1581,10 +1520,6 @@
         const backBtnBottom = detail.querySelector('#detail-back-btn-bottom');
         const handleBack = () => {
             closeDetailPanel();
-            // If multi-object Quick Lookup list exists, restore it
-            if (quickLookupState.locked.length > 0) {
-                restoreQuickLookupList();
-            }
         };
         if (backBtn) backBtn.addEventListener('click', handleBack);
         if (backBtnBottom) backBtnBottom.addEventListener('click', handleBack);

@@ -6,7 +6,7 @@
     <title>Steve Gottlieb's Deep Sky</title>
     <meta name="description" content="A comprehensive database of over 24,000 deep sky observations by Steve Gottlieb, spanning 45+ years of visual astronomy with telescopes from 6 inches to 82 inches.">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=21">
+    <link rel="stylesheet" href="css/style.css?v=22">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -206,14 +206,27 @@
                             </div>
                         </div>
                         <div class="filter-group">
-                            <label for="filter-aperture">Aperture</label>
-                            <select id="filter-aperture">
-                                <option value="all">All</option>
-                                <option value="9-">9&quot; or less</option>
-                                <option value="10-16">10&quot; to 16&quot;</option>
-                                <option value="17-24">17&quot; to 24&quot;</option>
-                                <option value="25+">25&quot; or more</option>
-                            </select>
+                            <label>Aperture</label>
+                            <div class="custom-select" id="filter-aperture-container" data-value="all">
+                                <button type="button" class="custom-select-trigger" id="filter-aperture-trigger" aria-haspopup="listbox" aria-expanded="false">
+                                    <span class="custom-select-label">All</span>
+                                    <span class="custom-select-arrow">▾</span>
+                                </button>
+                                <div class="custom-select-dropdown" id="aperture-dropdown" role="listbox">
+                                    <div class="custom-select-option selected" data-value="all" role="option">All</div>
+                                    <div class="custom-select-option" data-value="9-" role="option">9″ or less</div>
+                                    <div class="custom-select-option" data-value="10-16" role="option">10″ to 16″</div>
+                                    <div class="custom-select-option" data-value="17-24" role="option">17″ to 24″</div>
+                                    <div class="custom-select-option" data-value="25+" role="option">25″ or more</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Name Contains</label>
+                            <div class="multi-select" id="filter-name-container">
+                                <input type="text" id="filter-name" placeholder="e.g., Abell, Arp">
+                                <div class="multi-select-tags" id="name-tags"></div>
+                            </div>
                         </div>
                         <div class="filter-group">
                             <label for="filter-ra-min-h">Right Ascension</label>
@@ -234,10 +247,11 @@
                             </div>
                         </div>
                         <div class="filter-group">
-                            <label>Name Contains</label>
-                            <div class="multi-select" id="filter-name-container">
-                                <input type="text" id="filter-name" placeholder="e.g., Abell, Arp">
-                                <div class="multi-select-tags" id="name-tags"></div>
+                            <label for="filter-dec-min">Declination</label>
+                            <div class="mag-range">
+                                <input type="number" id="filter-dec-min" placeholder="Min °" step="0.1" min="-90" max="90">
+                                <span>to</span>
+                                <input type="number" id="filter-dec-max" placeholder="Max °" step="0.1" min="-90" max="90">
                             </div>
                         </div>
                     </div>
@@ -278,6 +292,13 @@
                             <option value="con">Constellation</option>
                             <option value="type">Type</option>
                         </select>
+                        <div class="print-menu-wrapper">
+                            <button id="print-btn" class="btn btn-secondary print-btn">🖨 Print</button>
+                            <div class="print-menu" id="print-menu">
+                                <button class="print-menu-option" data-mode="basic">Basic list</button>
+                                <button class="print-menu-option" data-mode="notes">List with notes</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="results-list" class="results-list"></div>

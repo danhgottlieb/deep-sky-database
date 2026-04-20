@@ -1103,6 +1103,179 @@
         setupRaWrap('filter-ra-max-h', 0, 23);
         setupRaWrap('filter-ra-min-m', 0, 59);
         setupRaWrap('filter-ra-max-m', 0, 59);
+
+        // Custom aperture dropdown
+        setupApertureSelect();
+
+        // Print menu
+        setupPrintMenu();
+    }
+
+    function setupApertureSelect() {
+        const container = $('#filter-aperture-container');
+        const trigger = $('#filter-aperture-trigger');
+        const dropdown = $('#aperture-dropdown');
+        if (!container || !trigger || !dropdown) return;
+
+        trigger.addEventListener('click', () => {
+            const isOpen = dropdown.classList.contains('open');
+            closeAllDropdowns();
+            if (!isOpen) {
+                dropdown.classList.add('open');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                dropdown.classList.remove('open');
+                trigger.setAttribute('aria-expanded', 'false');
+            } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (!dropdown.classList.contains('open')) {
+                    dropdown.classList.add('open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+                const opts = [...dropdown.querySelectorAll('.custom-select-option')];
+                const curIdx = opts.findIndex(o => o.classList.contains('selected'));
+                const nextIdx = e.key === 'ArrowDown'
+                    ? Math.min(curIdx + 1, opts.length - 1)
+                    : Math.max(curIdx - 1, 0);
+                selectApertureOption(opts[nextIdx]);
+            }
+        });
+
+        dropdown.querySelectorAll('.custom-select-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                selectApertureOption(opt);
+                dropdown.classList.remove('open');
+                trigger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        function selectApertureOption(opt) {
+            dropdown.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            container.setAttribute('data-value', opt.dataset.value);
+            trigger.querySelector('.custom-select-label').textContent = opt.textContent;
+        }
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!container.contains(e.target)) {
+                dropdown.classList.remove('open');
+                trigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    function closeAllDropdowns() {
+        document.querySelectorAll('.custom-select-dropdown.open').forEach(d => d.classList.remove('open'));
+        document.querySelectorAll('.custom-select-trigger').forEach(t => t.setAttribute('aria-expanded', 'false'));
+        const printMenu = $('#print-menu');
+        if (printMenu) printMenu.classList.remove('open');
+    }
+
+    function setupPrintMenu() {
+        const btn = $('#print-btn');
+        const menu = $('#print-menu');
+        if (!btn || !menu) return;
+
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = menu.classList.contains('open');
+            closeAllDropdowns();
+            if (!isOpen) menu.classList.add('open');
+        });
+
+        menu.querySelectorAll('.print-menu-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                menu.classList.remove('open');
+                printResults(opt.dataset.mode);
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('open');
+            }
+        });
+    }
+
+    function printResults(mode) {
+        const includeNotes = mode === 'notes';
+        let rows = '';
+        filteredData.forEach(obj => {
+            const obsCount = countVisualObs(obj.observations);
+            let obsHtml = '';
+            if (includeNotes && obj.observations && obj.observations.length > 0) {
+                const realObs = obj.observations.filter(o => !(o.text && o.text.startsWith('=')));
+                obsHtml = '<div class="obs-section"><strong>Visual Observations (' + realObs.length + ')</strong>' +
+                    realObs.map(o =>
+                        '<div class="obs-entry">' +
+                        (o.aperture ? '<span class="obs-ap">' + escHtml(o.aperture) + '</span>' : '') +
+                        (o.date ? ' <span class="obs-dt">' + escHtml(o.date) + '</span>' : '') +
+                        '<div>' + escHtml(o.text) + '</div></div>'
+                    ).join('') + '</div>';
+            }
+
+            rows += '<div class="obj-card">' +
+                '<div class="obj-header">' +
+                '<strong>' + (obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : '') + escHtml(obj.name) + '</strong>' +
+                (obj.nickname ? ' &mdash; ' + escHtml(obj.nickname) : '') +
+                (obj.other ? ' <span class="aliases">(Also: ' + escHtml(obj.other) + ')</span>' : '') +
+                '</div>' +
+                '<div class="obj-badges">' +
+                (obj.isTopObject ? '<span class="badge-fav">★ Favorites</span> ' : '') +
+                (obj.isMessier ? '<span class="badge-m">Messier</span> ' : '') +
+                (obj.isOrionAtlas ? '<span class="badge-o">DeepMap</span> ' : '') +
+                '</div>' +
+                '<div class="obj-meta">' +
+                (obj.type ? '<span><b>Type:</b> ' + escHtml(obj.type) + '</span>' : '') +
+                (obj.con ? '<span><b>Con:</b> ' + escHtml(obj.con) + '</span>' : '') +
+                (obj.vmag ? '<span><b>Mag:</b> ' + escHtml(obj.vmag) + '</span>' : '') +
+                (obj.size ? '<span><b>Size:</b> ' + escHtml(obj.size) + '</span>' : '') +
+                (obj.ra ? '<span><b>RA:</b> ' + escHtml(obj.ra) + '</span>' : '') +
+                (obj.dec ? '<span><b>Dec:</b> ' + escHtml(obj.dec) + '</span>' : '') +
+                '<span><b>Obs:</b> ' + obsCount + '</span>' +
+                '</div>' +
+                obsHtml +
+                '</div>';
+        });
+
+        const printHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8">' +
+            '<title>Deep Sky Objects — ' + (includeNotes ? 'List with Notes' : 'Basic List') + '</title>' +
+            '<style>' +
+            'body{font-family:Georgia,serif;color:#000;margin:24px;font-size:11pt;line-height:1.5;}' +
+            'h1{font-size:16pt;margin-bottom:4px;}' +
+            '.subtitle{color:#555;font-size:10pt;margin-bottom:20px;}' +
+            '.obj-card{border:1px solid #ccc;border-radius:6px;padding:12px 16px;margin-bottom:12px;page-break-inside:avoid;}' +
+            '.obj-header{font-size:12pt;margin-bottom:4px;}' +
+            '.aliases{color:#666;font-size:10pt;}' +
+            '.obj-badges span{display:inline-block;font-size:8pt;padding:1px 6px;border:1px solid #999;border-radius:3px;margin-right:4px;margin-bottom:4px;}' +
+            '.badge-fav{border-color:#d97706;color:#d97706;}' +
+            '.badge-m{border-color:#0284c7;color:#0284c7;}' +
+            '.badge-o{border-color:#7c3aed;color:#7c3aed;}' +
+            '.obj-meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:10pt;margin-top:6px;color:#333;}' +
+            '.obs-section{margin-top:10px;border-top:1px solid #ddd;padding-top:8px;font-size:10pt;}' +
+            '.obs-entry{margin:6px 0 6px 12px;}' +
+            '.obs-ap{font-weight:bold;}' +
+            '.obs-dt{color:#666;}' +
+            '@media print{body{margin:12px;}.obj-card{break-inside:avoid;}}' +
+            '</style></head><body>' +
+            '<h1>Steve Gottlieb\'s Deep Sky Objects</h1>' +
+            '<div class="subtitle">' + filteredData.length.toLocaleString() + ' objects &mdash; ' +
+            (includeNotes ? 'List with notes' : 'Basic list') +
+            ' &mdash; Printed ' + new Date().toLocaleDateString() + '</div>' +
+            rows +
+            '</body></html>';
+
+        const w = window.open('', '_blank');
+        if (w) {
+            w.document.write(printHtml);
+            w.document.close();
+            w.addEventListener('load', () => w.print());
+        }
     }
 
     // Continuous wrap-around for RA number inputs
@@ -1204,10 +1377,23 @@
         }
 
         // Aperture filter
-        const apertureSelect = $('#filter-aperture');
-        selectedAperture = apertureSelect ? apertureSelect.value : 'all';
+        const apertureContainer = $('#filter-aperture-container');
+        selectedAperture = apertureContainer ? apertureContainer.getAttribute('data-value') : 'all';
         if (selectedAperture !== 'all') {
             filteredData = filteredData.filter(o => objectMatchesAperture(o, selectedAperture));
+        }
+
+        // Declination filter
+        const decMin = parseFloat($('#filter-dec-min').value);
+        const decMax = parseFloat($('#filter-dec-max').value);
+        if (!isNaN(decMin) || !isNaN(decMax)) {
+            filteredData = filteredData.filter(o => {
+                const decDeg = parseDec(o.dec);
+                if (decDeg === null) return false;
+                if (!isNaN(decMin) && decDeg < decMin) return false;
+                if (!isNaN(decMax) && decDeg > decMax) return false;
+                return true;
+            });
         }
 
         // If HCG catalog is selected, set active collection for sorting
@@ -1264,9 +1450,21 @@
         $('#filter-ra-max-h').value = '';
         $('#filter-ra-max-m').value = '';
         $('#filter-name').value = '';
-        const apertureSelect = $('#filter-aperture');
-        if (apertureSelect) apertureSelect.value = 'all';
+        const apertureContainer = $('#filter-aperture-container');
+        if (apertureContainer) {
+            apertureContainer.setAttribute('data-value', 'all');
+            const trigger = $('#filter-aperture-trigger');
+            if (trigger) trigger.querySelector('.custom-select-label').textContent = 'All';
+            const dropdown = $('#aperture-dropdown');
+            if (dropdown) {
+                dropdown.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('selected'));
+                const allOpt = dropdown.querySelector('[data-value="all"]');
+                if (allOpt) allOpt.classList.add('selected');
+            }
+        }
         selectedAperture = 'all';
+        $('#filter-dec-min').value = '';
+        $('#filter-dec-max').value = '';
         filteredData = [];
         $('#results-header').style.display = 'none';
         $('#results-list').innerHTML = '';

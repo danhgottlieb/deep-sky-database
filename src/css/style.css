@@ -685,7 +685,7 @@ img {
     display: block;
     font-weight: 500;
     margin-bottom: 8px;
-    color: #facc15;
+    color: var(--gold);
     font-size: 0.9rem;
 }
 
@@ -803,7 +803,7 @@ img {
     display: block;
     font-weight: 500;
     margin-bottom: 8px;
-    color: #facc15;
+    color: var(--gold);
     font-size: 0.9rem;
 }
 
@@ -1738,6 +1738,114 @@ img {
 .multi-select-option.selected {
     color: var(--accent);
     background: rgba(96, 165, 250, 0.08);
+}
+
+/* --- Custom Select (single-select dropdown matching multi-select style) --- */
+.custom-select {
+    position: relative;
+}
+.custom-select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+}
+.custom-select-trigger:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+}
+.custom-select-arrow {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-left: 8px;
+}
+.custom-select-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    max-height: 280px;
+    overflow-y: auto;
+    z-index: 50;
+    display: none;
+    box-shadow: var(--shadow-lg);
+    margin-top: 2px;
+}
+.custom-select-dropdown.open {
+    display: block;
+}
+.custom-select-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: background 0.15s;
+}
+.custom-select-option:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-bright);
+}
+.custom-select-option.selected {
+    color: var(--accent);
+    background: rgba(96, 165, 250, 0.08);
+}
+
+/* --- Print Button & Menu --- */
+.print-menu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+.print-btn {
+    padding: 6px 14px !important;
+    font-size: 0.85rem !important;
+    white-space: nowrap;
+}
+.print-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 60;
+    min-width: 180px;
+    overflow: hidden;
+}
+.print-menu.open {
+    display: block;
+}
+.print-menu-option {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+}
+.print-menu-option:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-bright);
 }
 
 /* --- Responsive --- */

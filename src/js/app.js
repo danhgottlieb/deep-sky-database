@@ -2067,7 +2067,9 @@
             30: 'articles/galaxies-in-collision.pdf',
             39: 'articles/lets-get-together.pdf',
             42: 'articles/david-todds-deep-sky-discoveries.pdf',
-            43: 'articles/shakhbazian-galaxy-groups.pdf'
+            43: 'articles/shakhbazian-galaxy-groups.pdf',
+            4: 'articles/abell-2065-corona-borealis.pdf',
+            3: 'articles/abell-4038-sculptor.pdf'
         };
 
         list.innerHTML = articles.map(a => `

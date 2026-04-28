@@ -582,10 +582,47 @@
     function getHcgDesignation(obj) {
         if (obj.name.startsWith('HCG')) return obj.name;
         if (obj.other) {
-            const m = obj.other.match(/HCG\s*\d+[A-Ga-g]?/);
+            const m = obj.other.match(/HCG\s*\d+[A-Za-z]?/);
             if (m) return m[0];
         }
         return null;
+    }
+
+    // Extract Abell designation from an object (from name or 'other' field)
+    function getAbellDesignation(obj) {
+        if (/^Abell\s+\d+/.test(obj.name)) return obj.name;
+        if (obj.other) {
+            const m = obj.other.match(/Abell\s+\d+/);
+            if (m) return m[0];
+        }
+        return null;
+    }
+
+    // Extract KTG designation from an object (from name or 'other' field)
+    function getKtgDesignation(obj) {
+        if (/^KTG\s+\d+/.test(obj.name)) return obj.name;
+        if (obj.other) {
+            const m = obj.other.match(/KTG\s+\d+[A-Za-z]?/);
+            if (m) return m[0];
+        }
+        return null;
+    }
+
+    // Parse size field to arcminutes for filtering
+    function parseSizeArcmin(sizeStr) {
+        if (!sizeStr || !sizeStr.trim()) return 0;
+        const s = sizeStr.trim();
+        // Arcminutes: "2.1'x1.8'" or "5'" — use first (major axis)
+        const amMatch = s.match(/(\d+\.?\d*)'/);
+        if (amMatch) return parseFloat(amMatch[1]);
+        // Arcseconds: "38"" or "150"" or "3.9"/67"" — use first value
+        const asMatch = s.match(/(\d+\.?\d*)"/);
+        if (asMatch) {
+            const arcsec = parseFloat(asMatch[1]);
+            const arcmin = arcsec / 60;
+            return arcmin < 0.1 ? 0 : arcmin;  // < 6" treated as 0'
+        }
+        return 0;
     }
 
     function buildConstellationFilter() {
@@ -651,17 +688,27 @@
 
         if (!container || !searchInput || !tagsEl || !dropdown) return;
 
-        const catalogs = ['Messier', 'NGC', 'IC', 'UGC', 'Hickson Compact Groups', 'Orion DeepMap', "Gottlieb's favorites"];
+        const catalogGroups = [
+            { label: 'GENERAL', items: ['Messier', 'NGC', 'IC', 'Orion DeepMap', "Gottlieb's Favorites"] },
+            { label: 'SPECIALIZED', items: ['Abell planetary nebulae', 'Galaxy Trios (KTG)', 'Hickson Compact Groups (HCG)', 'Uppsala Galaxy Catalog (UGC)'] }
+        ];
+        const allCatalogs = catalogGroups.flatMap(g => g.items);
 
         function renderDropdown(filter) {
             filter = filter || '';
-            const filtered = catalogs.filter(c =>
-                !filter || c.toLowerCase().includes(filter)
-            );
-            dropdown.innerHTML = filtered.map(c => {
-                const isSelected = selectedCatalogs.includes(c);
-                return `<div class="multi-select-option${isSelected ? ' selected' : ''}" data-value="${c}">${c}</div>`;
-            }).join('');
+            let html = '';
+            catalogGroups.forEach(group => {
+                const filtered = group.items.filter(c =>
+                    !filter || c.toLowerCase().includes(filter)
+                );
+                if (filtered.length === 0) return;
+                html += `<div class="catalog-group-header">${group.label}</div>`;
+                filtered.forEach(c => {
+                    const isSelected = selectedCatalogs.includes(c);
+                    html += `<div class="multi-select-option${isSelected ? ' selected' : ''}" data-value="${c}">${c}</div>`;
+                });
+            });
+            dropdown.innerHTML = html;
 
             dropdown.querySelectorAll('.multi-select-option').forEach(opt => {
                 opt.addEventListener('click', () => {
@@ -1107,8 +1154,30 @@
         // Custom aperture dropdown
         setupApertureSelect();
 
+        // Magnitude default of 13.0 when using spinner
+        setupMagDefaults();
+
         // Print menu
         setupPrintMenu();
+    }
+
+    // When magnitude inputs are empty and user clicks up/down arrows,
+    // start from 13.0 instead of 0.0
+    function setupMagDefaults() {
+        ['filter-mag-min', 'filter-mag-max'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            let prevValue = '';
+            el.addEventListener('input', () => {
+                if (prevValue === '' && el.value !== '') {
+                    const v = parseFloat(el.value);
+                    if (!isNaN(v) && Math.abs(v) < 1) {
+                        el.value = (13.0 + v).toFixed(1);
+                    }
+                }
+                prevValue = el.value;
+            });
+        });
     }
 
     function setupApertureSelect() {
@@ -1206,7 +1275,6 @@
         const includeNotes = mode === 'notes';
         let rows = '';
         filteredData.forEach(obj => {
-            const obsCount = countVisualObs(obj.observations);
             let obsHtml = '';
             if (includeNotes && obj.observations && obj.observations.length > 0) {
                 const realObs = obj.observations.filter(o => !(o.text && o.text.startsWith('=')));
@@ -1219,16 +1287,17 @@
                     ).join('') + '</div>';
             }
 
+            // Collection prefix for Abell/KTG/HCG
+            let collPrefix = '';
+            if (activeCollection === 'hcg') { const d = getHcgDesignation(obj); if (d && d !== obj.name) collPrefix = escHtml(d) + ' = '; }
+            else if (activeCollection === 'abell') { const d = getAbellDesignation(obj); if (d && d !== obj.name) collPrefix = escHtml(d) + ' = '; }
+            else if (activeCollection === 'ktg') { const d = getKtgDesignation(obj); if (d && d !== obj.name) collPrefix = escHtml(d) + ' = '; }
+
             rows += '<div class="obj-card">' +
                 '<div class="obj-header">' +
-                '<strong>' + (obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : '') + escHtml(obj.name) + '</strong>' +
+                '<strong>' + (obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : '') + collPrefix + escHtml(obj.name) + '</strong>' +
                 (obj.nickname ? ' &mdash; ' + escHtml(obj.nickname) : '') +
                 (obj.other ? ' <span class="aliases">(Also: ' + escHtml(obj.other) + ')</span>' : '') +
-                '</div>' +
-                '<div class="obj-badges">' +
-                (obj.isTopObject ? '<span class="badge-fav">★ Favorites</span> ' : '') +
-                (obj.isMessier ? '<span class="badge-m">Messier</span> ' : '') +
-                (obj.isOrionAtlas ? '<span class="badge-o">DeepMap</span> ' : '') +
                 '</div>' +
                 '<div class="obj-meta">' +
                 (obj.type ? '<span><b>Type:</b> ' + escHtml(obj.type) + '</span>' : '') +
@@ -1237,7 +1306,6 @@
                 (obj.size ? '<span><b>Size:</b> ' + escHtml(obj.size) + '</span>' : '') +
                 (obj.ra ? '<span><b>RA:</b> ' + escHtml(obj.ra) + '</span>' : '') +
                 (obj.dec ? '<span><b>Dec:</b> ' + escHtml(obj.dec) + '</span>' : '') +
-                '<span><b>Obs:</b> ' + obsCount + '</span>' +
                 '</div>' +
                 obsHtml +
                 '</div>';
@@ -1249,19 +1317,15 @@
             'body{font-family:Georgia,serif;color:#000;margin:24px;font-size:11pt;line-height:1.5;}' +
             'h1{font-size:16pt;margin-bottom:4px;}' +
             '.subtitle{color:#555;font-size:10pt;margin-bottom:20px;}' +
-            '.obj-card{border:1px solid #ccc;border-radius:6px;padding:12px 16px;margin-bottom:12px;page-break-inside:avoid;}' +
-            '.obj-header{font-size:12pt;margin-bottom:4px;}' +
+            '.obj-card{padding:6px 0;margin-bottom:2px;border-bottom:1px solid #ddd;}' +
+            '.obj-header{font-size:12pt;margin-bottom:2px;}' +
             '.aliases{color:#666;font-size:10pt;}' +
-            '.obj-badges span{display:inline-block;font-size:8pt;padding:1px 6px;border:1px solid #999;border-radius:3px;margin-right:4px;margin-bottom:4px;}' +
-            '.badge-fav{border-color:#d97706;color:#d97706;}' +
-            '.badge-m{border-color:#0284c7;color:#0284c7;}' +
-            '.badge-o{border-color:#7c3aed;color:#7c3aed;}' +
-            '.obj-meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:10pt;margin-top:6px;color:#333;}' +
-            '.obs-section{margin-top:10px;border-top:1px solid #ddd;padding-top:8px;font-size:10pt;}' +
-            '.obs-entry{margin:6px 0 6px 12px;}' +
+            '.obj-meta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:10pt;color:#333;}' +
+            '.obs-section{margin-top:6px;border-top:1px solid #eee;padding-top:4px;font-size:10pt;}' +
+            '.obs-entry{margin:4px 0 4px 12px;}' +
             '.obs-ap{font-weight:bold;}' +
             '.obs-dt{color:#666;}' +
-            '@media print{body{margin:12px;}.obj-card{break-inside:avoid;}}' +
+            '@media print{body{margin:12px;}}' +
             '</style></head><body>' +
             '<h1>Steve Gottlieb\'s Deep Sky Objects</h1>' +
             '<div class="subtitle">' + filteredData.length.toLocaleString() + ' objects &mdash; ' +
@@ -1330,8 +1394,11 @@
                 const matchesCatalog = selectedCatalogs.includes(o.catalog) ||
                     (selectedCatalogs.includes('Messier') && o.isMessier) ||
                     (selectedCatalogs.includes('Orion DeepMap') && o.isOrionAtlas) ||
-                    (selectedCatalogs.includes("Gottlieb's favorites") && o.isTopObject) ||
-                    (selectedCatalogs.includes('Hickson Compact Groups') && refs.includes('h'));
+                    (selectedCatalogs.includes("Gottlieb's Favorites") && o.isTopObject) ||
+                    (selectedCatalogs.includes('Hickson Compact Groups (HCG)') && getHcgDesignation(o)) ||
+                    (selectedCatalogs.includes('Uppsala Galaxy Catalog (UGC)') && o.catalog === 'UGC') ||
+                    (selectedCatalogs.includes('Abell planetary nebulae') && getAbellDesignation(o) && o.type !== 'GX' && o.type !== 'NF') ||
+                    (selectedCatalogs.includes('Galaxy Trios (KTG)') && getKtgDesignation(o) && o.type === 'GX');
                 if (!matchesCatalog) return false;
             }
             if (selectedConstellations.length > 0 && !selectedConstellations.includes(o.con)) return false;
@@ -1354,6 +1421,20 @@
                 if (isNaN(mag)) return false;
                 if (!isNaN(magMin) && mag < magMin) return false;
                 if (!isNaN(magMax) && mag > magMax) return false;
+                return true;
+            });
+        }
+
+        // Size filter (arcminutes)
+        const sizeMinEl = $('#filter-size-min');
+        const sizeMaxEl = $('#filter-size-max');
+        const sizeMin = sizeMinEl ? parseFloat(sizeMinEl.value) : NaN;
+        const sizeMax = sizeMaxEl ? parseFloat(sizeMaxEl.value) : NaN;
+        if (!isNaN(sizeMin) || !isNaN(sizeMax)) {
+            filteredData = filteredData.filter(o => {
+                const sz = parseSizeArcmin(o.size);
+                if (!isNaN(sizeMin) && sz < sizeMin) return false;
+                if (!isNaN(sizeMax) && sz > sizeMax) return false;
                 return true;
             });
         }
@@ -1396,11 +1477,15 @@
             });
         }
 
-        // If HCG catalog is selected, set active collection for sorting
-        if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Hickson Compact Groups') {
+        // Set active collection for sorting by catalog-specific designations
+        if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Hickson Compact Groups (HCG)') {
             activeCollection = 'hcg';
         } else if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Messier') {
             activeCollection = 'messier';
+        } else if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Abell planetary nebulae') {
+            activeCollection = 'abell';
+        } else if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Galaxy Trios (KTG)') {
+            activeCollection = 'ktg';
         } else {
             activeCollection = '';
         }
@@ -1445,6 +1530,10 @@
         if (nameTags) nameTags.innerHTML = '';
         $('#filter-mag-min').value = '';
         $('#filter-mag-max').value = '';
+        const sizeMinEl = $('#filter-size-min');
+        const sizeMaxEl = $('#filter-size-max');
+        if (sizeMinEl) sizeMinEl.value = '';
+        if (sizeMaxEl) sizeMaxEl.value = '';
         $('#filter-ra-min-h').value = '';
         $('#filter-ra-min-m').value = '';
         $('#filter-ra-max-h').value = '';
@@ -1506,6 +1595,16 @@
                         const hB = getHcgDesignation(b) || '';
                         return naturalSort(hA, hB);
                     }
+                    if (activeCollection === 'abell') {
+                        const aA = getAbellDesignation(a) || '';
+                        const aB = getAbellDesignation(b) || '';
+                        return naturalSort(aA, aB);
+                    }
+                    if (activeCollection === 'ktg') {
+                        const kA = getKtgDesignation(a) || '';
+                        const kB = getKtgDesignation(b) || '';
+                        return naturalSort(kA, kB);
+                    }
                     return naturalSort(a.name, b.name);
             }
         });
@@ -1560,14 +1659,19 @@
             }
         }
 
-        // HCG designation prefix (similar to Messier)
+        // HCG / Abell / KTG designation prefix (similar to Messier)
         const hcgDesig = (activeCollection === 'hcg') ? getHcgDesignation(obj) : null;
-        const hcgPrefix = (hcgDesig && hcgDesig !== obj.name) ? escHtml(hcgDesig) + ' = ' : '';
+        const abellDesig = (activeCollection === 'abell') ? getAbellDesignation(obj) : null;
+        const ktgDesig = (activeCollection === 'ktg') ? getKtgDesignation(obj) : null;
+        let collectionPrefix = '';
+        if (hcgDesig && hcgDesig !== obj.name) collectionPrefix = escHtml(hcgDesig) + ' = ';
+        else if (abellDesig && abellDesig !== obj.name) collectionPrefix = escHtml(abellDesig) + ' = ';
+        else if (ktgDesig && ktgDesig !== obj.name) collectionPrefix = escHtml(ktgDesig) + ' = ';
 
         card.innerHTML = `
             <div class="card-header">
                 <div>
-                    <div class="card-name">${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${hcgPrefix}${escHtml(obj.name)}</div>
+                    <div class="card-name">${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${collectionPrefix}${escHtml(obj.name)}</div>
                     ${obj.nickname ? `<div class="card-nickname">${escHtml(obj.nickname)}</div>` : ''}
                     ${altMatch ? `<div class="card-alt-match">Also known as: ${escHtml(altMatch)}</div>` : ''}
                 </div>
@@ -1658,7 +1762,7 @@
             <div class="detail-scroll">
             <div class="detail-header">
                 <div class="detail-title-group">
-                    <h3>${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${escHtml(obj.name)}</h3>
+                    <h3>${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${(() => { const hd = (activeCollection === 'hcg') ? getHcgDesignation(obj) : null; const ad = (activeCollection === 'abell') ? getAbellDesignation(obj) : null; const kd = (activeCollection === 'ktg') ? getKtgDesignation(obj) : null; const d = hd || ad || kd; return (d && d !== obj.name) ? escHtml(d) + ' = ' : ''; })()}${escHtml(obj.name)}</h3>
                     ${obj.nickname ? `<div class="detail-nickname">${escHtml(obj.nickname)}</div>` : ''}
                     ${obj.other ? `<div class="detail-other">${escHtml(obj.other)}</div>` : ''}
                 </div>

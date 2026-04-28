@@ -1,5 +1,6 @@
 {
   "totalRecords": 24773,
+  "totalObservations": 33158,
   "constellations": [
     "And",
     "Ant",
@@ -92,7 +93,7 @@
     "Vul"
   ],
   "types": {
-    "GX": 14342,
+    "GX": 14347,
     "**": 4108,
     "OC": 1072,
     "PN": 817,
@@ -103,7 +104,7 @@
     "GXPair": 243,
     "*": 197,
     "RN": 171,
-    "GXCL": 164,
+    "GXCL": 161,
     "NF": 157,
     "GC": 155,
     "AST": 152,
@@ -228,7 +229,6 @@
     "PN/EN": 2,
     "NGC5068-KNT": 2,
     "M51_OC": 2,
-    "GXl": 2,
     "V": 2,
     "BH": 2,
     "*-NGC6822": 2,
@@ -328,7 +328,7 @@
     "IC": 2812,
     "UGC": 1687
   },
-  "topObjectCount": 307,
-  "orionAtlasCount": 511,
-  "lastUpdated": "2026-03-24"
+  "topObjectCount": 308,
+  "orionAtlasCount": 441,
+  "lastUpdated": "2026-04-27"
 }

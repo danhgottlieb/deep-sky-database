@@ -48,9 +48,11 @@ OBS_SPLIT_RE = re.compile(
     r'(?:'
     r'(?<![\d.])(?=\d+\.?\d*"\s*\([^)]+\)\s*:)'   # inch aperture: 17.5" (date):
     r'|(?<!\d)(?=\d+x\d+mm[^:]*:)'                 # binoculars: 10x30mm ...:
+    r'|(?<!\d)(?=\d+x\d+(?!mm|\d)[^:]*?\(\d{1,2}/\d{1,2}/\d{2,4}\)[^:]*:)'  # binoculars without mm: 10x30 (date):
     r'|(?<!\d)(?=\d+mm\s*\([^)]+\)\s*:)'            # mm aperture: 80mm (date):
     r'|(?=Naked-eye[\s(][^:]*:)'                     # Naked-eye (date): or Naked-eye:
     r'|(?=Naked-eye:)'                               # Naked-eye: (no parens)
+    r'|(?<![\d.])(?=\d+\.?\d*"\s*:)'                 # inch aperture without date: 8":
     r')'
 )
 # NV split applied only to headerless chunks (not inside telescope observations)
@@ -71,6 +73,12 @@ OBS_HEADER_NAKED_RE = re.compile(
 )
 OBS_HEADER_NV_RE = re.compile(
     r'^(NV\s+at\s+\d+x)[^:]*?(?:\s*\(([^)]+)\))?\s*[;:]\s*'  # NV at 1x (date): or NV at 3x;
+)
+OBS_HEADER_BINO_NOMM_RE = re.compile(
+    r'^(\d+x\d+)(?!mm|\d)([^(]*?)\(([^)]+)\)\s*:\s*'  # binoculars without mm: 10x30 IS (date):
+)
+OBS_HEADER_INCH_NODATE_RE = re.compile(
+    r'^(\d+\.?\d*)"\s*:\s*'                              # inch aperture without date: 8":
 )
 
 
@@ -239,9 +247,11 @@ def split_remainder(remainder):
     obs_patterns = [
         re.compile(r'(?<!\d)(\d+\.?\d*)"[ \t]*\([^)]+\)\s*:'),   # inch aperture
         re.compile(r'\d+x\d+mm[^:]*:'),                           # binoculars
+        re.compile(r'(?<!\d)\d+x\d+(?!mm|\d)[^:]*?\(\d{1,2}/\d{1,2}/\d{2,4}\)[^:]*:'),  # binoculars without mm
         re.compile(r'\d+mm\s*\([^)]+\)\s*:'),                     # mm aperture
         re.compile(r'Naked-eye[\s(:][^:]*:'),                      # Naked-eye
         re.compile(r'NV\s+at\s+\d+x[^:;]*[;:]'),                  # Night vision
+        re.compile(r'(?<![\d.])\d+\.?\d*"[ \t]*:'),                # inch aperture without date
     ]
     obs_match = None
     for pat in obs_patterns:
@@ -423,6 +433,30 @@ def split_observations(text):
                 "text": part[m.end() :].strip(),
             })
             continue
+        # Binoculars without mm: 10x30 IS binoculars (date):
+        m = OBS_HEADER_BINO_NOMM_RE.match(part)
+        if m:
+            spec = m.group(1)       # e.g., "10x30"
+            extra = m.group(2).strip()  # e.g., "IS binoculars"
+            obs_date = m.group(3)   # e.g., "6/13/07"
+            aperture = spec + "mm"
+            if extra:
+                aperture += " " + extra
+            raw_obs.append({
+                "aperture": aperture,
+                "date": obs_date,
+                "text": part[m.end() :].strip(),
+            })
+            continue
+        # Inch aperture without date: 8":
+        m = OBS_HEADER_INCH_NODATE_RE.match(part)
+        if m:
+            raw_obs.append({
+                "aperture": m.group(1) + '"',
+                "date": "date unknown",
+                "text": part[m.end() :].strip(),
+            })
+            continue
         # Headerless chunk — sub-split by NV patterns
         nv_parts = OBS_SPLIT_NV_RE.split(part)
         for nv_part in nv_parts:
@@ -481,6 +515,36 @@ def split_observations(text):
                     continue
         observations.append(obs)
     return observations
+
+
+# -- manual overrides --------------------------------------------------
+
+def apply_overrides(records):
+    """Apply manual corrections to specific records."""
+    for rec in records:
+        name = rec["name"]
+        # NGC 7388: delete PA
+        if name == "NGC 7388":
+            rec["pa"] = ""
+        # SHK 331-3, SHK 331-4, SHK 331-7: change type to GX
+        if name in ("SHK 331-3", "SHK 331-4", "SHK 331-7"):
+            rec["type"] = "GX"
+        # VV 109b, VV 109a NED1: change type to GX
+        if name in ("VV 109b", "VV 109a NED1"):
+            rec["type"] = "GX"
+        # KTG 1A/1B/1C designations
+        if name == "NGC 205":  # M110
+            if "KTG 1A" not in rec.get("other", ""):
+                other = rec.get("other", "")
+                rec["other"] = (other + " = KTG 1A") if other else "KTG 1A"
+        if name == "NGC 221":  # M32
+            if "KTG 1B" not in rec.get("other", ""):
+                other = rec.get("other", "")
+                rec["other"] = (other + " = KTG 1B") if other else "KTG 1B"
+        if name == "NGC 224":  # M31
+            if "KTG 1C" not in rec.get("other", ""):
+                other = rec.get("other", "")
+                rec["other"] = (other + " = KTG 1C") if other else "KTG 1C"
 
 
 # -- catalog / flags ---------------------------------------------------
@@ -606,6 +670,9 @@ def build_data():
     parsed_records.sort(key=lambda r: name_order.get(r["name"], 999999))
     print(f"  Total records: {len(parsed_records)}")
 
+    # Apply manual overrides (database edits, KTG designations)
+    apply_overrides(parsed_records)
+
     # -- 3. Historical text --
     print("\n[3] Parsing historical text...")
     historical = parse_historical(HISTORICAL, known_names)
@@ -672,9 +739,11 @@ def build_data():
     top_count = sum(1 for o in output if o["isTopObject"])
     orion_count = sum(1 for o in output if o["isOrionAtlas"])
     messier_count = sum(1 for o in output if o["isMessier"])
+    total_obs = sum(len(o["observations"]) for o in output)
 
     metadata = {
         "totalRecords": len(output),
+        "totalObservations": total_obs,
         "constellations": sorted(con_set),
         "types": dict(sorted(type_counts.items(), key=lambda x: -x[1])),
         "catalogs": dict(sorted(catalog_counts.items(), key=lambda x: -x[1])),

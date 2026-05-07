@@ -235,6 +235,7 @@
 
             buildFilters();
             renderArticles();
+            initResources();
             setupSearch();
             setupFilters();
             handleHashNavigation();
@@ -2106,6 +2107,629 @@
                 </div>
             </div>
         `).join('');
+    }
+
+    // --- Resource Links ---
+    const RESOURCE_ENTRIES = [
+      // STARS ====================================================================
+      { name: "AAVSO Light Curve Generator", url: "https://www.aavso.org/LCGv2/",
+        summary: "Web tool plotting variable-star light curves from the AAVSO International Database.",
+        subject: ["stars"], type: ["tool"] },
+      { name: "Carbon Stars (John Barentine)", url: "https://www.johncbarentine.com/carbon-star-list.html",
+        summary: "List of the 142 brightest carbon stars across both hemispheres with observing notes.",
+        subject: ["stars"], type: ["guide"] },
+      { name: "Jim Kaler's Stars", url: "http://stars.astro.illinois.edu/sow/sowlist.html",
+        summary: "Compendium of nearly 1,000 stars with detailed astrophysical and historical descriptions.",
+        subject: ["stars"], type: ["article", "database"] },
+      { name: "Latest Supernovae", url: "https://www.rochesterastronomy.org/supernova.html",
+        summary: "Continuously updated list of recently discovered supernovae with magnitudes and host galaxies.",
+        subject: ["stars", "galaxies"], type: ["database"] },
+      { name: "Stelle Doppie Double Star Database", url: "https://www.stelledoppie.it/",
+        summary: "Searchable database of 157,000+ WDS double stars merged with Hipparcos, Tycho, and Gaia data.",
+        subject: ["stars"], type: ["database"] },
+    
+      // GALAXIES, GROUPS & CLUSTERS =============================================
+      { name: "32 Best Abell Galaxy Clusters", url: "https://adventuresindeepspace.com/agctable.htm",
+        summary: "Curated table of interesting Abell galaxy clusters observable in 17.5-inch and larger telescopes.",
+        subject: ["galaxies"], type: ["guide"] },
+      { name: "Adam Block Images", url: "https://www.adamblockphotos.com/galaxies.html",
+        summary: "Galaxy gallery from award-winning astrophotographer Adam Block, featuring fine processed deep-sky images.",
+        subject: ["galaxies"], type: ["images"] },
+      { name: "Arp Atlas (NED Level 5)", url: "https://ned.ipac.caltech.edu/level5/Arp/frames.html",
+        summary: "Online edition of Arp's 1966 Atlas of Peculiar Galaxies hosted by NED.",
+        subject: ["galaxies"], type: ["catalog"] },
+      { name: "Arp Atlas of Peculiar Galaxies (ADS)", url: "https://ui.adsabs.harvard.edu/scan/manifest/1966ApJS...14....1A",
+        summary: "ADS scan manifest of Arp's 1966 ApJS publication of the peculiar galaxies atlas.",
+        subject: ["galaxies"], type: ["historical", "catalog"] },
+      { name: "Arp Modern Images (Schoenball)", url: "https://arp.schoenball.de/index_e.htm",
+        summary: "Curated 100 best Arp galaxies with amateur observations, drawings, and modern images.",
+        subject: ["galaxies"], type: ["images", "notes"] },
+      { name: "Atlas of Galaxy Trios (Miles Paul)", url: "https://www.webbdeepsky.com/downloads/free-publications/atlas-of-galaxy-trios.pdf",
+        summary: "Miles Paul's PDF atlas covering 137 galaxy trios from -32° to +90° declination.",
+        subject: ["galaxies"], type: ["guide"], badges: ["pdf"] },
+      { name: "Atlas of Southern Galaxy Trios (Miles Paul)", url: "https://www.webbdeepsky.com/downloads/free-publications/southern-galaxy-trios.pdf",
+        summary: "Miles Paul's free Webb Society PDF atlas of 54 compact southern galaxy trios.",
+        subject: ["galaxies"], type: ["guide"], region: "southern", badges: ["pdf"] },
+      { name: "Barnard's Galaxy (Rick Jakiel)", url: "https://adventuresindeepspace.com/barnard.htm",
+        summary: "Observing history and visual notes on Barnard's Galaxy NGC 6822 by Rick Jakiel.",
+        subject: ["galaxies"], type: ["notes"] },
+      { name: "Chart32 Images", url: "https://www.chart32.de/index.php/galaxies-m",
+        summary: "Galaxy images from the Chart32 collaboration using a 32-inch Cassegrain telescope at Cerro Tololo.",
+        subject: ["galaxies"], type: ["images"] },
+      { name: "Gottlieb's M33 Atlas", url: "https://adventuresindeepspace.com/M33.HII-Star.Clouds.html",
+        summary: "Steve Gottlieb's detailed visual observing notes for M33 HII regions and star clouds.",
+        subject: ["galaxies"], type: ["notes"] },
+      { name: "Hickson CG Guidebook (Huey)", url: "https://faintfuzzies.com/ObservingGuides.html",
+        summary: "Alvin Huey's observing guides, including the Hickson Compact Groups guide with charts and sketches.",
+        subject: ["galaxies"], type: ["guide"] },
+      { name: "Hickson CG Observing Guide (Vogel)", url: "https://www.reinervogel.net/pdf/Hickson.pdf",
+        summary: "Reiner Vogel's PDF observing guide selecting interesting Hickson groups for visual amateurs.",
+        subject: ["galaxies"], type: ["guide"], badges: ["pdf"] },
+      { name: "Howard Banich Galaxy Sketches", url: "https://sites.google.com/site/howardbanichhomepage/observations/observing-notebook-scans/notebook-1",
+        summary: "Howard Banich's observing notebook scans containing detailed visual galaxy sketches and notes.",
+        subject: ["galaxies"], type: ["sketches"] },
+      { name: "Interesting Hickson Compact Groups", url: "https://adventuresindeepspace.com/hicklist.htm",
+        summary: "Jim Shields' selection of 32 interesting Hickson compact groups with magnitudes and notes.",
+        subject: ["galaxies"], type: ["guide"] },
+      { name: "Local Group Galaxies (Atlas of Universe)", url: "http://www.atlasoftheuniverse.com/localgr.html",
+        summary: "Map and overview of Local Group galaxies within 5 million light-years.",
+        subject: ["galaxies"], type: ["article"] },
+      { name: "M33 HII Regions (Labeled Images)", url: "http://www.starkeeper.it/M33_Mapped.htm",
+        summary: "Leonardo Orazi astrophotograph of M33 with labeled HII regions, star clouds, and clusters.",
+        subject: ["galaxies"], type: ["images"] },
+      { name: "Piero Mazza (30,000 galaxies)", url: "https://www.galassiere.it/osservazioni.php",
+        summary: "Piero Mazza's Italian site listing his enormous personal galaxy observing log.",
+        subject: ["galaxies"], type: ["notes"] },
+      { name: "Quasars & Blazars (Frankfurt Quasar Monitoring)", url: "http://quasar.square7.ch/fqm/fqm-home.html",
+        summary: "Frankfurt Quasar Monitoring with finder charts, comparison stars, and light curves.",
+        subject: ["galaxies"], type: ["guide"] },
+      { name: "Ron Buta Galaxy Morphology (NED)", url: "https://ned.ipac.caltech.edu/level5/Sept11/Buta/frames.html",
+        summary: "Buta's comprehensive review of galaxy morphology and classification systems hosted on NED.",
+        subject: ["galaxies"], type: ["article"] },
+      { name: "Siena Galaxy Atlas 2020", url: "https://sga.legacysurvey.org/",
+        summary: "Multiwavelength atlas of 383,620 large nearby galaxies derived from the DESI Legacy Surveys.",
+        subject: ["galaxies"], type: ["catalog", "tool"] },
+      { name: "Superthin Galaxies (Steinicke)", url: "http://klima-luft.de/steinicke/Artikel/sg/sg_e.htm",
+        summary: "Wolfgang Steinicke's article on extremely flat edge-on superthin galaxies for amateurs.",
+        subject: ["galaxies"], type: ["article"] },
+      { name: "Virgo Cluster (SEDS)", url: "http://www.messier.seds.org/more/virgo.html",
+        summary: "SEDS overview of the Virgo Cluster covering member Messier galaxies, distance, and history.",
+        subject: ["galaxies"], type: ["article"] },
+      { name: "VV Catalogue of Interacting Galaxies", url: "https://ned.ipac.caltech.edu/level5/VV_Cat/frames.html",
+        summary: "Vorontsov-Velyaminov atlas and catalogue of interacting galaxies hosted on NED Level 5.",
+        subject: ["galaxies"], type: ["catalog"] },
+    
+      // GLOBULAR & OPEN CLUSTERS ================================================
+      { name: "Atlas of the Universe — Globulars", url: "http://www.atlasoftheuniverse.com/globular.html",
+        summary: "Map and overview of Milky Way globular clusters with distances and basic properties.",
+        subject: ["clusters"], type: ["article"] },
+      { name: "Dias Open Clusters (VizieR DAML02)", url: "https://vizier.cds.unistra.fr/viz-bin/VizieR-3?-source=B/ocl/clusters",
+        summary: "VizieR access to the Dias DAML02 catalogue of optically visible open clusters and candidates.",
+        subject: ["clusters"], type: ["catalog", "database"] },
+      { name: "Fundamental Parameters of Globulars (Baumgardt)", url: "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/",
+        summary: "Baumgardt database of masses, structural parameters, and orbits for 168 Galactic globulars.",
+        subject: ["clusters"], type: ["database"] },
+      { name: "Gottlieb's M31 Globular Clusters", url: "https://adventuresindeepspace.com/gcm31.htm",
+        summary: "Steve Gottlieb's observing notes and finder charts for globular clusters in Andromeda.",
+        subject: ["clusters", "galaxies"], type: ["notes"] },
+      { name: "Harold Corwin Galactic Globulars", url: "http://www.haroldcorwin.net/globulars/index.html",
+        summary: "Corwin's curated list of 158 visually observable Milky Way globulars with photometric data.",
+        subject: ["clusters"], type: ["catalog"] },
+      { name: "SEDS Milky Way Globular Clusters", url: "http://spider.seds.org/spider/MWGC/mwgc.html",
+        summary: "SEDS catalog of 157 Milky Way globular clusters with images and basic data.",
+        subject: ["clusters"], type: ["catalog"] },
+      { name: "Uwe Glahn's Palomar Globulars", url: "http://www.deepsky-visuell.de/Projekte/PalomarGC_E.htm",
+        summary: "Uwe Glahn's visual observations and sketches of 15 challenging Palomar globular clusters.",
+        subject: ["clusters"], type: ["sketches", "notes"] },
+      { name: "WEBDA Open Cluster Database (Archive)", url: "https://web.archive.org/web/20240301094927/https://webda.physics.muni.cz/ocl_list.html",
+        summary: "Wayback Machine snapshot of WEBDA's alphabetical open cluster list page.",
+        subject: ["clusters"], type: ["database"], badges: ["archive"] },
+      { name: "WEBDA Open Cluster Database (live site)", url: "https://webda.physics.muni.cz/",
+        summary: "Live WEBDA database of open and globular cluster observations maintained by Masaryk University.",
+        subject: ["clusters"], type: ["database"], badges: ["offline"] },
+      { name: "William Harris Milky Way Globulars", url: "https://physics.mcmaster.ca/~harris/mwgc.dat",
+        summary: "Harris 1996 (2010 edition) data file of parameters for 157 Milky Way globulars.",
+        subject: ["clusters"], type: ["catalog"], badges: ["data"] },
+    
+      // NEBULAE =================================================================
+      { name: "Barnard's Photographic Atlas of Dark Nebulae", url: "https://exhibit-archive.library.gatech.edu/barnard/index.html",
+        summary: "Georgia Tech digitized exhibit of E. E. Barnard's 1929 Photographic Atlas of the Milky Way.",
+        subject: ["nebulae"], type: ["images", "historical"] },
+      { name: "Dissecting the Veil Nebula (Gottlieb)", url: "https://adventuresindeepspace.com/Dissecting%20the%20Veil%20Nebula.html",
+        summary: "Steve Gottlieb's detailed visual observing tour of Veil Nebula sections and lesser-known filaments.",
+        subject: ["nebulae"], type: ["notes"] },
+      { name: "GUM Catalog (Galaxy Map)", url: "http://galaxymap.org/cat/list/gum/1",
+        summary: "Browsable list of 97 Gum catalog HII regions with images and coordinate data.",
+        subject: ["nebulae"], type: ["catalog"] },
+      { name: "RCW Catalog (Galaxy Map)", url: "http://galaxymap.org/cat/list/rcw/1",
+        summary: "Browsable list of 182 RCW southern Milky Way star-formation regions with images.",
+        subject: ["nebulae"], type: ["catalog"], region: "southern" },
+      { name: "Sharpless Catalog (Dean Salman CCD)", url: "http://www.sharplesscatalog.com/Sharpless.aspx",
+        summary: "Dean Salman's CCD narrowband image library covering Sharpless catalog HII regions.",
+        subject: ["nebulae"], type: ["images"] },
+      { name: "Sharpless Catalog (Galaxy Map)", url: "http://galaxymap.org/cat/list/sharpless/1",
+        summary: "Browsable Sharpless catalog with DSS/SuperCOSMOS images and descriptions for all 313 objects.",
+        subject: ["nebulae"], type: ["catalog"] },
+      { name: "Sharpless Observing Guide (Vogel)", url: "https://www.reinervogel.net/pdf/Sharpless.pdf",
+        summary: "Reiner Vogel's PDF visual observing atlas covering 305 of the 313 Sharpless nebulae.",
+        subject: ["nebulae"], type: ["guide"], badges: ["pdf"] },
+      { name: "Wolf-Rayet Nebulae (Vogel)", url: "https://www.reinervogel.net/pdf/WR_shells.pdf",
+        summary: "Reiner Vogel's 2012 visual observing guide to Wolf-Rayet ring nebulae and shells.",
+        subject: ["nebulae"], type: ["guide"], badges: ["pdf"] },
+    
+      // PLANETARY NEBULAE =======================================================
+      { name: "Abell PN (Eric Honeycutt)", url: "https://www.stathis-firstlight.de/deepsky/abell_honeycutt.htm",
+        summary: "Eric Honeycutt's visual observation notes on Abell planetary nebulae using a 22-inch reflector.",
+        subject: ["pne"], type: ["notes"] },
+      { name: "Abell PN (Uwe Glahn)", url: "http://www.deepsky-visuell.de/Projekte/AbellPN_E.htm",
+        summary: "Uwe Glahn's English-language visual observing project with sketches of Abell planetary nebulae.",
+        subject: ["pne"], type: ["sketches", "notes"] },
+      { name: "Abell PN Excel Spreadsheet", url: "https://adventuresindeepspace.com/Abell.PN.xls",
+        summary: "Downloadable Excel file with positions, magnitudes, sizes, and distances for Abell planetary nebulae.",
+        subject: ["pne"], type: ["catalog"], badges: ["xls"] },
+      { name: "Abell PN Observing Guide (Vogel)", url: "https://www.reinervogel.net/pdf/Abell_PN.pdf",
+        summary: "Reiner Vogel's PDF observing guide to Abell planetary nebulae using large Dobsonian telescopes.",
+        subject: ["pne"], type: ["guide"], badges: ["pdf"] },
+      { name: "Atlas of the Universe — PNe", url: "http://www.atlasoftheuniverse.com/plannebs.html",
+        summary: "Reference table of planetary nebulae listing coordinates, magnitudes, sizes, and distance estimates.",
+        subject: ["pne"], type: ["catalog"] },
+      { name: "HASH PN Database", url: "http://202.189.117.101:8999/gpne/index.php",
+        summary: "Hong Kong / AAO / Strasbourg multiwavelength database of 10,000+ Galactic planetary nebula candidates.",
+        subject: ["pne"], type: ["database"], badges: ["registration"] },
+      { name: "Neat Southern Planetaries (Andrew James)", url: "https://web.archive.org/web/20110520081623/http://blackskies.org/pnweek00.htm",
+        summary: "Wayback snapshot of Andrew James's southern planetary nebulae weekly observing guide.",
+        subject: ["pne"], type: ["guide"], region: "southern", badges: ["archive"] },
+      { name: "PN Spectra and Images (Williams)", url: "https://web.williams.edu/Astronomy/research/PN/nebulae/",
+        summary: "Kwitter and Henry's gallery of moderate-resolution spectra and images for 175+ planetary nebulae.",
+        subject: ["pne"], type: ["images"] },
+      { name: "Planetary Nebulae Haloes (Uwe Glahn)", url: "http://www.deepsky-visuell.de/Projekte/Halo.htm",
+        summary: "Uwe Glahn's visual observing project documenting faint extended haloes around bright planetary nebulae.",
+        subject: ["pne"], type: ["sketches", "notes"] },
+      { name: "Pre-Planetary Nebulae (Uwe Glahn)", url: "http://www.deepsky-visuell.de/Projekte/PPN.htm",
+        summary: "Uwe Glahn's visual observing project on protoplanetary nebulae requiring high magnification and good seeing.",
+        subject: ["pne"], type: ["sketches", "notes"] },
+      { name: "Strasbourg-ESO Catalogue PN — Part I", url: "https://www.eso.org/sci/libraries/historicaldocuments/Strasbourg-ESO_catalogue/Strasbourg-ESO_Catalogue_of_Galactical_Planetary_Nebulae_Part_I.pdf",
+        summary: "Acker et al. 1992 catalogue Part I, with explanations, tables, references, and finding charts.",
+        subject: ["pne"], type: ["catalog"], badges: ["pdf"] },
+      { name: "Strasbourg-ESO Catalogue PN — Part II", url: "https://www.eso.org/sci/libraries/historicaldocuments/Strasbourg-ESO_catalogue/Strasbourg-ESO_Catalogue_of_Galactical_Planetary_Nebulae_Part_II.pdf",
+        summary: "Acker et al. 1992 catalogue Part II, containing data on 1,143 confirmed planetary nebulae.",
+        subject: ["pne"], type: ["catalog"], badges: ["pdf"] },
+    
+      // OBSERVING PROGRAMS, LISTS & COMMUNITIES =================================
+      { name: "Adventures in Deep Space", url: "https://adventuresindeepspace.com/",
+        summary: "Steve Gottlieb and friends' site of challenging observing projects for amateur astronomers.",
+        subject: ["programs"], type: ["community"] },
+      { name: "Adventures in Deep Space — Catalogs", url: "https://adventuresindeepspace.com/catalogs.html",
+        summary: "Catalogs, lists, and links page for challenging deep-sky observing projects and resources.",
+        subject: ["programs"], type: ["guide"] },
+      { name: "Albert Highe (Archived Website)", url: "https://web.archive.org/web/20060312200423/http://pw2.netcom.com/~ahighe/",
+        summary: "Wayback snapshot of the late Albert Highe's telescope-making and observing pages.",
+        subject: ["programs"], type: ["community"], badges: ["archive"] },
+      { name: "Alvin Huey's Downloadable Guides", url: "https://faintfuzzies.com/DownloadableObservingGuides2.html",
+        summary: "Free downloadable deep-sky observing guides by Alvin Huey for medium to large telescopes.",
+        subject: ["programs"], type: ["guide"] },
+      { name: "Alvin Huey Observing Reports", url: "https://faintfuzzies.com/ObservingReports.html",
+        summary: "Alvin Huey's archive of observing reports complementing his faintfuzzies.com guides.",
+        subject: ["programs"], type: ["notes"] },
+      { name: "Andy Edelen Observing Blog", url: "https://unfrozencavemanastronomer.wordpress.com/",
+        summary: "Andy Edelen's \"Unfrozen Caveman Astronomer\" blog with detailed deep-sky observing reports.",
+        subject: ["programs"], type: ["community", "notes"] },
+      { name: "Astronomy League Observing Programs", url: "https://www.astroleague.org/alphabeticobserving/",
+        summary: "Alphabetical listing of all Astronomical League observing programs and certifications offered.",
+        subject: ["programs"], type: ["guide", "community"] },
+      { name: "CloudyNights Deep Sky Forum", url: "https://www.cloudynights.com/forums/forum/85-deep-sky-observing/",
+        summary: "Cloudy Nights' active forum dedicated to deep-sky visual observing discussion.",
+        subject: ["programs"], type: ["community"] },
+      { name: "DeepSky Archive", url: "http://www.deepsky-archive.com/index.php",
+        summary: "International deep-sky observation database and sketch repository run by Finnish observers.",
+        subject: ["programs"], type: ["database", "sketches"] },
+      { name: "Deep Sky Forum", url: "https://www.deepskyforum.com/",
+        summary: "Forum solely dedicated to visual deep-sky observing, featuring weekly Object of the Week.",
+        subject: ["programs"], type: ["community"] },
+      { name: "DeepSkyLog", url: "http://www.deepskylog.org",
+        summary: "Free online deep-sky observation logging database with 150,000+ observations and sketches.",
+        subject: ["programs"], type: ["database", "community"] },
+      { name: "Don Pensack 500 Favorites", url: "https://www.cloudynights.com/forums/topic/472872-500-best-dso-list/",
+        summary: "Cloudy Nights thread hosting Don Pensack's 500 best DSOs list for small scopes.",
+        subject: ["programs"], type: ["guide"] },
+      { name: "Greg Crinklaw's Deep Sky Archives", url: "https://observing.skyhound.com/archives.html",
+        summary: "Skyhound's deep-sky observing archives by Greg Crinklaw, creator of SkyTools.",
+        subject: ["programs"], type: ["notes", "guide"] },
+      { name: "IAAC Deep-Sky Observing Logs (Archive)", url: "https://web.archive.org/web/20160315234842/http://www.visualdeepsky.org/netastrocatalog/maillist.html",
+        summary: "Wayback archive of the Internet Amateur Astronomers Catalog mailing-list observations.",
+        subject: ["programs"], type: ["notes", "community"], badges: ["archive"] },
+      { name: "Ice in Space Forum", url: "https://www.iceinspace.com.au/forum/index.php",
+        summary: "Active Australian and New Zealand amateur astronomy community forum.",
+        subject: ["programs"], type: ["community"], region: "southern" },
+      { name: "Intro to Deep Sky Observing (Faith Jordan)", url: "https://www.webbdeepsky.com/downloads/free-publications/introduction-to-deep-sky-observing.pdf",
+        summary: "Faith Jordan's free Webb Society PDF introduction to visual deep-sky observing.",
+        subject: ["programs"], type: ["article", "guide"], badges: ["pdf"] },
+      { name: "Jose Torres Deep Sky Astronomy", url: "https://www.uv.es/jrtorres/",
+        summary: "Jose Ramon Torres's deep-sky site, home of the TriAtlas Project charts.",
+        subject: ["programs"], type: ["community", "guide"] },
+      { name: "LMC Observing Guide (Susan Young)", url: "https://largemagellaniccloud.com/",
+        summary: "Susan Young's comprehensive observing guide to regions and objects within the LMC.",
+        subject: ["programs"], type: ["guide"], region: "southern" },
+      { name: "Mark McCarthy Observing Blog", url: "https://markmccarthyobservingblog.blogspot.com/",
+        summary: "Bay Area observer Mark McCarthy's blog on double stars and wide-field deep-sky.",
+        subject: ["programs"], type: ["community", "notes"] },
+      { name: "Nebula Filters Comparison (Knisely)", url: "https://www.prairieastronomyclub.org/filter-performance-comparisons-for-some-common-nebulae/",
+        summary: "David Knisely's classic UHC/OIII/H-beta filter performance survey across common nebulae.",
+        subject: ["programs", "nebulae"], type: ["article"] },
+      { name: "Saguaro Astronomy Club Observing Lists", url: "https://www.saguaroastro.org/observing-lists-and-award-programs/",
+        summary: "SAC's hub of observing lists and award programs (Messier, Herschel, Urban, etc.).",
+        subject: ["programs"], type: ["guide", "community"] },
+      { name: "Sand & Stars (Susan Young)", url: "https://sandandstars.co.za/my-blog/",
+        summary: "Susan Young's blog about deep-sky stargazing under Kalahari Desert dark skies.",
+        subject: ["programs"], type: ["community", "notes"], region: "southern" },
+      { name: "Showpiece Regions in the LMC", url: "https://adventuresindeepspace.com/Showpiece%20regions%20in%20the%20LMC.pdf",
+        summary: "Adventures in Deep Space PDF detailing showpiece nebulae and clusters within the LMC.",
+        subject: ["programs"], type: ["guide"], region: "southern", badges: ["pdf"] },
+      { name: "Texas Star Party Observing Lists", url: "https://texasstarparty.org/activities",
+        summary: "TSP activities page linking to telescope, binocular, and advanced observing programs.",
+        subject: ["programs"], type: ["guide", "community"] },
+      { name: "Uwe Glahn (deepsky-visuell)", url: "http://www.deepsky-visuell.de/",
+        summary: "Personal site of Uwe Glahn presenting decades of detailed visual deep-sky pencil sketches.",
+        subject: ["programs"], type: ["sketches", "community"] },
+      { name: "Vic Menard's 400 Favorites", url: "https://vicmenard.com/wp-content/uploads/2022/01/the_list.pdf",
+        summary: "Vic Menard's PDF list of 400 favorite deep-sky objects across multiple catalogs.",
+        subject: ["programs"], type: ["guide"], badges: ["pdf"] },
+      { name: "Victor van Wulfen's Clear Skies Guides", url: "https://clearskies.eu/",
+        summary: "Clear Skies Observing Guides home — thousands of PDF deep-sky guides for tablets.",
+        subject: ["programs"], type: ["guide"] },
+      { name: "Webb Deep-Sky Society", url: "https://www.webbdeepsky.com/",
+        summary: "International society for double-star and deep-sky observers, publisher of Deep-Sky Observer.",
+        subject: ["programs"], type: ["community"] },
+    
+      // TOOLS, VIEWERS & CALCULATORS ============================================
+      { name: "Aladin Lite", url: "https://aladin.cds.unistra.fr/AladinLite/",
+        summary: "Browser-based interactive sky atlas from CDS Strasbourg for visualizing surveys, catalogs, and FITS images.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "Astrobin", url: "https://app.astrobin.com/",
+        summary: "Image hosting and social platform for astrophotographers with equipment metadata, search, and forums.",
+        subject: ["tools"], type: ["tool", "images", "community"] },
+      { name: "GalaxyMap: Milky Way Explorer", url: "http://galaxymap.org/mwe/mwe.php",
+        summary: "Kevin Jardine's multiwavelength panning interface showing the Milky Way in infrared, radio, and microwave.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "Legacy Survey Viewer", url: "https://www.legacysurvey.org/viewer",
+        summary: "Interactive map viewer for DESI Legacy Imaging Surveys optical and infrared data releases.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "Magnitude Calculator (Mel Bartels)", url: "https://www.bbastrodesigns.com/magnitude.html",
+        summary: "Mel Bartels' calculator for limiting magnitude, telescope and eyepiece performance, and sky-darkness effects.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "NED Coordinate Calculator", url: "https://ned.ipac.caltech.edu/coordinate_calculator",
+        summary: "NED tool for converting between equatorial, ecliptic, galactic, and supergalactic coordinates with precession.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "Ned Wright's Advanced Cosmology Calculator", url: "https://astro.ucla.edu/~wright/ACC.html",
+        summary: "Advanced JavaScript cosmology calculator allowing dark-energy equation-of-state and other parameter inputs.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "Ned Wright's Cosmology Calculator", url: "https://www.astro.ucla.edu/~wright/CosmoCalc.html",
+        summary: "JavaScript calculator computing times, distances, and ages from redshift and standard cosmological parameters.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "NGC/IC Shorthand Description Translator (Mel Bartels)", url: "https://www.bbastrodesigns.com/objectLib.html",
+        summary: "Mel Bartels' tool that translates Dreyer's shorthand description codes into plain-language NGC/IC notes.",
+        subject: ["tools", "history"], type: ["tool"] },
+      { name: "PanSTARRS-1 Image Access", url: "https://ps1images.stsci.edu/cgi-bin/ps1cutouts",
+        summary: "STScI cutout service delivering PS1 grizy images and color stacks for arbitrary positions.",
+        subject: ["tools"], type: ["tool", "images"] },
+      { name: "Precession Tool (Chandra)", url: "https://cxc.harvard.edu/toolkit/precess.jsp",
+        summary: "Chandra X-ray Center calculator that precesses J2000 coordinates between user-specified epochs.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "Rick Johnson Mantrap Images", url: "https://images.mantrapskies.com/",
+        summary: "Searchable archive of the late Rick Johnson's 1,600+ deep-sky CCD images, including unusual targets.",
+        subject: ["tools"], type: ["images"] },
+      { name: "Sky-Map.org (WikiSky)", url: "https://sky-map.org/?locale=EN",
+        summary: "Wiki-style interactive sky map covering hundreds of millions of objects from DSS and SDSS.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "SkyView Image Server", url: "http://skyview.gsfc.nasa.gov/cgi-bin/query.pl",
+        summary: "NASA GSFC virtual observatory generating multiwavelength images from radio through gamma-ray surveys.",
+        subject: ["tools"], type: ["tool", "images"] },
+      { name: "Sloan Digital Sky Survey DR16", url: "https://skyserver.sdss.org/dr16/en/tools/chart/navi.aspx",
+        summary: "SDSS DR16 Navigate tool for browsing imaging cutouts with object metadata and spectra.",
+        subject: ["tools"], type: ["tool"] },
+      { name: "STScI Digitized Sky Survey", url: "https://stdatu.stsci.edu/cgi-bin/dss_form",
+        summary: "MAST form interface for retrieving Palomar and UK Schmidt photographic plate scans as FITS/JPG.",
+        subject: ["tools"], type: ["tool", "images"] },
+    
+      // DATABASES & RESEARCH ====================================================
+      { name: "ADS Historical Publications", url: "https://adsabs.harvard.edu/historical.html",
+        summary: "ADS index of historical observatory publications scanned from 35mm film with Wolbach Library.",
+        subject: ["databases"], type: ["database", "historical"] },
+      { name: "ADS Journal Query", url: "https://adsabs.harvard.edu/journals_service.html",
+        summary: "ADS query interface to find articles by journal name, volume, and page.",
+        subject: ["databases"], type: ["database"] },
+      { name: "ADS Observatory/Society Journals", url: "https://adsabs.harvard.edu/bulletins_service.html",
+        summary: "ADS query page for observatory and society publications, bulletins, and proceedings.",
+        subject: ["databases"], type: ["database"] },
+      { name: "Astrophysics Data System (ADS)", url: "https://ui.adsabs.harvard.edu/",
+        summary: "Modern ADS interface with search, filtering, and visualizations across 15+ million astronomy/physics records.",
+        subject: ["databases"], type: ["database"] },
+      { name: "Astrophysics Preprints (arXiv astro-ph)", url: "https://arxiv.org/archive/astro-ph",
+        summary: "arXiv astro-ph archive landing page listing all astrophysics preprint subcategories and submission info.",
+        subject: ["databases"], type: ["database"] },
+      { name: "CDS Portal", url: "https://cdsportal.u-strasbg.fr/",
+        summary: "Strasbourg unified gateway providing combined access to SIMBAD, VizieR, and Aladin services.",
+        subject: ["databases"], type: ["database", "tool"] },
+      { name: "Courtney Seligman's NGC/IC Atlas", url: "https://cseligman.com/text/atlas/ngc00.htm",
+        summary: "Seligman's Historical NGC/IC project — NGC/IC/PGC objects with descriptions and historical notes.",
+        subject: ["databases"], type: ["catalog", "article"] },
+      { name: "Deep*Sky Corner Atlas & Data", url: "https://www.deepskycorner.ch/index.en.php",
+        summary: "Online atlas of 1,414 deep-sky objects with charts, photos, sketches, and constellation lore.",
+        subject: ["databases"], type: ["catalog", "article"] },
+      { name: "Harold Corwin's NGC/IC Notes", url: "http://www.haroldcorwin.net/ngcic/index.html",
+        summary: "Corwin's historically aware NGC/IC positions and notes files with Gaia EDR3 coordinates.",
+        subject: ["databases"], type: ["catalog", "article"] },
+      { name: "History of Deep Sky Discovery (SEDS)", url: "http://www.messier.seds.org/xtra/history/deepskyd.html",
+        summary: "SEDS historical chronicle tracing pre-Messier discovery of nebulae and star clusters.",
+        subject: ["databases"], type: ["article", "historical"] },
+      { name: "HyperLeda", url: "http://atlas.obs-hp.fr/hyperleda/search.html",
+        summary: "HyperLeda extragalactic database search by designation for galaxy photometry, kinematics, and spectrophotometry.",
+        subject: ["databases", "galaxies"], type: ["database"] },
+      { name: "Interactive NGC Catalog (SEDS)", url: "http://spider.seds.org/ngc/ngc.html",
+        summary: "SEDS interactive NGC/IC/Messier catalog with cross-links to NED, SIMBAD, ADS, and DSS.",
+        subject: ["databases"], type: ["catalog", "tool"] },
+      { name: "NASA/IPAC Extragalactic Database (NED)", url: "https://ned.ipac.caltech.edu/",
+        summary: "Comprehensive multiwavelength database of 1.1 billion extragalactic objects with cross-IDs and references.",
+        subject: ["databases", "galaxies"], type: ["database"] },
+      { name: "NED Images / Catalogs / Atlases (Level 5)", url: "https://ned.ipac.caltech.edu/level5/catalogs.html",
+        summary: "Online versions of influential galaxy catalogs and atlases archived in NED Level 5.",
+        subject: ["databases", "galaxies"], type: ["catalog"] },
+      { name: "NED Knowledgebase (Level 5)", url: "https://ned.ipac.caltech.edu/level5/",
+        summary: "Curated review articles, monographs, and reference data for extragalactic astronomy and cosmology.",
+        subject: ["databases", "galaxies"], type: ["article"] },
+      { name: "SIMBAD Astronomical Database", url: "https://simbad.cds.unistra.fr/simbad/",
+        summary: "CDS SIMBAD database with identifications, basic data, and bibliography for millions of objects.",
+        subject: ["databases"], type: ["database"] },
+      { name: "VizieR Catalog Collection", url: "https://vizier.cds.unistra.fr/viz-bin/VizieR",
+        summary: "VizieR — the largest collection of curated published astronomical catalogs, hosted by CDS.",
+        subject: ["databases"], type: ["catalog", "database"] },
+      { name: "Wolfgang Steinicke's Historical NGC/IC", url: "http://www.klima-luft.de/steinicke/index_e.htm",
+        summary: "Steinicke's homepage hosting his comprehensive historical NGC/IC compilation, references, and observer biographies.",
+        subject: ["databases"], type: ["catalog", "article", "historical"] },
+    
+      // HISTORICAL CATALOGS — chronological =====================================
+      { name: "Messier (1771)", year: 1771, url: "http://www.messier.seds.org/xtra/history/m-cat71.html",
+        summary: "SEDS translation of Messier's original 1771 catalog covering objects M1 through M45.",
+        subject: ["history"], type: ["historical"] },
+      { name: "W. Herschel — Messier Observations (from 1782)", year: 1782, url: "http://www.messier.seds.org/xtra/history/her-obsm.html",
+        summary: "SEDS compilation of William Herschel's observations and notes on Messier objects beginning 1782.",
+        subject: ["history"], type: ["historical"] },
+      { name: "W. Herschel — First Catalogue of 1000 (1786)", year: 1786, url: "https://www.jstor.org/stable/106639",
+        summary: "W. Herschel's 1786 Phil. Trans. catalogue of 1,000 new nebulae and star clusters.",
+        subject: ["history"], type: ["historical"], badges: ["jstor"] },
+      { name: "W. Herschel — Second Catalogue of 1000 (1789)", year: 1789, url: "https://www.jstor.org/stable/106695?origin=ads&seq=1",
+        summary: "W. Herschel's second 1,000 nebulae and clusters catalogue with construction-of-the-heavens remarks.",
+        subject: ["history"], type: ["historical"], badges: ["jstor"] },
+      { name: "W. Herschel — Third Catalogue of 500 (1802)", year: 1802, url: "https://www.jstor.org/stable/107131?origin=ads",
+        summary: "W. Herschel's 1802 catalogue of 500 new nebulae, planetary nebulae, and clusters.",
+        subject: ["history"], type: ["historical"], badges: ["jstor"] },
+      { name: "Dunlop Catalogue (1828)", year: 1828, url: "https://www.jstor.org/stable/107841",
+        summary: "JSTOR-hosted Phil. Trans. paper: Dunlop's southern-hemisphere nebulae and star-cluster catalogue from Paramatta.",
+        subject: ["history"], type: ["historical"], region: "southern", badges: ["jstor"] },
+      { name: "J. Herschel — Slough Catalogue (1833)", year: 1833, url: "https://archive.org/details/jstor-108003",
+        summary: "J. Herschel's Slough observations of nebulae and clusters with the 20-foot reflector, 1825-1833.",
+        subject: ["history"], type: ["historical"] },
+      { name: "J. Herschel — Cape Catalogue (1847)", year: 1847, url: "https://archive.org/details/Resultsastronom00Hers/page/n7/mode/2up",
+        summary: "J. Herschel's Cape of Good Hope southern-sky telescopic survey (1834-1838 observations and catalogues).",
+        subject: ["history"], type: ["historical"], region: "southern" },
+      { name: "Lord Rosse — Selection from Observations of Nebulae (1861)", year: 1861, url: "https://www.jstor.org/stable/pdf/108752.pdf",
+        summary: "Rosse's 1861 Phil. Trans. paper on six-foot speculum construction with selected nebulae observations.",
+        subject: ["history"], type: ["historical"], badges: ["jstor", "pdf"] },
+      { name: "J. Herschel — General Catalogue (1864)", year: 1864, url: "https://archive.org/details/generalcatalogue00hersrich/generalcatalogue00hersrich/page/n3/mode/2up",
+        summary: "J. Herschel's 5,079-entry General Catalogue of nebulae and clusters reduced to epoch 1860.0.",
+        subject: ["history"], type: ["historical"] },
+      { name: "Lord Rosse — Observations of Nebulae (1880)", year: 1880, url: "https://archive.org/details/scientifictr218791882roya/page/n13/mode/2up",
+        summary: "Lord Rosse's 1848-1878 Birr Castle nebulae observations published in Royal Dublin Society Transactions.",
+        subject: ["history"], type: ["historical"] },
+      { name: "Dreyer — New General Catalogue (NGC, 1888)", year: 1888, url: "https://articles.adsabs.harvard.edu/pdf/1888MmRAS..49....1D",
+        summary: "Dreyer's foundational New General Catalogue PDF, revising and enlarging Herschel's General Catalogue.",
+        subject: ["history"], type: ["historical"], badges: ["pdf"] },
+      { name: "Dreyer — Index Catalogue I (1895)", year: 1895, url: "https://articles.adsabs.harvard.edu/pdf/1895MmRAS..51..185D",
+        summary: "Dreyer's first Index Catalogue PDF, nebulae found 1888-1894 with NGC corrections.",
+        subject: ["history"], type: ["historical"], badges: ["pdf"] },
+      { name: "Dreyer — Index Catalogue II (1908)", year: 1908, url: "https://articles.adsabs.harvard.edu/pdf/1910MmRAS..59..105D",
+        summary: "Dreyer's Second Index Catalogue PDF, objects found 1895-1907 with corrections to NGC and IC I.",
+        subject: ["history"], type: ["historical"], badges: ["pdf"] },
+      { name: "Dreyer's Description Codes (reference)", year: null, url: "https://spider.seds.org/ngc/des.html",
+        summary: "Reference list of abbreviations Dreyer used in NGC and IC object descriptions.",
+        subject: ["history"], type: ["historical"] },
+    ];
+
+    const RESOURCE_SUBJECT_DEFS = [
+      { value: "galaxies",  label: "Galaxies" },
+      { value: "clusters",  label: "Clusters" },
+      { value: "nebulae",   label: "Nebulae" },
+      { value: "pne",       label: "Planetary Nebulae" },
+      { value: "stars",     label: "Stars" },
+      { value: "programs",  label: "Programs & Communities" },
+      { value: "tools",     label: "Tools & Viewers" },
+      { value: "databases", label: "Databases & Research" },
+      { value: "history",   label: "Historical" },
+    ];
+
+    const RESOURCE_TYPE_DEFS = [
+      { value: "catalog",    label: "Catalog" },
+      { value: "database",   label: "Database" },
+      { value: "guide",      label: "Guide / List" },
+      { value: "notes",      label: "Observing notes" },
+      { value: "images",     label: "Images" },
+      { value: "sketches",   label: "Sketches" },
+      { value: "tool",       label: "Tool" },
+      { value: "article",    label: "Article" },
+      { value: "community",  label: "Community" },
+      { value: "historical", label: "Historical paper" },
+    ];
+
+    const RESOURCE_REGION_DEFS = [
+      { value: "southern", label: "Southern only" },
+    ];
+
+    const RESOURCE_BADGE_LABELS = {
+      pdf: { cls: "resources-badge-pdf", label: "PDF" },
+      xls: { cls: "resources-badge-xls", label: "XLS" },
+      data: { cls: "resources-badge-data", label: "DATA" },
+      broken: { cls: "resources-badge-broken", label: "Broken" },
+      offline: { cls: "resources-badge-offline", label: "Offline" },
+      archive: { cls: "resources-badge-archive", label: "Archive only" },
+      registration: { cls: "resources-badge-registration", label: "Registration" },
+      jstor: { cls: "resources-badge-jstor", label: "JSTOR" },
+    };
+
+    const RESOURCE_GROUP_ORDER = [
+      "galaxies", "clusters", "nebulae", "pne", "stars",
+      "programs", "tools", "databases", "history"
+    ];
+    const RESOURCE_GROUP_LABELS = {
+      stars: "Stars",
+      galaxies: "Galaxies, Groups & Clusters of Galaxies",
+      clusters: "Globular & Open Clusters",
+      nebulae: "Nebulae",
+      pne: "Planetary Nebulae",
+      programs: "Observing Programs, Lists & Communities",
+      tools: "Tools, Viewers & Calculators",
+      databases: "Databases & Research",
+      history: "Historical Catalogs (chronological)",
+    };
+
+    function initResources() {
+        const searchInput = document.getElementById('resources-search');
+        const resetBtn = document.getElementById('resources-reset');
+        const resultsContainer = document.getElementById('resources-results');
+        const countEl = document.getElementById('resources-count');
+        if (!searchInput || !resultsContainer) return;
+
+        const resState = { subject: new Set(), type: new Set(), region: null, search: '' };
+
+        function countMatches(axis, value) {
+            return RESOURCE_ENTRIES.filter(e => {
+                if (axis === 'region') return e.region === value;
+                return (e[axis] || []).includes(value);
+            }).length;
+        }
+
+        function buildCheckboxes(containerId, defs, axis, multi, append) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (append) {
+                container.querySelectorAll(`[data-axis="${axis}"]`).forEach(c => { const r = c.closest('.resources-checkbox-row'); if (r) r.remove(); });
+                container.querySelectorAll(`.resources-checkbox-divider[data-axis="${axis}"]`).forEach(d => d.remove());
+                if (container.querySelectorAll('.resources-checkbox-row').length > 0) {
+                    const div = document.createElement('div');
+                    div.className = 'resources-checkbox-divider';
+                    div.dataset.axis = axis;
+                    container.appendChild(div);
+                }
+            } else {
+                container.innerHTML = '';
+            }
+            for (const def of defs) {
+                const count = countMatches(axis, def.value);
+                if (count === 0) continue;
+                const row = document.createElement('button');
+                row.type = 'button';
+                row.className = 'resources-checkbox-row';
+                row.setAttribute('role', 'checkbox');
+                row.dataset.axis = axis;
+                row.dataset.value = def.value;
+                row.setAttribute('aria-checked', 'false');
+                row.innerHTML = `<span class="resources-checkbox-box" aria-hidden="true"></span><span class="resources-checkbox-label">${def.label}</span><span class="resources-checkbox-count">${count}</span>`;
+                container.appendChild(row);
+                row.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const wasChecked = row.getAttribute('aria-checked') === 'true';
+                    const nowChecked = !wasChecked;
+                    row.setAttribute('aria-checked', nowChecked ? 'true' : 'false');
+                    if (axis === 'region') {
+                        resState.region = nowChecked ? def.value : null;
+                        container.querySelectorAll(`.resources-checkbox-row[data-axis='region']`).forEach(other => { if (other !== row) other.setAttribute('aria-checked', 'false'); });
+                    } else if (multi) {
+                        if (nowChecked) resState[axis].add(def.value); else resState[axis].delete(def.value);
+                    }
+                    renderResources();
+                });
+            }
+        }
+
+        function entryMatches(e) {
+            if (resState.subject.size > 0 && !(e.subject || []).some(s => resState.subject.has(s))) return false;
+            if (resState.type.size > 0 && !(e.type || []).some(t => resState.type.has(t))) return false;
+            if (resState.region !== null && e.region !== resState.region) return false;
+            if (resState.search) {
+                const q = resState.search.toLowerCase();
+                if (!(e.name + ' ' + e.summary).toLowerCase().includes(q)) return false;
+            }
+            return true;
+        }
+
+        function renderResources() {
+            resultsContainer.innerHTML = '';
+            document.querySelectorAll('.resources-dropdown-filter').forEach(d => {
+                const axis = d.dataset.axis;
+                const label = d.querySelector('.resources-dropdown-label');
+                if (!label) return;
+                const n = axis === 'type' ? resState.type.size + (resState.region ? 1 : 0) : resState[axis].size;
+                const base = axis === 'subject' ? 'Subject' : 'Type';
+                label.innerHTML = n > 0 ? `${base}<span class="resources-filter-active-count"> (${n})</span>` : base;
+            });
+
+            const visible = RESOURCE_ENTRIES.filter(entryMatches);
+            countEl.textContent = `${visible.length} of ${RESOURCE_ENTRIES.length} resources`;
+
+            if (visible.length === 0) {
+                resultsContainer.innerHTML = '<div class="resources-empty-state">No resources match the current filters.</div>';
+                return;
+            }
+
+            const groups = new Map();
+            for (const subj of RESOURCE_GROUP_ORDER) groups.set(subj, []);
+            for (const e of visible) {
+                const primary = (e.subject && e.subject[0]) || 'programs';
+                if (!groups.has(primary)) groups.set(primary, []);
+                groups.get(primary).push(e);
+            }
+
+            for (const subj of RESOURCE_GROUP_ORDER) {
+                const items = groups.get(subj) || [];
+                if (items.length === 0) continue;
+                if (subj === 'history') {
+                    items.sort((a, b) => { if (a.year == null && b.year == null) return 0; if (a.year == null) return 1; if (b.year == null) return -1; return a.year - b.year; });
+                } else {
+                    items.sort((a, b) => a.name.localeCompare(b.name));
+                }
+                const group = document.createElement('section');
+                group.className = 'resources-group';
+                group.innerHTML = `<h2 class="resources-group-header"><span>${escHtml(RESOURCE_GROUP_LABELS[subj])}</span><span class="resources-group-count">(${items.length})</span></h2>`;
+                for (const e of items) {
+                    const badgesHtml = [];
+                    if (e.region) badgesHtml.push(`<span class="resources-badge resources-badge-${e.region}">${e.region === 'southern' ? 'Southern' : 'Northern'}</span>`);
+                    for (const b of (e.badges || [])) { const def = RESOURCE_BADGE_LABELS[b]; if (def) badgesHtml.push(`<span class="resources-badge ${def.cls}">${def.label}</span>`); }
+                    const tagsHtml = (e.type || []).map(t => { const def = RESOURCE_TYPE_DEFS.find(d => d.value === t); return def ? `<span class="resources-type-tag">${escHtml(def.label)}</span>` : ''; }).join('');
+                    const card = document.createElement('article');
+                    card.className = 'resources-entry' + ((e.badges || []).includes('broken') ? ' broken' : '');
+                    card.innerHTML = `<div class="resources-entry-head"><h3 class="resources-entry-name"><a href="${escAttr(e.url)}" target="_blank" rel="noopener noreferrer">${escHtml(e.name)}</a></h3>${badgesHtml.length ? '<div class="resources-entry-badges">' + badgesHtml.join('') + '</div>' : ''}</div><p class="resources-entry-summary">${escHtml(e.summary)}</p><div class="resources-entry-tags">${tagsHtml}</div>`;
+                    group.appendChild(card);
+                }
+                resultsContainer.appendChild(group);
+            }
+        }
+
+        buildCheckboxes('resources-filter-subject', RESOURCE_SUBJECT_DEFS, 'subject', true, false);
+        buildCheckboxes('resources-filter-type', RESOURCE_TYPE_DEFS, 'type', true, false);
+        buildCheckboxes('resources-filter-type', RESOURCE_REGION_DEFS, 'region', false, true);
+
+        searchInput.addEventListener('input', e => { resState.search = e.target.value; renderResources(); });
+        resetBtn.addEventListener('click', () => {
+            resState.subject.clear(); resState.type.clear(); resState.region = null; resState.search = '';
+            searchInput.value = '';
+            document.querySelectorAll('.resources-dropdown-panel .resources-checkbox-row').forEach(r => r.setAttribute('aria-checked', 'false'));
+            renderResources();
+        });
+        document.querySelectorAll('.resources-dropdown-filter').forEach(d => {
+            d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('.resources-dropdown-filter[open]').forEach(o => { if (o !== d) o.open = false; }); });
+        });
+        document.addEventListener('click', e => { if (!e.target.closest('.resources-dropdown-filter')) document.querySelectorAll('.resources-dropdown-filter[open]').forEach(d => { d.open = false; }); });
+
+        renderResources();
     }
 
     // --- Utilities ---

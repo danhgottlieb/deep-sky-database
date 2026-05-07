@@ -357,6 +357,50 @@
         </div>
     </section>
 
+    <div class="cosmic-divider cosmic-divider-purple cosmic-divider-to-alt"></div>
+
+    <!-- Resource Links -->
+    <section id="resources" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title reveal">Resource Links</h2>
+            <p class="section-desc reveal">A curated list for visual deep-sky observers — catalogs, databases, observing guides, image archives, sketches, and historical sources.</p>
+            
+            <div class="resources-filters">
+                <div class="resources-search-row">
+                    <input type="search" id="resources-search" placeholder="Search by name or keyword…" autocomplete="off" class="resources-search-input">
+                    <button id="resources-reset" class="btn btn-secondary">Reset</button>
+                </div>
+                <div class="resources-dropdown-row">
+                    <details class="resources-dropdown-filter" data-axis="subject">
+                        <summary class="resources-dropdown-trigger">
+                            <span class="resources-dropdown-label">Subject</span>
+                            <span class="resources-dropdown-arrow">▾</span>
+                        </summary>
+                        <div class="resources-dropdown-panel" id="resources-filter-subject"></div>
+                    </details>
+                    <details class="resources-dropdown-filter" data-axis="type">
+                        <summary class="resources-dropdown-trigger">
+                            <span class="resources-dropdown-label">Type</span>
+                            <span class="resources-dropdown-arrow">▾</span>
+                        </summary>
+                        <div class="resources-dropdown-panel" id="resources-filter-type"></div>
+                    </details>
+                </div>
+                <div class="resources-result-count" id="resources-count"></div>
+            </div>
+
+            <details class="resources-about">
+                <summary>About this list</summary>
+                <p>This list grew out of decades of deep-sky observing — the references, atlases, and tools I've returned to most often. Resources are grouped by subject and sorted alphabetically within each section; <strong>Historical Catalogs</strong> are in chronological order so the lineage from Messier through Dreyer reads in sequence.</p>
+                <p><strong>Badges</strong> flag link status: <em>PDF</em> (downloadable), <em>XLS</em> (Excel spreadsheet), <em>DATA</em> (raw data file), <em>Archive only</em> (Wayback snapshot), <em>Offline</em> (currently down), <em>Registration</em> (account required), <em>JSTOR</em> (free with MyJSTOR registration), <em>Southern</em> (southern-hemisphere focus).</p>
+            </details>
+
+            <div id="resources-results"></div>
+        </div>
+    </section>
+
+    <div class="cosmic-divider cosmic-divider-from-alt"></div>
+
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
@@ -372,14 +416,6 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#explorer">Database Explorer</a></li>
                         <li><a href="#articles">Published Articles</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col" id="resources">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="https://adventuresindeepspace.com/steve.ngc.htm" target="_blank" rel="noopener">Adventures in Deep Space ↗</a></li>
-                        <li><a href="https://simbad.cds.unistra.fr/simbad/" target="_blank" rel="noopener">SIMBAD Database ↗</a></li>
-                        <li><a href="https://en.wikipedia.org/wiki/Steve_Gottlieb_(amateur_astronomer)" target="_blank" rel="noopener">Steve Gottlieb's Wikipedia ↗</a></li>
                     </ul>
                 </div>
             </div>

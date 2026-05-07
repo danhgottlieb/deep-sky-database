@@ -1118,6 +1118,19 @@
             }
         }
 
+        // Check alternate designations for exact match (e.g., "Arp 1" in the "other" field)
+        const altQueries = [q];
+        if (spaced !== q) altQueries.push(spaced);
+        const altExact = allData.find(o => {
+            const other = (o.other || '').toLowerCase();
+            const parts = other.split(/\s*=\s*/);
+            return altQueries.some(aq => parts.some(part => part.trim() === aq));
+        });
+        if (altExact) {
+            selectObject(altExact.name);
+            return;
+        }
+
         // Partial match
         filteredData = allData.filter(o => {
             const name = o.name.toLowerCase();
@@ -1796,12 +1809,15 @@
                 ${detailField('Catalog', obj.catalog)}
             </div>
 
-            ${displayNgcDesc ? `
+            ${(() => {
+                const isNgcIcPlain = /^(NGC|IC) \d+$/.test(obj.name);
+                return (isNgcIcPlain && displayNgcDesc) ? `
                 <div class="detail-ngc-desc">
                     <h4>NGC/IC Description</h4>
                     <p>${escHtml(displayNgcDesc)}</p>
                 </div>
-            ` : ''}
+            ` : '';
+            })()}
 
             ${obsSection}
 
@@ -2069,7 +2085,12 @@
             42: 'articles/david-todds-deep-sky-discoveries.pdf',
             43: 'articles/shakhbazian-galaxy-groups.pdf',
             4: 'articles/abell-2065-corona-borealis.pdf',
-            3: 'articles/abell-4038-sculptor.pdf'
+            3: 'articles/abell-4038-sculptor.pdf',
+            5: 'articles/obscure-summer-globular-clusters.pdf',
+            6: 'articles/pisces-perseus-supercluster.pdf',
+            7: 'articles/hydra-centaurus-supercluster.pdf',
+            9: 'articles/restoring-order-deep-sky.pdf',
+            16: 'articles/blazar-blazar-burning-bright.pdf'
         };
 
         list.innerHTML = articles.map(a => `

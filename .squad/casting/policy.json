@@ -1,0 +1,4 @@
+{
+  "universes": ["the-expanse", "alien", "star-wars", "star-trek", "lotr", "dune", "blade-runner", "matrix", "firefly", "bsg", "mad-max", "terminator", "back-to-the-future", "ghostbusters", "jurassic-park"],
+  "default_capacity": 8
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Page Not Found — Steve Gottlieb's Deep Sky</title>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="/css/style.css?v=25">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        .error-page { display: none; }
+        .error-page.visible { display: flex; }
+
+        .error-page {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        .error-code {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(6rem, 15vw, 12rem);
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0;
+        }
+        .error-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #e0e0e0;
+            margin: 0.5rem 0 1rem;
+        }
+        .error-message {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #999;
+            max-width: 480px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+        .error-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .error-links a {
+            display: inline-block;
+            padding: 0.6rem 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            color: #ccc;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .error-links a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="nav-logo-icon">✦</span>
+                <span class="nav-logo-text">Steve Gottlieb's Deep Sky</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/"><span class="nav-icon">⌂</span><span class="nav-full">Home</span><span class="nav-short">Home</span></a></li>
+                <li><a href="/#introduction"><span class="nav-icon">☰</span><span class="nav-full">Introduction</span><span class="nav-short">Intro</span></a></li>
+                <li><a href="/explorer/"><span class="nav-icon">🔭</span><span class="nav-full">Database</span><span class="nav-short">Search</span></a></li>
+                <li><a href="/reports/"><span class="nav-icon">📋</span><span class="nav-full">Observing Reports</span><span class="nav-short">Reports</span></a></li>
+                <li><a href="/articles/"><span class="nav-icon">✎</span><span class="nav-full">Articles</span><span class="nav-short">Articles</span></a></li>
+                <li><a href="/#resources"><span class="nav-icon">📚</span><span class="nav-full">Resources</span><span class="nav-short">Resources</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Error content (hidden until JS confirms it's not an /object/ redirect) -->
+    <div class="error-page" id="error-content">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Page not found</h2>
+        <p class="error-message">The page you're looking for doesn't exist or has been moved.</p>
+        <ul class="error-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/explorer/">Database Explorer</a></li>
+            <li><a href="/reports/">Observing Reports</a></li>
+            <li><a href="/articles/">Articles</a></li>
+        </ul>
+    </div>
+
+    <script>
+        // Check if this is an /object/ permalink
+        const path = window.location.pathname;
+        if (path.startsWith('/object/')) {
+            const rawName = path.replace('/object/', '').replace(/-/g, ' ');
+            window.location.replace('/explorer/#object/' + encodeURIComponent(rawName));
+        } else {
+            // Not a redirect — show the error page
+            document.getElementById('error-content').classList.add('visible');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-base-path="../">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Database Explorer — Steve Gottlieb's Deep Sky</title>
+    <meta name="description" content="Search and explore over 24,700 deep sky objects with detailed visual observations by Steve Gottlieb.">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=25">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="nav-logo-icon">✦</span>
+                <span class="nav-logo-text">Steve Gottlieb's Deep Sky</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/"><span class="nav-icon">⌂</span><span class="nav-full">Home</span><span class="nav-short">Home</span></a></li>
+                <li><a href="/#introduction"><span class="nav-icon">☰</span><span class="nav-full">Introduction</span><span class="nav-short">Intro</span></a></li>
+                <li><a href="/explorer/" class="active"><span class="nav-icon">🔭</span><span class="nav-full">Database</span><span class="nav-short">Search</span></a></li>
+                <li><a href="/reports/"><span class="nav-icon">📋</span><span class="nav-full">Observing Reports</span><span class="nav-short">Reports</span></a></li>
+                <li><a href="/articles/"><span class="nav-icon">✎</span><span class="nav-full">Articles</span><span class="nav-short">Articles</span></a></li>
+                <li><a href="/#resources"><span class="nav-icon">📚</span><span class="nav-full">Resources</span><span class="nav-short">Resources</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Database Explorer -->
+    <section id="explorer" class="section" style="padding-top: 120px;">
+        <div class="container">
+            <h2 class="section-title reveal">Database Explorer</h2>
+            <p class="section-desc reveal" id="explorer-desc">Search and explore over 24,700 deep sky objects with detailed visual observations, historical context, and cross-references.</p>
+
+            <!-- Quick Lookup -->
+            <div class="explorer-quick">
+                <div class="quick-lookup">
+                    <label for="quick-search">Quick Lookup (single object)</label>
+                    <div class="quick-search-row">
+                        <input type="text" id="quick-search" placeholder="Enter object name (e.g., NGC 1, IC 434, M31)" autocomplete="off">
+                        <button id="quick-search-btn" class="btn btn-primary">Search</button>
+                    </div>
+                    <div id="quick-suggestions" class="suggestions-dropdown"></div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <label class="filter-panel-title">Search using multiple filters</label>
+            <div class="explorer-filters" id="filter-panel">
+                <div class="filter-body open" id="filter-body">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label>Catalog</label>
+                            <div class="multi-select" id="filter-catalog-container">
+                                <input type="text" id="filter-catalog-search" placeholder="Search catalogs..." autocomplete="off">
+                                <div class="multi-select-tags" id="catalog-tags"></div>
+                                <div class="multi-select-dropdown" id="catalog-dropdown"></div>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Name Contains</label>
+                            <div class="multi-select" id="filter-name-container">
+                                <input type="text" id="filter-name" placeholder="e.g., Abell, Arp">
+                                <div class="multi-select-tags" id="name-tags"></div>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-con-search">Constellation</label>
+                            <div class="multi-select" id="filter-con-container">
+                                <input type="text" id="filter-con-search" placeholder="Search constellations..." autocomplete="off">
+                                <div class="multi-select-tags" id="con-tags"></div>
+                                <div class="multi-select-dropdown" id="con-dropdown"></div>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Object Type</label>
+                            <div class="multi-select" id="filter-type-container">
+                                <input type="text" id="filter-type-search" placeholder="Search object types..." autocomplete="off">
+                                <div class="multi-select-tags" id="type-tags"></div>
+                                <div class="multi-select-dropdown" id="type-dropdown"></div>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-mag-min">Visual Magnitude</label>
+                            <div class="mag-range">
+                                <input type="number" id="filter-mag-min" placeholder="Min" step="0.1">
+                                <span>to</span>
+                                <input type="number" id="filter-mag-max" placeholder="Max" step="0.1">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-size-min">Size (arcminutes)</label>
+                            <div class="mag-range">
+                                <input type="number" id="filter-size-min" placeholder="Min" step="0.1" min="0">
+                                <span>to</span>
+                                <input type="number" id="filter-size-max" placeholder="Max" step="0.1" min="0">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-ra-min-h">Right Ascension</label>
+                            <div class="ra-range">
+                                <div class="ra-input-group">
+                                    <input type="number" id="filter-ra-min-h" placeholder="0" step="1">
+                                    <span class="ra-unit">h</span>
+                                    <input type="number" id="filter-ra-min-m" placeholder="0" step="1">
+                                    <span class="ra-unit">m</span>
+                                </div>
+                                <span>to</span>
+                                <div class="ra-input-group">
+                                    <input type="number" id="filter-ra-max-h" placeholder="23" step="1">
+                                    <span class="ra-unit">h</span>
+                                    <input type="number" id="filter-ra-max-m" placeholder="59" step="1">
+                                    <span class="ra-unit">m</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-dec-min">Declination</label>
+                            <div class="mag-range">
+                                <input type="number" id="filter-dec-min" placeholder="Min °" step="0.1" min="-90" max="90">
+                                <span>to</span>
+                                <input type="number" id="filter-dec-max" placeholder="Max °" step="0.1" min="-90" max="90">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Aperture</label>
+                            <div class="custom-select" id="filter-aperture-container" data-value="all">
+                                <button type="button" class="custom-select-trigger" id="filter-aperture-trigger" aria-haspopup="listbox" aria-expanded="false">
+                                    <span class="custom-select-label">All</span>
+                                    <span class="custom-select-arrow">▾</span>
+                                </button>
+                                <div class="custom-select-dropdown" id="aperture-dropdown" role="listbox">
+                                    <div class="custom-select-option selected" data-value="all" role="option">All</div>
+                                    <div class="custom-select-option" data-value="9-" role="option">9″ or less</div>
+                                    <div class="custom-select-option" data-value="10-16" role="option">10″ to 16″</div>
+                                    <div class="custom-select-option" data-value="17-24" role="option">17″ to 24″</div>
+                                    <div class="custom-select-option" data-value="25+" role="option">25″ or more</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button id="apply-filters" class="btn btn-primary">Apply Filters</button>
+                        <button id="clear-filters" class="btn btn-secondary">Clear All</button>
+                    </div>
+                    <p class="filter-directions">Directions: Use one or more of these filters to select objects. For Catalogs, Constellation, Object Type, and Name Contains, you can make multiple selections. When finished, hit Apply.</p>
+                </div>
+            </div>
+
+            <!-- Catalog Legend -->
+            <div class="type-legend-toggle">
+                <button id="catalog-legend-toggle" class="btn-link">Catalog Name Abbreviations ▾</button>
+            </div>
+            <div id="catalog-legend" class="type-legend" style="display:none;">
+                <div class="legend-grid" id="catalog-legend-grid"></div>
+            </div>
+
+            <!-- Type Legend -->
+            <div class="type-legend-toggle">
+                <button id="legend-toggle" class="btn-link">Object Type Abbreviations ▾</button>
+            </div>
+            <div id="type-legend" class="type-legend" style="display:none;">
+                <div class="legend-grid" id="legend-grid"></div>
+            </div>
+
+            <!-- Results -->
+            <div class="explorer-results" id="results-area">
+                <div class="results-header" id="results-header" style="display:none;">
+                    <span id="results-count"></span>
+                    <div class="results-sort">
+                        <label>Sort by:</label>
+                        <select id="sort-select">
+                            <option value="name">Name</option>
+                            <option value="ra">Right Ascension</option>
+                            <option value="mag">Magnitude</option>
+                            <option value="con">Constellation</option>
+                            <option value="type">Type</option>
+                        </select>
+                        <div class="print-menu-wrapper">
+                            <button id="print-btn" class="btn btn-secondary print-btn">🖨 Print</button>
+                            <div class="print-menu" id="print-menu">
+                                <button class="print-menu-option" data-mode="basic">Basic list</button>
+                                <button class="print-menu-option" data-mode="notes">List with notes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="results-list" class="results-list"></div>
+                <div id="results-loading" class="results-loading" style="display:none;">
+                    <div class="spinner"></div>
+                    <span>Searching database...</span>
+                </div>
+                <div id="load-more-container" style="display:none;">
+                    <button id="load-more" class="btn btn-secondary">Load More Results</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="object-detail" class="object-detail"></div>
+    <div class="detail-backdrop" id="detail-backdrop"></div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Steve Gottlieb's Deep Sky</h4>
+                    <p>A comprehensive database of visual deep sky observations spanning over four decades.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#introduction">Introduction</a></li>
+                        <li><a href="/explorer/">Database Explorer</a></li>
+                        <li><a href="/reports/">Observing Reports</a></li>
+                        <li><a href="/articles/">Articles</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Steve Gottlieb. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="data-loading-overlay" id="loading-overlay">
+        <img src="../img/galaxy_spinner.png" class="galaxy-spinner-img" alt="Loading…">
+        <span>Loading 24,773 objects…</span>
+    </div>
+
+    <script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
+    <script src="../js/app.js?v=25"></script>
+    <script data-goatcounter="https://deepsky.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

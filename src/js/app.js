@@ -189,6 +189,14 @@
     const $ = (sel) => document.querySelector(sel);
     const $$ = (sel) => document.querySelectorAll(sel);
 
+    // --- Detect page context ---
+    // basePath is the path prefix to reach the site root from this page
+    const basePath = document.documentElement.dataset.basePath || '';
+
+    function assetPath(relative) {
+        return basePath + relative;
+    }
+
     // --- Init ---
     async function init() {
         setupNav();
@@ -199,59 +207,87 @@
         setupBioToggle();
         setupLegend();
 
-        // Load data
-        try {
-            const [dataRes, metaRes, artRes] = await Promise.all([
-                fetch('data.json'),
-                fetch('metadata.json'),
-                fetch('articles.json')
-            ]);
-            if (!dataRes.ok || !metaRes.ok || !artRes.ok) throw new Error('Failed to load data');
-            allData = await dataRes.json();
-            metadata = await metaRes.json();
-            articles = await artRes.json();
+        const hasExplorer = !!$('#explorer');
+        const hasBlog = !!$('#blog');
+        const hasArticles = !!$('#articles-list');
+        const hasResources = !!$('#resources');
+        const hasHeroStats = !!$('#stat-observations');
 
-            // Load blog index (non-blocking)
-            fetch('blog/blog_index.json').then(r => r.ok ? r.json() : []).then(data => {
+        // Explorer page: load full database
+        if (hasExplorer) {
+            try {
+                const [dataRes, metaRes] = await Promise.all([
+                    fetch(assetPath('data.json')),
+                    fetch(assetPath('metadata.json'))
+                ]);
+                if (!dataRes.ok || !metaRes.ok) throw new Error('Failed to load data');
+                allData = await dataRes.json();
+                metadata = await metaRes.json();
+
+                allData.forEach(o => dataIndex.set(o.name, o));
+
+                const totalObs = allData.reduce((sum, o) => sum + countVisualObs(o.observations), 0);
+                const explorerDesc = document.getElementById('explorer-desc');
+                if (explorerDesc) explorerDesc.textContent = `Search and explore over 24,700 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
+
+                buildFilters();
+                setupSearch();
+                setupFilters();
+                handleHashNavigation();
+
+                const overlay = $('#loading-overlay');
+                if (overlay) {
+                    overlay.classList.add('hidden');
+                    setTimeout(() => overlay.remove(), 500);
+                }
+                console.log(`Loaded ${allData.length} objects`);
+            } catch (e) {
+                console.error('Failed to load data:', e);
+                const overlay = $('#loading-overlay');
+                if (overlay) overlay.innerHTML = '<span style="color:var(--red);">Failed to load database. Please refresh.</span>';
+            }
+        }
+
+        // Blog/Reports page: load blog index
+        if (hasBlog) {
+            fetch(assetPath('blog/blog_index.json')).then(r => r.ok ? r.json() : []).then(data => {
                 blogData = data || [];
                 blogFiltered = blogData;
                 renderBlog();
                 setupBlogSearch();
-                // Update hero stat with actual count
                 const reportStat = document.getElementById('stat-reports');
                 if (reportStat) reportStat.textContent = blogData.length.toLocaleString();
             }).catch(() => {});
+        }
 
-            // Build name index
-            allData.forEach(o => dataIndex.set(o.name, o));
-
-            // Compute and display total observations
-            const totalObs = allData.reduce((sum, o) => sum + countVisualObs(o.observations), 0);
-            const obsStat = document.getElementById('stat-observations');
-            if (obsStat) obsStat.textContent = totalObs.toLocaleString();
-            // Update explorer description with total observation count
-            const explorerDesc = document.getElementById('explorer-desc');
-            if (explorerDesc) explorerDesc.textContent = `Search and explore over 24,700 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
-
-            buildFilters();
-            renderArticles();
-            initResources();
-            setupSearch();
-            setupFilters();
-            handleHashNavigation();
-
-            // Hide and remove loading overlay
-            const overlay = $('#loading-overlay');
-            if (overlay) {
-                overlay.classList.add('hidden');
-                setTimeout(() => overlay.remove(), 500);
+        // Articles page: load articles
+        if (hasArticles) {
+            try {
+                const artRes = await fetch(assetPath('articles.json'));
+                if (artRes.ok) {
+                    articles = await artRes.json();
+                    renderArticles();
+                }
+            } catch (e) {
+                console.error('Failed to load articles:', e);
             }
+        }
 
-            console.log(`Loaded ${allData.length} objects`);
-        } catch (e) {
-            console.error('Failed to load data:', e);
-            const overlay = $('#loading-overlay');
-            if (overlay) overlay.innerHTML = '<span style="color:var(--red);">Failed to load database. Please refresh.</span>';
+        // Resources section (on main page)
+        if (hasResources) {
+            initResources();
+        }
+
+        // Home page hero stats: use pre-computed values (no 30MB data.json load)
+        if (hasHeroStats && !hasExplorer) {
+            // Load blog count for hero stat
+            fetch(assetPath('blog/blog_index.json')).then(r => r.ok ? r.json() : []).then(data => {
+                const reportStat = document.getElementById('stat-reports');
+                if (reportStat) reportStat.textContent = (data || []).length.toLocaleString();
+            }).catch(() => {});
+            // Use pre-computed observation count to avoid loading 30MB data.json
+            const obsStat = document.getElementById('stat-observations');
+            if (obsStat) obsStat.textContent = '32,732';
         }
     }
 
@@ -274,21 +310,23 @@
             if (!e.target.closest('#main-nav')) links.classList.remove('open');
         });
 
-        // Active nav tracking
+        // Active nav tracking — only on index page where nav uses hash links
         const sections = $$('section[id]');
         const navLinks = $$('.nav-links a');
+        const hasHashNavLinks = Array.from(navLinks).some(a => a.getAttribute('href').startsWith('#'));
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(a => a.classList.remove('active'));
-                    const active = $(`.nav-links a[href="#${entry.target.id}"]`);
-                    if (active) active.classList.add('active');
-                }
-            });
-        }, { rootMargin: '-50% 0px -50% 0px' });
-
-        sections.forEach(s => observer.observe(s));
+        if (hasHashNavLinks) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(a => a.classList.remove('active'));
+                        const active = $(`.nav-links a[href="#${entry.target.id}"]`);
+                        if (active) active.classList.add('active');
+                    }
+                });
+            }, { rootMargin: '-50% 0px -50% 0px' });
+            sections.forEach(s => observer.observe(s));
+        }
     }
 
     // --- Shooting Stars & Satellites overlay (background image handled by CSS) ---
@@ -1064,6 +1102,13 @@
     }
 
     function flexibleMatch(haystack, needle) {
+        // If the query is purely digits, require it to appear as a complete number
+        // i.e. (catalog name) + "234" with no other digits adjacent
+        if (/^\d+$/.test(needle)) {
+            const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const re = new RegExp('(?<!\\d)' + escaped + '(?!\\d)');
+            return re.test(haystack);
+        }
         if (haystack.includes(needle)) return true;
         const spaceless = needle.replace(/\s+/g, '');
         const spaced = spaceless.replace(/^(ngc|ic|ugc|m|abell|arp|hickson|sh|vv|mcg|pgc|leda)(\d)/, '$1 $2');
@@ -1075,6 +1120,15 @@
         if (!otherField) return '';
         // Split on ' = ' to get individual names
         const parts = otherField.split(/\s*=\s*/);
+        // For pure-digit queries, use boundary matching
+        if (/^\d+$/.test(query)) {
+            const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const re = new RegExp('(?<!\\d)' + escaped + '(?!\\d)');
+            for (const part of parts) {
+                if (re.test(part.toLowerCase())) return part.trim();
+            }
+            return '';
+        }
         for (const part of parts) {
             if (part.toLowerCase().includes(query)) return part.trim();
         }
@@ -1860,6 +1914,7 @@
     function closeDetailPanel(updateUrl) {
         if (updateUrl === undefined) updateUrl = true;
         const detail = $('#object-detail');
+        if (!detail) return;
         const backdrop = $('#detail-backdrop');
         detail.classList.remove('open');
         if (backdrop) backdrop.classList.remove('open');
@@ -1953,7 +2008,8 @@
             }
         });
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && $('#object-detail').classList.contains('open')) {
+            const detail = $('#object-detail');
+            if (e.key === 'Escape' && detail && detail.classList.contains('open')) {
                 closeDetailPanel();
             }
         });
@@ -1980,7 +2036,8 @@
     window.addEventListener('popstate', () => handleHashNavigation());
     window.addEventListener('hashchange', () => {
         // Close detail panel when navigating to a non-object hash (e.g., nav link clicks)
-        if (!window.location.hash.startsWith('#object/') && $('#object-detail').classList.contains('open')) {
+        const detail = $('#object-detail');
+        if (!window.location.hash.startsWith('#object/') && detail && detail.classList.contains('open')) {
             closeDetailPanel(false);
         }
     });
@@ -2034,7 +2091,7 @@
             <div class="blog-year-group">
                 <h3 class="blog-year-heading">${escHtml(g.year)}</h3>
                 ${g.items.map(b => `
-                    <a href="blog/${escAttr(b.filename)}" class="blog-card">
+                    <a href="${assetPath('blog/' + escAttr(b.filename))}" class="blog-card">
                         <span class="blog-card-date">${escHtml(shortDate(b.date, g.year))}</span>
                         <span class="blog-card-title">${escHtml(b.title)}</span>
                         ${b.images ? `<span class="blog-card-images">📷 ${b.images}</span>` : ''}
@@ -2103,7 +2160,7 @@
                 </div>
                 <div class="article-actions">
                     ${a.url ? `<a href="${escAttr(a.url)}" target="_blank" rel="noopener" class="article-link">${escHtml(a.urlNote || 'View')} ↗</a>` : ''}
-                    ${articlePdfs[a.num] ? `<a href="${escAttr(articlePdfs[a.num])}" target="_blank" rel="noopener" class="article-link article-pdf-link">Read article ↗</a>` : ''}
+                    ${articlePdfs[a.num] ? `<a href="${escAttr(assetPath(articlePdfs[a.num]))}" target="_blank" rel="noopener" class="article-link article-pdf-link">Read article ↗</a>` : ''}
                 </div>
             </div>
         `).join('');

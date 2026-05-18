@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-base-path="../">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Observing Reports — Steve Gottlieb's Deep Sky</title>
+    <meta name="description" content="Field reports from the eyepiece — observing sessions, trip accounts, and detailed notes from dark sky sites across the globe.">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=25">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="nav-logo-icon">✦</span>
+                <span class="nav-logo-text">Steve Gottlieb's Deep Sky</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/"><span class="nav-icon">⌂</span><span class="nav-full">Home</span><span class="nav-short">Home</span></a></li>
+                <li><a href="/#introduction"><span class="nav-icon">☰</span><span class="nav-full">Introduction</span><span class="nav-short">Intro</span></a></li>
+                <li><a href="/explorer/"><span class="nav-icon">🔭</span><span class="nav-full">Database</span><span class="nav-short">Search</span></a></li>
+                <li><a href="/reports/" class="active"><span class="nav-icon">📋</span><span class="nav-full">Observing Reports</span><span class="nav-short">Reports</span></a></li>
+                <li><a href="/articles/"><span class="nav-icon">✎</span><span class="nav-full">Articles</span><span class="nav-short">Articles</span></a></li>
+                <li><a href="/#resources"><span class="nav-icon">📚</span><span class="nav-full">Resources</span><span class="nav-short">Resources</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Blog / Observing Reports -->
+    <section id="blog" class="section" style="padding-top: 120px;">
+        <div class="container">
+            <h2 class="section-title reveal">Observing Reports</h2>
+            <p class="section-desc reveal">Field reports from the eyepiece — observing sessions, trip accounts, and detailed notes from dark sky sites across the globe.</p>
+            <div class="blog-filters" id="blog-filters">
+                <input type="text" id="blog-search" placeholder="Search by object name, title, date or location…" class="blog-search-input">
+            </div>
+            <div class="blog-report-count" id="blog-report-count"></div>
+            <div class="blog-grid" id="blog-grid"></div>
+            <div id="blog-load-more-container" style="display:none;">
+                <button id="blog-load-more" class="btn btn-secondary">Load More Reports</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Steve Gottlieb's Deep Sky</h4>
+                    <p>A comprehensive database of visual deep sky observations spanning over four decades.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#introduction">Introduction</a></li>
+                        <li><a href="/explorer/">Database Explorer</a></li>
+                        <li><a href="/reports/">Observing Reports</a></li>
+                        <li><a href="/articles/">Articles</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Steve Gottlieb. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/app.js?v=25"></script>
+    <script data-goatcounter="https://deepsky.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

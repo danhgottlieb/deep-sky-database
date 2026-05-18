@@ -2603,6 +2603,7 @@ img {
     position: relative;
     flex: 1 1 200px;
     min-width: 0;
+    z-index: 100;
 }
 .resources-dropdown-trigger {
     display: flex;
@@ -2661,13 +2662,13 @@ img {
     right: 0;
     max-height: 380px;
     overflow-y: auto;
-    background: var(--card-bg, rgba(20,28,43,0.95));
+    background: rgba(20,28,43,1);
     border: 1px solid var(--accent);
     border-top: none;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    z-index: 20;
+    z-index: 9999;
     padding: 4px 0;
 }
 .resources-checkbox-row {

@@ -2563,13 +2563,12 @@ img {
 /* --- Resource Links --- */
 .resources-filters {
     margin-bottom: 24px;
-    background: rgba(10, 14, 23, 0.85);
+    background: rgba(10, 14, 23, 0.95);
     padding: 16px 14px 14px;
     border-radius: 12px;
     border: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    overflow: visible;
 }
 .resources-search-row {
     display: flex;
@@ -2598,6 +2597,9 @@ img {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 100;
+    overflow: visible;
 }
 .resources-dropdown-filter {
     position: relative;

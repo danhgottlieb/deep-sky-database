@@ -287,7 +287,7 @@
             }).catch(() => {});
             // Use pre-computed observation count to avoid loading 30MB data.json
             const obsStat = document.getElementById('stat-observations');
-            if (obsStat) obsStat.textContent = '33,387';
+            if (obsStat) obsStat.textContent = '33,388';
         }
     }
 
@@ -1108,7 +1108,13 @@
         if (/^\d+$/.test(needle)) {
             const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             const re = new RegExp('^[a-z ]+' + escaped + '$');
-            return re.test(haystack);
+            // Test the haystack directly (for primary name)
+            if (re.test(haystack)) return true;
+            // Also test individual parts if haystack contains '=' (alternate designations)
+            if (haystack.includes('=')) {
+                return haystack.split(/\s*=\s*/).some(part => re.test(part.trim()));
+            }
+            return false;
         }
         if (haystack.includes(needle)) return true;
         const spaceless = needle.replace(/\s+/g, '');
@@ -1342,6 +1348,31 @@
 
     function printResults(mode) {
         const includeNotes = mode === 'notes';
+
+        // Build a human-readable filter description
+        const filterParts = [];
+        if (selectedCatalogs.length > 0) filterParts.push(selectedCatalogs.join(', '));
+        if (selectedTypes.length > 0) {
+            const typeNames = selectedTypes.map(t => TYPE_KEY[t] || t);
+            filterParts.push(typeNames.join(', '));
+        }
+        if (selectedConstellations.length > 0) {
+            const conNames = selectedConstellations.map(c => CON_NAMES[c] || c);
+            filterParts.push('in ' + conNames.join(', '));
+        }
+        if (selectedNames.length > 0) filterParts.push('Name: ' + selectedNames.join(', '));
+        const magMin = parseFloat($('#filter-mag-min').value);
+        const magMax = parseFloat($('#filter-mag-max').value);
+        if (!isNaN(magMin) || !isNaN(magMax)) {
+            let magDesc = 'Mag';
+            if (!isNaN(magMin) && !isNaN(magMax)) magDesc += ' ' + magMin + '–' + magMax;
+            else if (!isNaN(magMin)) magDesc += ' ≥' + magMin;
+            else magDesc += ' ≤' + magMax;
+            filterParts.push(magDesc);
+        }
+        if (selectedAperture && selectedAperture !== 'all') filterParts.push('Aperture: ' + selectedAperture);
+        const filterDesc = filterParts.length > 0 ? filterParts.join(' — ') : 'All objects';
+
         let rows = '';
         filteredData.forEach(obj => {
             let obsHtml = '';
@@ -1397,6 +1428,7 @@
             '@media print{body{margin:12px;}}' +
             '</style></head><body>' +
             '<h1>Steve Gottlieb\'s Deep Sky Objects</h1>' +
+            '<div class="filter-desc" style="font-size:11pt;color:#333;margin-bottom:4px;">' + escHtml(filterDesc) + '</div>' +
             '<div class="subtitle">' + filteredData.length.toLocaleString() + ' objects &mdash; ' +
             (includeNotes ? 'List with notes' : 'Basic list') +
             ' &mdash; Printed ' + new Date().toLocaleDateString() + '</div>' +

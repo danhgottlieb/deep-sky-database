@@ -228,7 +228,7 @@
 
                 const totalObs = allData.reduce((sum, o) => sum + countVisualObs(o.observations), 0);
                 const explorerDesc = document.getElementById('explorer-desc');
-                if (explorerDesc) explorerDesc.textContent = `Search and explore over 24,700 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
+                if (explorerDesc) explorerDesc.textContent = `Search and explore over 24,800 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
 
                 buildFilters();
                 setupSearch();
@@ -287,7 +287,7 @@
             }).catch(() => {});
             // Use pre-computed observation count to avoid loading 30MB data.json
             const obsStat = document.getElementById('stat-observations');
-            if (obsStat) obsStat.textContent = '32,732';
+            if (obsStat) obsStat.textContent = '33,387';
         }
     }
 
@@ -1102,11 +1102,12 @@
     }
 
     function flexibleMatch(haystack, needle) {
-        // If the query is purely digits, require it to appear as a complete number
-        // i.e. (catalog name) + "234" with no other digits adjacent
+        // If the query is purely digits, match "CatalogName + digits" where:
+        // - Only ALPHABETIC characters (and spaces) appear before the digits
+        // - NOTHING comes after the digits (exact end of name)
         if (/^\d+$/.test(needle)) {
             const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const re = new RegExp('(?<!\\d)' + escaped + '(?!\\d)');
+            const re = new RegExp('^[a-z ]+' + escaped + '$');
             return re.test(haystack);
         }
         if (haystack.includes(needle)) return true;
@@ -1120,12 +1121,12 @@
         if (!otherField) return '';
         // Split on ' = ' to get individual names
         const parts = otherField.split(/\s*=\s*/);
-        // For pure-digit queries, use boundary matching
+        // For pure-digit queries, use same strict matching as flexibleMatch
         if (/^\d+$/.test(query)) {
             const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const re = new RegExp('(?<!\\d)' + escaped + '(?!\\d)');
+            const re = new RegExp('^[a-z ]+' + escaped + '$');
             for (const part of parts) {
-                if (re.test(part.toLowerCase())) return part.trim();
+                if (re.test(part.trim().toLowerCase())) return part.trim();
             }
             return '';
         }

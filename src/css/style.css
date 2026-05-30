@@ -2060,6 +2060,7 @@ img {
         align-items: center;
         gap: 1px;
         padding: 4px 6px;
+        font: inherit;
         font-size: 0.62rem;
         border-radius: 4px;
         white-space: nowrap;

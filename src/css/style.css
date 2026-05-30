@@ -2013,7 +2013,11 @@ img {
         gap: 0;
         border-top: 1px solid var(--border);
         padding: 4px 0 2px;
-        overflow: visible;
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
     .nav-links::-webkit-scrollbar {
@@ -2054,6 +2058,9 @@ img {
     .nav-full { display: none; }
 
     /* Dropdown toggle matches other nav items on mobile */
+    .nav-dropdown {
+        position: static;
+    }
     .nav-dropdown-toggle {
         display: flex;
         flex-direction: column;
@@ -2076,12 +2083,13 @@ img {
         display: none;
     }
     .nav-dropdown-menu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: auto;
+        position: fixed;
+        top: auto;
         bottom: auto;
-        transform: none;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        margin-top: 4px;
         min-width: 160px;
         background: rgba(19, 26, 44, 0.98);
         backdrop-filter: blur(14px);

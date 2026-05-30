@@ -331,6 +331,14 @@
             dropdownToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 navDropdown.classList.toggle('open');
+                // Position dropdown below nav on mobile
+                const menu = navDropdown.querySelector('.nav-dropdown-menu');
+                if (menu && window.innerWidth <= 768) {
+                    const nav = document.getElementById('main-nav');
+                    if (nav) {
+                        menu.style.top = nav.offsetHeight + 'px';
+                    }
+                }
             });
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.nav-dropdown')) {

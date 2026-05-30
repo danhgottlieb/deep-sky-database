@@ -300,15 +300,44 @@
             links.classList.toggle('open');
         });
 
-        // Close mobile nav on link click
+        // Close mobile nav on link click; force-reveal target section on iOS
         $$('.nav-links a').forEach(a => {
-            a.addEventListener('click', () => links.classList.remove('open'));
+            a.addEventListener('click', () => {
+                links.classList.remove('open');
+                const href = a.getAttribute('href');
+                const hashIdx = href.indexOf('#');
+                if (hashIdx >= 0) {
+                    const targetId = href.substring(hashIdx + 1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+                            el.classList.add('visible');
+                        });
+                    }
+                }
+            });
         });
 
         // Close mobile nav on outside click
         document.addEventListener('click', (e) => {
             if (!e.target.closest('#main-nav')) links.classList.remove('open');
         });
+
+
+        // Resources dropdown
+        const navDropdown = document.querySelector('.nav-dropdown');
+        const dropdownToggle = document.querySelector('.nav-dropdown-toggle');
+        if (navDropdown && dropdownToggle) {
+            dropdownToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navDropdown.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.nav-dropdown')) {
+                    navDropdown.classList.remove('open');
+                }
+            });
+        }
 
         // Active nav tracking — only on index page where nav uses hash links
         const sections = $$('section[id]');
@@ -647,6 +676,26 @@
         return null;
     }
 
+    // Extract Barnard designation from an object (from name or 'other' field)
+    function getBarnardDesignation(obj) {
+        if (/^Barnard\s+\d+/.test(obj.name)) return obj.name;
+        if (obj.other) {
+            const m = obj.other.match(/Barnard\s+\d+/);
+            if (m) return m[0];
+        }
+        return null;
+    }
+
+    // Extract STF designation from an object (from name or 'other' field), excluding STFA
+    function getStfDesignation(obj) {
+        if (/^STF \d/.test(obj.name) && !/^STFA/.test(obj.name)) return obj.name;
+        if (obj.other) {
+            const m = obj.other.match(/\bSTF \d+/);
+            if (m && !/STFA/.test(m[0])) return m[0];
+        }
+        return null;
+    }
+
     // Parse size field to arcminutes for filtering
     function parseSizeArcmin(sizeStr) {
         if (!sizeStr || !sizeStr.trim()) return 0;
@@ -729,7 +778,7 @@
 
         const catalogGroups = [
             { label: 'GENERAL', items: ['Messier', 'NGC', 'IC', 'Orion DeepMap', "Gottlieb's Favorites"] },
-            { label: 'SPECIALIZED', items: ['Abell planetary nebulae', 'Galaxy Trios (KTG)', 'Hickson Compact Groups (HCG)', 'Uppsala Galaxy Catalog (UGC)'] }
+            { label: 'SPECIALIZED', items: ['Abell planetary nebulae', 'Barnard Dark Nebulae', 'Galaxy Trios (KTG)', 'Hickson Compact Groups (HCG)', 'STF Double Stars', 'Uppsala Galaxy Catalog (UGC)'] }
         ];
         const allCatalogs = catalogGroups.flatMap(g => g.items);
 
@@ -1387,11 +1436,13 @@
                     ).join('') + '</div>';
             }
 
-            // Collection prefix for Abell/KTG/HCG
+            // Collection prefix for Abell/KTG/HCG/Barnard/STF
             let collPrefix = '';
             if (activeCollection === 'hcg') { const d = getHcgDesignation(obj); if (d && d !== obj.name) collPrefix = escHtml(d) + ' = '; }
             else if (activeCollection === 'abell') { const d = getAbellDesignation(obj); if (d && d !== obj.name) collPrefix = escHtml(d) + ' = '; }
             else if (activeCollection === 'ktg') { const d = getKtgDesignation(obj); if (d && d !== obj.name) collPrefix = escHtml(d) + ' = '; }
+            else if (activeCollection === 'barnard') { const d = getBarnardDesignation(obj); if (d && d !== obj.name) collPrefix = escHtml(d) + ' = '; }
+            else if (activeCollection === 'stf') { const d = getStfDesignation(obj); if (d && d !== obj.name) collPrefix = escHtml(d) + ' = '; }
 
             rows += '<div class="obj-card">' +
                 '<div class="obj-header">' +
@@ -1499,7 +1550,9 @@
                     (selectedCatalogs.includes('Hickson Compact Groups (HCG)') && getHcgDesignation(o)) ||
                     (selectedCatalogs.includes('Uppsala Galaxy Catalog (UGC)') && o.catalog === 'UGC') ||
                     (selectedCatalogs.includes('Abell planetary nebulae') && getAbellDesignation(o) && o.type !== 'GX' && o.type !== 'NF') ||
-                    (selectedCatalogs.includes('Galaxy Trios (KTG)') && getKtgDesignation(o) && o.type === 'GX');
+                    (selectedCatalogs.includes('Barnard Dark Nebulae') && getBarnardDesignation(o)) ||
+                    (selectedCatalogs.includes('Galaxy Trios (KTG)') && getKtgDesignation(o) && o.type === 'GX') ||
+                    (selectedCatalogs.includes('STF Double Stars') && getStfDesignation(o));
                 if (!matchesCatalog) return false;
             }
             if (selectedConstellations.length > 0 && !selectedConstellations.includes(o.con)) return false;
@@ -1587,6 +1640,10 @@
             activeCollection = 'abell';
         } else if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Galaxy Trios (KTG)') {
             activeCollection = 'ktg';
+        } else if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'Barnard Dark Nebulae') {
+            activeCollection = 'barnard';
+        } else if (selectedCatalogs.length === 1 && selectedCatalogs[0] === 'STF Double Stars') {
+            activeCollection = 'stf';
         } else {
             activeCollection = '';
         }
@@ -1706,6 +1763,16 @@
                         const kB = getKtgDesignation(b) || '';
                         return naturalSort(kA, kB);
                     }
+                    if (activeCollection === 'barnard') {
+                        const bA = getBarnardDesignation(a) || '';
+                        const bB = getBarnardDesignation(b) || '';
+                        return naturalSort(bA, bB);
+                    }
+                    if (activeCollection === 'stf') {
+                        const sA = getStfDesignation(a) || '';
+                        const sB = getStfDesignation(b) || '';
+                        return naturalSort(sA, sB);
+                    }
                     return naturalSort(a.name, b.name);
             }
         });
@@ -1760,14 +1827,18 @@
             }
         }
 
-        // HCG / Abell / KTG designation prefix (similar to Messier)
+        // HCG / Abell / KTG / Barnard / STF designation prefix (similar to Messier)
         const hcgDesig = (activeCollection === 'hcg') ? getHcgDesignation(obj) : null;
         const abellDesig = (activeCollection === 'abell') ? getAbellDesignation(obj) : null;
         const ktgDesig = (activeCollection === 'ktg') ? getKtgDesignation(obj) : null;
+        const barnardDesig = (activeCollection === 'barnard') ? getBarnardDesignation(obj) : null;
+        const stfDesig = (activeCollection === 'stf') ? getStfDesignation(obj) : null;
         let collectionPrefix = '';
         if (hcgDesig && hcgDesig !== obj.name) collectionPrefix = escHtml(hcgDesig) + ' = ';
         else if (abellDesig && abellDesig !== obj.name) collectionPrefix = escHtml(abellDesig) + ' = ';
         else if (ktgDesig && ktgDesig !== obj.name) collectionPrefix = escHtml(ktgDesig) + ' = ';
+        else if (barnardDesig && barnardDesig !== obj.name) collectionPrefix = escHtml(barnardDesig) + ' = ';
+        else if (stfDesig && stfDesig !== obj.name) collectionPrefix = escHtml(stfDesig) + ' = ';
 
         card.innerHTML = `
             <div class="card-header">
@@ -1863,7 +1934,7 @@
             <div class="detail-scroll">
             <div class="detail-header">
                 <div class="detail-title-group">
-                    <h3>${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${(() => { const hd = (activeCollection === 'hcg') ? getHcgDesignation(obj) : null; const ad = (activeCollection === 'abell') ? getAbellDesignation(obj) : null; const kd = (activeCollection === 'ktg') ? getKtgDesignation(obj) : null; const d = hd || ad || kd; return (d && d !== obj.name) ? escHtml(d) + ' = ' : ''; })()}${escHtml(obj.name)}</h3>
+                    <h3>${obj.messierNumber ? escHtml(obj.messierNumber) + ' = ' : ''}${(() => { const hd = (activeCollection === 'hcg') ? getHcgDesignation(obj) : null; const ad = (activeCollection === 'abell') ? getAbellDesignation(obj) : null; const kd = (activeCollection === 'ktg') ? getKtgDesignation(obj) : null; const bd = (activeCollection === 'barnard') ? getBarnardDesignation(obj) : null; const sd = (activeCollection === 'stf') ? getStfDesignation(obj) : null; const d = hd || ad || kd || bd || sd; return (d && d !== obj.name) ? escHtml(d) + ' = ' : ''; })()}${escHtml(obj.name)}</h3>
                     ${obj.nickname ? `<div class="detail-nickname">${escHtml(obj.nickname)}</div>` : ''}
                     ${obj.other ? `<div class="detail-other">${escHtml(obj.other)}</div>` : ''}
                 </div>

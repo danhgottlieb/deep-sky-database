@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" data-base-path="../">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Library — Steve Gottlieb's Deep Sky</title>
+    <meta name="description" content="An annotated bibliography of recommended deep-sky observing references spanning nearly five decades at the eyepiece.">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=26">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Library page styles */
+        .page-header { padding: 60px 0 30px; }
+        .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-purple, #a888d6); text-decoration: none; }
+        .page-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 44px; font-weight: 600; margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent, #e8c170) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .page-desc { color: var(--text-muted); font-size: 17px; max-width: 720px; margin-bottom: 24px; }
+
+        .quick-jump {
+            border-top: 1px solid rgba(168, 136, 214, 0.18);
+            border-bottom: 1px solid rgba(168, 136, 214, 0.18);
+            padding: 14px 0;
+            margin-bottom: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px 28px;
+            font-size: 13px;
+        }
+        .quick-jump-label {
+            color: var(--text-faint, #6a7290);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 11px;
+            align-self: center;
+        }
+        .quick-jump a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .quick-jump a:hover { color: var(--accent, #e8c170); }
+
+        .lib-section {
+            margin-bottom: 70px;
+            scroll-margin-top: 80px;
+        }
+        .lib-section-header {
+            margin-bottom: 32px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(168, 136, 214, 0.18);
+        }
+        .lib-section-eyebrow {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent, #e8c170);
+            margin-bottom: 6px;
+        }
+        .lib-section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 30px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .lib-section-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            max-width: 640px;
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 48px;
+            row-gap: 28px;
+        }
+        @media (max-width: 760px) {
+            .book-list { grid-template-columns: 1fr; }
+        }
+
+        .book {
+            padding-left: 16px;
+            border-left: 2px solid transparent;
+            transition: border-color 0.15s;
+        }
+        .book:hover { border-left-color: var(--accent, #e8c170); }
+        .book-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+        .book-volumes {
+            font-family: 'Crimson Pro', serif;
+            font-style: italic;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .book-author {
+            font-size: 14px;
+            color: var(--accent, #e8c170);
+            margin-bottom: 4px;
+        }
+        .book-pub {
+            font-size: 12px;
+            color: var(--text-faint, #6a7290);
+            margin-bottom: 10px;
+        }
+        .book-pub .availability {
+            margin-left: 8px;
+            padding: 1px 7px;
+            border-radius: 3px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        .avail-in { background: rgba(135,214,142,0.12); color: #87d68e; }
+        .avail-ltd { background: rgba(232,193,112,0.12); color: #e8c170; }
+        .avail-oop { background: rgba(224,135,135,0.12); color: #e08787; }
+
+        .book-comment {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.55;
+            padding-left: 12px;
+            border-left: 2px solid rgba(168, 136, 214, 0.18);
+        }
+        .book-comment::before {
+            content: "Steve: ";
+            color: var(--accent, #e8c170);
+            font-weight: 500;
+            font-style: italic;
+        }
+        .comment-empty {
+            color: var(--text-faint, #6a7290);
+            font-style: italic;
+            opacity: 0.7;
+        }
+        .comment-empty::before { color: var(--text-faint, #6a7290); }
+
+        .pick-marker {
+            display: inline-block;
+            margin-left: 6px;
+            color: var(--accent, #e8c170);
+            font-size: 12px;
+        }
+
+        .legend {
+            margin-top: 60px;
+            padding: 24px;
+            background: var(--card-bg, #131a2c);
+            border: 1px solid rgba(168, 136, 214, 0.18);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .legend strong { color: var(--text); }
+        .legend-row { margin-bottom: 6px; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="nav-logo-icon">✦</span>
+                <span class="nav-logo-text">Steve Gottlieb's Deep Sky</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>            <ul class="nav-links">
+                <li><a href="/"><span class="nav-icon">⌂</span><span class="nav-full">Home</span><span class="nav-short">Home</span></a></li>
+                <li><a href="/#introduction"><span class="nav-icon">☰</span><span class="nav-full">Introduction</span><span class="nav-short">Intro</span></a></li>
+                <li><a href="/explorer/"><span class="nav-icon">🔭</span><span class="nav-full">Database</span><span class="nav-short">Search</span></a></li>
+                <li><a href="/reports/"><span class="nav-icon">📋</span><span class="nav-full">Observing Reports</span><span class="nav-short">Reports</span></a></li>
+                <li><a href="/articles/"><span class="nav-icon">✎</span><span class="nav-full">Articles</span><span class="nav-short">Articles</span></a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-dropdown-toggle"><span class="nav-icon">📚</span><span class="nav-full">Resources</span><span class="nav-short">Resources</span><span class="nav-dropdown-arrow">▾</span></button>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="/resources/">Deep Sky Links</a></li>
+                        <li><a href="/library/" class="active">Library</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section style="padding-top: 120px;">
+        <div class="container">
+            <!-- Page header -->
+            <div class="page-header">
+                <div class="breadcrumb"><a href="/">Home</a> / Library</div>
+                <h1 class="page-title">Recommended Reading</h1>
+                <p class="page-desc">An annotated bibliography of the deep-sky observing references I've found most valuable across nearly five decades at the eyepiece. ★ marks the volumes I reach for most often.</p>
+            </div>
+
+            <!-- Quick jump -->
+            <nav class="quick-jump">
+                <span class="quick-jump-label">Jump to</span>
+                <a href="#general">General References</a>
+                <a href="#messier">Messier &amp; Caldwell</a>
+                <a href="#herschel">Herschel &amp; NGC</a>
+                <a href="#specialized">Specialized Topics</a>
+                <a href="#southern">Southern Hemisphere</a>
+                <a href="#field">Field Guides &amp; Binoculars</a>
+            </nav>
+
+            <section class="lib-section" id="general">
+    <header class="lib-section-header">
+      <div class="lib-section-eyebrow">Section 1</div>
+      <h2 class="lib-section-title">General Deep-Sky References</h2>
+      <p class="lib-section-desc">Comprehensive multi-object guides covering thousands of targets across the sky. The backbone of any serious observing library.</p>
+    </header>
+
+    <div class="book-list">
+
+      <div class="book">
+        <div class="book-title">Night Sky Observer's Guide<span class="pick-marker">★</span></div>
+        <div class="book-volumes">Volumes 1–4</div>
+        <div class="book-author">George Robert Kepple &amp; Glen W. Sanner et al.</div>
+        <div class="book-pub">Willmann-Bell · 1998–2017 <span class="availability avail-ltd">Limited</span></div>
+        <div class="book-comment">An observing guide I reach for when planning most sessions. Volume 3 covers the southern sky. Many of my own visual descriptions appear throughout.</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Annals of the Deep Sky<span class="pick-marker">★</span></div>
+        <div class="book-volumes">A Survey of Galactic and Extragalactic Objects · Vol. 1–12</div>
+        <div class="book-author">Jeff Kanipe &amp; Dennis Webb</div>
+        <div class="book-pub">Willmann-Bell · 2014–ongoing <span class="availability avail-ltd">Limited</span></div>
+        <div class="book-comment">An ongoing 
+constellation-by-constellation survey blending astrophysics, history, 
+and visual observation. Many of my visual descriptions appear throughout
+ this series.</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Observing Handbook and Catalogue of Deep-Sky Objects<span class="pick-marker">★</span></div>
+        <div class="book-author">Christian B. Luginbuhl &amp; Brian A. Skiff</div>
+        <div class="book-pub">Cambridge University Press · 1989 (reprinted) <span class="availability avail-in">In print</span></div>
+        <div class="book-comment">Meticulous visual descriptions for 
+over 2,000 objects observed with telescopes from 60mm to 305mm. A 
+foundational reference and one I still consult constantly.</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Interstellarum Deep Sky Guide<span class="pick-marker">★</span></div>
+        <div class="book-author">Ronald Stoyan &amp; Uwe Glahn</div>
+        <div class="book-pub">Oculum-Verlag · 2014 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment">A spiral-bound, field-ready guide with detailed labeled images and sketches for thousands of deep-sky objects. 
+Designed to live on your observing table.</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Deep-Sky Wonders</div>
+        <div class="book-author">Sue French</div>
+        <div class="book-pub">Firefly Books · 2011 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Cosmic Challenge</div>
+        <div class="book-volumes">The Ultimate Observing List for Amateurs</div>
+        <div class="book-author">Philip S. Harrington</div>
+        <div class="book-pub">Cambridge University Press · 2010 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Webb Society Deep-Sky Observer's Handbook</div>
+        <div class="book-volumes">Volumes 1–6</div>
+        <div class="book-author">Webb Society (various editors)</div>
+        <div class="book-pub">Enslow Publishers · 1979–1987 <span class="availability avail-oop">Out of print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Advanced Observing: Visual Mysteries of the Universe</div>
+        <div class="book-volumes">Volumes 1–3</div>
+        <div class="book-author">Larry Mitchell</div>
+        <div class="book-pub">[Publisher to verify] · [Year] <span class="availability avail-ltd">Limited</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Deep Sky Observing: The Astronomical Tourist</div>
+        <div class="book-volumes">Patrick Moore's Practical Astronomy series</div>
+        <div class="book-author">Steven R. Coe</div>
+        <div class="book-pub">Springer · 2000 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">1000+: The Amateur Astronomer's Field Guide to Deep Sky Observing</div>
+        <div class="book-author">Tom Lorenzin</div>
+        <div class="book-pub">The Delmar Company · 1987 (rev. editions) <span class="availability avail-oop">Out of print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+    </div>
+  </section>
+
+            <section class="lib-section" id="messier">
+    <header class="lib-section-header">
+      <div class="lib-section-eyebrow">Section 2</div>
+      <h2 class="lib-section-title">Messier &amp; Caldwell Catalogs</h2>
+      <p class="lib-section-desc">Dedicated guides to the two most popular curated lists for amateur observers.</p>
+    </header>
+
+    <div class="book-list">
+
+      <div class="book">
+        <div class="book-title">Atlas of the Messier Objects</div>
+        <div class="book-author">Ronald Stoyan</div>
+        <div class="book-pub">Cambridge University Press · 2008 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Deep-Sky Companions: The Messier Objects</div>
+        <div class="book-author">Stephen James O'Meara</div>
+        <div class="book-pub">Cambridge University Press · 1998 (rev. 2014) <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Deep-Sky Companions: The Caldwell Objects</div>
+        <div class="book-author">Stephen James O'Meara</div>
+        <div class="book-pub">Cambridge University Press · 2002 (rev. 2016) <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Deep-Sky Companions: Hidden Treasures</div>
+        <div class="book-author">Stephen James O'Meara</div>
+        <div class="book-pub">Cambridge University Press · 2007 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Deep-Sky Companions: The Secret Deep</div>
+        <div class="book-author">Stephen James O'Meara</div>
+        <div class="book-pub">Cambridge University Press · 2011 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+    </div>
+  </section>
+
+            <section class="lib-section" id="herschel">
+    <header class="lib-section-header">
+      <div class="lib-section-eyebrow">Section 3</div>
+      <h2 class="lib-section-title">Herschel &amp; the NGC</h2>
+      <p class="lib-section-desc">References focused on the discoveries of Sir William Herschel and the New General Catalogue.</p>
+    </header>
+
+    <div class="book-list">
+
+      <div class="book">
+        <div class="book-title">The Complete Guide to the Herschel Objects<span class="pick-marker">★</span></div>
+        <div class="book-volumes">Sir William Herschel's Star Clusters, Nebulae and Galaxies</div>
+        <div class="book-author">Mark Bratton</div>
+        <div class="book-pub">Cambridge University Press · 2011 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment">All 2,500 objects discovered by Sir 
+William Herschel, with concise visual descriptions and historical 
+context. The definitive Herschel reference.</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Herschel 400 Observing Guide</div>
+        <div class="book-author">Stephen James O'Meara</div>
+        <div class="book-pub">Cambridge University Press · 2007 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+    </div>
+  </section>
+
+            <section class="lib-section" id="specialized">
+    <header class="lib-section-header">
+      <div class="lib-section-eyebrow">Section 4</div>
+      <h2 class="lib-section-title">Specialized Topics</h2>
+      <p class="lib-section-desc">Deep dives into specific object classes — galaxies, planetary nebulae, and peculiar systems.</p>
+    </header>
+
+    <div class="book-list">
+
+      <div class="book">
+        <div class="book-title">Galaxies and How to Observe Them</div>
+        <div class="book-author">Wolfgang Steinicke &amp; Richard Jakiel</div>
+        <div class="book-pub">Springer · 2007 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Arp Atlas of Peculiar Galaxies</div>
+        <div class="book-volumes">A Chronicle and Observer's Guide</div>
+        <div class="book-author">Jeff Kanipe &amp; Dennis Webb</div>
+        <div class="book-pub">Willmann-Bell · 2006 <span class="availability avail-ltd">Limited</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Planetary Nebulae</div>
+        <div class="book-volumes">A Practical Guide and Handbook for Amateur Astronomers</div>
+        <div class="book-author">Steven J. Hynes</div>
+        <div class="book-pub">Willmann-Bell · 1991 <span class="availability avail-ltd">Limited</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Visual Observations of Planetary Nebulae</div>
+        <div class="book-author">Kent Wallace [verify]</div>
+        <div class="book-pub">Self-published · [Year to verify] <span class="availability avail-oop">Out of print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+    </div>
+  </section>
+
+            <section class="lib-section" id="southern">
+    <header class="lib-section-header">
+      <div class="lib-section-eyebrow">Section 5</div>
+      <h2 class="lib-section-title">Southern Hemisphere</h2>
+      <p class="lib-section-desc">Indispensable references for observers traveling south of the equator.</p>
+    </header>
+
+    <div class="book-list">
+
+      <div class="book">
+        <div class="book-title">Deep-Sky Companions: Southern Gems</div>
+        <div class="book-author">Stephen James O'Meara</div>
+        <div class="book-pub">Cambridge University Press · 2013 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Hartung's Astronomical Objects for Southern Telescopes</div>
+        <div class="book-author">David Malin &amp; David J. Frew</div>
+        <div class="book-pub">Melbourne University Press · 1995 <span class="availability avail-ltd">Limited</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+    </div>
+  </section>
+
+            <section class="lib-section" id="field">
+    <header class="lib-section-header">
+      <div class="lib-section-eyebrow">Section 6</div>
+      <h2 class="lib-section-title">Field Guides &amp; Binocular Astronomy</h2>
+      <p class="lib-section-desc">More approachable references — and works for the binocular observer.</p>
+    </header>
+
+    <div class="book-list">
+
+      <div class="book">
+        <div class="book-title">Celestial Sampler</div>
+        <div class="book-volumes">60 Small-Scope Tours for Starlit Nights</div>
+        <div class="book-author">Sue French</div>
+        <div class="book-pub">Sky Publishing · 2005 <span class="availability avail-in">In print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+      <div class="book">
+        <div class="book-title">Binocular Astronomy</div>
+        <div class="book-author">Craig Crossen &amp; Wil Tirion</div>
+        <div class="book-pub">Willmann-Bell · 1992 <span class="availability avail-oop">Out of print</span></div>
+        <div class="book-comment comment-empty">[Personal commentary slot — Steve to fill in.]</div>
+      </div>
+
+    </div>
+  </section>
+
+            <div class="legend">
+    <div class="legend-row"><strong>★</strong> · A book Steve reaches for most often.</div>
+    <div class="legend-row"><strong style="color:var(--green);">In print</strong> · Currently available from the publisher.</div>
+    <div class="legend-row"><strong style="color:var(--gold);">Limited</strong> · Originally Willmann-Bell titles, now distributed through the AAS while remaining stock lasts.</div>
+    <div class="legend-row"><strong style="color:var(--red);">Out of print</strong> · Available only through the used market (AbeBooks, eBay, astronomy club exchanges).</div>
+  </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Steve Gottlieb's Deep Sky</h4>
+                    <p>A comprehensive database of visual deep sky observations spanning over four decades.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/explorer/">Database Explorer</a></li>
+                        <li><a href="/reports/">Observing Reports</a></li>
+                        <li><a href="/articles/">Articles</a></li>
+                        <li><a href="/resources/">Resources</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Steve Gottlieb. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/app.js?v=26"></script>
+</body>
+</html>

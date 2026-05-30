@@ -329,6 +329,7 @@
         const dropdownMenu = document.querySelector('.nav-dropdown-menu');
         if (dropdownToggle && dropdownMenu) {
             dropdownToggle.addEventListener('click', (e) => {
+                e.preventDefault();
                 e.stopPropagation();
                 dropdownMenu.classList.toggle('open');
             });

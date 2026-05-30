@@ -2057,11 +2057,6 @@ img {
     .nav-full { display: none; }
 
     /* Dropdown toggle matches other nav items on mobile */
-    .nav-dropdown {
-        flex: 0 0 auto;
-        min-width: calc(100% / 6);
-        text-align: center;
-    }
     .nav-dropdown-toggle {
         display: flex;
         flex-direction: column;
@@ -2073,22 +2068,41 @@ img {
         white-space: nowrap;
         line-height: 1.2;
         width: 100%;
+        color: var(--text-secondary);
+    }
+    .nav-dropdown-toggle .nav-icon {
+        display: block;
+        font-size: 1.05rem;
+        line-height: 1;
     }
     .nav-dropdown-arrow {
         display: none;
     }
     .nav-dropdown-menu {
         position: absolute;
-        bottom: 100%;
+        bottom: calc(100% + 8px);
         left: 50%;
         transform: translateX(-50%);
-        min-width: 150px;
+        min-width: 160px;
         background: rgba(19, 26, 44, 0.98);
         backdrop-filter: blur(12px);
-        border: 1px solid rgba(168, 136, 214, 0.18);
-        border-radius: 8px;
-        padding: 6px 0;
-        box-shadow: 0 -4px 24px rgba(0,0,0,0.4);
+        border: 1px solid rgba(168, 136, 214, 0.25);
+        border-radius: 10px;
+        padding: 8px 0;
+        box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+    }
+    .nav-dropdown-menu a {
+        display: block;
+        padding: 12px 20px;
+        font-size: 0.88rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        text-align: left;
+    }
+    .nav-dropdown-menu a:hover,
+    .nav-dropdown-menu a.active {
+        color: var(--text-bright);
+        background: rgba(96, 165, 250, 0.12);
     }
 
     /* Adjust scroll padding for taller nav */

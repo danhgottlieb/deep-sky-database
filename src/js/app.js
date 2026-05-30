@@ -325,24 +325,16 @@
 
 
         // Resources dropdown
-        const navDropdown = document.querySelector('.nav-dropdown');
         const dropdownToggle = document.querySelector('.nav-dropdown-toggle');
-        if (navDropdown && dropdownToggle) {
+        const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+        if (dropdownToggle && dropdownMenu) {
             dropdownToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
-                navDropdown.classList.toggle('open');
-                // Position dropdown below nav on mobile
-                const menu = navDropdown.querySelector('.nav-dropdown-menu');
-                if (menu && window.innerWidth <= 768) {
-                    const nav = document.getElementById('main-nav');
-                    if (nav) {
-                        menu.style.top = nav.offsetHeight + 'px';
-                    }
-                }
+                dropdownMenu.classList.toggle('open');
             });
             document.addEventListener('click', (e) => {
-                if (!e.target.closest('.nav-dropdown')) {
-                    navDropdown.classList.remove('open');
+                if (!e.target.closest('.nav-dropdown') && !e.target.closest('.nav-dropdown-menu')) {
+                    dropdownMenu.classList.remove('open');
                 }
             });
         }

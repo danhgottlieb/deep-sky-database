@@ -125,6 +125,7 @@ img {
 }
 
 .nav-container {
+    position: relative;
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 24px;
@@ -229,14 +230,11 @@ img {
     margin-left: 2px;
     transition: transform 0.2s;
 }
-.nav-dropdown.open .nav-dropdown-arrow {
-    transform: rotate(180deg);
-}
 .nav-dropdown-menu {
     display: none;
     position: absolute;
     top: 100%;
-    right: 0;
+    right: 24px;
     min-width: 180px;
     background: rgba(19, 26, 44, 0.98);
     backdrop-filter: blur(12px);
@@ -247,7 +245,7 @@ img {
     z-index: 1000;
     box-shadow: 0 8px 32px rgba(0,0,0,0.4);
 }
-.nav-dropdown.open .nav-dropdown-menu {
+.nav-dropdown-menu.open {
     display: block;
 }
 .nav-dropdown-menu li {
@@ -268,8 +266,6 @@ img {
 }
 .nav-dropdown-menu a.active {
     color: var(--accent);
-    background: transparent;
-    box-shadow: none;
 }
 
 
@@ -2057,10 +2053,7 @@ img {
     .nav-short { display: block; }
     .nav-full { display: none; }
 
-    /* Dropdown toggle matches other nav items on mobile */
-    .nav-dropdown {
-        position: static;
-    }
+    /* Mobile dropdown - button looks like other nav items */
     .nav-dropdown-toggle {
         display: flex;
         flex-direction: column;
@@ -2083,13 +2076,10 @@ img {
         display: none;
     }
     .nav-dropdown-menu {
-        position: fixed;
-        top: auto;
-        bottom: auto;
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        margin-top: 4px;
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 8px;
         min-width: 160px;
         background: rgba(19, 26, 44, 0.98);
         backdrop-filter: blur(14px);
@@ -2099,9 +2089,10 @@ img {
         padding: 8px 0;
         box-shadow: 0 4px 24px rgba(0,0,0,0.5);
         z-index: 1001;
-    }
-    .nav-dropdown-menu li {
         list-style: none;
+    }
+    .nav-dropdown-menu.open {
+        display: block;
     }
     .nav-dropdown-menu a {
         display: block;
@@ -2111,10 +2102,6 @@ img {
         text-decoration: none;
         text-align: left;
     }
-    .nav-dropdown-menu li:last-child a {
-        border-bottom: none;
-    }
-    .nav-dropdown-menu a:hover,
     .nav-dropdown-menu a.active {
         color: var(--text-bright);
     }

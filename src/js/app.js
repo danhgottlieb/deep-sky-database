@@ -211,6 +211,7 @@
         const hasBlog = !!$('#blog');
         const hasArticles = !!$('#articles-list');
         const hasResources = !!$('#resources');
+        const hasContactForm = !!$('#contact-form');
         const hasHeroStats = !!$('#stat-observations');
 
         // Explorer page: load full database
@@ -276,6 +277,10 @@
         // Resources section (on main page)
         if (hasResources) {
             initResources();
+        }
+
+        if (hasContactForm) {
+            initContact();
         }
 
         // Home page hero stats: use pre-computed values (no 30MB data.json load)
@@ -2289,7 +2294,7 @@
       { name: "Stelle Doppie Double Star Database", url: "https://www.stelledoppie.it/",
         summary: "Searchable database of 157,000+ WDS double stars merged with Hipparcos, Tycho, and Gaia data.",
         subject: ["stars"], type: ["database"] },
-    
+
       // GALAXIES, GROUPS & CLUSTERS =============================================
       { name: "32 Best Abell Galaxy Clusters", url: "https://adventuresindeepspace.com/agctable.htm",
         summary: "Curated table of interesting Abell galaxy clusters observable in 17.5-inch and larger telescopes.",
@@ -2360,7 +2365,7 @@
       { name: "VV Catalogue of Interacting Galaxies", url: "https://ned.ipac.caltech.edu/level5/VV_Cat/frames.html",
         summary: "Vorontsov-Velyaminov atlas and catalogue of interacting galaxies hosted on NED Level 5.",
         subject: ["galaxies"], type: ["catalog"] },
-    
+
       // GLOBULAR & OPEN CLUSTERS ================================================
       { name: "Atlas of the Universe — Globulars", url: "http://www.atlasoftheuniverse.com/globular.html",
         summary: "Map and overview of Milky Way globular clusters with distances and basic properties.",
@@ -2392,7 +2397,7 @@
       { name: "William Harris Milky Way Globulars", url: "https://physics.mcmaster.ca/~harris/mwgc.dat",
         summary: "Harris 1996 (2010 edition) data file of parameters for 157 Milky Way globulars.",
         subject: ["clusters"], type: ["catalog"], badges: ["data"] },
-    
+
       // NEBULAE =================================================================
       { name: "Barnard's Photographic Atlas of Dark Nebulae", url: "https://exhibit-archive.library.gatech.edu/barnard/index.html",
         summary: "Georgia Tech digitized exhibit of E. E. Barnard's 1929 Photographic Atlas of the Milky Way.",
@@ -2418,7 +2423,7 @@
       { name: "Wolf-Rayet Nebulae (Vogel)", url: "https://www.reinervogel.net/pdf/WR_shells.pdf",
         summary: "Reiner Vogel's 2012 visual observing guide to Wolf-Rayet ring nebulae and shells.",
         subject: ["nebulae"], type: ["guide"], badges: ["pdf"] },
-    
+
       // PLANETARY NEBULAE =======================================================
       { name: "Abell PN (Eric Honeycutt)", url: "https://www.stathis-firstlight.de/deepsky/abell_honeycutt.htm",
         summary: "Eric Honeycutt's visual observation notes on Abell planetary nebulae using a 22-inch reflector.",
@@ -2456,7 +2461,7 @@
       { name: "Strasbourg-ESO Catalogue PN — Part II", url: "https://www.eso.org/sci/libraries/historicaldocuments/Strasbourg-ESO_catalogue/Strasbourg-ESO_Catalogue_of_Galactical_Planetary_Nebulae_Part_II.pdf",
         summary: "Acker et al. 1992 catalogue Part II, containing data on 1,143 confirmed planetary nebulae.",
         subject: ["pne"], type: ["catalog"], badges: ["pdf"] },
-    
+
       // OBSERVING PROGRAMS, LISTS & COMMUNITIES =================================
       { name: "Adventures in Deep Space", url: "https://adventuresindeepspace.com/",
         summary: "Steve Gottlieb and friends' site of challenging observing projects for amateur astronomers.",
@@ -2542,7 +2547,7 @@
       { name: "Webb Deep-Sky Society", url: "https://www.webbdeepsky.com/",
         summary: "International society for double-star and deep-sky observers, publisher of Deep-Sky Observer.",
         subject: ["programs"], type: ["community"] },
-    
+
       // TOOLS, VIEWERS & CALCULATORS ============================================
       { name: "Aladin Lite", url: "https://aladin.cds.unistra.fr/AladinLite/",
         summary: "Browser-based interactive sky atlas from CDS Strasbourg for visualizing surveys, catalogs, and FITS images.",
@@ -2592,7 +2597,7 @@
       { name: "STScI Digitized Sky Survey", url: "https://stdatu.stsci.edu/cgi-bin/dss_form",
         summary: "MAST form interface for retrieving Palomar and UK Schmidt photographic plate scans as FITS/JPG.",
         subject: ["tools"], type: ["tool", "images"] },
-    
+
       // DATABASES & RESEARCH ====================================================
       { name: "ADS Historical Publications", url: "https://adsabs.harvard.edu/historical.html",
         summary: "ADS index of historical observatory publications scanned from 35mm film with Wolbach Library.",
@@ -2648,7 +2653,7 @@
       { name: "Wolfgang Steinicke's Historical NGC/IC", url: "http://www.klima-luft.de/steinicke/index_e.htm",
         summary: "Steinicke's homepage hosting his comprehensive historical NGC/IC compilation, references, and observer biographies.",
         subject: ["databases"], type: ["catalog", "article", "historical"] },
-    
+
       // HISTORICAL CATALOGS — chronological =====================================
       { name: "Messier (1771)", year: 1771, url: "http://www.messier.seds.org/xtra/history/m-cat71.html",
         summary: "SEDS translation of Messier's original 1771 catalog covering objects M1 through M45.",
@@ -2892,6 +2897,280 @@
         document.addEventListener('click', e => { if (!e.target.closest('.resources-dropdown-filter')) document.querySelectorAll('.resources-dropdown-filter[open]').forEach(d => { d.open = false; }); });
 
         renderResources();
+    }
+
+
+    function initContact() {
+        const form = $('#contact-form');
+        if (!form) return;
+
+        const nameInput = $('#contact-name');
+        const emailInput = $('#contact-email');
+        const messageInput = $('#contact-message');
+        const honeypotInput = $('#contact-website');
+        const submitBtn = $('#contact-submit');
+        const errorBox = $('#contact-error');
+        const successPanel = $('#contact-success');
+        const resetLink = $('#contact-reset');
+        const cooldownNote = $('#contact-cooldown');
+        const turnstileContainer = $('#contact-turnstile');
+        const accessKeyInput = form.querySelector('input[name="access_key"]');
+        const subjectInput = form.querySelector('input[name="subject"]');
+
+        const COOLDOWN_MS = 60000;
+        const MIN_SUBMIT_MS = 3000;
+        const STORAGE_KEY = 'contactFormLastSentAt';
+        const pageLoadedAt = Date.now();
+        const defaultSubmitText = submitBtn ? submitBtn.textContent : 'Send Message';
+        let widgetId = null;
+        let cooldownTimer = null;
+        let turnstilePoller = null;
+
+        function sanitizeInput(value) {
+            return String(value || '').replace(/<[^>]*>/g, '').trim();
+        }
+
+        function getStoredTimestamp() {
+            try {
+                return Number(window.sessionStorage.getItem(STORAGE_KEY)) || 0;
+            } catch (e) {
+                return 0;
+            }
+        }
+
+        function setStoredTimestamp(value) {
+            try {
+                window.sessionStorage.setItem(STORAGE_KEY, String(value));
+            } catch (e) {
+                // Ignore sessionStorage failures.
+            }
+        }
+
+        function clearStoredTimestamp() {
+            try {
+                window.sessionStorage.removeItem(STORAGE_KEY);
+            } catch (e) {
+                // Ignore sessionStorage failures.
+            }
+        }
+
+        function getRemainingCooldown() {
+            const lastSent = getStoredTimestamp();
+            if (!lastSent) return 0;
+            return Math.max(0, COOLDOWN_MS - (Date.now() - lastSent));
+        }
+
+        function showError(message) {
+            if (!errorBox) return;
+            errorBox.textContent = message;
+            errorBox.hidden = false;
+        }
+
+        function hideError() {
+            if (!errorBox) return;
+            errorBox.hidden = true;
+            errorBox.textContent = '';
+        }
+
+        function setSubmitting(isSubmitting) {
+            if (!submitBtn) return;
+            submitBtn.disabled = isSubmitting;
+            submitBtn.textContent = isSubmitting ? 'Sending…' : defaultSubmitText;
+        }
+
+        function updateResetLink(remainingMs) {
+            if (!resetLink || !cooldownNote) return;
+            if (remainingMs > 0) {
+                resetLink.classList.add('is-disabled');
+                resetLink.setAttribute('aria-disabled', 'true');
+                cooldownNote.textContent = `You can send another message in ${Math.ceil(remainingMs / 1000)} seconds.`;
+            } else {
+                resetLink.classList.remove('is-disabled');
+                resetLink.setAttribute('aria-disabled', 'false');
+                cooldownNote.textContent = 'Ready when you are.';
+            }
+        }
+
+        function resetTurnstileWidget() {
+            if (!window.turnstile || widgetId === null || typeof window.turnstile.reset !== 'function') return;
+            try {
+                window.turnstile.reset(widgetId);
+            } catch (e) {
+                // Ignore reset failures.
+            }
+        }
+
+        function enterSuccessState() {
+            form.hidden = true;
+            successPanel.hidden = false;
+        }
+
+        function enterFormState() {
+            successPanel.hidden = true;
+            form.hidden = false;
+            hideError();
+            setSubmitting(false);
+        }
+
+        function stopCooldownTimer() {
+            if (cooldownTimer) {
+                window.clearInterval(cooldownTimer);
+                cooldownTimer = null;
+            }
+        }
+
+        function startCooldown(timestamp = Date.now()) {
+            setStoredTimestamp(timestamp);
+            enterSuccessState();
+            updateResetLink(getRemainingCooldown());
+            stopCooldownTimer();
+            cooldownTimer = window.setInterval(() => {
+                const remaining = getRemainingCooldown();
+                updateResetLink(remaining);
+                if (remaining <= 0) stopCooldownTimer();
+            }, 1000);
+        }
+
+        function restoreCooldownState() {
+            const remaining = getRemainingCooldown();
+            if (remaining > 0) {
+                enterSuccessState();
+                updateResetLink(remaining);
+                startCooldown(getStoredTimestamp());
+            } else {
+                clearStoredTimestamp();
+                updateResetLink(0);
+                enterFormState();
+            }
+        }
+
+        function getTurnstileResponse() {
+            if (!window.turnstile || widgetId === null || typeof window.turnstile.getResponse !== 'function') return '';
+            try {
+                return window.turnstile.getResponse(widgetId) || '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function renderTurnstileWidget() {
+            if (!turnstileContainer || widgetId !== null || !window.turnstile || typeof window.turnstile.render !== 'function') return;
+            try {
+                widgetId = window.turnstile.render(turnstileContainer, {
+                    sitekey: '0x4AAAAAAABkMYinukE8nzYS',
+                    theme: 'dark'
+                });
+                if (turnstilePoller) {
+                    window.clearInterval(turnstilePoller);
+                    turnstilePoller = null;
+                }
+            } catch (e) {
+                console.error('Failed to render Turnstile widget:', e);
+            }
+        }
+
+        if (turnstileContainer) {
+            if (window.turnstile && typeof window.turnstile.render === 'function') {
+                renderTurnstileWidget();
+            } else {
+                turnstilePoller = window.setInterval(() => {
+                    if (window.turnstile && typeof window.turnstile.render === 'function') {
+                        renderTurnstileWidget();
+                    }
+                }, 250);
+                window.setTimeout(() => {
+                    if (turnstilePoller) {
+                        window.clearInterval(turnstilePoller);
+                        turnstilePoller = null;
+                    }
+                }, 10000);
+            }
+        }
+
+        resetLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (getRemainingCooldown() > 0) return;
+
+            clearStoredTimestamp();
+            stopCooldownTimer();
+            form.reset();
+            resetTurnstileWidget();
+            enterFormState();
+            nameInput.focus();
+        });
+
+        restoreCooldownState();
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            hideError();
+
+            const remainingCooldown = getRemainingCooldown();
+            if (remainingCooldown > 0) {
+                enterSuccessState();
+                updateResetLink(remainingCooldown);
+                return;
+            }
+
+            const sanitizedName = sanitizeInput(nameInput.value);
+            const sanitizedMessage = sanitizeInput(messageInput.value);
+            const sanitizedEmail = String(emailInput.value || '').trim();
+
+            nameInput.value = sanitizedName;
+            messageInput.value = sanitizedMessage;
+            emailInput.value = sanitizedEmail;
+
+            if ((honeypotInput && honeypotInput.value.trim()) || (Date.now() - pageLoadedAt) < MIN_SUBMIT_MS) {
+                startCooldown();
+                return;
+            }
+
+            if (!sanitizedName || sanitizedName.length > 100 || !sanitizedMessage || sanitizedMessage.length > 5000 || !emailInput.checkValidity()) {
+                showError('Please provide a valid name, email address, and message before sending.');
+                form.reportValidity();
+                return;
+            }
+
+            const turnstileResponse = getTurnstileResponse();
+            if (!turnstileResponse) {
+                showError('Please complete the verification check before sending your message.');
+                return;
+            }
+
+            setSubmitting(true);
+
+            try {
+                const formData = new FormData();
+                formData.append('access_key', accessKeyInput ? accessKeyInput.value : 'YOUR_ACCESS_KEY_HERE');
+                formData.append('subject', subjectInput ? subjectInput.value : 'Deep Sky Database Contact Form Submission');
+                formData.append('name', sanitizedName);
+                formData.append('email', sanitizedEmail);
+                formData.append('message', sanitizedMessage);
+                formData.append('botcheck', '');
+                formData.append('cf-turnstile-response', turnstileResponse);
+
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json'
+                    },
+                    body: formData
+                });
+
+                const result = await response.json().catch(() => ({ success: false }));
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || 'Something went wrong while sending your message.');
+                }
+
+                startCooldown();
+            } catch (error) {
+                showError(error.message || 'Something went wrong while sending your message. Please try again.');
+                resetTurnstileWidget();
+                enterFormState();
+            } finally {
+                setSubmitting(false);
+            }
+        });
     }
 
     // --- Utilities ---

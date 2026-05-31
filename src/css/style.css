@@ -978,11 +978,6 @@ img {
 .filter-actions {
     display: flex;
     gap: 12px;
-    flex-wrap: wrap;
-}
-
-.filter-actions .btn {
-    flex: 1 1 180px;
 }
 
 /* --- Type Legend --- */
@@ -2283,14 +2278,17 @@ img {
         grid-template-columns: 1fr;
     }
 
-    .filter-actions,
+    .filter-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
     .results-sort,
     .resources-search-row {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .filter-actions .btn,
     .resources-search-row .btn,
     .results-sort select,
     .print-menu-wrapper {
@@ -2562,7 +2560,7 @@ img {
         font-size: 1.35rem;
     }
 
-    .btn:not(.quick-search-row .btn) {
+    .btn:not(.quick-search-row .btn):not(.filter-actions .btn) {
         padding: 10px 16px;
         font-size: 0.85rem;
         width: 100%;

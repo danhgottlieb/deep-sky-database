@@ -2688,14 +2688,15 @@ img {
 
 
 
-.footer-contact-button {
+.footer-col a.footer-contact-button {
     display: inline-block;
     margin-bottom: 14px;
     text-decoration: none;
     background: var(--accent);
     color: var(--bg-deep);
+    font-weight: 600;
 }
-.footer-contact-button:hover {
+.footer-col a.footer-contact-button:hover {
     transform: translateY(-1px);
     color: var(--bg-deep);
     background: var(--accent-hover);

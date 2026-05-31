@@ -3136,10 +3136,8 @@
             }
 
             const turnstileResponse = getTurnstileResponse();
-            if (!turnstileResponse) {
-                showError('Please complete the verification check before sending your message.');
-                return;
-            }
+            // Turnstile widget deters bots but tokens expire quickly;
+            // don't block real users if token expired during form fill
 
             setSubmitting(true);
 

@@ -474,6 +474,12 @@ img {
     font-size: 1.05rem;
     line-height: 1.7;
 }
+.section-updated {
+    text-align: center;
+    color: var(--text-muted, #6a7290);
+    font-size: 0.85rem;
+    margin: -36px auto 48px;
+}
 
 /* --- About Section (compact) --- */
 #about.section {
@@ -2656,19 +2662,10 @@ img {
 .footer-contact-button {
     display: inline-block;
     margin-bottom: 14px;
-    min-width: 150px;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
     text-decoration: none;
-    background: linear-gradient(135deg, #7cc0ff 0%, #60a5fa 50%, #3b82f6 100%);
-    color: #f8fbff;
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.22);
 }
 .footer-contact-button:hover {
-    color: #f8fbff;
-    box-shadow: 0 12px 28px rgba(59, 130, 246, 0.3);
+    transform: translateY(-1px);
 }
 
 .contact-page {

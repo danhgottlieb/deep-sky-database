@@ -230,9 +230,7 @@
                 const totalObs = allData.reduce((sum, o) => sum + countVisualObs(o.observations), 0);
                 const explorerDesc = document.getElementById('explorer-desc');
                 if (explorerDesc) {
-                    const lastUpdatedMatch = explorerDesc.textContent.trim().match(/(Database last updated.*)$/);
-                    const lastUpdatedText = lastUpdatedMatch ? ` ${lastUpdatedMatch[1]}` : '';
-                    explorerDesc.textContent = `Search and explore over 24,800 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.${lastUpdatedText}`;
+                    explorerDesc.textContent = `Search and explore over 24,800 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
                 }
 
                 buildFilters();

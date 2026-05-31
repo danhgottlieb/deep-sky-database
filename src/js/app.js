@@ -2924,6 +2924,29 @@
         const pageLoadedAt = Date.now();
         const defaultSubmitText = submitBtn ? submitBtn.textContent : 'Send Message';
         let cooldownTimer = null;
+        let turnstileWidgetId = null;
+
+        // Render Turnstile widget (visual deterrent only — never blocks submission)
+        (function initTurnstile() {
+            const container = $('#contact-turnstile');
+            if (!container) return;
+            function render() {
+                if (!window.turnstile || turnstileWidgetId !== null) return;
+                try {
+                    turnstileWidgetId = window.turnstile.render(container, {
+                        sitekey: '0x4AAAAAADard7iniR1Rg3GH',
+                        theme: 'dark',
+                        'refresh-expired': 'auto'
+                    });
+                } catch (e) { /* ignore */ }
+            }
+            if (window.turnstile) { render(); } else {
+                var poll = setInterval(function() {
+                    if (window.turnstile) { clearInterval(poll); render(); }
+                }, 300);
+                setTimeout(function() { clearInterval(poll); }, 8000);
+            }
+        })();
 
         function sanitizeInput(value) {
             return String(value || '').replace(/<[^>]*>/g, '').trim();
@@ -3090,7 +3113,13 @@
                 formData.append('email', sanitizedEmail);
                 formData.append('message', sanitizedMessage);
                 formData.append('botcheck', '');
-
+                // Include Turnstile token if available (non-blocking)
+                if (window.turnstile && turnstileWidgetId !== null) {
+                    try {
+                        var token = window.turnstile.getResponse(turnstileWidgetId) || '';
+                        if (token) formData.append('cf-turnstile-response', token);
+                    } catch (e) { /* ignore */ }
+                }
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: {

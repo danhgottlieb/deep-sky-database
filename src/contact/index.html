@@ -9,10 +9,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
     <link rel="manifest" href="../site.webmanifest">
-    <link rel="stylesheet" href="../css/style.css?v=50">
+    <link rel="stylesheet" href="../css/style.css?v=51">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -88,6 +89,8 @@
                         <p class="contact-field-hint">Maximum 5000 characters.</p>
                     </div>
 
+                    <div id="contact-turnstile" style="margin-top:8px"></div>
+
                     <div id="contact-error" class="contact-message contact-message-error" role="alert" hidden></div>
 
                     <button type="submit" id="contact-submit" class="btn btn-primary contact-submit">Send Message</button>
@@ -133,7 +136,7 @@
         </div>
     </footer>
 
-    <script src="../js/app.js?v=50"></script>
+    <script src="../js/app.js?v=51"></script>
     <script data-goatcounter="https://deepsky.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>

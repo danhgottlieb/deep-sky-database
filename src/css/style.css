@@ -2283,6 +2283,10 @@ img {
         flex-wrap: wrap;
     }
 
+    .filter-actions .btn {
+        flex: 1 1 0;
+    }
+
     .results-sort,
     .resources-search-row {
         flex-direction: column;

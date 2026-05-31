@@ -2915,7 +2915,6 @@
         const successPanel = $('#contact-success');
         const resetLink = $('#contact-reset');
         const cooldownNote = $('#contact-cooldown');
-        const turnstileContainer = $('#contact-turnstile');
         const accessKeyInput = form.querySelector('input[name="access_key"]');
         const subjectInput = form.querySelector('input[name="subject"]');
 
@@ -2924,9 +2923,7 @@
         const STORAGE_KEY = 'contactFormLastSentAt';
         const pageLoadedAt = Date.now();
         const defaultSubmitText = submitBtn ? submitBtn.textContent : 'Send Message';
-        let widgetId = null;
         let cooldownTimer = null;
-        let turnstilePoller = null;
 
         function sanitizeInput(value) {
             return String(value || '').replace(/<[^>]*>/g, '').trim();
@@ -2993,14 +2990,6 @@
             }
         }
 
-        function resetTurnstileWidget() {
-            if (!window.turnstile || widgetId === null || typeof window.turnstile.reset !== 'function') return;
-            try {
-                window.turnstile.reset(widgetId);
-            } catch (e) {
-                // Ignore reset failures.
-            }
-        }
 
         function enterSuccessState() {
             form.hidden = true;
@@ -3048,49 +3037,6 @@
             }
         }
 
-        function getTurnstileResponse() {
-            if (!window.turnstile || widgetId === null || typeof window.turnstile.getResponse !== 'function') return '';
-            try {
-                return window.turnstile.getResponse(widgetId) || '';
-            } catch (e) {
-                return '';
-            }
-        }
-
-        function renderTurnstileWidget() {
-            if (!turnstileContainer || widgetId !== null || !window.turnstile || typeof window.turnstile.render !== 'function') return;
-            try {
-                widgetId = window.turnstile.render(turnstileContainer, {
-                    sitekey: '0x4AAAAAADard7iniR1Rg3GH',
-                    theme: 'dark'
-                });
-                if (turnstilePoller) {
-                    window.clearInterval(turnstilePoller);
-                    turnstilePoller = null;
-                }
-            } catch (e) {
-                console.error('Failed to render Turnstile widget:', e);
-            }
-        }
-
-        if (turnstileContainer) {
-            if (window.turnstile && typeof window.turnstile.render === 'function') {
-                renderTurnstileWidget();
-            } else {
-                turnstilePoller = window.setInterval(() => {
-                    if (window.turnstile && typeof window.turnstile.render === 'function') {
-                        renderTurnstileWidget();
-                    }
-                }, 250);
-                window.setTimeout(() => {
-                    if (turnstilePoller) {
-                        window.clearInterval(turnstilePoller);
-                        turnstilePoller = null;
-                    }
-                }, 10000);
-            }
-        }
-
         resetLink.addEventListener('click', (event) => {
             event.preventDefault();
             if (getRemainingCooldown() > 0) return;
@@ -3098,7 +3044,6 @@
             clearStoredTimestamp();
             stopCooldownTimer();
             form.reset();
-            resetTurnstileWidget();
             enterFormState();
             nameInput.focus();
         });
@@ -3135,10 +3080,6 @@
                 return;
             }
 
-            const turnstileResponse = getTurnstileResponse();
-            // Turnstile widget deters bots but tokens expire quickly;
-            // don't block real users if token expired during form fill
-
             setSubmitting(true);
 
             try {
@@ -3149,9 +3090,6 @@
                 formData.append('email', sanitizedEmail);
                 formData.append('message', sanitizedMessage);
                 formData.append('botcheck', '');
-                if (turnstileResponse) {
-                    formData.append('cf-turnstile-response', turnstileResponse);
-                }
 
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
@@ -3169,7 +3107,6 @@
                 startCooldown();
             } catch (error) {
                 showError(error.message || 'Something went wrong while sending your message. Please try again.');
-                resetTurnstileWidget();
                 enterFormState();
             } finally {
                 setSubmitting(false);

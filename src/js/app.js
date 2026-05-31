@@ -3105,6 +3105,23 @@
 
             setSubmitting(true);
 
+            // Get Turnstile token — if not ready, wait briefly then retry once
+            let turnstileToken = '';
+            if (window.turnstile && turnstileWidgetId !== null) {
+                try { turnstileToken = window.turnstile.getResponse(turnstileWidgetId) || ''; } catch (e) {}
+                if (!turnstileToken) {
+                    // Token not ready — reset widget and wait up to 4 seconds
+                    try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
+                    await new Promise(resolve => setTimeout(resolve, 4000));
+                    try { turnstileToken = window.turnstile.getResponse(turnstileWidgetId) || ''; } catch (e) {}
+                }
+                if (!turnstileToken) {
+                    showError('Verification not complete. Please wait for the checkbox to confirm, then tap Send again.');
+                    setSubmitting(false);
+                    return;
+                }
+            }
+
             try {
                 const formData = new FormData();
                 formData.append('access_key', accessKeyInput ? accessKeyInput.value : 'ec2bdb3f-7b2d-426c-bc5e-f3abcd619e38');
@@ -3113,13 +3130,7 @@
                 formData.append('email', sanitizedEmail);
                 formData.append('message', sanitizedMessage);
                 formData.append('botcheck', '');
-                // Include Turnstile token if available (non-blocking)
-                if (window.turnstile && turnstileWidgetId !== null) {
-                    try {
-                        var token = window.turnstile.getResponse(turnstileWidgetId) || '';
-                        if (token) formData.append('cf-turnstile-response', token);
-                    } catch (e) { /* ignore */ }
-                }
+                formData.append('cf-turnstile-response', turnstileToken);
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: {

@@ -3149,7 +3149,9 @@
                 formData.append('email', sanitizedEmail);
                 formData.append('message', sanitizedMessage);
                 formData.append('botcheck', '');
-                formData.append('cf-turnstile-response', turnstileResponse);
+                if (turnstileResponse) {
+                    formData.append('cf-turnstile-response', turnstileResponse);
+                }
 
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',

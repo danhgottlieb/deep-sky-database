@@ -2470,13 +2470,22 @@ img {
         padding-top: 80px;
     }
 
+    .contact-page > .container {
+        width: 100%;
+        padding-inline: 12px;
+    }
+
     .contact-form {
         width: 100%;
+        max-width: 100%;
         min-width: 0;
+        margin: 0 auto;
         box-sizing: border-box;
-        padding: 16px 14px;
+        padding: 16px 12px;
         gap: 18px;
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: stretch;
+        overflow: hidden;
     }
 
     .contact-form-copy {
@@ -2487,15 +2496,17 @@ img {
     .contact-field,
     .contact-field-grid,
     .contact-turnstile-wrap,
-    .contact-turnstile {
+    .contact-turnstile,
+    .contact-form-fields > * {
         width: 100%;
+        max-width: 100%;
         min-width: 0;
         box-sizing: border-box;
         justify-self: stretch;
     }
 
     .contact-field-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 16px;
     }
 
@@ -2523,14 +2534,29 @@ img {
     }
 
     .contact-turnstile-wrap {
+        display: flex;
+        justify-content: center;
         max-width: 100%;
         overflow: hidden;
-        padding: 12px;
+        padding: 12px 8px;
     }
 
     .contact-turnstile {
+        display: flex;
+        justify-content: center;
         max-width: 100%;
         overflow: hidden;
+    }
+
+    .contact-turnstile > div {
+        width: min(100%, 300px) !important;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .contact-turnstile iframe {
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     .contact-submit {

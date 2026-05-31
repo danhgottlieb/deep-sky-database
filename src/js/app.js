@@ -3005,10 +3005,12 @@
         function enterSuccessState() {
             form.hidden = true;
             successPanel.hidden = false;
+            successPanel.classList.add('is-visible');
         }
 
         function enterFormState() {
             successPanel.hidden = true;
+            successPanel.classList.remove('is-visible');
             form.hidden = false;
             hideError();
             setSubmitting(false);

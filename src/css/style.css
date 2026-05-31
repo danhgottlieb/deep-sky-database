@@ -2394,6 +2394,35 @@ img {
     .card-name {
         font-size: 1.05rem;
     }
+
+    .contact-page {
+        padding-top: 80px;
+    }
+
+    .contact-form {
+        padding: 16px;
+        gap: 24px;
+    }
+
+    .contact-form-copy h2,
+    .contact-success h2 {
+        font-size: 1.4rem;
+    }
+
+    .contact-highlights {
+        font-size: 0.85rem;
+    }
+
+    .contact-field input,
+    .contact-field textarea {
+        font-size: 16px;
+        padding: 10px 12px;
+    }
+
+    .contact-submit {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
 }
 
 /* --- Extra small screens (≤360px) --- */
@@ -2824,12 +2853,15 @@ img {
 }
 
 .contact-success {
-    display: grid;
+    display: none;
     justify-items: start;
     gap: 12px;
     align-content: center;
     padding: 12px 0;
     animation: contactSuccessIn 0.45s ease;
+}
+.contact-success.is-visible {
+    display: grid;
 }
 
 .contact-success-icon {

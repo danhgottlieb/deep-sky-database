@@ -395,7 +395,6 @@ img {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
     padding: 12px 28px;
     border-radius: var(--radius);
     font-family: var(--font-sans);
@@ -483,7 +482,7 @@ img {
     text-align: center;
     color: var(--text-muted, #6a7290);
     font-size: 0.85rem;
-    margin: -36px auto 48px;
+    margin: 8px auto 48px;
 }
 
 /* --- About Section (compact) --- */
@@ -2292,7 +2291,6 @@ img {
     }
 
     .filter-actions .btn,
-    .quick-search-row .btn,
     .resources-search-row .btn,
     .results-sort select,
     .print-menu-wrapper {
@@ -2564,7 +2562,7 @@ img {
         font-size: 1.35rem;
     }
 
-    .btn {
+    .btn:not(.quick-search-row .btn) {
         padding: 10px 16px;
         font-size: 0.85rem;
         width: 100%;

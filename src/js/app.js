@@ -3057,7 +3057,7 @@
             if (!turnstileContainer || widgetId !== null || !window.turnstile || typeof window.turnstile.render !== 'function') return;
             try {
                 widgetId = window.turnstile.render(turnstileContainer, {
-                    sitekey: '0x4AAAAAAABkMYinukE8nzYS',
+                    sitekey: '0x4AAAAAADard7iniR1Rg3GH',
                     theme: 'dark'
                 });
                 if (turnstilePoller) {
@@ -3141,7 +3141,7 @@
 
             try {
                 const formData = new FormData();
-                formData.append('access_key', accessKeyInput ? accessKeyInput.value : 'YOUR_ACCESS_KEY_HERE');
+                formData.append('access_key', accessKeyInput ? accessKeyInput.value : 'ec2bdb3f-7b2d-426c-bc5e-f3abcd619e38');
                 formData.append('subject', subjectInput ? subjectInput.value : 'Deep Sky Database Contact Form Submission');
                 formData.append('name', sanitizedName);
                 formData.append('email', sanitizedEmail);

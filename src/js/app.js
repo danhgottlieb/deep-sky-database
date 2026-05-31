@@ -3104,17 +3104,16 @@
 
             setSubmitting(true);
 
-            // Get Turnstile token — if not ready, wait briefly then retry once
-            let turnstileToken = '';
+            // Require Turnstile verification (visual check) before submitting
             if (window.turnstile && turnstileWidgetId !== null) {
-                try { turnstileToken = window.turnstile.getResponse(turnstileWidgetId) || ''; } catch (e) {}
-                if (!turnstileToken) {
-                    // Token not ready — reset widget and wait up to 4 seconds
+                let token = '';
+                try { token = window.turnstile.getResponse(turnstileWidgetId) || ''; } catch (e) {}
+                if (!token) {
                     try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
                     await new Promise(resolve => setTimeout(resolve, 4000));
-                    try { turnstileToken = window.turnstile.getResponse(turnstileWidgetId) || ''; } catch (e) {}
+                    try { token = window.turnstile.getResponse(turnstileWidgetId) || ''; } catch (e) {}
                 }
-                if (!turnstileToken) {
+                if (!token) {
                     showError('Verification not complete. Please wait for the checkbox to confirm, then tap Send again.');
                     setSubmitting(false);
                     return;
@@ -3129,7 +3128,6 @@
                 formData.append('email', sanitizedEmail);
                 formData.append('message', sanitizedMessage);
                 formData.append('botcheck', '');
-                formData.append('cf-turnstile-response', turnstileToken);
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: {

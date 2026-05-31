@@ -2405,6 +2405,7 @@ img {
         box-sizing: border-box;
         padding: 16px 14px;
         gap: 18px;
+        grid-template-columns: 1fr;
     }
 
     .contact-form-copy {
@@ -2419,6 +2420,7 @@ img {
         width: 100%;
         min-width: 0;
         box-sizing: border-box;
+        justify-self: stretch;
     }
 
     .contact-field-grid {
@@ -2466,6 +2468,7 @@ img {
         box-sizing: border-box;
         padding: 14px 20px;
         font-size: 0.95rem;
+        justify-self: stretch;
     }
 }
 

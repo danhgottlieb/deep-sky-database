@@ -2400,8 +2400,30 @@ img {
     }
 
     .contact-form {
-        padding: 16px;
-        gap: 24px;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 16px 14px;
+        gap: 18px;
+    }
+
+    .contact-form-copy {
+        display: none;
+    }
+
+    .contact-form-fields,
+    .contact-field,
+    .contact-field-grid,
+    .contact-turnstile-wrap,
+    .contact-turnstile {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .contact-field-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .contact-form-copy h2,
@@ -2410,16 +2432,38 @@ img {
     }
 
     .contact-highlights {
+        display: none;
         font-size: 0.85rem;
     }
 
     .contact-field input,
     .contact-field textarea {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 44px;
         font-size: 16px;
-        padding: 10px 12px;
+        padding: 12px;
+    }
+
+    .contact-field textarea {
+        min-height: 180px;
+    }
+
+    .contact-turnstile-wrap {
+        max-width: 100%;
+        overflow: hidden;
+        padding: 12px;
+    }
+
+    .contact-turnstile {
+        max-width: 100%;
+        overflow: hidden;
     }
 
     .contact-submit {
+        width: 100%;
+        min-height: 44px;
+        box-sizing: border-box;
         padding: 14px 20px;
         font-size: 0.95rem;
     }

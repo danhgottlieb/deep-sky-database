@@ -3024,7 +3024,6 @@
             successPanel.hidden = true;
             successPanel.classList.remove('is-visible');
             form.hidden = false;
-            hideError();
             setSubmitting(false);
         }
 

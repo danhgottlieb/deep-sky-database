@@ -230,7 +230,7 @@
                 const totalObs = allData.reduce((sum, o) => sum + countVisualObs(o.observations), 0);
                 const explorerDesc = document.getElementById('explorer-desc');
                 if (explorerDesc) {
-                    explorerDesc.textContent = `Search and explore over 24,800 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
+                    explorerDesc.textContent = `Search and explore 24,899 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
                 }
 
                 buildFilters();
@@ -2248,6 +2248,8 @@
 
         // PDF mapping for articles with downloadable PDFs
         const articlePdfs = {
+            18: 'articles/the-view-from-edge-on.pdf',
+            23: 'articles/unraveling-ngc-6946.pdf',
             24: 'articles/digging-deep-in-messier-83.pdf',
             25: 'articles/seeking-interacting-galaxies.pdf',
             30: 'articles/galaxies-in-collision.pdf',
@@ -3036,6 +3038,7 @@
 
         function startCooldown(timestamp = Date.now()) {
             setStoredTimestamp(timestamp);
+            form.reset();
             enterSuccessState();
             updateResetLink(getRemainingCooldown());
             stopCooldownTimer();

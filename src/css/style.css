@@ -2980,6 +2980,33 @@ img {
     border-color: rgba(248, 113, 113, 0.38);
 }
 
+.site-toast {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 88px);
+    left: 50%;
+    transform: translate(-50%, -10px);
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: rgba(8, 12, 20, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--text-bright);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.38);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 1200;
+    pointer-events: none;
+}
+
+.site-toast.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
 .contact-success {
     display: none;
     justify-items: start;

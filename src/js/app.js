@@ -227,10 +227,9 @@
 
                 allData.forEach(o => dataIndex.set(o.name, o));
 
-                const totalObs = allData.reduce((sum, o) => sum + countVisualObs(o.observations), 0);
                 const explorerDesc = document.getElementById('explorer-desc');
                 if (explorerDesc) {
-                    explorerDesc.textContent = `Search and explore 24,899 deep sky objects with ${totalObs.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
+                    explorerDesc.textContent = 'Search and explore over 24,899 deep sky objects with 33,388 detailed visual observations, historical context, and cross-references.';
                 }
 
                 buildFilters();
@@ -2981,6 +2980,7 @@
         const defaultSubmitText = submitBtn ? submitBtn.textContent : 'Send Message';
         let cooldownTimer = null;
         let turnstileWidgetId = null;
+        let toastTimer = null;
 
         // Render Turnstile widget (visual deterrent only — never blocks submission)
         (function initTurnstile() {
@@ -3048,6 +3048,30 @@
             if (!errorBox) return;
             errorBox.hidden = true;
             errorBox.textContent = '';
+        }
+
+        function showToast(message) {
+            if (!document.body) return;
+            let toast = document.getElementById('contact-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'contact-toast';
+                toast.className = 'site-toast';
+                toast.setAttribute('role', 'status');
+                toast.setAttribute('aria-live', 'polite');
+                document.body.appendChild(toast);
+            }
+
+            toast.textContent = message;
+            toast.classList.add('is-visible');
+
+            if (toastTimer) {
+                window.clearTimeout(toastTimer);
+            }
+
+            toastTimer = window.setTimeout(() => {
+                toast.classList.remove('is-visible');
+            }, 5000);
         }
 
         function setSubmitting(isSubmitting) {
@@ -3199,6 +3223,7 @@
                 }
 
                 startCooldown();
+                showToast('Message Sent');
             } catch (error) {
                 showError(error.message || 'Something went wrong while sending your message. Please try again.');
                 enterFormState();

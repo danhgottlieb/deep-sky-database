@@ -187,7 +187,7 @@
 
     // --- DOM References ---
     const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => document.querySelectorAll(sel);
+    const $$ = (sel) => [...document.querySelectorAll(sel)];
 
     // --- Detect page context ---
     // basePath is the path prefix to reach the site root from this page
@@ -331,18 +331,72 @@
         });
 
 
-        // Resources dropdown
-        const dropdownToggle = document.querySelector('.nav-dropdown-toggle');
-        const dropdownMenu = document.querySelector('.nav-dropdown-menu');
-        if (dropdownToggle && dropdownMenu) {
-            dropdownToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdownMenu.classList.toggle('open');
+        // Navigation dropdowns
+        const dropdowns = $$('.nav-dropdown');
+        const dropdownMenus = $$('.nav-dropdown-menu');
+        const dropdownPairs = dropdowns.map((dropdown, index) => ({
+            dropdown,
+            toggle: dropdown.querySelector('.nav-dropdown-toggle'),
+            menu: dropdownMenus[index]
+        })).filter(({ toggle, menu }) => toggle && menu);
+
+        const measureDropdownMenuWidth = menu => {
+            const previousDisplay = menu.style.display;
+            const previousVisibility = menu.style.visibility;
+            menu.style.visibility = 'hidden';
+            menu.style.display = 'block';
+            const width = menu.offsetWidth;
+            menu.style.display = previousDisplay;
+            menu.style.visibility = previousVisibility;
+            return width;
+        };
+
+        const positionDropdownMenu = (dropdown, menu) => {
+            const navContainer = dropdown.closest('.nav-container');
+            if (!navContainer) return;
+            const toggleRect = dropdown.getBoundingClientRect();
+            const containerRect = navContainer.getBoundingClientRect();
+            const menuWidth = measureDropdownMenuWidth(menu);
+            const left = Math.min(
+                Math.max(0, toggleRect.left - containerRect.left),
+                Math.max(0, containerRect.width - menuWidth)
+            );
+            menu.style.left = `${left}px`;
+            menu.style.right = 'auto';
+        };
+
+        const closeDropdownMenus = (exceptionMenu = null) => {
+            dropdownPairs.forEach(({ toggle, menu }) => {
+                if (menu !== exceptionMenu) {
+                    menu.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
             });
+        };
+
+        if (dropdownPairs.length) {
+            dropdownPairs.forEach(({ dropdown, toggle, menu }) => {
+                toggle.setAttribute('aria-expanded', 'false');
+                positionDropdownMenu(dropdown, menu);
+
+                toggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    positionDropdownMenu(dropdown, menu);
+                    const willOpen = !menu.classList.contains('open');
+                    closeDropdownMenus(menu);
+                    menu.classList.toggle('open', willOpen);
+                    toggle.setAttribute('aria-expanded', String(willOpen));
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                dropdownPairs.forEach(({ dropdown, menu }) => positionDropdownMenu(dropdown, menu));
+            });
+
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.nav-dropdown') && !e.target.closest('.nav-dropdown-menu')) {
-                    dropdownMenu.classList.remove('open');
+                    closeDropdownMenus();
                 }
             });
         }
@@ -2248,21 +2302,21 @@
 
         // PDF mapping for articles with downloadable PDFs
         const articlePdfs = {
-            18: 'articles/the-view-from-edge-on.pdf',
-            23: 'articles/unraveling-ngc-6946.pdf',
-            24: 'articles/digging-deep-in-messier-83.pdf',
-            25: 'articles/seeking-interacting-galaxies.pdf',
-            30: 'articles/galaxies-in-collision.pdf',
-            39: 'articles/lets-get-together.pdf',
-            42: 'articles/david-todds-deep-sky-discoveries.pdf',
-            43: 'articles/shakhbazian-galaxy-groups.pdf',
-            4: 'articles/abell-2065-corona-borealis.pdf',
-            3: 'articles/abell-4038-sculptor.pdf',
-            5: 'articles/obscure-summer-globular-clusters.pdf',
-            6: 'articles/pisces-perseus-supercluster.pdf',
-            7: 'articles/hydra-centaurus-supercluster.pdf',
-            9: 'articles/restoring-order-deep-sky.pdf',
-            16: 'articles/blazar-blazar-burning-bright.pdf'
+            13: 'articles/the-view-from-edge-on.pdf',
+            18: 'articles/unraveling-ngc-6946.pdf',
+            19: 'articles/digging-deep-in-messier-83.pdf',
+            20: 'articles/seeking-interacting-galaxies.pdf',
+            25: 'articles/galaxies-in-collision.pdf',
+            34: 'articles/lets-get-together.pdf',
+            37: 'articles/david-todds-deep-sky-discoveries.pdf',
+            38: 'articles/shakhbazian-galaxy-groups.pdf',
+            3: 'articles/abell-2065-corona-borealis.pdf',
+            2: 'articles/abell-4038-sculptor.pdf',
+            4: 'articles/obscure-summer-globular-clusters.pdf',
+            5: 'articles/pisces-perseus-supercluster.pdf',
+            6: 'articles/hydra-centaurus-supercluster.pdf',
+            8: 'articles/restoring-order-deep-sky.pdf',
+            11: 'articles/blazar-blazar-burning-bright.pdf'
         };
 
         list.innerHTML = articles.map(a => `

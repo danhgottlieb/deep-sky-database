@@ -3053,16 +3053,41 @@
         function showToast(message) {
             if (!document.body) return;
             let toast = document.getElementById('contact-toast');
+            let title = null;
+
             if (!toast) {
                 toast = document.createElement('div');
                 toast.id = 'contact-toast';
                 toast.className = 'site-toast';
                 toast.setAttribute('role', 'status');
                 toast.setAttribute('aria-live', 'polite');
+
+                const modal = document.createElement('div');
+                modal.className = 'site-toast-modal';
+
+                const icon = document.createElement('div');
+                icon.className = 'site-toast-icon';
+                icon.setAttribute('aria-hidden', 'true');
+                icon.textContent = '✓';
+
+                title = document.createElement('div');
+                title.className = 'site-toast-title';
+
+                const note = document.createElement('div');
+                note.className = 'site-toast-note';
+                note.textContent = 'This window will close automatically in 5 seconds.';
+
+                modal.append(icon, title, note);
+                toast.appendChild(modal);
                 document.body.appendChild(toast);
+            } else {
+                title = toast.querySelector('.site-toast-title');
             }
 
-            toast.textContent = message;
+            if (title) {
+                title.textContent = message;
+            }
+
             toast.classList.add('is-visible');
 
             if (toastTimer) {
@@ -3223,7 +3248,7 @@
                 }
 
                 startCooldown();
-                showToast('Message Sent');
+                showToast('Message Sent!');
             } catch (error) {
                 showError(error.message || 'Something went wrong while sending your message. Please try again.');
                 enterFormState();

@@ -219,7 +219,7 @@ img {
     background: rgba(96, 165, 250, 0.1);
 }
 .nav-dropdown-arrow {
-    font-size: 0.7em;
+    font-size: 1em;
     margin-left: 2px;
     transition: transform 0.2s;
 }
@@ -3222,7 +3222,7 @@ img {
 .resources-dropdown-arrow {
     margin-left: auto;
     color: var(--accent);
-    font-size: 1rem;
+    font-size: 1.4rem;
     letter-spacing: 0;
     transition: transform 140ms ease;
 }

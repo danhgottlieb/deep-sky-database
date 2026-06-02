@@ -2981,6 +2981,7 @@
         let cooldownTimer = null;
         let turnstileWidgetId = null;
         let toastTimer = null;
+        let toastCountdownTimer = null;
 
         // Render Turnstile widget (visual deterrent only — never blocks submission)
         (function initTurnstile() {
@@ -3054,6 +3055,7 @@
             if (!document.body) return;
             let toast = document.getElementById('contact-toast');
             let title = null;
+            let note = null;
 
             if (!toast) {
                 toast = document.createElement('div');
@@ -3073,28 +3075,54 @@
                 title = document.createElement('div');
                 title.className = 'site-toast-title';
 
-                const note = document.createElement('div');
+                note = document.createElement('div');
                 note.className = 'site-toast-note';
-                note.textContent = 'This window will close automatically in 5 seconds.';
 
                 modal.append(icon, title, note);
                 toast.appendChild(modal);
                 document.body.appendChild(toast);
             } else {
                 title = toast.querySelector('.site-toast-title');
+                note = toast.querySelector('.site-toast-note');
             }
 
             if (title) {
                 title.textContent = message;
             }
 
+            const updateCountdown = (seconds) => {
+                if (note) {
+                    note.textContent = `This window will close in ${seconds}...`;
+                }
+            };
+
             toast.classList.add('is-visible');
 
             if (toastTimer) {
                 window.clearTimeout(toastTimer);
             }
+            if (toastCountdownTimer) {
+                window.clearInterval(toastCountdownTimer);
+            }
+
+            let secondsRemaining = 5;
+            updateCountdown(secondsRemaining);
+
+            toastCountdownTimer = window.setInterval(() => {
+                secondsRemaining -= 1;
+                if (secondsRemaining > 0) {
+                    updateCountdown(secondsRemaining);
+                } else {
+                    window.clearInterval(toastCountdownTimer);
+                    toastCountdownTimer = null;
+                }
+            }, 1000);
 
             toastTimer = window.setTimeout(() => {
+                if (toastCountdownTimer) {
+                    window.clearInterval(toastCountdownTimer);
+                    toastCountdownTimer = null;
+                }
                 toast.classList.remove('is-visible');
             }, 5000);
         }

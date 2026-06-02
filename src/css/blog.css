@@ -191,6 +191,13 @@
     font-weight: 600;
 }
 
+/* --- Steve's Follow-up Title --- */
+.blog-content .steves-followup {
+    color: var(--text-bright);
+    font-weight: 700;
+    margin-top: 2.5rem;
+}
+
 /* --- Blog Footer --- */
 .blog-footer {
     margin-top: 64px;

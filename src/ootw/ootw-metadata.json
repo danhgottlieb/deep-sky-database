@@ -1,8 +1,8 @@
 [
   {
     "index": 1,
-    "title": "VV 169 = Arp 327 = HCG 34",
-    "date": "2016-01-24",
+    "title": "Cederblad 51, an E.E. Barnard discovery",
+    "date": "2025-01-19",
     "month": "January"
   },
   {
@@ -13,68 +13,68 @@
   },
   {
     "index": 3,
-    "title": "Cederblad 51, an E.E. Barnard discovery",
-    "date": "2025-01-19",
+    "title": "VV 169 = Arp 327 = HCG 34",
+    "date": "2016-01-24",
     "month": "January"
   },
   {
     "index": 4,
-    "title": "Thommes&#x27; Nebula revealed",
-    "date": "2012-02-19",
-    "month": "February"
-  },
-  {
-    "index": 5,
-    "title": "Howell-Crisp 1 - a recently discovered PN",
-    "date": "2014-02-16",
-    "month": "February"
-  },
-  {
-    "index": 6,
-    "title": "Arp 55 = VV 155 The Grasshopper",
-    "date": "2015-02-14",
-    "month": "February"
-  },
-  {
-    "index": 7,
-    "title": "Sanduleak 2-21, a surprising 1975 discovery",
-    "date": "2017-02-05",
-    "month": "February"
-  },
-  {
-    "index": 8,
-    "title": "NGC 2371/72, the Double Bubble planetary",
-    "date": "2018-02-18",
-    "month": "February"
-  },
-  {
-    "index": 9,
-    "title": "NGC 2440",
-    "date": "2020-02-23",
-    "month": "February"
-  },
-  {
-    "index": 10,
-    "title": "VY Canis Majoris Nebula",
-    "date": "2021-02-21",
-    "month": "February"
-  },
-  {
-    "index": 11,
     "title": "Arp 96 = VV 248, extreme northern interacting pair",
     "date": "2024-02-18",
     "month": "February"
   },
   {
+    "index": 5,
+    "title": "VY Canis Majoris Nebula",
+    "date": "2021-02-21",
+    "month": "February"
+  },
+  {
+    "index": 6,
+    "title": "NGC 2440",
+    "date": "2020-02-23",
+    "month": "February"
+  },
+  {
+    "index": 7,
+    "title": "NGC 2371/72, the Double Bubble planetary",
+    "date": "2018-02-18",
+    "month": "February"
+  },
+  {
+    "index": 8,
+    "title": "Sanduleak 2-21, a surprising 1975 discovery",
+    "date": "2017-02-05",
+    "month": "February"
+  },
+  {
+    "index": 9,
+    "title": "Arp 55 = VV 155 The Grasshopper",
+    "date": "2015-02-14",
+    "month": "February"
+  },
+  {
+    "index": 10,
+    "title": "Howell-Crisp 1 - a recently discovered PN",
+    "date": "2014-02-16",
+    "month": "February"
+  },
+  {
+    "index": 11,
+    "title": "Thommes' Nebula revealed",
+    "date": "2012-02-19",
+    "month": "February"
+  },
+  {
     "index": 12,
-    "title": "Arp 142 and his &quot;Shred&quot;",
-    "date": "2012-03-18",
+    "title": "NGC 2684 photobombs a background cluster",
+    "date": "2026-03-08",
     "month": "March"
   },
   {
     "index": 13,
-    "title": "The MKW 3 Compact Septet",
-    "date": "2013-03-17",
+    "title": "NGC 2648 = Arp 89",
+    "date": "2023-03-19",
     "month": "March"
   },
   {
@@ -85,122 +85,122 @@
   },
   {
     "index": 15,
-    "title": "NGC 2648 = Arp 89",
-    "date": "2023-03-19",
+    "title": "The MKW 3 Compact Septet",
+    "date": "2013-03-17",
     "month": "March"
   },
   {
     "index": 16,
-    "title": "NGC 2684 photobombs a background cluster",
-    "date": "2026-03-08",
+    "title": "Arp 142 and his \"Shred\"",
+    "date": "2012-03-18",
     "month": "March"
   },
   {
     "index": 17,
-    "title": "NGC 4088 (AKA Arp 18 = VV 357)",
-    "date": "2012-04-29",
-    "month": "April"
-  },
-  {
-    "index": 18,
-    "title": "The remarkable NGC 3158 cluster",
-    "date": "2014-04-20",
-    "month": "April"
-  },
-  {
-    "index": 19,
-    "title": "NGC 5248",
-    "date": "2015-04-12",
-    "month": "April"
-  },
-  {
-    "index": 20,
-    "title": "The Fourcade-Figueroa Shred",
-    "date": "2016-04-24",
-    "month": "April"
-  },
-  {
-    "index": 21,
-    "title": "The Tidal Ring/Arm of interacting Arp 107",
-    "date": "2017-04-09",
-    "month": "April"
-  },
-  {
-    "index": 22,
-    "title": "M99, the 2nd discovered Spiral",
-    "date": "2018-04-22",
-    "month": "April"
-  },
-  {
-    "index": 23,
-    "title": "Wild&#x27;s Triplet",
-    "date": "2022-04-17",
-    "month": "April"
-  },
-  {
-    "index": 24,
     "title": "NGC 3256, the nearest LIRG",
     "date": "2025-04-06",
     "month": "April"
   },
   {
+    "index": 18,
+    "title": "Wild's Triplet",
+    "date": "2022-04-17",
+    "month": "April"
+  },
+  {
+    "index": 19,
+    "title": "M99, the 2nd discovered Spiral",
+    "date": "2018-04-22",
+    "month": "April"
+  },
+  {
+    "index": 20,
+    "title": "The Tidal Ring/Arm of interacting Arp 107",
+    "date": "2017-04-09",
+    "month": "April"
+  },
+  {
+    "index": 21,
+    "title": "The Fourcade-Figueroa Shred",
+    "date": "2016-04-24",
+    "month": "April"
+  },
+  {
+    "index": 22,
+    "title": "NGC 5248",
+    "date": "2015-04-12",
+    "month": "April"
+  },
+  {
+    "index": 23,
+    "title": "The remarkable NGC 3158 cluster",
+    "date": "2014-04-20",
+    "month": "April"
+  },
+  {
+    "index": 24,
+    "title": "NGC 4088 (AKA Arp 18 = VV 357)",
+    "date": "2012-04-29",
+    "month": "April"
+  },
+  {
     "index": 25,
-    "title": "NGC 3664 = Arp 5",
-    "date": "2012-05-13",
-    "month": "May"
-  },
-  {
-    "index": 26,
-    "title": "MCG Galaxy Chain near M51",
-    "date": "2013-05-12",
-    "month": "May"
-  },
-  {
-    "index": 27,
-    "title": "NGC 6210, The Turtle Planetary",
-    "date": "2016-05-29",
-    "month": "May"
-  },
-  {
-    "index": 28,
-    "title": "M61",
-    "date": "2019-05-19",
-    "month": "May"
-  },
-  {
-    "index": 29,
-    "title": "NGC 4945, the Tweezers Galaxy",
-    "date": "2020-05-03",
-    "month": "May"
-  },
-  {
-    "index": 30,
-    "title": "NGC 5421 = Arp 111",
-    "date": "2021-05-16",
-    "month": "May"
-  },
-  {
-    "index": 31,
-    "title": "Abell 35, a planetary nebula imposter",
-    "date": "2024-05-12",
-    "month": "May"
-  },
-  {
-    "index": 32,
     "title": "NGC 5068, the comet imposter",
     "date": "2026-05-24",
     "month": "May"
   },
   {
+    "index": 26,
+    "title": "Abell 35, a planetary nebula imposter",
+    "date": "2024-05-12",
+    "month": "May"
+  },
+  {
+    "index": 27,
+    "title": "NGC 5421 = Arp 111",
+    "date": "2021-05-16",
+    "month": "May"
+  },
+  {
+    "index": 28,
+    "title": "NGC 4945, the Tweezers Galaxy",
+    "date": "2020-05-03",
+    "month": "May"
+  },
+  {
+    "index": 29,
+    "title": "M61",
+    "date": "2019-05-19",
+    "month": "May"
+  },
+  {
+    "index": 30,
+    "title": "NGC 6210, The Turtle Planetary",
+    "date": "2016-05-29",
+    "month": "May"
+  },
+  {
+    "index": 31,
+    "title": "MCG Galaxy Chain near M51",
+    "date": "2013-05-12",
+    "month": "May"
+  },
+  {
+    "index": 32,
+    "title": "NGC 3664 = Arp 5",
+    "date": "2012-05-13",
+    "month": "May"
+  },
+  {
     "index": 33,
-    "title": "NGC 6028 - The Nearest and Brightest Hoag Ring",
-    "date": "2014-06-22",
+    "title": "DeHt 3, an obscure PN in Sagittarius",
+    "date": "2025-06-29",
     "month": "June"
   },
   {
     "index": 34,
-    "title": "The Tadpole Galaxy, UGC 10214",
-    "date": "2015-06-07",
+    "title": "UGC 9829 - Now That's a Strange Galaxy!",
+    "date": "2023-06-11",
     "month": "June"
   },
   {
@@ -211,98 +211,98 @@
   },
   {
     "index": 36,
-    "title": "UGC 9829 - Now That&#x27;s a Strange Galaxy!",
-    "date": "2023-06-11",
+    "title": "The Tadpole Galaxy, UGC 10214",
+    "date": "2015-06-07",
     "month": "June"
   },
   {
     "index": 37,
-    "title": "DeHt 3, an obscure PN in Sagittarius",
-    "date": "2025-06-29",
+    "title": "NGC 6028 - The Nearest and Brightest Hoag Ring",
+    "date": "2014-06-22",
     "month": "June"
   },
   {
     "index": 38,
-    "title": "Dissecting the Veil Nebula",
-    "date": "2012-07-08",
-    "month": "July"
-  },
-  {
-    "index": 39,
-    "title": "Swings-Struve 1 - An unusual planetary in Sgr",
-    "date": "2013-07-07",
-    "month": "July"
-  },
-  {
-    "index": 40,
-    "title": "NGC 6445, the Box Nebula",
-    "date": "2016-07-31",
-    "month": "July"
-  },
-  {
-    "index": 41,
-    "title": "NGC 6842",
-    "date": "2019-07-28",
-    "month": "July"
-  },
-  {
-    "index": 42,
-    "title": "IC 1295, one of the best IC planetaries",
-    "date": "2020-07-12",
-    "month": "July"
-  },
-  {
-    "index": 43,
     "title": "KUV 18217+6419 + K 1-16, a remarkable duo",
     "date": "2022-07-10",
     "month": "July"
   },
   {
+    "index": 39,
+    "title": "IC 1295, one of the best IC planetaries",
+    "date": "2020-07-12",
+    "month": "July"
+  },
+  {
+    "index": 40,
+    "title": "NGC 6842",
+    "date": "2019-07-28",
+    "month": "July"
+  },
+  {
+    "index": 41,
+    "title": "NGC 6445, the Box Nebula",
+    "date": "2016-07-31",
+    "month": "July"
+  },
+  {
+    "index": 42,
+    "title": "Swings-Struve 1 - An unusual planetary in Sgr",
+    "date": "2013-07-07",
+    "month": "July"
+  },
+  {
+    "index": 43,
+    "title": "Dissecting the Veil Nebula",
+    "date": "2012-07-08",
+    "month": "July"
+  },
+  {
     "index": 44,
-    "title": "ETHOS 1 (not THAT Ethos)",
-    "date": "2014-08-24",
-    "month": "August"
-  },
-  {
-    "index": 45,
-    "title": "The Unusual Planetary Sh 2-71 in Aquila",
-    "date": "2015-08-02",
-    "month": "August"
-  },
-  {
-    "index": 46,
-    "title": "KTG 71, A Trio of Dolphins",
-    "date": "2017-08-13",
-    "month": "August"
-  },
-  {
-    "index": 47,
-    "title": "NGC 7094, PN in Pegasus",
-    "date": "2018-08-26",
-    "month": "August"
-  },
-  {
-    "index": 48,
-    "title": "Terzan 7 and 8",
-    "date": "2021-08-08",
-    "month": "August"
-  },
-  {
-    "index": 49,
     "title": "NGC 6872, this Condor soars tonight",
     "date": "2024-08-04",
     "month": "August"
   },
   {
+    "index": 45,
+    "title": "Terzan 7 and 8",
+    "date": "2021-08-08",
+    "month": "August"
+  },
+  {
+    "index": 46,
+    "title": "NGC 7094, PN in Pegasus",
+    "date": "2018-08-26",
+    "month": "August"
+  },
+  {
+    "index": 47,
+    "title": "KTG 71, A Trio of Dolphins",
+    "date": "2017-08-13",
+    "month": "August"
+  },
+  {
+    "index": 48,
+    "title": "The Unusual Planetary Sh 2-71 in Aquila",
+    "date": "2015-08-02",
+    "month": "August"
+  },
+  {
+    "index": 49,
+    "title": "ETHOS 1 (not THAT Ethos)",
+    "date": "2014-08-24",
+    "month": "August"
+  },
+  {
     "index": 50,
-    "title": "M74",
-    "date": "2013-09-01",
+    "title": "Reflection Nebula vdB 1 & Cometary Nebula PP 2",
+    "date": "2025-09-21",
     "month": "September"
   },
   {
     "index": 51,
-    "title": "The Magnificient 47 Tucanae (NGC 104)",
-    "date": "2015-09-27",
+    "title": "NGC 128 Group",
+    "date": "2023-09-03",
     "month": "September"
   },
   {
@@ -313,80 +313,80 @@
   },
   {
     "index": 53,
-    "title": "NGC 128 Group",
-    "date": "2023-09-03",
+    "title": "The Magnificent 47 Tucanae (NGC 104)",
+    "date": "2015-09-27",
     "month": "September"
   },
   {
     "index": 54,
-    "title": "Reflection Nebula vdB 1 &amp; Cometary Nebula PP 2",
-    "date": "2025-09-21",
+    "title": "M74",
+    "date": "2013-09-01",
     "month": "September"
   },
   {
     "index": 55,
-    "title": "UGC 12632, A low surface brightness dwarf",
-    "date": "2012-10-21",
-    "month": "October"
-  },
-  {
-    "index": 56,
-    "title": "NGC 3 Group, the beginning and end of the NGC",
-    "date": "2013-10-27",
-    "month": "October"
-  },
-  {
-    "index": 57,
-    "title": "Shakhbazian 317 Galaxy Chain",
-    "date": "2014-10-19",
-    "month": "October"
-  },
-  {
-    "index": 58,
-    "title": "NGC 55",
-    "date": "2016-10-02",
-    "month": "October"
-  },
-  {
-    "index": 59,
-    "title": "NGC 613, a gorgeous barred spiral",
-    "date": "2017-10-15",
-    "month": "October"
-  },
-  {
-    "index": 60,
-    "title": "NGC 1097",
-    "date": "2018-10-29",
-    "month": "October"
-  },
-  {
-    "index": 61,
-    "title": "Hickson 97 = Shkh 30",
-    "date": "2019-10-06",
-    "month": "October"
-  },
-  {
-    "index": 62,
-    "title": "A galaxy cluster next to M30",
-    "date": "2021-10-31",
-    "month": "October"
-  },
-  {
-    "index": 63,
-    "title": "NGC 151: M51-type system or not?",
-    "date": "2022-10-02",
-    "month": "October"
-  },
-  {
-    "index": 64,
     "title": "The Pegasus Dwarf Irregular",
     "date": "2024-10-27",
     "month": "October"
   },
   {
+    "index": 56,
+    "title": "NGC 151: M51-type system or not?",
+    "date": "2022-10-02",
+    "month": "October"
+  },
+  {
+    "index": 57,
+    "title": "A galaxy cluster next to M30",
+    "date": "2021-10-31",
+    "month": "October"
+  },
+  {
+    "index": 58,
+    "title": "Hickson 97 = Shk 30",
+    "date": "2019-10-06",
+    "month": "October"
+  },
+  {
+    "index": 59,
+    "title": "NGC 1097",
+    "date": "2018-10-29",
+    "month": "October"
+  },
+  {
+    "index": 60,
+    "title": "NGC 613, a gorgeous barred spiral",
+    "date": "2017-10-15",
+    "month": "October"
+  },
+  {
+    "index": 61,
+    "title": "NGC 55",
+    "date": "2016-10-02",
+    "month": "October"
+  },
+  {
+    "index": 62,
+    "title": "Shakhbazian 317 Galaxy Chain",
+    "date": "2014-10-19",
+    "month": "October"
+  },
+  {
+    "index": 63,
+    "title": "NGC 3 Group, the beginning and end of the NGC",
+    "date": "2013-10-27",
+    "month": "October"
+  },
+  {
+    "index": 64,
+    "title": "UGC 12632, A low surface brightness dwarf",
+    "date": "2012-10-21",
+    "month": "October"
+  },
+  {
     "index": 65,
-    "title": "NGC 1514, a revolutionary planetary",
-    "date": "2015-11-22",
+    "title": "EGB 1 - PN or imposter?",
+    "date": "2023-11-26",
     "month": "November"
   },
   {
@@ -397,56 +397,56 @@
   },
   {
     "index": 67,
-    "title": "EGB 1 - PN or imposter?",
-    "date": "2023-11-26",
+    "title": "NGC 1514, a revolutionary planetary",
+    "date": "2015-11-22",
     "month": "November"
   },
   {
     "index": 68,
-    "title": "Arp 219 (Collisional Ring)",
-    "date": "2013-12-22",
+    "title": "NGC 1385",
+    "date": "2025-12-14",
     "month": "December"
   },
   {
     "index": 69,
-    "title": "The Tale of NGC 1073 and Arp&#x27;s 3 Quasars",
-    "date": "2014-12-21",
-    "month": "December"
-  },
-  {
-    "index": 70,
-    "title": "NGC 1530, a remarkable barred spiral",
-    "date": "2016-12-04",
-    "month": "December"
-  },
-  {
-    "index": 71,
-    "title": "HCG 31 = Arp 259, an strongly interacting triplet",
-    "date": "2017-12-17",
-    "month": "December"
-  },
-  {
-    "index": 72,
-    "title": "Lopsided NGC 1637",
-    "date": "2018-12-30",
-    "month": "December"
-  },
-  {
-    "index": 73,
-    "title": "NGC 1128 - binary supermassive black holes and twin radio jets",
-    "date": "2019-12-15",
-    "month": "December"
-  },
-  {
-    "index": 74,
     "title": "Abell 7 + neighbors",
     "date": "2022-12-25",
     "month": "December"
   },
   {
+    "index": 70,
+    "title": "NGC 1128 - binary supermassive black holes and twin radio jets",
+    "date": "2019-12-15",
+    "month": "December"
+  },
+  {
+    "index": 71,
+    "title": "Lopsided NGC 1637",
+    "date": "2018-12-30",
+    "month": "December"
+  },
+  {
+    "index": 72,
+    "title": "HCG 31 = Arp 259, an strongly interacting triplet",
+    "date": "2017-12-17",
+    "month": "December"
+  },
+  {
+    "index": 73,
+    "title": "NGC 1530, a remarkable barred spiral",
+    "date": "2016-12-04",
+    "month": "December"
+  },
+  {
+    "index": 74,
+    "title": "The Tale of NGC 1073 and Arp's 3 Quasars",
+    "date": "2014-12-21",
+    "month": "December"
+  },
+  {
     "index": 75,
-    "title": "NGC 1385",
-    "date": "2025-12-14",
+    "title": "Arp 219 (Collisional Ring)",
+    "date": "2013-12-22",
     "month": "December"
   }
 ]

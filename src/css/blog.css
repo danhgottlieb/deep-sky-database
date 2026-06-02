@@ -94,6 +94,19 @@
     color: var(--text-muted);
 }
 
+.blog-source-thread {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+.blog-source-thread:hover {
+    color: var(--accent);
+    opacity: 1;
+}
+
 /* --- Blog Content --- */
 .blog-content {
     max-width: 800px;

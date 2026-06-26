@@ -1033,5 +1033,68 @@
     "images": 3,
     "content_length": 5200,
     "objects": "UGC 4211, UGC 6076"
+  },
+  {
+    "title": "Observing Barnard’s Galaxy from Lassen",
+    "date": "August 12, 2010",
+    "slug": "observing-barnard-s-galaxy-from-lassen",
+    "filename": "observing-barnard-s-galaxy-from-lassen.html",
+    "images": 4,
+    "content_length": 4957,
+    "objects": "NGC 6822, M31, IC 1308"
+  },
+  {
+    "title": "Observing near the top of Haleakala Crater",
+    "date": "August 8, 2004",
+    "slug": "observing-near-the-top-of-haleakala-crater",
+    "filename": "observing-near-the-top-of-haleakala-crater.html",
+    "images": 5,
+    "content_length": 14205,
+    "objects": "NGC 6397, NGC 6752, M4, M22, M11, M5, M27, M15, NGC 6200, NGC 6231, NGC 6242, NGC 6250, IC 4651, NGC 6352, NGC 6541, NGC 6584, NGC 6753, NGC 7090, IC 5152"
+  },
+  {
+    "title": "Celestial Odd Couples",
+    "date": "July 22, 2000",
+    "slug": "celestial-odd-couples",
+    "filename": "celestial-odd-couples.html",
+    "images": 5,
+    "content_length": 5316,
+    "objects": "M13, IC 4617, M57, IC 1296, NGC 6826, CGCG 257-010, M80, IC 4596, IC 1295, NGC 6207, PGC 63573"
+  },
+  {
+    "title": "Deep Sky Delights from Texas – Part I",
+    "date": "May 13, 2026",
+    "slug": "deep-sky-delights-from-texas-part-i",
+    "filename": "deep-sky-delights-from-texas-part-i.html",
+    "images": 2,
+    "content_length": 4723,
+    "objects": "NGC 2392, VV 333, ESO 505-030, ESO 505-031, PGC 3785672"
+  },
+  {
+    "title": "Deep Sky Delights from Texas – Part II",
+    "date": "May 15, 2026",
+    "slug": "deep-sky-delights-from-texas-part-ii",
+    "filename": "deep-sky-delights-from-texas-part-ii.html",
+    "images": 6,
+    "content_length": 7519,
+    "objects": "M51, IC 2574, M81, NGC 4410, NGC 4410A, NGC 4410B, NGC 4410C, NGC 4395, NGC 4399, UGC 9829, NGC 6337"
+  },
+  {
+    "title": "Deep Sky Delights from Texas – Part III",
+    "date": "May 16, 2026",
+    "slug": "deep-sky-delights-from-texas-part-iii",
+    "filename": "deep-sky-delights-from-texas-part-iii.html",
+    "images": 4,
+    "content_length": 9078,
+    "objects": "NGC 4361, M108, NGC 6027, PGC 56579, PGC 34538, UGC 6314, PGC 34545, CGCG 156-054, CGCG 122-067, IC 4479, M12, NGC 3132, M83"
+  },
+  {
+    "title": "Deep Sky Delights from Texas – Part IV",
+    "date": "May 17-18, 2026",
+    "slug": "deep-sky-delights-from-texas-part-iv",
+    "filename": "deep-sky-delights-from-texas-part-iv.html",
+    "images": 7,
+    "content_length": 6294,
+    "objects": "MCG +06-26-038, HCG 69, NGC 6905, NGC 6804, M3, NGC 5634, IC 972, M100, M99"
   }
 ]

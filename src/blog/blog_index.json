@@ -1096,5 +1096,77 @@
     "images": 7,
     "content_length": 6294,
     "objects": "MCG +06-26-038, HCG 69, NGC 6905, NGC 6804, M3, NGC 5634, IC 972, M100, M99"
+  },
+  {
+    "title": "Barnard dark nebulae at Lassen on July 30, 2003",
+    "date": "July 30, 2003",
+    "slug": "barnard-dark-nebulae-at-lassen-on-july-30-2003",
+    "filename": "barnard-dark-nebulae-at-lassen-on-july-30-2003.html",
+    "images": 3,
+    "content_length": 4761,
+    "objects": "Barnard 330, LDN 647, Barnard 335, LDN 663, Barnard 142, LDN 688, Barnard 143, LDN 694, Barnard 145, LDN 865, Barnard 352, Barnard 361, LDN 970"
+  },
+  {
+    "title": "Blowing Bubbles in the Wind, Lake Sonoma, Feb. 1, 2003",
+    "date": "February 1, 2003",
+    "slug": "blowing-bubbles-in-the-wind-lake-sonoma-feb-1-2003",
+    "filename": "blowing-bubbles-in-the-wind-lake-sonoma-feb-1-2003.html",
+    "images": 3,
+    "content_length": 7444,
+    "objects": "UGC 5373, NGC 3109, HCG 33, PGC 16867"
+  },
+  {
+    "title": "Chew's Ridge (MIRA) on Aug. 23, 2003",
+    "date": "August 23, 2003",
+    "slug": "chews-ridge-mira-on-aug-23-2003",
+    "filename": "chews-ridge-mira-on-aug-23-2003.html",
+    "images": 4,
+    "content_length": 6514,
+    "objects": "NGC 6426, NGC 6535, NGC 6539, NGC 6760, NGC 6905"
+  },
+  {
+    "title": "FU Orionis at Lake Sonoma, Feb. 22, 2003",
+    "date": "February 22, 2003",
+    "slug": "fu-orionis-at-lake-sonoma-feb-22-2003",
+    "filename": "fu-orionis-at-lake-sonoma-feb-22-2003.html",
+    "images": 1,
+    "content_length": 3095,
+    "objects": "NGC 2022, Barnard 35"
+  },
+  {
+    "title": "First trip to Lake Sonoma, Dec. 30, 1999",
+    "date": "December 30, 1999",
+    "slug": "first-trip-to-lake-sonoma-dec-30-1999",
+    "filename": "first-trip-to-lake-sonoma-dec-30-1999.html",
+    "images": 6,
+    "content_length": 11803,
+    "objects": "NGC 40, NGC 1514, NGC 1535, IC 418, UGC 2082, NGC 1561, NGC 1565, IC 2063, NGC 2264"
+  },
+  {
+    "title": "Galaxy madness at the Sierra Buttes on July 28, 2003",
+    "date": "July 28, 2003",
+    "slug": "galaxy-madness-at-the-sierra-buttes-on-july-28-2003",
+    "filename": "galaxy-madness-at-the-sierra-buttes-on-july-28-2003.html",
+    "images": 1,
+    "content_length": 3085,
+    "objects": "NGC 5919, Abell 2063, MCG +02-39-020, IC 1116, CGCG 077-097, CGCG 077-096"
+  },
+  {
+    "title": "Fiddletown Observatory on Nov. 22, 2003",
+    "date": "November 22, 2003",
+    "slug": "fiddletown-observatory-on-nov-22-2003",
+    "filename": "fiddletown-observatory-on-nov-22-2003.html",
+    "images": 4,
+    "content_length": 6699,
+    "objects": "Abell 151, IC 78, IC 79, IC 80, IC 82, NGC 691, NGC 678, NGC 680, IC 1730, NGC 694, IC 167, NGC 697, NGC 1212, IC 290, IC 1883, IC 292, IC 426"
+  },
+  {
+    "title": "Open clusters at Lake Sonoma",
+    "date": "November 26, 2003",
+    "slug": "open-clusters-at-lake-sonoma",
+    "filename": "open-clusters-at-lake-sonoma.html",
+    "images": 3,
+    "content_length": 5494,
+    "objects": "King 16, King 4, NGC 7788, NGC 7790"
   }
 ]

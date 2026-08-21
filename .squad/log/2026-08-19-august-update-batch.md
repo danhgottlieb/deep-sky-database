@@ -55,4 +55,15 @@ The 12-part August update batch is complete and validated locally.
 - Browser checks confirmed 7 August 2000 results, 63 results for the Apr 2025
   plus Apr 2024 union, 57 after intersecting Galaxy, and 14 for Apr 2024 alone.
 
-All changes remain local, unstaged, uncommitted, unpushed, and undeployed.
+## Publication
+
+The user approved publication on August 20, 2026.
+
+- Production content commit: `92b3ae4db75272e0b666548ff67ed26e84a46a10`
+- Production branch: `master`
+- Repository: `danhgottlieb/deep-sky-database`
+- GitHub Pages workflow run: `32440965980`
+- Deployment conclusion: success
+- Live site: `https://deepskygottlieb.com`
+- Live browser checks confirmed the final totals, August 19 update date, and
+  seven-object August 2000 article result with Arp GC 2.

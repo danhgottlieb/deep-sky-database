@@ -1,0 +1,689 @@
+{
+  "version": 1,
+  "articles": [
+    {
+      "id": "sky-telescope-2025-04",
+      "publication": "Sky & Telescope",
+      "date": "2025-04",
+      "displayDate": "Apr 2025",
+      "title": "Shakhbazian Galaxy Groups",
+      "pdf": "articles/shakhbazian-galaxy-groups.pdf",
+      "objectNames": [
+        "SHK 16",
+        "CGCG 276-045",
+        "MCG +09-27-091",
+        "MCG +09-27-092",
+        "MCG +09-27-095",
+        "MCG +09-27-096",
+        "SHK 16-6",
+        "SHK 16-7",
+        "SHK 166",
+        "CGCG 367-021",
+        "MCG +14-08-015",
+        "MCG +14-08-016",
+        "SHK 166-4",
+        "SHK 166-5",
+        "SHK 166-6",
+        "MCG +14-08-018",
+        "SHK 166-8",
+        "SHK 166-10",
+        "PGC 59182",
+        "SHK 202",
+        "CGCG 158-074",
+        "CGCG 158-078",
+        "CGCG 158-075",
+        "SHK 202-4",
+        "SHK 202-5",
+        "CGCG 158-065",
+        "SHK 352",
+        "NGC 3647",
+        "CGCG 039-140",
+        "CGCG 039-141",
+        "CGCG 039-142",
+        "SHK 352-5",
+        "SHK 352-6",
+        "SHK 352-7",
+        "HCG 50",
+        "HCG 50A",
+        "HCG 50C",
+        "HCG 50D",
+        "HCG 50E",
+        "HCG 50B",
+        "SHK 1",
+        "SHK 1-1",
+        "SHK 1-2",
+        "SHK 1-3",
+        "SHK 1-4",
+        "SHK 1-5",
+        "SHK 1-6",
+        "SHK 1-7/8",
+        "SHK 1-9"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Shakhbazian Galaxy Groups\"",
+        "rows": [
+          "SHK 16",
+          "SHK 166",
+          "SHK 202",
+          "SHK 352",
+          "SHK 5",
+          "SHK 1"
+        ]
+      },
+      "intentionalExclusions": [
+        {
+          "designation": "PGC 2817454",
+          "reason": "A nearby galaxy discussed after the SHK 16 members, not a member of the source-table group."
+        },
+        {
+          "designation": "NGC 4251",
+          "reason": "A foreground signpost near SHK 202, not a member of the source-table group."
+        },
+        {
+          "designation": "IC 777",
+          "reason": "A foreground galaxy near SHK 202, not a member of the source-table group."
+        },
+        {
+          "designation": "NGC 3640",
+          "reason": "A field landmark used to locate SHK 352, not a member of the source-table group."
+        },
+        {
+          "designation": "NGC 3644",
+          "reason": "A foreground galaxy near SHK 352, not a member of the source-table group."
+        }
+      ],
+      "notes": "Includes each group record and every corresponding member record in the database. PGC 59182 is included because the article identifies it as sharing SHK 166's redshift; foreground and nearby nonmembers are excluded."
+    },
+    {
+      "id": "sky-telescope-2024-04",
+      "publication": "Sky & Telescope",
+      "date": "2024-04",
+      "displayDate": "Apr 2024",
+      "title": "David Todd's Accidental Deep-Sky Discoveries",
+      "pdf": "articles/david-todds-deep-sky-discoveries.pdf",
+      "objectNames": [
+        "IC 591",
+        "NGC 4073",
+        "NGC 4045",
+        "NGC 4077",
+        "NGC 4075",
+        "NGC 4063",
+        "NGC 4045A",
+        "CGCG 013-049",
+        "NGC 4139",
+        "UGC 7034",
+        "CGCG 013-058",
+        "CGCG 013-052",
+        "UGC 7057",
+        "PGC 38205"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Todd's Targets and More\"",
+        "rows": [
+          "IC 591",
+          "NGC 4073",
+          "NGC 4045",
+          "NGC 4077",
+          "NGC 4075",
+          "NGC 4063",
+          "NGC 4045A",
+          "CGCG 13-49",
+          "NGC 4139",
+          "UGC 7034",
+          "CGCG 13-58",
+          "CGCG 13-52",
+          "UGC 7057",
+          "PGC 38205"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "Exactly the 14 rows in the PDF table. Printed CGCG designations such as CGCG 13-49 are normalized to the database's zero-padded canonical names."
+    },
+    {
+      "id": "sky-telescope-2022-06",
+      "publication": "Sky & Telescope",
+      "date": "2022-06",
+      "displayDate": "Jun 2022",
+      "title": "Let's Get Together (Merging Spiral Galaxies)",
+      "pdf": "articles/lets-get-together.pdf",
+      "objectNames": [
+        "Arp 302",
+        "MCG +04-35-018",
+        "MCG +04-35-019",
+        "NGC 5257",
+        "NGC 5258",
+        "UGC 8335",
+        "MCG +10-19-056",
+        "MCG +10-19-057",
+        "NGC 3690",
+        "NGC 3690W",
+        "NGC 3690E",
+        "NGC 5256",
+        "NGC 5256 NED2",
+        "I Zw 107",
+        "Mrk 273"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Springtime Mergers\", first-column systems",
+        "rows": [
+          "Arp 302",
+          "Arp 240",
+          "Arp 238",
+          "Arp 299",
+          "NGC 5256",
+          "VV 705",
+          "Mrk 273"
+        ]
+      },
+      "intentionalExclusions": [
+        {
+          "designation": "IC 694",
+          "reason": "The article explicitly identifies IC 694 as a separate elliptical northwest of Arp 299."
+        }
+      ],
+      "notes": "Expands the seven first-column systems into their aggregate and component records. IC 694 is excluded because the article explicitly explains that it is not part of Arp 299."
+    },
+    {
+      "id": "sky-telescope-2017-05",
+      "publication": "Sky & Telescope",
+      "date": "2017-05",
+      "displayDate": "May 2017",
+      "title": "Galaxies in Collision",
+      "pdf": "articles/galaxies-in-collision.pdf",
+      "objectNames": [
+        "NGC 2936",
+        "NGC 2937",
+        "UGC 10214",
+        "NGC 5394",
+        "NGC 5395",
+        "NGC 4676",
+        "IC 819",
+        "IC 820",
+        "UGC 4881",
+        "LEDA 3098124",
+        "NGC 4038",
+        "NGC 4039",
+        "NGC 6621",
+        "NGC 6622"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Colliding Galaxies & Where to Find Them\", Arp/VV system rows",
+        "rows": [
+          "Arp 142",
+          "Arp 188",
+          "Arp 84",
+          "Arp 242",
+          "Arp 55",
+          "Arp 244",
+          "Arp 81"
+        ]
+      },
+      "intentionalExclusions": [
+        {
+          "designation": "Arp 142 NED1",
+          "reason": "This separate database record is not either of the table's NGC 2936 and NGC 2937 components."
+        },
+        {
+          "designation": "NGC 4038S",
+          "reason": "This database subcomponent is not an individually designated target in the source table."
+        }
+      ],
+      "notes": "Expands the seven Arp/VV systems in the PDF table into aggregate and component records. Arp 142 NED1 is an unrelated object, and NGC 4038S is not an individually designated target in the article; both are excluded."
+    },
+    {
+      "id": "sky-telescope-2014-09",
+      "publication": "Sky & Telescope",
+      "date": "2014-09",
+      "displayDate": "Sep 2014",
+      "title": "Seeking Interacting Galaxies (Vorontsov-Velyaminov)",
+      "pdf": "articles/seeking-interacting-galaxies.pdf",
+      "objectNames": [
+        "UGC 12914",
+        "UGC 12915",
+        "UGC 1810",
+        "UGC 1813",
+        "UGC 11672",
+        "VV 102b"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Selected Vorontsov-Velyaminov Galaxy Pairs\"",
+        "rows": [
+          "VV 254",
+          "VV 323",
+          "VV 102"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "Expands the three VV systems in the PDF table into every aggregate or component record present in the database."
+    },
+    {
+      "id": "sky-telescope-2014-05",
+      "publication": "Sky & Telescope",
+      "date": "2014-05",
+      "displayDate": "May 2014",
+      "title": "Digging Deep in Messier 83",
+      "pdf": "articles/digging-deep-in-messier-83.pdf",
+      "objectNames": [
+        "NGC 5236"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF article target and labeled H II-region figure",
+        "rows": [
+          "M83 and numbered H II regions 1-12"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "The article's numbered HII regions are not separately designated in the current database; the host galaxy is stored canonically as NGC 5236 with alias M83."
+    },
+    {
+      "id": "sky-telescope-2013-07",
+      "publication": "Sky & Telescope",
+      "date": "2013-07",
+      "displayDate": "Jul 2013",
+      "title": "Unraveling NGC 6946",
+      "pdf": "articles/unraveling-ngc-6946.pdf",
+      "objectNames": [
+        "NGC 6946",
+        "NGC 6946: Hodge Stellar Complex",
+        "NGC 6946: [HK83] 3"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF article target and labeled knot figure",
+        "rows": [
+          "NGC 6946 and numbered knots 1-8"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "Includes the host galaxy and both individually cataloged star-forming regions represented by the article's numbered knots."
+    },
+    {
+      "id": "sky-telescope-2011-05",
+      "publication": "Sky & Telescope",
+      "date": "2011-05",
+      "displayDate": "May 2011",
+      "title": "The View from Edge-On (Superthin Galaxies)",
+      "pdf": "articles/the-view-from-edge-on.pdf",
+      "objectNames": [
+        "IC 2233",
+        "UGC 7321",
+        "UGC 7170",
+        "UGC 3697"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Superthin Galaxies\"",
+        "rows": [
+          "IC 2233",
+          "UGC 7321",
+          "UGC 7170",
+          "UGC 3697"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "The four target rows in the PDF's Superthin Galaxies table."
+    },
+    {
+      "id": "sky-telescope-2010-04",
+      "publication": "Sky & Telescope",
+      "date": "2010-04",
+      "displayDate": "Apr 2010",
+      "title": "Blazar, Blazar Burning Bright",
+      "pdf": "articles/blazar-blazar-burning-bright.pdf",
+      "objectNames": [
+        "Mrk 421",
+        "W Com",
+        "AP Lib",
+        "Mrk 501",
+        "3C 371",
+        "BL Lac",
+        "3C 66A",
+        "3C 120"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "Eight blazars profiled in the scanned PDF",
+        "rows": [
+          "Mrk 421",
+          "W Com",
+          "AP Lib",
+          "Mrk 501",
+          "3C 371",
+          "BL Lac",
+          "3C 66A",
+          "3C 120"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "The eight blazars profiled in the scanned PDF; aliases such as BW Tau resolve to canonical database records."
+    },
+    {
+      "id": "sky-telescope-2003-11",
+      "publication": "Sky & Telescope",
+      "date": "2003-11",
+      "displayDate": "Nov 2003",
+      "title": "Restoring Order to the Deep Sky (NGC/IC Project)",
+      "pdf": "articles/restoring-order-deep-sky.pdf",
+      "objectNames": [
+        "NGC 6194",
+        "IC 4614",
+        "IC 4615",
+        "NGC 6196",
+        "IC 4616",
+        "NGC 6197",
+        "NGC 6199",
+        "NGC 19",
+        "NGC 21",
+        "NGC 29",
+        "NGC 7831",
+        "IC 1530",
+        "NGC 7836",
+        "NGC 6",
+        "NGC 20",
+        "NGC 4055",
+        "NGC 4061",
+        "NGC 4057",
+        "NGC 4065",
+        "NGC 4066",
+        "NGC 4059",
+        "NGC 4070",
+        "NGC 4090",
+        "NGC 4153",
+        "NGC 4147",
+        "M 2-3"
+      ],
+      "unmatchedDesignations": [
+        "IC 4613",
+        "IC 2120",
+        "PGC 38278"
+      ],
+      "sourceEvidence": {
+        "location": "PDF puzzle diagrams and identity case studies",
+        "rows": [
+          "NGC 6194",
+          "IC 4614",
+          "IC 4613",
+          "NGC 6196 / IC 4615",
+          "NGC 6197 / IC 4616",
+          "NGC 6199",
+          "NGC 19",
+          "NGC 21",
+          "NGC 29",
+          "NGC 7831",
+          "IC 1530",
+          "NGC 7836",
+          "NGC 6",
+          "NGC 20",
+          "NGC 4055",
+          "NGC 4061",
+          "NGC 4057",
+          "NGC 4065",
+          "NGC 4066",
+          "NGC 4059",
+          "NGC 4070",
+          "NGC 4090",
+          "PGC 38278",
+          "NGC 4153",
+          "NGC 4147",
+          "IC 2120",
+          "M 2-3"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "Includes both canonical and duplicate database records because resolving those mistaken identities is the article's subject. IC 2120 is identified in the article as a comet, while M 2-3 is retained as the previously proposed counterpart."
+    },
+    {
+      "id": "sky-telescope-2002-04",
+      "publication": "Sky & Telescope",
+      "date": "2002-04",
+      "displayDate": "Apr 2002",
+      "title": "Hydra-Centaurus Supercluster",
+      "pdf": "articles/hydra-centaurus-supercluster.pdf",
+      "objectNames": [
+        "AGC 3526",
+        "NGC 4696",
+        "NGC 4709",
+        "NGC 4706",
+        "NGC 4743",
+        "NGC 4729",
+        "NGC 4730",
+        "NGC 4744",
+        "NGC 4603",
+        "NGC 4622",
+        "NGC 4622A",
+        "NGC 4650",
+        "NGC 4650A",
+        "AGC 3565",
+        "IC 4296",
+        "IC 4299",
+        "NGC 5215A",
+        "NGC 5215",
+        "NGC 5220",
+        "AGC 3574",
+        "IC 4329",
+        "IC 4329A",
+        "NGC 5298",
+        "ESO 445-035",
+        "NGC 5302",
+        "NGC 5291",
+        "MCG -05-33-005"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Selected Galaxies in the Hydra-Centaurus Supercluster\"",
+        "rows": [
+          "NGC 4622",
+          "NGC 4650",
+          "NGC 4650A",
+          "NGC 4696",
+          "NGC 4709",
+          "NGC 5215",
+          "NGC 5220",
+          "IC 4296",
+          "IC 4329",
+          "IC 4329A",
+          "NGC 5291"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "Includes the three cluster records, all table rows, and additional galaxies individually described in the observing tour. NGC 4622A and NGC 5215/NGC 5215A capture the database's available component records."
+    },
+    {
+      "id": "sky-telescope-2001-01",
+      "publication": "Sky & Telescope",
+      "date": "2001-01",
+      "displayDate": "Jan 2001",
+      "title": "Exploring the Pisces-Perseus Supercluster",
+      "pdf": "articles/pisces-perseus-supercluster.pdf",
+      "objectNames": [
+        "Pisces Group",
+        "NGC 379",
+        "NGC 380",
+        "NGC 382",
+        "NGC 383",
+        "NGC 384",
+        "NGC 385",
+        "NGC 386",
+        "NGC 392",
+        "NGC 394",
+        "NGC 397",
+        "NGC 407",
+        "NGC 410",
+        "NGC 414",
+        "NGC 447",
+        "NGC 449",
+        "NGC 451",
+        "NGC 507 Group",
+        "NGC 495",
+        "NGC 496",
+        "NGC 499",
+        "NGC 503",
+        "NGC 504",
+        "NGC 507",
+        "NGC 508",
+        "HCG 10",
+        "NGC 529",
+        "NGC 531",
+        "NGC 536",
+        "NGC 542",
+        "NGC 700",
+        "NGC 703",
+        "NGC 704",
+        "NGC 705",
+        "NGC 708",
+        "NGC 906",
+        "NGC 909",
+        "NGC 910",
+        "NGC 911",
+        "IC 310",
+        "NGC 1267",
+        "NGC 1268",
+        "NGC 1270",
+        "NGC 1272",
+        "NGC 1273",
+        "NGC 1274",
+        "NGC 1275",
+        "NGC 1277",
+        "NGC 1278",
+        "NGC 1281"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Key Galaxies of the Pisces-Perseus Supercluster\"",
+        "rows": [
+          "NGC 383",
+          "NGC 507",
+          "NGC 536",
+          "NGC 708",
+          "NGC 911",
+          "NGC 1275"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "Includes the key-galaxy table, the named group records, and each galaxy labeled or discussed along the article's observing route. Nearby signposts and contextual examples outside the supercluster route are excluded."
+    },
+    {
+      "id": "sky-telescope-2000-08",
+      "publication": "Sky & Telescope",
+      "date": "2000-08",
+      "displayDate": "Aug 2000",
+      "title": "A Tour of Obscure Summer Globular Clusters",
+      "pdf": "articles/obscure-summer-globular-clusters.pdf",
+      "objectNames": [
+        "IC 1257",
+        "NGC 6380",
+        "NGC 6717",
+        "NGC 6749",
+        "Terzan 7",
+        "Palomar 10",
+        "Arp GC 2"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Obscure Summer Globulars\"",
+        "rows": [
+          "IC 1257",
+          "NGC 6380",
+          "NGC 6717",
+          "NGC 6749",
+          "Terzan 7",
+          "Pal 10",
+          "Arp 2"
+        ]
+      },
+      "intentionalExclusions": [
+        {
+          "designation": "UGC 10310",
+          "reason": "Its Arp 2 alias belongs to an unrelated galaxy and must not satisfy the globular-cluster table row."
+        }
+      ],
+      "notes": "All seven PDF table targets map to exact current database records. The table's Arp 2 globular cluster maps to the canonical primary designation Arp GC 2. UGC 10310 is deliberately excluded even though it has a separate galaxy-catalog alias Arp 2."
+    },
+    {
+      "id": "sky-telescope-2000-05",
+      "publication": "Sky & Telescope",
+      "date": "2000-05",
+      "displayDate": "May 2000",
+      "title": "Abell 2065 (Corona Borealis) Galaxy Cluster",
+      "pdf": "articles/abell-2065-corona-borealis.pdf",
+      "objectNames": [
+        "AGC 2065",
+        "PGC 54846",
+        "MCG +05-36-019",
+        "MCG +05-36-020",
+        "MCG +05-36-021",
+        "MCG +05-36-022",
+        "PGC 54883",
+        "MCG +05-36-023"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "PDF table \"Selected Galaxies from Abell 2065\"",
+        "rows": [
+          "PGC 54846",
+          "MCG +5-36-19",
+          "MCG +5-36-20",
+          "MCG +5-36-21 / PGC 54084",
+          "MCG +5-36-22",
+          "PGC 54883",
+          "MCG +5-36-23"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "Includes the cluster record and the seven selected galaxies in the PDF table. The table's PGC 54084 label resolves through its MCG +5-36-21 designation to the database's PGC 54884 record."
+    },
+    {
+      "id": "sky-telescope-1999-10",
+      "publication": "Sky & Telescope",
+      "date": "1999-10",
+      "displayDate": "Oct 1999",
+      "title": "Abell 4038 (Sculptor) Galaxy Cluster",
+      "pdf": "articles/abell-4038-sculptor.pdf",
+      "objectNames": [
+        "AGC 4038",
+        "IC 5349",
+        "IC 5350",
+        "IC 5353",
+        "IC 5354",
+        "IC 5358A",
+        "PGC 72436",
+        "IC 5358",
+        "MCG -05-56-015",
+        "PGC 72466",
+        "PGC 72469",
+        "PGC 72471",
+        "PGC 72464",
+        "PGC 72473",
+        "PGC 72476"
+      ],
+      "unmatchedDesignations": [
+        "PGC 72393",
+        "PGC 72451"
+      ],
+      "sourceEvidence": {
+        "location": "PDF table \"Galaxies in Abell 4038\"",
+        "rows": [
+          "IC 5349",
+          "IC 5350",
+          "IC 5353",
+          "IC 5354",
+          "PGC 72437",
+          "PGC 72436",
+          "IC 5358",
+          "MCG -5-56-15",
+          "PGC 72466",
+          "PGC 72469",
+          "PGC 72471"
+        ]
+      },
+      "intentionalExclusions": [],
+      "notes": "Includes the cluster record, all 11 table galaxies, and three additional challenge galaxies present in the database. The table's PGC 72437 resolves to canonical record IC 5358A."
+    }
+  ]
+}

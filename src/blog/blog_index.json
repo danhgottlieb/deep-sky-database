@@ -1168,5 +1168,41 @@
     "images": 3,
     "content_length": 5494,
     "objects": "King 16, King 4, NGC 7788, NGC 7790"
+  },
+  {
+    "title": "GSSP, July 10-14, 2026",
+    "date": "July 10-14, 2026",
+    "slug": "golden-state-star-party-july-10-14-2026",
+    "filename": "golden-state-star-party-july-10-14-2026.html",
+    "images": 2,
+    "content_length": 4746,
+    "objects": "NGC 6822, IC 1308, CGCG 141-44, NGC 7027"
+  },
+  {
+    "title": "Nov 2010 (part 1) Australia",
+    "date": "November 3-9, 2010",
+    "slug": "observing-in-australia-nov-3-9-2010-part-1",
+    "filename": "observing-in-australia-nov-3-9-2010-part-1.html",
+    "images": 2,
+    "content_length": 5797,
+    "objects": "M6, M7"
+  },
+  {
+    "title": "Nov 2010 (part 2) Australia",
+    "date": "November 3-9, 2010",
+    "slug": "observing-in-australia-nov-3-9-2010-part-2",
+    "filename": "observing-in-australia-nov-3-9-2010-part-2.html",
+    "images": 5,
+    "content_length": 11087,
+    "objects": "NGC 87, NGC 92, NGC 88, ESO 194-13, NGC 89, ESO 194-013, NGC 25, NGC 28, NGC 31, PGC 394784, NGC 37, NGC 212, NGC 215, NGC 7012, ESO 286-048"
+  },
+  {
+    "title": "Nov 2010 (part 3) Australia",
+    "date": "November 3-9, 2010",
+    "slug": "observing-in-australia-nov-3-9-2010-part-3",
+    "filename": "observing-in-australia-nov-3-9-2010-part-3.html",
+    "images": 4,
+    "content_length": 19096,
+    "objects": "M33, M101, M31, NGC 1760, NGC 1763, NGC 1761, NGC 1769, IC 2115, NGC 1773, NGC 1776, IC 2116, NGC 1955, NGC 1966, NGC 1974, NGC 1968, NGC 2004, NGC 2011, NGC 2021, NGC 2014, NGC 2020, NGC 2030, NGC 2029, NGC 2032, NGC 2035, NGC 2040"
   }
 ]

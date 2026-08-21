@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Database Explorer — Steve Gottlieb's Deep Sky</title>
-    <meta name="description" content="Search and explore over 24,800 deep sky objects with detailed visual observations by Steve Gottlieb.">
+    <meta name="description" content="Search and explore over 25,000 deep sky objects with detailed visual observations by Steve Gottlieb.">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,6 +44,7 @@
                 <li><a href="/articles/">Sky &amp; Telescope</a></li>
                 <li><a href="/astronomy-articles/">Astronomy Magazine</a></li>
                 <li><a href="/ootw/">Deep Sky Forum</a></li>
+                <li><a href="/deep-sky-magazine/">Deep Sky Magazine</a></li>
             </ul>
             <ul class="nav-dropdown-menu">
                 <li><a href="/resources/">Deep Sky Links</a></li>
@@ -56,8 +57,8 @@
     <section id="explorer" class="section" style="padding-top: 120px;">
         <div class="container">
             <h2 class="section-title reveal">Database Explorer</h2>
-            <p class="section-desc reveal" id="explorer-desc">Search and explore 24,899 deep sky objects with detailed visual observations, historical context, and cross-references.</p>
-            <p class="section-updated">Database updated on May 30, 2026.</p>
+            <p class="section-desc reveal" id="explorer-desc">Search and explore 25,008 deep sky objects with 33,605 detailed visual observations, historical context, and cross-references.</p>
+            <p class="section-updated" id="explorer-updated">Database updated on August 19, 2026.</p>
 
             <!-- Quick Lookup -->
             <div class="explorer-quick">
@@ -82,6 +83,17 @@
                                 <input type="text" id="filter-catalog-search" placeholder="Search catalogs..." autocomplete="off">
                                 <div class="multi-select-tags" id="catalog-tags"></div>
                                 <div class="multi-select-dropdown" id="catalog-dropdown"></div>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-article-search">Article</label>
+                            <div class="multi-select" id="filter-article-container">
+                                <input type="text" id="filter-article-search" placeholder="Search articles…" autocomplete="off"
+                                    role="combobox" aria-autocomplete="list" aria-haspopup="listbox"
+                                    aria-expanded="false" aria-controls="article-dropdown">
+                                <div class="multi-select-tags" id="article-tags" aria-label="Selected articles" aria-live="polite"></div>
+                                <div class="multi-select-dropdown" id="article-dropdown" role="listbox"
+                                    aria-label="Sky &amp; Telescope articles" aria-multiselectable="true"></div>
                             </div>
                         </div>
                         <div class="filter-group">
@@ -170,7 +182,7 @@
                         <button id="apply-filters" class="btn btn-primary">Apply Filters</button>
                         <button id="clear-filters" class="btn btn-secondary">Clear All</button>
                     </div>
-                    <p class="filter-directions">Directions: Use one or more of these filters to select objects. For Catalogs, Constellation, Object Type, and Name Contains, you can make multiple selections. When finished, hit Apply.</p>
+                    <p class="filter-directions">Directions: Use one or more of these filters to select objects. For Catalogs, Articles, Constellation, Object Type, and Name Contains, you can make multiple selections. When finished, hit Apply.</p>
                 </div>
             </div>
 
@@ -259,11 +271,11 @@
 
     <div class="data-loading-overlay" id="loading-overlay">
         <img src="../img/galaxy_spinner.png" class="galaxy-spinner-img" alt="Loading…">
-        <span>Loading 24,899 objects…</span>
+        <span>Loading database…</span>
     </div>
 
     <script type="text/javascript" src="https://aladin.cds.unistra.fr/AladinLite/api/v3/latest/aladin.js" charset="utf-8"></script>
-    <script src="../js/app.js?v=58"></script>
+    <script src="../js/app.js?v=63"></script>
     <script data-goatcounter="https://deepsky.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>

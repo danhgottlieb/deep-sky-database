@@ -1565,6 +1565,8 @@ img {
     display: flex;
     gap: 8px;
     align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 .article-pdf-link {
@@ -1575,6 +1577,21 @@ img {
 .article-pdf-link:hover {
     background: rgba(250, 204, 21, 0.22);
     color: #fde68a;
+}
+
+.article-search-link {
+    background: rgba(167, 139, 250, 0.12);
+    color: var(--purple);
+}
+
+.article-search-link:hover {
+    background: rgba(167, 139, 250, 0.22);
+    color: #c4b5fd;
+}
+
+.article-search-link:focus-visible {
+    outline: 2px solid #c4b5fd;
+    outline-offset: 2px;
 }
 
 /* --- Observing Reports Listing --- */
@@ -1817,6 +1834,24 @@ img {
     background: rgba(96, 165, 250, 0.08);
 }
 
+#article-dropdown .multi-select-option.active {
+    color: var(--text-bright);
+    background: var(--bg-card-hover);
+    box-shadow: inset 3px 0 0 var(--accent);
+}
+
+#article-dropdown .multi-select-empty {
+    padding: 10px 12px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+#article-tags .multi-select-tag button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-radius: 2px;
+}
+
 /* Catalog group section headers (GENERAL / SPECIALIZED) */
 .catalog-group-header {
     padding: 6px 12px 4px;
@@ -2003,6 +2038,11 @@ img {
 
     .article-item {
         grid-template-columns: 40px 1fr;
+    }
+
+    .article-actions {
+        grid-column: 2;
+        justify-content: flex-start;
     }
 
     .article-link {
@@ -2432,6 +2472,10 @@ img {
     .article-link {
         grid-column: 1;
         justify-self: start;
+    }
+
+    .article-actions {
+        grid-column: 1;
     }
 
     .intro-text {

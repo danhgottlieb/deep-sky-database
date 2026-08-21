@@ -14,6 +14,7 @@ import re
 import json
 import csv
 import os
+import subprocess
 import sys
 from datetime import date
 
@@ -23,6 +24,16 @@ HISTORICAL = os.path.join(DATA_DIR, "historical.txt")
 OLD_CSV = os.path.join(DATA_DIR, "deep_sky_notes.csv")
 OUTPUT_JSON = os.path.join(DATA_DIR, "data.json")
 METADATA_JSON = os.path.join(DATA_DIR, "metadata.json")
+AUGUST_IMPORT_SCRIPT = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "import_august_2026_updates.py",
+)
+AUGUST_IMPORT_MANIFEST = os.path.join(
+    DATA_DIR, "august_2026_import.json"
+)
+AUGUST_COLLISION_BASELINE = os.path.join(
+    DATA_DIR, "august_2026_collision_baseline.json"
+)
 
 # Permissive RA/Dec: RA is HH MM [SS[.s]], Dec is +/-DD [MM [SS]][.d]
 # Separator between RA and Dec can be comma or space (some data-entry errors)
@@ -57,7 +68,8 @@ OBS_SPLIT_RE = re.compile(
 )
 # NV split applied only to headerless chunks (not inside telescope observations)
 OBS_SPLIT_NV_RE = re.compile(
-    r'(?=NV\s+at\s+\d+x[^:;]*[;:])'                # Night vision: NV at 1x ... : or ;
+    r'(?=(?:NVD?\s+at\s+\d+x|\d+x\s+Night-Vision\s+device)[^:;]*[;:])'
+    # Night vision: NV/NVD at 1x ... : or 1x Night-Vision device ... :
 )
 OBS_HEADER_RE = re.compile(
     r'^(\d+\.?\d*)"\s*\(([^)]+)\)\s*:\s*'            # inch: 17.5" (date):
@@ -72,7 +84,12 @@ OBS_HEADER_NAKED_RE = re.compile(
     r'^(Naked-eye)\s*(?:\(([^)]+)\))?\s*:\s*'          # Naked-eye (date):
 )
 OBS_HEADER_NV_RE = re.compile(
-    r'^(NV\s+at\s+\d+x)[^:]*?(?:\s*\(([^)]+)\))?\s*[;:]\s*'  # NV at 1x (date): or NV at 3x;
+    r'^(NVD?\s+at\s+\d+x)[^(;:]*(?:\(([^)]+)\))?\s*[;:]\s*'
+    # NV/NVD at 1x (date): or NV/NVD at 3x;
+)
+OBS_HEADER_NIGHT_VISION_RE = re.compile(
+    r'^(\d+x\s+Night-Vision\s+device)\s*(?:\(([^)]+)\))?\s*:\s*'
+    # 1x Night-Vision device (date):
 )
 OBS_HEADER_BINO_NOMM_RE = re.compile(
     r'^(\d+x\d+)(?!mm|\d)([^(]*?)\(([^)]+)\)\s*:\s*'  # binoculars without mm: 10x30 IS (date):
@@ -250,7 +267,8 @@ def split_remainder(remainder):
         re.compile(r'(?<!\d)\d+x\d+(?!mm|\d)[^:]*?\(\d{1,2}/\d{1,2}/\d{2,4}\)[^:]*:'),  # binoculars without mm
         re.compile(r'\d+mm\s*\([^)]+\)\s*:'),                     # mm aperture
         re.compile(r'Naked-eye[\s(:][^:]*:'),                      # Naked-eye
-        re.compile(r'NV\s+at\s+\d+x[^:;]*[;:]'),                  # Night vision
+        re.compile(r'NVD?\s+at\s+\d+x[^:;]*[;:]'),                # Night vision
+        re.compile(r'\d+x\s+Night-Vision\s+device[^:]*:'),        # Night vision device
         re.compile(r'(?<![\d.])\d+\.?\d*"[ \t]*:'),                # inch aperture without date
     ]
     obs_match = None
@@ -471,6 +489,14 @@ def split_observations(text):
                     "text": nv_part[m.end() :].strip(),
                 })
                 continue
+            m = OBS_HEADER_NIGHT_VISION_RE.match(nv_part)
+            if m:
+                raw_obs.append({
+                    "aperture": m.group(1).strip(),
+                    "date": m.group(2) or "",
+                    "text": nv_part[m.end() :].strip(),
+                })
+                continue
             # No header matched — append to previous or create headerless entry
             if raw_obs:
                 raw_obs[-1]["text"] += " " + nv_part
@@ -510,8 +536,16 @@ def split_observations(text):
                                 "date": m.group(2) or "",
                                 "text": nv_part[m.end():].strip(),
                             })
-                        elif observations:
-                            observations[-1]["text"] += " " + nv_part
+                        else:
+                            m = OBS_HEADER_NIGHT_VISION_RE.match(nv_part)
+                            if m:
+                                observations.append({
+                                    "aperture": m.group(1).strip(),
+                                    "date": m.group(2) or "",
+                                    "text": nv_part[m.end():].strip(),
+                                })
+                            elif observations:
+                                observations[-1]["text"] += " " + nv_part
                     continue
         observations.append(obs)
     return observations
@@ -760,10 +794,15 @@ def build_data():
     print("VALIDATION")
     print("=" * 60)
     print(f"Total records: {len(output)}")
-    if len(output) == 24773:
-        print("  OK - matches expected 24,773")
+    with open(AUGUST_COLLISION_BASELINE, "r", encoding="utf-8") as f:
+        expected_base_records = json.load(f)["datasetCounts"]["totalRecords"]
+    if len(output) == expected_base_records:
+        print(f"  OK - matches expected {expected_base_records:,}")
     else:
-        print(f"  Expected 24,773 - got {len(output)} (delta {len(output) - 24773})")
+        print(
+            f"  Expected {expected_base_records:,} - got {len(output):,} "
+            f"(delta {len(output) - expected_base_records})"
+        )
 
     # NGC 1
     ngc1 = next((o for o in output if o["name"] == "NGC 1"), None)
@@ -796,6 +835,20 @@ def build_data():
     top5 = list(metadata["types"].items())[:5]
     print("Types (top 5): " + "  ".join(f"{k}={v}" for k, v in top5))
     print(f"With historical shown: {sum(1 for o in output if o['showHistorical'])}")
+
+    if os.path.exists(AUGUST_IMPORT_MANIFEST):
+        print("\n[7] Reapplying durable August 2026 updates...")
+        subprocess.run(
+            [
+                sys.executable,
+                AUGUST_IMPORT_SCRIPT,
+                "--from-manifest",
+                "--update-date",
+                "2026-08-19",
+            ],
+            check=True,
+        )
+
     print("\nDone!")
 
 

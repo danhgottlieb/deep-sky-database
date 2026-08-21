@@ -1,0 +1,222 @@
+{
+  "source": "HEAD:data/data.json before August 2026 import",
+  "datasetCounts": {
+    "totalRecords": 24899,
+    "totalObservations": 33388
+  },
+  "favoriteReferences": {
+    "IC 2613": "xto",
+    "NGC 3550": "xgt",
+    "K 3-67": "tt",
+    "NGC 3": "xgtSl"
+  },
+  "records": [
+    {
+      "name": "NGC 6231",
+      "other": "BBW 31100 = Gum 55 = RCW 113 = Cr 315 = Mel 153",
+      "type": "OC",
+      "nickname": "False Comet Cluster",
+      "class": "1 3 p",
+      "ra": "16 54 11",
+      "dec": "-41 49 30",
+      "size": "240'",
+      "pa": "",
+      "vmag": "2.6",
+      "bmag": "",
+      "sb": "",
+      "con": "Sco",
+      "ngcDescription": "Cl, B, cL, pRi, st10..13",
+      "discoveryDate": "1654",
+      "observations": [
+        {
+          "aperture": "11\"",
+          "date": "8/8/04 - Haleakala Crater",
+          "text": "NGC 6231 is a remarkable naked-eye cluster sits just north of Zeta Scorpii. At 103x this stunning grup contained a half-dozen stars brighter than 7th magnitude and a dozen of mag 8 or brighter. This bright subset is set over a rich carpet of 100-150 fainter stars in a roughly 20' field. Extending to the north following a 1° chain of stars is the sprawling open cluster Tr 24 (60' diameter) that includes IC 4628, a large irregular HII region (see notes below). NGC 6231 is the core of the young Sco OB1 association."
+        },
+        {
+          "aperture": "18\"",
+          "date": "6/12/10",
+          "text": "at 108x Tr 24 is a striking, very large, bright scattered group that overfills the 56' field. A number of the stars appeared to be grouped into long chains with smaller knots and concentrations including vdBh 202 and vdBH 205. On the northern side is IC 4628, a very large, irregular HII nebula that shows up best with a UHC filter. On the south edge of IC 4628 is mag 7.2 HD 152723 and 5' SW is a distinctive 8' string oriented NW-SE. About 20' S of the mag 7.2 star is a mag 6.2 star (V861 Sco) and to the NW is another 20' string extending WNW. To the south of this string is another 20' string oriented NW-SE that includes vdBH 202. IC 4628 is a large, HII region embedded on the northern half of Tr 24. At 108x and UHC filter IC 4628 stood out as a very large, fairly bright glow within Tr 24. The main glow was elongated E-W, roughly 30'x12' with mag 7.2 HD 152723 just off the south side. A number of mag 8-10 stars are embedded along the SW and west end of the nebulosity. A fainter extension begins on the east end and extends NE for ~15', ending in a brighter patch with several stars involved."
+        },
+        {
+          "aperture": "11\"",
+          "date": "8/8/04 - Haleakala Crater",
+          "text": "at 103x the 40' field to the north of NGC 6231is filled with a huge, scattered grouping with no distinct boundaries."
+        },
+        {
+          "aperture": "8\"",
+          "date": "7/13/91 - Southern Baja",
+          "text": "over 100 stars mag 8-12. Bright, very large, scattered. Divided into two main groups and fills the 40' field. Emission nebula IC 4628 is involved on the north side (seen from Baja) and a trail of stars extends towards NGC 6231."
+        },
+        {
+          "aperture": "8\"",
+          "date": "6/27/81",
+          "text": "bright, large, scattered cluster in two main groups."
+        },
+        {
+          "aperture": "17.5\"",
+          "date": "7/4/86",
+          "text": "100 stars at 84x in the main part including 10 bright stars. Impressive cluster at low power."
+        },
+        {
+          "aperture": "13.1\"",
+          "date": "7/6/83",
+          "text": "five bright stars are in the cluster with a dozen stars in the central portion and 50 stars in a 20' field. There is a 1° field to the NW and NE consisting of fairly bright stars = NGC 6227 and Tr 24 = H12."
+        },
+        {
+          "aperture": "8\"",
+          "date": "7/13/91 - Southern Baja",
+          "text": "bright group of stars in center appeared like jewels over rich sprays of stars, excellent low power field. Located 30' N of Zeta Scorpii. Partially resolved in 8x50 finder."
+        },
+        {
+          "aperture": "8\"",
+          "date": "6/27/81",
+          "text": "impressive cluster at 100x with a bright group of 8 stars in the center. Partially resolved in the 8x50 finder."
+        },
+        {
+          "aperture": "7x50mm binocs",
+          "date": "7/6/83",
+          "text": "partially resolved, very large region of ~2° with fairly bright stars."
+        },
+        {
+          "aperture": "Naked-eye",
+          "date": "numerous times",
+          "text": "this is an easy naked eye cluster, even from northern California, looking like a comet heading north from Zeta Scorpii. From further south (southern Baja or southern Hemisphere), it is a very prominent naked-eye cluster."
+        }
+      ],
+      "historical": "Giovanni Hodierna first observed NGC 6231 = Lac II-13 = D 499 = h3652 telescopically by 1646 from Sicily.  He mentioned it was \"highly remarkable, because of the coordination of 17 stars, and with an adjoining nebulosa...\"  The \"nebulosa\" is probably NGC 6231.  Edmond Halley independently discovered the cluster in 1677 whle cataloging southern stars from the island of St. Helena.\n\nThe discovery credit is often given to Nicholas-Louis de Lacaille, who observed it in 1751-1752 with a 1/2\" telescope at 8x during his expedition to the Cape of Good Hope.  He noted a \"close group of seven or eight close faint stars\".  James Dunlop made 3 observations in 1826 and described \"a cluster of pretty bright stars of mixt small magnitudes, considerably congregated to the centre, about 10' diameter, with a large branch of very small stars extended on the north side; this is 150 Scorpii.\"  John Herschel wrote, \"a fine bright, large cluster; pretty rich; class VII; 10'; stars 10...13 mag.  Place of a double star 5m, the preceding but one of 7 bright stars in the middle.\"\n\nAshworth argues in the \"Journal for the History of Astronomy\" (1981) that Ptolemy listed NGC 6231 in his catalogue as a star (14 Scopii), though did not observe it as nebulous.  It was included as a star or nebula, in every major catalogue and atlas since, but it's position and different labels were so inconsistent that it was not recognized as the same object found by Lacaille in 1752.  For example, it was listed as Bayer's southern Mu, and Sharp's Zeta.  It was depicted as the southern of a pair of stars in Bayer's atlas and the northern in Hevelius' atlas.",
+      "showHistorical": true,
+      "catalog": "NGC",
+      "catalogNumber": "6231",
+      "isTopObject": true,
+      "isOrionAtlas": true,
+      "isMessier": false,
+      "messierNumber": "",
+      "references": "xto"
+    },
+    {
+      "name": "IC 4628",
+      "other": "ESO 332-14 = Gum 56 = Ced 137b",
+      "type": "EN",
+      "nickname": "Prawn Nebula",
+      "class": "",
+      "ra": "16 57 00",
+      "dec": "-40 20",
+      "size": "90'x60'",
+      "pa": "",
+      "vmag": "",
+      "bmag": "",
+      "sb": "",
+      "con": "Sco",
+      "ngcDescription": "F, eL, Epf, dif",
+      "discoveryDate": "-",
+      "observations": [
+        {
+          "aperture": "18\"",
+          "date": "6/12/10",
+          "text": "this large HII region is embedded in the northern half of Tr 24, a sprawling 60' cluster just north of NGC 6231. Using 108x and UHC filter, IC 4628 stood out as a very large, fairly bright glow within Tr 24. The main glow was elongated E-W, roughly 30'x12' with mag 7.2 HD 152723 just off the S side. The northern side has a fairly well-defined edge and a number of mag 8-10 stars are embedded along the SW and W end of the nebulosity. A fainter extension begins on the E end and extends NE for ~15', ending in a brighter HII patch (G345.31+01.47) peppered with several stars and involving the infrared cluster [DBS2003] 114. Tr 24 is a striking, very large, bright scattered grouping that overfills the 56' field with no distinct borders. A number of the stars appeared to be grouped into long chains with smaller knots and concentrations including vdB-Ha 202 and vdB-Ha 205. Ru 122 = vdB-Ha 202, situated 10' NNW of mag 6.1-6.4 V861 Sco, is located in a beautifully rich region on the SW side of Tr 24. Within this string is a 15\" pair of mag 10 stars and just south of a mag 9 situated 2' NW of the double is vdB-Ha 202, a faint, very rich dusting of stars that is elongated ~N-S. The cluster is dense, just 2' in length and only partially resolved. A group of faint stars spread out E-W off the south end. vdB-Ha 205, situated 20' NE of vdB-Ha 202, consists of 20 stars mag 7.5 to 13.5 in a distinctive 4' group. The brightest star is on the NW side. The center and south side of the group is devoid of stars. A smaller clump of stars 7' S of vdB-Ha 205 is catalogued as ESO 332-011. Another string of stars 7' NE is listed as ESO 332-013."
+        },
+        {
+          "aperture": "8\"",
+          "date": "7/13/91 - Southern Baja",
+          "text": "this is an emission nebula on the north side of a large open cluster Tr 24 = H12. Appears fairly faint, very large, about 30'x10' diameter and clearly elongated E-W. Shows up best with the UHC filter at 83x although visible without a filter. Includes some brighter portions. Also visible in the 16x80 finder with a UHC filter."
+        }
+      ],
+      "historical": "E.E. Barnard discovered IC 4628 between 1892 and 1895 on a plate taken at Lick Observatory.  In Lick Publications Vol 11, 1913, Plate 37 he describes: \"The coarse cluster in 16h 48m, -40.3° does not seem to be in Dreyer's lists.  It is a very interesting object and appears to be connected by a scattering chain of stars, with the cluster [NGC] 6231 south of it.  In its northern part is the nebula IC 4628.  This was originally discovered on a plate with the Willard lens, but no announcement was made of it.  It is a large nebula one half degree in diameter and of irregular form and brightness.  A photograph with the 10-inch Bruce telescope at Mount Wilson in 1905 (June 21) shows the irregular group of stars and the nebula very beautifully.  There are still fainter portions that extend half a degree to the northeast.  The nebulosity, apparently, does not condense about any one of the stars and is probably not actually connected with the cluster.\"\n\nRoyal Harwood Frost also found IC 4628 = F. 1148 on a photographic place taken in 1903 with the 24-inch Bruce photographic refractor at Harvard's Arequipa station and both are credited in the IC.  The nebula was also reported in 1909 on a photograph taken by Harry E. Wood with the Franklin-Adams camera at the Transvaal Observatory in Johannesburg.  It was imaged again in 1921-1922 at the Helwan Observatory in Egypt and described as \"faint, extending 30' in R.A. and 15' in Declinatin, typical galactic nebula.\"",
+      "showHistorical": true,
+      "catalog": "IC",
+      "catalogNumber": "4628",
+      "isTopObject": false,
+      "isOrionAtlas": false,
+      "isMessier": false,
+      "messierNumber": "",
+      "references": "i"
+    },
+    {
+      "name": "Abell 71",
+      "other": "PK 85+4.1 = PN G084.9+04.4 = Sh 2-116",
+      "type": "PN",
+      "nickname": "",
+      "class": "3b",
+      "ra": "20 32 23.2",
+      "dec": "+47 21 04",
+      "size": "165\"x150\"",
+      "pa": "",
+      "vmag": "14.5",
+      "bmag": "",
+      "sb": "",
+      "con": "Cyg",
+      "ngcDescription": ",",
+      "discoveryDate": "",
+      "observations": [
+        {
+          "aperture": "18\"",
+          "date": "9/15/07",
+          "text": "at 175x and DGM Optics NPB filter appeared extremely faint, fairly large, roundish, ~2' diameter. Three stars are superimposed, one in the interior and two near the south edge. Generally this difficult planetary was only glimpsed as a very low surface brightness hazy glow without a well-defined edge, but occasionally it was more confidently seen as a round disc."
+        },
+        {
+          "aperture": "17.5\"",
+          "date": "8/3/89",
+          "text": "at 83x and OIII filter; extremely faint, moderately large, roundish, very low surface brightness but definite with averted. A pair of stars are at the south edge. The PN may encompass this pair and a second pair is further east. Located in a rich star field."
+        },
+        {
+          "aperture": "17.5\"",
+          "date": "7/5/86",
+          "text": "at 83x and OIII filter appears extremely faint, large, diffuse haze in a rich star field. A brighter star is off the SW edge and a group or string of stars is at the west edge. This sighting was marginal without 100% certainty."
+        },
+        {
+          "aperture": "13.1\"",
+          "date": "8/11/85",
+          "text": "not found."
+        }
+      ],
+      "historical": "Stewart Sharpless included this planetary in his 1959 catalogue of HII regions (Sh 2-116) and the 1991 paper \"A comparative study of morphology and velocity field of the emission nebulae S153, S207, S211, S212, and A71\" concludes this is an HII region, based on the lack of (or very low) OIII emission (http://cdsads.u-strasbg.fr/full/1991PASP..103..843P). But more recent papers in the literature consider Abell 71 as a PN.\n\nI contacted David Frew in September 2007 and he replied\n\n\"I think the interpretation of this nebula as a HII region comes from Pismis, Hasse & Quintero (1991), but they erred on this one.  It is certainly an evolved elliptical PN, with evidence of an ISM interaction.\n\nIt is more distant than I assumed before (cf. Frew, Parker & Russeil 2006), but is still reasonably nearby (D = 1.4 kpc, from my revised H-alpha surface brightness - radius relation).  It is reddened (A_v = 2.3 mag) and would be a much easier object visually if it was unobscured.\n\nThe central star may be unresolved binary based on the available optical and near IR photometry (again my own unpublished work).\"",
+      "showHistorical": false,
+      "catalog": "Other",
+      "catalogNumber": "Abell 71",
+      "isTopObject": false,
+      "isOrionAtlas": false,
+      "isMessier": false,
+      "messierNumber": "",
+      "references": "pa"
+    },
+    {
+      "name": "MCG +01-60-011",
+      "other": "KUG 2334+046B = CGCG 407-023 NED1 = Holm 811A = PGC 71925",
+      "type": "GX",
+      "nickname": "",
+      "class": "",
+      "ra": "23 37 20.9",
+      "dec": "+04 54 17",
+      "size": "1.0'x0.6'",
+      "pa": "6",
+      "vmag": "15.1",
+      "bmag": "15.7",
+      "sb": "",
+      "con": "Psc",
+      "ngcDescription": ",",
+      "discoveryDate": "",
+      "observations": [
+        {
+          "aperture": "24\"",
+          "date": "9/7/18",
+          "text": "at 260x; faint, small, slightly elongated, 25\"x20\", low surface brightness. A mag 13.6 star is less than 1' SW. Forms a pair with CGCG 407-021 5' WNW. In a galaxy group with several NGCs to the west and IC 1503 18' ESE."
+        },
+        {
+          "aperture": "18\"",
+          "date": "11/14/09",
+          "text": "appears similar to MCG +01-60-009 situated 5' NW. At 275x, very faint, fairly small, slightly elongated, 25\"x20\", low surface brightness, no details. A mag 14.5 star is close south [50\" from center]. Picked up while observing the surrounding fields of NGC 7704/7706."
+        }
+      ],
+      "historical": "",
+      "showHistorical": false,
+      "catalog": "Other",
+      "catalogNumber": "MCG +01-60-011",
+      "isTopObject": false,
+      "isOrionAtlas": false,
+      "isMessier": false,
+      "messierNumber": "",
+      "references": ""
+    }
+  ]
+}

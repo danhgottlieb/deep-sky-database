@@ -16,3 +16,11 @@
 | Avasarala | Content Dev | Blog conversion, content authoring | 📝 Content |
 | Scribe | Session Logger | Memory, decisions, session logs | 📋 Scribe |
 | Ralph | Work Monitor | Work queue, backlog, keep-alive | 🔄 Monitor |
+
+## Active Session Configuration: 2026-08-19
+
+For the recreated 12-part August update batch, Drummer, Naomi, Amos,
+Avasarala, Scribe, and Ralph are each explicitly pinned to `gpt-5.6-sol`.
+This session is local-only and uncommitted, with no commit, push, fetch, or
+live deployment permitted. Historical team and casting records remain
+unchanged.

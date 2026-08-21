@@ -9,6 +9,7 @@
     let allData = [];
     let metadata = {};
     let articles = [];
+    let articleMappings = [];
     let filteredData = [];
     let displayedCount = 0;
     const PAGE_SIZE = 50;
@@ -17,6 +18,9 @@
     const dataIndex = new Map();
     let selectedConstellations = [];
     let selectedCatalogs = [];
+    let selectedArticles = [];
+    let appliedArticles = [];
+    let renderArticleFilterState = () => {};
     let selectedTypes = [];
     let selectedNames = [];
     let searchTimer;
@@ -217,24 +221,52 @@
         // Explorer page: load full database
         if (hasExplorer) {
             try {
-                const [dataRes, metaRes] = await Promise.all([
+                const [dataRes, metaRes, articleMappingsRes] = await Promise.all([
                     fetch(assetPath('data.json')),
-                    fetch(assetPath('metadata.json'))
+                    fetch(assetPath('metadata.json')),
+                    fetch(assetPath('article-object-mappings.json'))
                 ]);
-                if (!dataRes.ok || !metaRes.ok) throw new Error('Failed to load data');
+                if (!dataRes.ok || !metaRes.ok || !articleMappingsRes.ok) throw new Error('Failed to load data');
                 allData = await dataRes.json();
                 metadata = await metaRes.json();
+                const articleMappingData = await articleMappingsRes.json();
+                articleMappings = articleMappingData.articles || [];
 
                 allData.forEach(o => dataIndex.set(o.name, o));
+                loadArticleSelectionsFromUrl();
+                initializeArticleHistoryState();
 
                 const explorerDesc = document.getElementById('explorer-desc');
                 if (explorerDesc) {
-                    explorerDesc.textContent = 'Search and explore over 24,899 deep sky objects with 33,388 detailed visual observations, historical context, and cross-references.';
+                    const recordCount = Number.isFinite(metadata.totalRecords)
+                        ? metadata.totalRecords
+                        : allData.length;
+                    const observationCount = Number.isFinite(metadata.totalObservations)
+                        ? metadata.totalObservations
+                        : allData.reduce((total, object) => total + (object.observations || []).length, 0);
+                    explorerDesc.textContent = `Search and explore ${recordCount.toLocaleString()} deep sky objects with ${observationCount.toLocaleString()} detailed visual observations, historical context, and cross-references.`;
+                }
+
+                const explorerUpdated = document.getElementById('explorer-updated');
+                if (explorerUpdated && metadata.lastUpdated) {
+                    const updatedDate = new Date(`${metadata.lastUpdated}T00:00:00Z`);
+                    if (!Number.isNaN(updatedDate.getTime())) {
+                        const formattedDate = updatedDate.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            timeZone: 'UTC',
+                        });
+                        explorerUpdated.textContent = `Database updated on ${formattedDate}.`;
+                    }
                 }
 
                 buildFilters();
                 setupSearch();
                 setupFilters();
+                if (getArticleHistoryAction() === 'apply') {
+                    applyFilters({ syncArticleHistory: false });
+                }
                 handleHashNavigation();
 
                 const overlay = $('#loading-overlay');
@@ -291,9 +323,18 @@
                 const reportStat = document.getElementById('stat-reports');
                 if (reportStat) reportStat.textContent = (data || []).length.toLocaleString();
             }).catch(() => {});
-            // Use pre-computed observation count to avoid loading 30MB data.json
-            const obsStat = document.getElementById('stat-observations');
-            if (obsStat) obsStat.textContent = '33,388';
+            // Load the small metadata file rather than the 30MB data file.
+            fetch(assetPath('metadata.json')).then(r => r.ok ? r.json() : null).then(meta => {
+                if (!meta) return;
+                const recordStat = document.getElementById('stat-records');
+                const obsStat = document.getElementById('stat-observations');
+                if (recordStat && Number.isFinite(meta.totalRecords)) {
+                    recordStat.textContent = meta.totalRecords.toLocaleString();
+                }
+                if (obsStat && Number.isFinite(meta.totalObservations)) {
+                    obsStat.textContent = meta.totalObservations.toLocaleString();
+                }
+            }).catch(() => {});
         }
     }
 
@@ -701,6 +742,8 @@
         buildConstellationFilter();
         // Multi-select catalog filter
         buildCatalogFilter();
+        // Multi-select article filter
+        buildArticleFilter();
         // Multi-select type filter
         buildTypeFilter();
         // Multi-select name filter
@@ -891,6 +934,201 @@
         document.addEventListener('click', (e) => { if (!e.target.closest('#filter-catalog-container')) dropdown.classList.remove('open'); });
 
         renderDropdown();
+    }
+
+    function loadArticleSelectionsFromUrl() {
+        const validIds = new Set(articleMappings.map(article => article.id));
+        const requestedIds = new URLSearchParams(window.location.search).getAll('article');
+        const invalidIds = requestedIds.filter(id => !validIds.has(id));
+        if (invalidIds.length > 0) {
+            console.warn('Ignoring unknown article filter IDs:', invalidIds);
+        }
+        selectedArticles = [...new Set(requestedIds.filter(id => validIds.has(id)))];
+    }
+
+    function currentHistoryState() {
+        return history.state && typeof history.state === 'object'
+            ? { ...history.state }
+            : {};
+    }
+
+    function getArticleHistoryAction() {
+        return currentHistoryState().articleFilterAction || 'preselect';
+    }
+
+    function initializeArticleHistoryState() {
+        const action = currentHistoryState().articleFilterAction;
+        if (action === 'apply' || action === 'clear' || action === 'preselect') return;
+        history.replaceState(
+            { ...currentHistoryState(), articleFilterAction: 'preselect' },
+            '',
+            window.location.pathname + window.location.search + window.location.hash
+        );
+    }
+
+    function syncArticleSelectionsToUrl(action) {
+        const url = new URL(window.location.href);
+        const hadArticleParameters = url.searchParams.has('article');
+        url.searchParams.delete('article');
+        selectedArticles.forEach(id => url.searchParams.append('article', id));
+        if (!hadArticleParameters && selectedArticles.length === 0) return;
+
+        const target = url.pathname + url.search + url.hash;
+        const state = { ...currentHistoryState(), articleFilterAction: action };
+        const current = window.location.pathname + window.location.search + window.location.hash;
+        if (target === current) {
+            if (getArticleHistoryAction() === action) {
+                history.replaceState(state, '', target);
+            } else {
+                history.pushState(state, '', target);
+            }
+        } else {
+            history.pushState(state, '', target);
+        }
+    }
+
+    function restoreArticleSelectionsFromHistory() {
+        if (!$('#filter-article-container') || articleMappings.length === 0) return;
+
+        loadArticleSelectionsFromUrl();
+        renderArticleFilterState();
+
+        const action = getArticleHistoryAction();
+        if (action === 'apply') {
+            applyFilters({ syncArticleHistory: false });
+        } else if (action === 'clear') {
+            clearFilters({ syncArticleHistory: false });
+        } else {
+            appliedArticles = [];
+            clearExplorerResults(false);
+        }
+    }
+
+    function buildArticleFilter() {
+        const container = $('#filter-article-container');
+        const searchInput = $('#filter-article-search');
+        const tagsEl = $('#article-tags');
+        const dropdown = $('#article-dropdown');
+
+        if (!container || !searchInput || !tagsEl || !dropdown) return;
+
+        let activeOptionIndex = -1;
+
+        function setDropdownOpen(isOpen) {
+            dropdown.classList.toggle('open', isOpen);
+            searchInput.setAttribute('aria-expanded', String(isOpen));
+            if (!isOpen) setActiveOption(-1);
+        }
+
+        function setActiveOption(index) {
+            const options = [...dropdown.querySelectorAll('.multi-select-option')];
+            options.forEach(option => option.classList.remove('active'));
+            activeOptionIndex = index >= 0 && index < options.length ? index : -1;
+
+            if (activeOptionIndex < 0) {
+                searchInput.removeAttribute('aria-activedescendant');
+                return;
+            }
+
+            const option = options[activeOptionIndex];
+            option.classList.add('active');
+            searchInput.setAttribute('aria-activedescendant', option.id);
+            option.scrollIntoView({ block: 'nearest' });
+        }
+
+        function toggleArticle(articleId) {
+            const idx = selectedArticles.indexOf(articleId);
+            if (idx >= 0) selectedArticles.splice(idx, 1);
+            else selectedArticles.push(articleId);
+            renderTags();
+            renderDropdown(searchInput.value.trim().toLowerCase());
+        }
+
+        function renderDropdown(filter) {
+            filter = filter || '';
+            const filtered = articleMappings.filter(article => {
+                const searchText = `${article.displayDate} ${article.title}`.toLowerCase();
+                return !filter || searchText.includes(filter);
+            });
+
+            let html = '';
+            if (filtered.length > 0) {
+                html += '<div class="catalog-group-header" role="presentation">Sky &amp; Telescope</div>';
+                filtered.forEach((article, index) => {
+                    const isSelected = selectedArticles.includes(article.id);
+                    html += `<div class="multi-select-option${isSelected ? ' selected' : ''}" id="article-option-${index}" data-value="${escAttr(article.id)}" title="${escAttr(article.title)}" role="option" aria-selected="${isSelected}">${escHtml(article.displayDate)}</div>`;
+                });
+            } else {
+                html = '<div class="multi-select-empty" role="status">No matching articles</div>';
+            }
+            dropdown.innerHTML = html;
+            setActiveOption(-1);
+
+            dropdown.querySelectorAll('.multi-select-option').forEach(opt => {
+                opt.addEventListener('click', () => toggleArticle(opt.dataset.value));
+            });
+        }
+
+        function renderTags() {
+            tagsEl.innerHTML = selectedArticles.map(id => {
+                const article = articleMappings.find(item => item.id === id);
+                if (!article) return '';
+                const label = `S&T ${article.displayDate}`;
+                return `<span class="multi-select-tag">${escHtml(label)} <button type="button" data-value="${escAttr(id)}" aria-label="Remove ${escAttr(label)}">&times;</button></span>`;
+            }).join('');
+            tagsEl.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const val = btn.dataset.value;
+                    selectedArticles = selectedArticles.filter(id => id !== val);
+                    renderTags();
+                    renderDropdown(searchInput.value.trim().toLowerCase());
+                });
+            });
+        }
+
+        searchInput.addEventListener('focus', () => {
+            setDropdownOpen(true);
+            renderDropdown(searchInput.value.trim().toLowerCase());
+        });
+        searchInput.addEventListener('input', () => {
+            setDropdownOpen(true);
+            renderDropdown(searchInput.value.trim().toLowerCase());
+        });
+        searchInput.addEventListener('keydown', (e) => {
+            const options = [...dropdown.querySelectorAll('.multi-select-option')];
+            if (e.key === 'Escape') {
+                setDropdownOpen(false);
+                return;
+            }
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (!dropdown.classList.contains('open')) {
+                    setDropdownOpen(true);
+                    renderDropdown(searchInput.value.trim().toLowerCase());
+                }
+                const refreshedOptions = [...dropdown.querySelectorAll('.multi-select-option')];
+                if (refreshedOptions.length === 0) return;
+                const offset = e.key === 'ArrowDown' ? 1 : -1;
+                const nextIndex = activeOptionIndex < 0
+                    ? (offset > 0 ? 0 : refreshedOptions.length - 1)
+                    : (activeOptionIndex + offset + refreshedOptions.length) % refreshedOptions.length;
+                setActiveOption(nextIndex);
+            } else if (e.key === 'Enter' && dropdown.classList.contains('open') && activeOptionIndex >= 0) {
+                e.preventDefault();
+                const option = options[activeOptionIndex];
+                if (option) toggleArticle(option.dataset.value);
+            }
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#filter-article-container')) setDropdownOpen(false);
+        });
+
+        renderArticleFilterState = () => {
+            renderTags();
+            renderDropdown(searchInput.value.trim().toLowerCase());
+        };
+        renderArticleFilterState();
     }
 
     function buildTypeFilter() {
@@ -1320,8 +1558,8 @@
 
     // --- Filters ---
     function setupFilters() {
-        $('#apply-filters').addEventListener('click', applyFilters);
-        $('#clear-filters').addEventListener('click', clearFilters);
+        $('#apply-filters').addEventListener('click', () => applyFilters());
+        $('#clear-filters').addEventListener('click', () => clearFilters());
         $('#sort-select').addEventListener('change', () => {
             currentSort = $('#sort-select').value;
             sortResults();
@@ -1462,6 +1700,13 @@
         // Build a human-readable filter description
         const filterParts = [];
         if (selectedCatalogs.length > 0) filterParts.push(selectedCatalogs.join(', '));
+        if (appliedArticles.length > 0) {
+            const articleLabels = appliedArticles.map(id => {
+                const article = articleMappings.find(item => item.id === id);
+                return article ? `S&T ${article.displayDate}` : id;
+            });
+            filterParts.push('Articles: ' + articleLabels.join(', '));
+        }
         if (selectedTypes.length > 0) {
             const typeNames = selectedTypes.map(t => TYPE_KEY[t] || t);
             filterParts.push(typeNames.join(', '));
@@ -1580,7 +1825,9 @@
         return h + m / 60 + s / 3600;
     }
 
-    function applyFilters() {
+    function applyFilters(options = {}) {
+        const syncArticleHistory = options.syncArticleHistory !== false;
+        appliedArticles = [...selectedArticles];
         const magMin = parseFloat($('#filter-mag-min').value);
         const magMax = parseFloat($('#filter-mag-max').value);
         const raMinH = $('#filter-ra-min-h').value;
@@ -1601,6 +1848,12 @@
         if (hasRaMin) raMin = parseInt(raMinH, 10) + (raMinM ? parseInt(raMinM, 10) / 60 : 0);
         if (hasRaMax) raMax = parseInt(raMaxH, 10) + (raMaxM ? parseInt(raMaxM, 10) / 60 : 0);
 
+        const selectedArticleObjectNames = new Set();
+        appliedArticles.forEach(id => {
+            const article = articleMappings.find(item => item.id === id);
+            if (article) article.objectNames.forEach(name => selectedArticleObjectNames.add(name));
+        });
+
         filteredData = allData.filter(o => {
             if (selectedCatalogs.length > 0) {
                 const refs = o.references || '';
@@ -1616,6 +1869,7 @@
                     (selectedCatalogs.includes('STF Double Stars') && getStfDesignation(o));
                 if (!matchesCatalog) return false;
             }
+            if (appliedArticles.length > 0 && !selectedArticleObjectNames.has(o.name)) return false;
             if (selectedConstellations.length > 0 && !selectedConstellations.includes(o.con)) return false;
             if (selectedTypes.length > 0 && !selectedTypes.includes(o.type)) return false;
             if (allNameFilters.length > 0) {
@@ -1709,10 +1963,12 @@
             activeCollection = '';
         }
 
+        if (syncArticleHistory) syncArticleSelectionsToUrl('apply');
         showResults();
     }
 
-    function clearFilters() {
+    function clearFilters(options = {}) {
+        const syncArticleHistory = options.syncArticleHistory !== false;
         activeCollection = '';
         const catSearch = $('#filter-catalog-search');
         if (catSearch) catSearch.value = '';
@@ -1723,6 +1979,17 @@
         if (catDropdown) {
             catDropdown.classList.remove('open');
             catDropdown.querySelectorAll('.multi-select-option').forEach(opt => opt.classList.remove('selected'));
+        }
+        const articleSearch = $('#filter-article-search');
+        if (articleSearch) articleSearch.value = '';
+        selectedArticles = [];
+        appliedArticles = [];
+        const articleTags = $('#article-tags');
+        if (articleTags) articleTags.innerHTML = '';
+        const articleDropdown = $('#article-dropdown');
+        if (articleDropdown) {
+            articleDropdown.classList.remove('open');
+            articleDropdown.querySelectorAll('.multi-select-option').forEach(opt => opt.classList.remove('selected'));
         }
         selectedConstellations = [];
         const conTags = $('#con-tags');
@@ -1773,11 +2040,17 @@
         selectedAperture = 'all';
         $('#filter-dec-min').value = '';
         $('#filter-dec-max').value = '';
+        clearExplorerResults();
+        if (syncArticleHistory) syncArticleSelectionsToUrl('clear');
+    }
+
+    function clearExplorerResults(updateUrl = true) {
         filteredData = [];
         $('#results-header').style.display = 'none';
+        $('#results-count').textContent = '';
         $('#results-list').innerHTML = '';
         $('#load-more-container').style.display = 'none';
-        closeDetailPanel();
+        closeDetailPanel(updateUrl);
     }
 
     // --- Results ---
@@ -1941,7 +2214,11 @@
         if (!obj) return;
 
         if (pushState) {
-            history.pushState({ object: name }, '', '#object/' + encodeURIComponent(name));
+            history.pushState(
+                { ...currentHistoryState(), object: name },
+                '',
+                '#object/' + encodeURIComponent(name)
+            );
         }
 
         const detail = $('#object-detail');
@@ -2085,7 +2362,9 @@
         if (backdrop) backdrop.classList.remove('open');
         document.body.style.overflow = '';
         if (updateUrl && window.location.hash.startsWith('#object/')) {
-            history.replaceState(null, '', window.location.pathname + window.location.search + '#explorer');
+            const state = currentHistoryState();
+            delete state.object;
+            history.replaceState(state, '', window.location.pathname + window.location.search + '#explorer');
         }
     }
 
@@ -2198,7 +2477,10 @@
         }
     }
 
-    window.addEventListener('popstate', () => handleHashNavigation());
+    window.addEventListener('popstate', () => {
+        restoreArticleSelectionsFromHistory();
+        handleHashNavigation();
+    });
     window.addEventListener('hashchange', () => {
         // Close detail panel when navigating to a non-object hash (e.g., nav link clicks)
         const detail = $('#object-detail');

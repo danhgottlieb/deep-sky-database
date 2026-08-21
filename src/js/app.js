@@ -13,6 +13,7 @@
     let filteredData = [];
     let displayedCount = 0;
     const PAGE_SIZE = 50;
+    const ARTICLE_SELECTION_STORAGE_KEY = 'deepSkySelectedArticles';
     let currentSort = 'name';
     let suggestionIndex = -1;
     const dataIndex = new Map();
@@ -936,6 +937,17 @@
         renderDropdown();
     }
 
+    function persistArticleSelections() {
+        try {
+            window.sessionStorage.setItem(
+                ARTICLE_SELECTION_STORAGE_KEY,
+                JSON.stringify(selectedArticles)
+            );
+        } catch (error) {
+            console.warn('Unable to persist article filter selections:', error);
+        }
+    }
+
     function loadArticleSelectionsFromUrl() {
         const validIds = new Set(articleMappings.map(article => article.id));
         const requestedIds = new URLSearchParams(window.location.search).getAll('article');
@@ -944,6 +956,7 @@
             console.warn('Ignoring unknown article filter IDs:', invalidIds);
         }
         selectedArticles = [...new Set(requestedIds.filter(id => validIds.has(id)))];
+        persistArticleSelections();
     }
 
     function currentHistoryState() {
@@ -1040,6 +1053,7 @@
             const idx = selectedArticles.indexOf(articleId);
             if (idx >= 0) selectedArticles.splice(idx, 1);
             else selectedArticles.push(articleId);
+            persistArticleSelections();
             renderTags();
             renderDropdown(searchInput.value.trim().toLowerCase());
         }
@@ -1081,6 +1095,7 @@
                     e.stopPropagation();
                     const val = btn.dataset.value;
                     selectedArticles = selectedArticles.filter(id => id !== val);
+                    persistArticleSelections();
                     renderTags();
                     renderDropdown(searchInput.value.trim().toLowerCase());
                 });
@@ -1984,6 +1999,7 @@
         if (articleSearch) articleSearch.value = '';
         selectedArticles = [];
         appliedArticles = [];
+        persistArticleSelections();
         const articleTags = $('#article-tags');
         if (articleTags) articleTags.innerHTML = '';
         const articleDropdown = $('#article-dropdown');

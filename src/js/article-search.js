@@ -18,9 +18,53 @@
         ['3', 'sky-telescope-2000-05'],
         ['2', 'sky-telescope-1999-10']
     ]);
+    const validArticleIds = new Set(articleIds.values());
+    const selectionStorageKey = 'deepSkySelectedArticles';
 
     const list = document.getElementById('articles-list');
     if (!list) return;
+
+    function getStoredArticleIds() {
+        try {
+            const value = window.sessionStorage.getItem(selectionStorageKey);
+            if (!value) return [];
+
+            const storedIds = JSON.parse(value);
+            if (!Array.isArray(storedIds)) {
+                throw new TypeError('Stored article selections are not an array');
+            }
+
+            return [...new Set(storedIds.filter(id => validArticleIds.has(id)))];
+        } catch (error) {
+            console.warn('Unable to read persisted article filter selections:', error);
+            return [];
+        }
+    }
+
+    function persistArticleIds(ids) {
+        try {
+            window.sessionStorage.setItem(selectionStorageKey, JSON.stringify(ids));
+        } catch (error) {
+            console.warn('Unable to persist article filter selections:', error);
+        }
+    }
+
+    function articleIdsWith(articleId) {
+        const ids = getStoredArticleIds();
+        if (!ids.includes(articleId)) ids.push(articleId);
+        return ids;
+    }
+
+    function explorerHref(ids) {
+        const query = ids
+            .map(articleId => `article=${encodeURIComponent(articleId)}`)
+            .join('&');
+        return `/explorer/?${query}`;
+    }
+
+    function refreshSearchLink(link) {
+        link.href = explorerHref(articleIdsWith(link.dataset.articleId));
+    }
 
     function addSearchLinks() {
         list.querySelectorAll('.article-item').forEach(item => {
@@ -33,10 +77,16 @@
             }
 
             const link = document.createElement('a');
-            link.href = `/explorer/?article=${encodeURIComponent(articleId)}`;
             link.className = 'article-link article-search-link';
+            link.dataset.articleId = articleId;
             link.textContent = 'Search objects';
             link.setAttribute('aria-label', `Search objects from ${item.querySelector('h4')?.textContent.trim() || articleId}`);
+            refreshSearchLink(link);
+            link.addEventListener('click', () => {
+                const ids = articleIdsWith(articleId);
+                persistArticleIds(ids);
+                link.href = explorerHref(ids);
+            });
             actions.appendChild(link);
         });
 
@@ -50,4 +100,8 @@
     if (!addSearchLinks()) {
         observer.observe(list, { childList: true });
     }
+
+    window.addEventListener('pageshow', () => {
+        list.querySelectorAll('.article-search-link').forEach(refreshSearchLink);
+    });
 })();

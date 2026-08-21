@@ -7,7 +7,7 @@
       "recordCount": 111,
       "fieldSeparatorCount": 1776,
       "recordSeparatorCount": 111,
-      "embeddedRecordsSha256": "58960395d8b6002a3c6b93e1b8902f7be43e2e36c287a652997279b53f7bca72"
+      "embeddedRecordsSha256": "90088ffecc8930562b338a6a73591554c8726db295a91488c94befcb15719b57"
     },
     "visualUpdates": {
       "file": "Update Objects.docx",
@@ -313,14 +313,7 @@
     "ambiguousNewObjectMatches": [],
     "ambiguousReplacementCollisions": [],
     "replacementIdentityWarnings": [],
-    "primaryNameAliasCollisions": [
-      {
-        "sourceName": "Sh 2-116",
-        "existingPrimaryNames": [
-          "Abell 71"
-        ]
-      }
-    ],
+    "primaryNameAliasCollisions": [],
     "alternateDesignationCollisions": [
       {
         "sourceName": "Gum 56",
@@ -2550,13 +2543,13 @@
     },
     "inputSynchronization": {
       "copiesEqualBeforeRun": true,
-      "dataSha256BeforeRun": "5ab474b619c0110af2dfe6374b2dca2d329148479d5ac40bf6d43456669b830d",
-      "srcSha256BeforeRun": "5ab474b619c0110af2dfe6374b2dca2d329148479d5ac40bf6d43456669b830d",
+      "dataSha256BeforeRun": "963ee39f81fce5db7657d0b5c08b5d82b746cf34b1187a3ee0ea5b88266d9450",
+      "srcSha256BeforeRun": "963ee39f81fce5db7657d0b5c08b5d82b746cf34b1187a3ee0ea5b88266d9450",
       "recoveryPolicy": "data/data.json is authoritative; deterministic replacement operations resynchronize src/data.json"
     },
     "before": {
-      "totalRecords": 25007,
-      "totalObservations": 33604
+      "totalRecords": 25008,
+      "totalObservations": 33605
     },
     "after": {
       "totalRecords": 25008,
@@ -2572,8 +2565,8 @@
       "derivedFromFinalData": true
     },
     "outputs": {
-      "dataSha256": "963ee39f81fce5db7657d0b5c08b5d82b746cf34b1187a3ee0ea5b88266d9450",
-      "srcDataSha256": "963ee39f81fce5db7657d0b5c08b5d82b746cf34b1187a3ee0ea5b88266d9450",
+      "dataSha256": "b95d1f30a64b3407d656d0c7b115d577c5f5db18f59c4b8017951ce6ce0eb226",
+      "srcDataSha256": "b95d1f30a64b3407d656d0c7b115d577c5f5db18f59c4b8017951ce6ce0eb226",
       "dataCopiesEqual": true,
       "metadataSha256": "d034f0ffb8cd997a6bef49c2fc5b88acb57ec8d2efbf015e7b1af01aff1a40b9",
       "srcMetadataSha256": "d034f0ffb8cd997a6bef49c2fc5b88acb57ec8d2efbf015e7b1af01aff1a40b9",
@@ -2608,9 +2601,9 @@
       "Class": "",
       "RA2000": "11 56 17.2",
       "Dec2000": "+35 26 53",
-      "Size": "6.8/8.7",
+      "Size": "1.8\"",
       "PA": "",
-      "VMag": "1.8\"",
+      "VMag": "6.8/8.7",
       "BMag": "",
       "SB": "",
       "Con": "UMa",

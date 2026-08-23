@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
     <link rel="manifest" href="../site.webmanifest">
-    <link rel="stylesheet" href="../css/style.css?v=60">
+    <link rel="stylesheet" href="../css/style.css?v=61">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -186,18 +186,22 @@
                 </div>
             </div>
 
-            <!-- Catalog Legend -->
-            <div class="type-legend-toggle">
-                <button id="catalog-legend-toggle" class="btn-link">Catalog Name Abbreviations ▾</button>
+            <div class="legend-toggle-group">
+                <!-- Catalog Legend -->
+                <div class="type-legend-toggle">
+                    <button id="catalog-legend-toggle" class="btn-link">Catalog Name Abbreviations ▾</button>
+                </div>
+
+                <!-- Type Legend -->
+                <div class="type-legend-toggle">
+                    <button id="legend-toggle" class="btn-link">Object Type Abbreviations ▾</button>
+                </div>
             </div>
+
             <div id="catalog-legend" class="type-legend" style="display:none;">
                 <div class="legend-grid" id="catalog-legend-grid"></div>
             </div>
 
-            <!-- Type Legend -->
-            <div class="type-legend-toggle">
-                <button id="legend-toggle" class="btn-link">Object Type Abbreviations ▾</button>
-            </div>
             <div id="type-legend" class="type-legend" style="display:none;">
                 <div class="legend-grid" id="legend-grid"></div>
             </div>

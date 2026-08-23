@@ -989,6 +989,25 @@ img {
     margin-bottom: 16px;
 }
 
+.legend-toggle-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.legend-toggle-group .type-legend-toggle {
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .legend-toggle-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
 .type-legend {
     background: var(--bg-card);
     border: 1px solid var(--border);

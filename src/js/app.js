@@ -898,10 +898,12 @@
             'Hickson Compact Groups (HCG)',
             'STF Double Stars',
             'Uppsala Galaxy Catalog (UGC)',
-            ...specializedCatalogs.map(catalog => catalog.filterLabel)
+            ...specializedCatalogs
+                .filter(catalog => catalog.filterLabel !== 'Night Vision')
+                .map(catalog => catalog.filterLabel)
         ].sort((a, b) => a.localeCompare(b));
         const catalogGroups = [
-            { label: 'GENERAL', items: ['Messier', 'NGC', 'IC', 'Orion DeepMap', "Gottlieb's Favorites"] },
+            { label: 'GENERAL', items: ['Messier', 'NGC', 'IC', 'Orion DeepMap', "Gottlieb's Favorites", 'Night Vision'] },
             { label: 'SPECIALIZED', items: specializedItems }
         ];
         const allCatalogs = catalogGroups.flatMap(g => g.items);
@@ -1787,7 +1789,7 @@
             let obsHtml = '';
             if (includeNotes && obj.observations && obj.observations.length > 0) {
                 const realObs = obj.observations.filter(o => !(o.text && o.text.startsWith('=')));
-                obsHtml = '<div class="obs-section"><strong>Visual Observations (' + realObs.length + ')</strong>' +
+                obsHtml = '<div class="obs-section"><strong>Observations (' + realObs.length + ')</strong>' +
                     realObs.map(o =>
                         '<div class="obs-entry">' +
                         (o.aperture ? '<span class="obs-ap">' + escHtml(o.aperture) + '</span>' : '') +
@@ -2311,7 +2313,7 @@
 
         const obsSection = hasObs ? `
                 <div class="detail-observations">
-                    <h4>Visual Observations (${realObsCount})</h4>
+                    <h4>Observations (${realObsCount})</h4>
                     ${extractedDescNote ? `
                         <div class="observation">
                             <div class="obs-text">${escHtml(extractedDescNote)}</div>
@@ -2329,7 +2331,7 @@
                 </div>
             ` : `
                 <div class="detail-observations">
-                    <h4>Visual Observations</h4>
+                    <h4>Observations</h4>
                     <p style="color:var(--text-muted);font-style:italic;padding:16px 0;">No observations recorded</p>
                 </div>
             `;

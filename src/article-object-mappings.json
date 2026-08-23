@@ -6,7 +6,7 @@
       "publication": "Sky & Telescope",
       "date": "2025-04",
       "displayDate": "Apr 2025",
-      "filterLabel": "SHK GX groups",
+      "filterLabel": "SHK galaxy groups",
       "title": "Shakhbazian Galaxy Groups",
       "pdf": "articles/shakhbazian-galaxy-groups.pdf",
       "objectNames": [
@@ -243,7 +243,7 @@
       "publication": "Sky & Telescope",
       "date": "2014-09",
       "displayDate": "Sep 2014",
-      "filterLabel": "Interacting GXs",
+      "filterLabel": "Interacting galaxies",
       "title": "Seeking Interacting Galaxies (Vorontsov-Velyaminov)",
       "pdf": "articles/seeking-interacting-galaxies.pdf",
       "objectNames": [
@@ -315,7 +315,7 @@
       "publication": "Sky & Telescope",
       "date": "2011-05",
       "displayDate": "May 2011",
-      "filterLabel": "Superthin GXs",
+      "filterLabel": "Superthin galaxies",
       "title": "The View from Edge-On (Superthin Galaxies)",
       "pdf": "articles/the-view-from-edge-on.pdf",
       "objectNames": [
@@ -453,7 +453,7 @@
       "publication": "Sky & Telescope",
       "date": "2002-04",
       "displayDate": "Apr 2002",
-      "filterLabel": "Hya-Cen GX cluster",
+      "filterLabel": "Hya-Cen galaxy cluster",
       "title": "Hydra-Centaurus Supercluster",
       "pdf": "articles/hydra-centaurus-supercluster.pdf",
       "objectNames": [
@@ -510,7 +510,7 @@
       "publication": "Sky & Telescope",
       "date": "2001-01",
       "displayDate": "Jan 2001",
-      "filterLabel": "Psc-Per GX cluster",
+      "filterLabel": "Psc-Per galaxy cluster",
       "title": "Exploring the Pisces-Perseus Supercluster",
       "pdf": "articles/pisces-perseus-supercluster.pdf",
       "objectNames": [
@@ -705,7 +705,7 @@
       "publication": "Astronomy",
       "date": "2007-04",
       "displayDate": "Apr 2007",
-      "filterLabel": "Non-Messier GXs",
+      "filterLabel": "Non-Messier galaxies",
       "title": "Non-Messier Spring Galaxies",
       "pdf": "articles/non-messier-spring-galaxies.pdf",
       "objectNames": [
@@ -838,7 +838,7 @@
       "publication": "Astronomy",
       "date": "2007-03",
       "displayDate": "Mar 2007",
-      "filterLabel": "Winter PNe",
+      "filterLabel": "Winter planetary nebulae",
       "title": "Top 10 Winter PNe",
       "pdf": "articles/top-10-winter-pne.pdf",
       "objectNames": [

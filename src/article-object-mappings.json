@@ -6,6 +6,7 @@
       "publication": "Sky & Telescope",
       "date": "2025-04",
       "displayDate": "Apr 2025",
+      "filterLabel": "SHK GX groups",
       "title": "Shakhbazian Galaxy Groups",
       "pdf": "articles/shakhbazian-galaxy-groups.pdf",
       "objectNames": [
@@ -100,6 +101,7 @@
       "publication": "Sky & Telescope",
       "date": "2024-04",
       "displayDate": "Apr 2024",
+      "filterLabel": "David Todd’s search",
       "title": "David Todd's Accidental Deep-Sky Discoveries",
       "pdf": "articles/david-todds-deep-sky-discoveries.pdf",
       "objectNames": [
@@ -146,6 +148,7 @@
       "publication": "Sky & Telescope",
       "date": "2022-06",
       "displayDate": "Jun 2022",
+      "filterLabel": "Merging spirals",
       "title": "Let's Get Together (Merging Spiral Galaxies)",
       "pdf": "articles/lets-get-together.pdf",
       "objectNames": [
@@ -191,6 +194,7 @@
       "publication": "Sky & Telescope",
       "date": "2017-05",
       "displayDate": "May 2017",
+      "filterLabel": "Galaxies in collision",
       "title": "Galaxies in Collision",
       "pdf": "articles/galaxies-in-collision.pdf",
       "objectNames": [
@@ -239,6 +243,7 @@
       "publication": "Sky & Telescope",
       "date": "2014-09",
       "displayDate": "Sep 2014",
+      "filterLabel": "Interacting GXs",
       "title": "Seeking Interacting Galaxies (Vorontsov-Velyaminov)",
       "pdf": "articles/seeking-interacting-galaxies.pdf",
       "objectNames": [
@@ -266,6 +271,7 @@
       "publication": "Sky & Telescope",
       "date": "2014-05",
       "displayDate": "May 2014",
+      "filterLabel": "Within M83",
       "title": "Digging Deep in Messier 83",
       "pdf": "articles/digging-deep-in-messier-83.pdf",
       "objectNames": [
@@ -286,6 +292,7 @@
       "publication": "Sky & Telescope",
       "date": "2013-07",
       "displayDate": "Jul 2013",
+      "filterLabel": "Within NGC 6946",
       "title": "Unraveling NGC 6946",
       "pdf": "articles/unraveling-ngc-6946.pdf",
       "objectNames": [
@@ -308,6 +315,7 @@
       "publication": "Sky & Telescope",
       "date": "2011-05",
       "displayDate": "May 2011",
+      "filterLabel": "Superthin GXs",
       "title": "The View from Edge-On (Superthin Galaxies)",
       "pdf": "articles/the-view-from-edge-on.pdf",
       "objectNames": [
@@ -334,6 +342,7 @@
       "publication": "Sky & Telescope",
       "date": "2010-04",
       "displayDate": "Apr 2010",
+      "filterLabel": "Variable blazars",
       "title": "Blazar, Blazar Burning Bright",
       "pdf": "articles/blazar-blazar-burning-bright.pdf",
       "objectNames": [
@@ -368,6 +377,7 @@
       "publication": "Sky & Telescope",
       "date": "2003-11",
       "displayDate": "Nov 2003",
+      "filterLabel": "NGC/IC Project",
       "title": "Restoring Order to the Deep Sky (NGC/IC Project)",
       "pdf": "articles/restoring-order-deep-sky.pdf",
       "objectNames": [
@@ -443,6 +453,7 @@
       "publication": "Sky & Telescope",
       "date": "2002-04",
       "displayDate": "Apr 2002",
+      "filterLabel": "Hya-Cen GX cluster",
       "title": "Hydra-Centaurus Supercluster",
       "pdf": "articles/hydra-centaurus-supercluster.pdf",
       "objectNames": [
@@ -499,6 +510,7 @@
       "publication": "Sky & Telescope",
       "date": "2001-01",
       "displayDate": "Jan 2001",
+      "filterLabel": "Psc-Per GX cluster",
       "title": "Exploring the Pisces-Perseus Supercluster",
       "pdf": "articles/pisces-perseus-supercluster.pdf",
       "objectNames": [
@@ -573,6 +585,7 @@
       "publication": "Sky & Telescope",
       "date": "2000-08",
       "displayDate": "Aug 2000",
+      "filterLabel": "Faint summer GCs",
       "title": "A Tour of Obscure Summer Globular Clusters",
       "pdf": "articles/obscure-summer-globular-clusters.pdf",
       "objectNames": [
@@ -610,6 +623,7 @@
       "publication": "Sky & Telescope",
       "date": "2000-05",
       "displayDate": "May 2000",
+      "filterLabel": "CrB GX cluster",
       "title": "Abell 2065 (Corona Borealis) Galaxy Cluster",
       "pdf": "articles/abell-2065-corona-borealis.pdf",
       "objectNames": [
@@ -643,6 +657,7 @@
       "publication": "Sky & Telescope",
       "date": "1999-10",
       "displayDate": "Oct 1999",
+      "filterLabel": "Abell 4038 cluster",
       "title": "Abell 4038 (Sculptor) Galaxy Cluster",
       "pdf": "articles/abell-4038-sculptor.pdf",
       "objectNames": [
@@ -684,6 +699,464 @@
       },
       "intentionalExclusions": [],
       "notes": "Includes the cluster record, all 11 table galaxies, and three additional challenge galaxies present in the database. The table's PGC 72437 resolves to canonical record IC 5358A."
+    },
+    {
+      "id": "astronomy-2007-04",
+      "publication": "Astronomy",
+      "date": "2007-04",
+      "displayDate": "Apr 2007",
+      "filterLabel": "Non-Messier GXs",
+      "title": "Non-Messier Spring Galaxies",
+      "pdf": "articles/non-messier-spring-galaxies.pdf",
+      "objectNames": [
+        "NGC 2903",
+        "NGC 3115",
+        "NGC 3521",
+        "NGC 4244",
+        "NGC 4485",
+        "NGC 4490",
+        "NGC 4559",
+        "NGC 4605",
+        "NGC 4631",
+        "NGC 4656",
+        "NGC 4657",
+        "NGC 5253",
+        "NGC 5981",
+        "NGC 5982",
+        "NGC 5985"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "User-supplied article designations",
+        "statedObjectCount": 16,
+        "rows": [
+          "NGC 2903",
+          "NGC 3115",
+          "NGC 3521",
+          "NGC 4244",
+          "NGC 4244",
+          "NGC 4485",
+          "NGC 4490",
+          "NGC 4559",
+          "NGC 4605",
+          "NGC 4631",
+          "NGC 4656",
+          "NGC 4657",
+          "NGC 5253",
+          "NGC 5981",
+          "NGC 5982",
+          "NGC 5985"
+        ]
+      },
+      "designationResolutions": [
+        {
+          "designation": "NGC 2903",
+          "primaryName": "NGC 2903",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 3115",
+          "primaryName": "NGC 3115",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 3521",
+          "primaryName": "NGC 3521",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4244",
+          "primaryName": "NGC 4244",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4244",
+          "primaryName": "NGC 4244",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4485",
+          "primaryName": "NGC 4485",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4490",
+          "primaryName": "NGC 4490",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4559",
+          "primaryName": "NGC 4559",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4605",
+          "primaryName": "NGC 4605",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4631",
+          "primaryName": "NGC 4631",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4656",
+          "primaryName": "NGC 4656",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4657",
+          "primaryName": "NGC 4657",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 5253",
+          "primaryName": "NGC 5253",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 5981",
+          "primaryName": "NGC 5981",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 5982",
+          "primaryName": "NGC 5982",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 5985",
+          "primaryName": "NGC 5985",
+          "matchedBy": "primary name"
+        }
+      ],
+      "intentionalExclusions": [],
+      "notes": "The supplied source contains 16 designation tokens but repeats NGC 4244. All 16 tokens resolve exactly; objectNames remains duplicate-free with 15 unique canonical records."
+    },
+    {
+      "id": "astronomy-2007-03",
+      "publication": "Astronomy",
+      "date": "2007-03",
+      "displayDate": "Mar 2007",
+      "filterLabel": "Winter PNe",
+      "title": "Top 10 Winter PNe",
+      "pdf": "articles/top-10-winter-pne.pdf",
+      "objectNames": [
+        "NGC 650",
+        "NGC 1501",
+        "NGC 1514",
+        "NGC 1535",
+        "IC 418",
+        "NGC 2346",
+        "NGC 2371",
+        "NGC 2392",
+        "NGC 2438",
+        "NGC 2440"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "User-supplied article designations",
+        "statedObjectCount": 10,
+        "rows": [
+          "NGC 650",
+          "NGC 1501",
+          "NGC 1514",
+          "NGC 1535",
+          "IC 418",
+          "NGC 2346",
+          "NGC 2371",
+          "NGC 2392",
+          "NGC 2438",
+          "NGC 2440"
+        ]
+      },
+      "designationResolutions": [
+        {
+          "designation": "NGC 650",
+          "primaryName": "NGC 650",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 1501",
+          "primaryName": "NGC 1501",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 1514",
+          "primaryName": "NGC 1514",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 1535",
+          "primaryName": "NGC 1535",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "IC 418",
+          "primaryName": "IC 418",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 2346",
+          "primaryName": "NGC 2346",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 2371",
+          "primaryName": "NGC 2371",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 2392",
+          "primaryName": "NGC 2392",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 2438",
+          "primaryName": "NGC 2438",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 2440",
+          "primaryName": "NGC 2440",
+          "matchedBy": "primary name"
+        }
+      ],
+      "intentionalExclusions": [],
+      "notes": "All 10 supplied designation tokens resolve directly to unique canonical primary names."
+    },
+    {
+      "id": "astronomy-2006-02",
+      "publication": "Astronomy",
+      "date": "2006-02",
+      "displayDate": "Feb 2006",
+      "filterLabel": "Wolf-Rayet Bubbles",
+      "title": "How to Observe Wolf-Rayet Bubbles",
+      "pdf": "articles/how-to-observe-wolf-rayet-bubbles.pdf",
+      "objectNames": [
+        "Sh 2-308",
+        "NGC 2359",
+        "NGC 3199",
+        "NGC 6357",
+        "NGC 6888",
+        "Sh 2-157"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "User-supplied article designations",
+        "statedObjectCount": 6,
+        "rows": [
+          "Sh 2-308",
+          "NGC 2359",
+          "NGC 3199",
+          "NGC 6357",
+          "NGC 6888",
+          "Sh 2-157"
+        ]
+      },
+      "designationResolutions": [
+        {
+          "designation": "Sh 2-308",
+          "primaryName": "Sh 2-308",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 2359",
+          "primaryName": "NGC 2359",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 3199",
+          "primaryName": "NGC 3199",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 6357",
+          "primaryName": "NGC 6357",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 6888",
+          "primaryName": "NGC 6888",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "Sh 2-157",
+          "primaryName": "Sh 2-157",
+          "matchedBy": "primary name"
+        }
+      ],
+      "intentionalExclusions": [],
+      "notes": "All 6 supplied designation tokens resolve directly to unique canonical primary names."
+    },
+    {
+      "id": "astronomy-1999-05",
+      "publication": "Astronomy",
+      "date": "1999-05",
+      "displayDate": "May 1999",
+      "filterLabel": "Spring GX sampler",
+      "title": "Spirals & Giants & Dwarfs, Oh My!",
+      "pdf": "articles/spirals-giants-dwarfs-oh-my.pdf",
+      "objectNames": [
+        "IC 10",
+        "NGC 224",
+        "Maffei 1",
+        "NGC 2685",
+        "NGC 3031",
+        "NGC 3034",
+        "NGC 4038",
+        "NGC 4039",
+        "NGC 4374",
+        "NGC 4406",
+        "NGC 4485",
+        "NGC 4490",
+        "NGC 4486",
+        "NGC 4594",
+        "NGC 4889",
+        "NGC 5128",
+        "NGC 5236",
+        "NGC 6045",
+        "NGC 6166",
+        "NGC 6240",
+        "NGC 7320"
+      ],
+      "unmatchedDesignations": [],
+      "sourceEvidence": {
+        "location": "User-supplied article designations",
+        "statedObjectCount": 21,
+        "rows": [
+          "IC 10",
+          "M31",
+          "Maffei 1",
+          "NGC 2685",
+          "M81",
+          "M82",
+          "NGC 4038",
+          "NGC 4039",
+          "M84",
+          "M86",
+          "NGC 4485",
+          "NGC 4490",
+          "M87",
+          "M104",
+          "NGC 4889",
+          "NGC 5128",
+          "M83",
+          "NGC 6045",
+          "NGC 6166",
+          "NGC 6240",
+          "NGC 7320"
+        ]
+      },
+      "designationResolutions": [
+        {
+          "designation": "IC 10",
+          "primaryName": "IC 10",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "M31",
+          "primaryName": "NGC 224",
+          "matchedBy": "alias and messierNumber"
+        },
+        {
+          "designation": "Maffei 1",
+          "primaryName": "Maffei 1",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 2685",
+          "primaryName": "NGC 2685",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "M81",
+          "primaryName": "NGC 3031",
+          "matchedBy": "alias and messierNumber"
+        },
+        {
+          "designation": "M82",
+          "primaryName": "NGC 3034",
+          "matchedBy": "alias and messierNumber"
+        },
+        {
+          "designation": "NGC 4038",
+          "primaryName": "NGC 4038",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4039",
+          "primaryName": "NGC 4039",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "M84",
+          "primaryName": "NGC 4374",
+          "matchedBy": "alias and messierNumber"
+        },
+        {
+          "designation": "M86",
+          "primaryName": "NGC 4406",
+          "matchedBy": "alias and messierNumber"
+        },
+        {
+          "designation": "NGC 4485",
+          "primaryName": "NGC 4485",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 4490",
+          "primaryName": "NGC 4490",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "M87",
+          "primaryName": "NGC 4486",
+          "matchedBy": "alias and messierNumber"
+        },
+        {
+          "designation": "M104",
+          "primaryName": "NGC 4594",
+          "matchedBy": "alias and messierNumber"
+        },
+        {
+          "designation": "NGC 4889",
+          "primaryName": "NGC 4889",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 5128",
+          "primaryName": "NGC 5128",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "M83",
+          "primaryName": "NGC 5236",
+          "matchedBy": "alias and messierNumber"
+        },
+        {
+          "designation": "NGC 6045",
+          "primaryName": "NGC 6045",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 6166",
+          "primaryName": "NGC 6166",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 6240",
+          "primaryName": "NGC 6240",
+          "matchedBy": "primary name"
+        },
+        {
+          "designation": "NGC 7320",
+          "primaryName": "NGC 7320",
+          "matchedBy": "primary name"
+        }
+      ],
+      "intentionalExclusions": [],
+      "notes": "All 21 supplied designation tokens resolve exactly. Messier designations map through exact aliases and messierNumber metadata to the listed canonical NGC primary names; primary-name matches take precedence over identical aliases on other records."
     }
   ]
 }

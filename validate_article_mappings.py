@@ -13,6 +13,8 @@ DATA_PATH = ROOT / "src" / "data.json"
 EXPLORER_PATH = ROOT / "src" / "explorer" / "index.html"
 APP_PATH = ROOT / "src" / "js" / "app.js"
 ARTICLE_SEARCH_PATH = ROOT / "src" / "js" / "article-search.js"
+SKY_TELESCOPE_PATH = ROOT / "src" / "articles" / "index.html"
+ASTRONOMY_PATH = ROOT / "src" / "astronomy-articles" / "index.html"
 
 EXPECTED_COUNTS = {
     "sky-telescope-2025-04": 49,
@@ -30,8 +32,58 @@ EXPECTED_COUNTS = {
     "sky-telescope-2000-08": 7,
     "sky-telescope-2000-05": 8,
     "sky-telescope-1999-10": 15,
+    "astronomy-2007-04": 15,
+    "astronomy-2007-03": 10,
+    "astronomy-2006-02": 6,
+    "astronomy-1999-05": 21,
 }
-EXPECTED_ASSOCIATIONS = 247
+EXPECTED_ARTICLE_IDS = [
+    "sky-telescope-2025-04",
+    "sky-telescope-2024-04",
+    "sky-telescope-2022-06",
+    "sky-telescope-2017-05",
+    "sky-telescope-2014-09",
+    "sky-telescope-2014-05",
+    "sky-telescope-2013-07",
+    "sky-telescope-2011-05",
+    "sky-telescope-2010-04",
+    "sky-telescope-2003-11",
+    "sky-telescope-2002-04",
+    "sky-telescope-2001-01",
+    "sky-telescope-2000-08",
+    "sky-telescope-2000-05",
+    "sky-telescope-1999-10",
+    "astronomy-2007-04",
+    "astronomy-2007-03",
+    "astronomy-2006-02",
+    "astronomy-1999-05",
+]
+EXPECTED_PUBLICATION_IDS = {
+    "Sky & Telescope": EXPECTED_ARTICLE_IDS[:15],
+    "Astronomy": EXPECTED_ARTICLE_IDS[15:],
+}
+EXPECTED_FILTER_LABELS = {
+    "sky-telescope-2025-04": "SHK GX groups",
+    "sky-telescope-2024-04": "David Todd’s search",
+    "sky-telescope-2022-06": "Merging spirals",
+    "sky-telescope-2017-05": "Galaxies in collision",
+    "sky-telescope-2014-09": "Interacting GXs",
+    "sky-telescope-2014-05": "Within M83",
+    "sky-telescope-2013-07": "Within NGC 6946",
+    "sky-telescope-2011-05": "Superthin GXs",
+    "sky-telescope-2010-04": "Variable blazars",
+    "sky-telescope-2003-11": "NGC/IC Project",
+    "sky-telescope-2002-04": "Hya-Cen GX cluster",
+    "sky-telescope-2001-01": "Psc-Per GX cluster",
+    "sky-telescope-2000-08": "Faint summer GCs",
+    "sky-telescope-2000-05": "CrB GX cluster",
+    "sky-telescope-1999-10": "Abell 4038 cluster",
+    "astronomy-2007-04": "Non-Messier GXs",
+    "astronomy-2007-03": "Winter PNe",
+    "astronomy-2006-02": "Wolf-Rayet Bubbles",
+    "astronomy-1999-05": "Spring GX sampler",
+}
+EXPECTED_ASSOCIATIONS = 299
 EXPECTED_SOURCE_ROW_COUNTS = {
     "sky-telescope-2025-04": 6,
     "sky-telescope-2024-04": 14,
@@ -48,6 +100,33 @@ EXPECTED_SOURCE_ROW_COUNTS = {
     "sky-telescope-2000-08": 7,
     "sky-telescope-2000-05": 7,
     "sky-telescope-1999-10": 11,
+    "astronomy-2007-04": 16,
+    "astronomy-2007-03": 10,
+    "astronomy-2006-02": 6,
+    "astronomy-1999-05": 21,
+}
+
+ASTRONOMY_SOURCE_ROWS = {
+    "astronomy-2007-04": [
+        "NGC 2903", "NGC 3115", "NGC 3521", "NGC 4244", "NGC 4244",
+        "NGC 4485", "NGC 4490", "NGC 4559", "NGC 4605", "NGC 4631",
+        "NGC 4656", "NGC 4657", "NGC 5253", "NGC 5981", "NGC 5982",
+        "NGC 5985",
+    ],
+    "astronomy-2007-03": [
+        "NGC 650", "NGC 1501", "NGC 1514", "NGC 1535", "IC 418",
+        "NGC 2346", "NGC 2371", "NGC 2392", "NGC 2438", "NGC 2440",
+    ],
+    "astronomy-2006-02": [
+        "Sh 2-308", "NGC 2359", "NGC 3199", "NGC 6357", "NGC 6888",
+        "Sh 2-157",
+    ],
+    "astronomy-1999-05": [
+        "IC 10", "M31", "Maffei 1", "NGC 2685", "M81", "M82", "NGC 4038",
+        "NGC 4039", "M84", "M86", "NGC 4485", "NGC 4490", "M87", "M104",
+        "NGC 4889", "NGC 5128", "M83", "NGC 6045", "NGC 6166",
+        "NGC 6240", "NGC 7320",
+    ],
 }
 
 EXPECTED_UNMATCHED = {
@@ -162,6 +241,38 @@ def find_family_records(objects, designations):
     return matches
 
 
+def resolve_designation(objects, designation):
+    """Resolve one exact source designation, preferring a canonical primary name."""
+    primary_matches = [obj for obj in objects if obj["name"] == designation]
+    if len(primary_matches) == 1:
+        return primary_matches[0]["name"], "primary name", []
+    if len(primary_matches) > 1:
+        return None, None, [obj["name"] for obj in primary_matches]
+
+    matches = {}
+    for obj in objects:
+        matched_fields = []
+        aliases = [
+            part.strip()
+            for part in obj.get("other", "").split(" = ")
+            if part.strip()
+        ]
+        if designation in aliases:
+            matched_fields.append("alias")
+        if obj.get("nickname") == designation:
+            matched_fields.append("nickname")
+        if obj.get("messierNumber") == designation:
+            matched_fields.append("messierNumber")
+        if matched_fields:
+            matches[obj["name"]] = matched_fields
+
+    if len(matches) != 1:
+        return None, None, sorted(matches)
+
+    primary_name, matched_fields = next(iter(matches.items()))
+    return primary_name, " and ".join(matched_fields), []
+
+
 def main():
     errors = []
     mapping_data = load_json(MAPPINGS_PATH)
@@ -172,8 +283,8 @@ def main():
 
     if mapping_data.get("version") != 1:
         fail(errors, "Mapping version must be 1.")
-    if len(articles) != 15:
-        fail(errors, f"Expected 15 articles, found {len(articles)}.")
+    if len(articles) != 19:
+        fail(errors, f"Expected 19 articles, found {len(articles)}.")
     if len(article_by_id) != len(articles):
         fail(errors, "Article IDs must be unique.")
     if set(article_by_id) != set(EXPECTED_COUNTS):
@@ -181,9 +292,14 @@ def main():
         extra = sorted(set(article_by_id) - set(EXPECTED_COUNTS))
         fail(errors, f"Canonical article ID mismatch; missing={missing}, extra={extra}.")
 
-    dates = [article["date"] for article in articles]
-    if dates != sorted(dates, reverse=True):
-        fail(errors, "Articles must remain in reverse chronological order.")
+    mapping_article_ids = [article["id"] for article in articles]
+    if mapping_article_ids != EXPECTED_ARTICLE_IDS:
+        fail(
+            errors,
+            "Articles must remain grouped as Sky & Telescope then Astronomy, "
+            "with each publication in reverse chronological order; "
+            f"expected={EXPECTED_ARTICLE_IDS}, found={mapping_article_ids}.",
+        )
 
     association_count = sum(
         len(article.get("objectNames", []))
@@ -209,11 +325,35 @@ def main():
             fail(errors, f"{article_id}: intentionalExclusions must be an array.")
             intentional_exclusions = []
         source_rows = source_evidence.get("rows", [])
-        if article.get("publication") != "Sky & Telescope":
-            fail(errors, f"{article_id}: unexpected publication.")
+        expected_publication = next(
+            (
+                publication
+                for publication, article_ids in EXPECTED_PUBLICATION_IDS.items()
+                if article_id in article_ids
+            ),
+            None,
+        )
+        if article.get("publication") != expected_publication:
+            fail(
+                errors,
+                f"{article_id}: expected publication {expected_publication!r}, "
+                f"found {article.get('publication')!r}.",
+            )
+        if article.get("filterLabel") != EXPECTED_FILTER_LABELS.get(article_id):
+            fail(
+                errors,
+                f"{article_id}: expected filterLabel "
+                f"{EXPECTED_FILTER_LABELS.get(article_id)!r}, "
+                f"found {article.get('filterLabel')!r}.",
+            )
         if not re.fullmatch(r"\d{4}-\d{2}", article.get("date", "")):
             fail(errors, f"{article_id}: date must use YYYY-MM.")
-        if article_id != f"sky-telescope-{article.get('date', '')}":
+        expected_prefix = (
+            "sky-telescope"
+            if expected_publication == "Sky & Telescope"
+            else "astronomy"
+        )
+        if article_id != f"{expected_prefix}-{article.get('date', '')}":
             fail(errors, f"{article_id}: canonical ID must end with its YYYY-MM date.")
         if len(object_names) != len(set(object_names)):
             fail(errors, f"{article_id}: objectNames contains duplicates.")
@@ -228,11 +368,78 @@ def main():
                 f"{EXPECTED_SOURCE_ROW_COUNTS.get(article_id)} source rows, "
                 f"found {len(source_rows)}.",
             )
-        if len(source_rows) != len(set(source_rows)) or any(
+        if any(
             not isinstance(row, str) or not row.strip()
             for row in source_rows
         ):
-            fail(errors, f"{article_id}: sourceEvidence.rows must be unique, non-empty strings.")
+            fail(errors, f"{article_id}: sourceEvidence.rows must be non-empty strings.")
+        if article_id not in ASTRONOMY_SOURCE_ROWS and len(source_rows) != len(set(source_rows)):
+            fail(errors, f"{article_id}: sourceEvidence.rows must be unique.")
+        if article_id in ASTRONOMY_SOURCE_ROWS:
+            expected_rows = ASTRONOMY_SOURCE_ROWS[article_id]
+            if source_rows != expected_rows:
+                fail(
+                    errors,
+                    f"{article_id}: supplied source designation sequence changed; "
+                    f"expected={expected_rows}, found={source_rows}.",
+                )
+            if source_evidence.get("statedObjectCount") != len(expected_rows):
+                fail(
+                    errors,
+                    f"{article_id}: statedObjectCount must be {len(expected_rows)}.",
+                )
+
+            resolutions = article.get("designationResolutions", [])
+            if not isinstance(resolutions, list) or len(resolutions) != len(source_rows):
+                fail(
+                    errors,
+                    f"{article_id}: designationResolutions must contain one row "
+                    "for every supplied token occurrence.",
+                )
+                resolutions = []
+
+            resolved_primary_names = []
+            for index, designation in enumerate(source_rows):
+                primary_name, matched_by, ambiguities = resolve_designation(
+                    objects, designation
+                )
+                if ambiguities:
+                    fail(
+                        errors,
+                        f"{article_id}: {designation!r} is ambiguous across "
+                        f"canonical records {ambiguities}.",
+                    )
+                    continue
+                if primary_name is None:
+                    fail(
+                        errors,
+                        f"{article_id}: {designation!r} does not resolve exactly.",
+                    )
+                    continue
+
+                resolved_primary_names.append(primary_name)
+                if index >= len(resolutions) or not isinstance(resolutions[index], dict):
+                    continue
+                resolution = resolutions[index]
+                expected_resolution = {
+                    "designation": designation,
+                    "primaryName": primary_name,
+                    "matchedBy": matched_by,
+                }
+                if resolution != expected_resolution:
+                    fail(
+                        errors,
+                        f"{article_id}: resolution row {index + 1} must be "
+                        f"{expected_resolution}, found {resolution}.",
+                    )
+
+            if set(resolved_primary_names) != set(object_names):
+                fail(
+                    errors,
+                    f"{article_id}: resolved canonical names and objectNames differ; "
+                    f"resolved={sorted(set(resolved_primary_names))}, "
+                    f"mapped={sorted(set(object_names))}.",
+                )
         exclusion_names = []
         for exclusion in intentional_exclusions:
             if not isinstance(exclusion, dict):
@@ -348,6 +555,8 @@ def main():
     explorer_html = EXPLORER_PATH.read_text(encoding="utf-8")
     app_js = APP_PATH.read_text(encoding="utf-8")
     article_search_js = ARTICLE_SEARCH_PATH.read_text(encoding="utf-8")
+    sky_telescope_html = SKY_TELESCOPE_PATH.read_text(encoding="utf-8")
+    astronomy_html = ASTRONOMY_PATH.read_text(encoding="utf-8")
     catalog_position = explorer_html.find('id="filter-catalog-container"')
     article_position = explorer_html.find('id="filter-article-container"')
     name_position = explorer_html.find('id="filter-name-container"')
@@ -361,6 +570,8 @@ def main():
         fail(errors, "ARTICLE filter combobox semantics are missing.")
     if 'aria-multiselectable="true"' not in explorer_html:
         fail(errors, "ARTICLE dropdown must expose its multi-select semantics.")
+    if 'aria-label="Publication articles"' not in explorer_html:
+        fail(errors, "ARTICLE dropdown must have publication-generic accessible terminology.")
     if "fetch(assetPath('article-object-mappings.json'))" not in app_js:
         fail(errors, "Explorer must fetch the standalone article mapping manifest.")
     if "articleMappings = articleMappingData.articles || []" not in app_js:
@@ -381,26 +592,64 @@ def main():
         fail(errors, "Back/forward navigation must restore ARTICLE filter state.")
     if "getArticleHistoryAction() === action" not in app_js:
         fail(errors, "Repeated Apply actions must preserve coherent same-URL history.")
-    if "Sky &amp; Telescope</div>" not in app_js:
-        fail(errors, "ARTICLE dropdown must begin with the Sky & Telescope heading.")
-    if 'aria-selected="${isSelected}">${escHtml(article.displayDate)}</div>' not in app_js:
-        fail(errors, "ARTICLE dropdown options must display the publication date only.")
+    if "const publicationOrder = ['Sky & Telescope', 'Astronomy'];" not in app_js:
+        fail(errors, "ARTICLE dropdown headings must be Sky & Telescope then Astronomy.")
+    if "publication.toUpperCase()" not in app_js:
+        fail(errors, "ARTICLE dropdown publication headings must be uppercase.")
+    if "${escHtml(article.filterLabel)}</div>" not in app_js:
+        fail(errors, "ARTICLE dropdown options must display filterLabel values.")
+    expected_search_text = (
+        "`${article.filterLabel} ${article.displayDate} ${article.title}`"
+    )
+    if expected_search_text not in app_js:
+        fail(errors, "ARTICLE search must include filter label, date, and full title.")
+    if "articleSelectionLabel(article)" not in app_js:
+        fail(errors, "Selected ARTICLE tags must use publication-aware labels.")
+    if "article.publication === 'Sky & Telescope'" not in app_js:
+        fail(errors, "Article labels must derive their prefix from publication metadata.")
+    if "article ? `S&T ${article.displayDate}`" in app_js:
+        fail(errors, "Print descriptions must not hard-code every article as S&T.")
     if "aria-activedescendant" not in app_js or "e.key === 'ArrowDown'" not in app_js:
         fail(errors, "ARTICLE dropdown keyboard navigation is missing.")
 
     linked_article_ids = re.findall(
-        r"\['\d+',\s*'(sky-telescope-\d{4}-\d{2})'\]",
+        r"\['\d+',\s*'((?:sky-telescope|astronomy)-\d{4}-\d{2})'\]",
         article_search_js,
     )
-    mapping_article_ids = [article["id"] for article in articles]
     if linked_article_ids != mapping_article_ids:
         fail(
             errors,
-            "Publication Search objects IDs must match the mapping manifest order; "
+            "Publication Objects list IDs must match the mapping manifest order; "
             f"expected={mapping_article_ids}, found={linked_article_ids}.",
         )
+    if (
+        "publicationConfigs" not in article_search_js
+        or "#articles-list" not in article_search_js
+        or "#astronomy-articles-list" not in article_search_js
+    ):
+        fail(errors, "Objects list wiring must use generic per-publication configuration.")
+    if "link.textContent = 'Objects list'" not in article_search_js:
+        fail(errors, "Publication buttons must use Objects list terminology.")
+    if "`Objects list for ${" not in article_search_js:
+        fail(errors, "Publication button aria labels must use Objects list terminology.")
+    legacy_button_label = "Search " + "objects"
+    if legacy_button_label in article_search_js:
+        fail(errors, "Legacy publication-button terminology remains in the wiring.")
     if "encodeURIComponent(articleId)" not in article_search_js:
-        fail(errors, "Publication Search objects links must URL-encode canonical IDs.")
+        fail(errors, "Publication Objects list links must URL-encode canonical IDs.")
+    if (
+        "articleIdsWith(articleId)" not in article_search_js
+        or "persistArticleIds(ids)" not in article_search_js
+    ):
+        fail(errors, "Publication Objects list links must preserve cumulative selections.")
+    if 'id="astronomy-articles-list"' not in astronomy_html:
+        fail(errors, "Astronomy publication list must expose its Objects list target.")
+    if "article-search.js?v=3" not in sky_telescope_html or "article-search.js?v=3" not in astronomy_html:
+        fail(errors, "Both publication pages must load the current Objects list wiring.")
+    if astronomy_html.count("article-pdf-link") != 4:
+        fail(errors, "Astronomy page must retain exactly four PDF-backed entries.")
+    if '<span class="article-num">#3</span>' not in astronomy_html:
+        fail(errors, "Astronomy Sep 2006 entry must remain present without a mapping.")
 
     if errors:
         print("Article mapping validation failed:")
@@ -416,10 +665,21 @@ def main():
     for article in articles:
         unmatched = article.get("unmatchedDesignations", [])
         suffix = f"; unmatched: {', '.join(unmatched)}" if unmatched else ""
-        print(
-            f"  {article['displayDate']}: {len(article['objectNames'])} objects"
-            f"{suffix}"
-        )
+        source_rows = article["sourceEvidence"]["rows"]
+        if article["id"] in ASTRONOMY_SOURCE_ROWS:
+            matched = len(article.get("designationResolutions", []))
+            print(
+                f"  {article['publication']} {article['displayDate']} "
+                f"({article['filterLabel']}): supplied={len(source_rows)}, "
+                f"unique supplied={len(set(source_rows))}, matched={matched}, "
+                f"unique mapped={len(article['objectNames'])}{suffix}"
+            )
+        else:
+            print(
+                f"  {article['publication']} {article['displayDate']} "
+                f"({article['filterLabel']}): source rows={len(source_rows)}, "
+                f"unique mapped={len(article['objectNames'])}{suffix}"
+            )
 
 
 if __name__ == "__main__":

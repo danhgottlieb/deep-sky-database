@@ -133,6 +133,34 @@ MANUAL_NEW_OBJECTS = (
         ),
     },
 )
+MANUAL_OBSERVATION_REPLACEMENTS = {
+    "UGC 11804": (
+        '24" (8/11/26): at 327x and 375x; faint, fairly large low surface '
+        "brightness oval glow, elongated 2:1 or 5:2 ~E-W. A pair of mag "
+        '13-13.5 stars with a separation of ~12" is at the S edge. UGC 11804 '
+        'forms an interacting 30" pair with UGC 11805 at the NE edge '
+        "(perhaps they were merged in the eyepiece). UGC 11800 is 7' W in a "
+        "very rich Cygnus star field."
+        "\n\n"
+        '17.5" (6/28/00): this interacting double system (with UGC 11805) '
+        "appeared very faint, small (probably viewed core only). Closely "
+        "bracketed by a close pair of mag 13 stars at the SW edge and a mag "
+        "12.5 star to the NE. At moments, there was a strong impression of "
+        "the close companion attached to the mag 12.5 star [just 32\" between "
+        "centers]. UGC 11804 was very difficult to track down as it is "
+        "situated in a rich Milky Way field with a patchy background."
+    ),
+    "S 698": (
+        '14.5" (7/25/26): wide, bright pair of mag 7.2/8.5 stars at the '
+        "center of M21 using 66x."
+        "\n\n"
+        '18" (8/12/10): In the center of M21 is the brightest member; mag '
+        '7.2 HD 164863. This star forms a 30" pair (S 698) with mag 8.7 '
+        "HD 313693. A third bright star, mag 8.8 HD 164883 lies 1.2' NE of "
+        "the brightest star and a short line of stars extending NE contains "
+        "two additional mag 10 and 11 stars."
+    ),
+}
 
 WORD_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 WORD_TEXT = f"{{{WORD_NS}}}t"
@@ -813,6 +841,38 @@ def apply_visual_updates(objects, update_records):
     }
 
 
+def apply_manual_observation_replacements(objects):
+    names = index_by_name(objects)
+    replacements = []
+    for name, visual_description in MANUAL_OBSERVATION_REPLACEMENTS.items():
+        matches = names.get(name.casefold(), [])
+        if len(matches) != 1:
+            raise ValueError(
+                f"manual observation replacement {name!r} has "
+                f"{len(matches)} matches"
+            )
+        before = deepcopy(matches[0].get("observations", []))
+        after = split_observations(visual_description)
+        if len(after) != 2:
+            raise ValueError(
+                f"manual observation replacement {name!r} must contain "
+                f"exactly two observations, found {len(after)}"
+            )
+        matches[0]["observations"] = after
+        replacements.append(
+            {
+                "name": name,
+                "beforeCount": len(before),
+                "afterCount": len(after),
+                "changedThisRun": before != after,
+                "visualDescriptionSha256": hashlib.sha256(
+                    visual_description.encode("utf-8")
+                ).hexdigest(),
+            }
+        )
+    return replacements
+
+
 def apply_designation_overrides(objects):
     renamed = []
     for old_name, new_name in PRIMARY_RENAMES.items():
@@ -907,6 +967,10 @@ def validate_final_state(objects, new_records, update_records):
     for source_name in SOURCE_REPLACEMENTS:
         matches = names.get(source_name.casefold(), [])
         expected = source_to_object(source_by_name[source_name])
+        if source_name in MANUAL_OBSERVATION_REPLACEMENTS:
+            expected["observations"] = split_observations(
+                MANUAL_OBSERVATION_REPLACEMENTS[source_name]
+            )
         if len(matches) != 1 or matches[0] != expected:
             raise ValueError(f"replacement record does not match source: {source_name}")
         verified_replacements.append(source_name)
@@ -915,6 +979,10 @@ def validate_final_state(objects, new_records, update_records):
     for record in MANUAL_NEW_OBJECTS:
         matches = names.get(record["Name"].casefold(), [])
         expected = source_to_object(record)
+        if record["Name"] in MANUAL_OBSERVATION_REPLACEMENTS:
+            expected["observations"] = split_observations(
+                MANUAL_OBSERVATION_REPLACEMENTS[record["Name"]]
+            )
         if len(matches) != 1 or matches[0] != expected:
             raise ValueError(
                 f"manual object does not match approved record: {record['Name']}"
@@ -939,6 +1007,24 @@ def validate_final_state(objects, new_records, update_records):
         raise ValueError(
             f"expected {EXPECTED_VISUAL_UPDATES} verified visual updates, "
             f"found {verified_visual_updates}"
+        )
+
+    verified_observation_replacements = []
+    for name, visual_description in MANUAL_OBSERVATION_REPLACEMENTS.items():
+        matches = names.get(name.casefold(), [])
+        expected = split_observations(visual_description)
+        if len(matches) != 1 or matches[0].get("observations", []) != expected:
+            raise ValueError(
+                f"manual observation replacement was not preserved exactly: {name}"
+            )
+        verified_observation_replacements.append(
+            {
+                "name": name,
+                "observationCount": len(expected),
+                "visualDescriptionSha256": hashlib.sha256(
+                    visual_description.encode("utf-8")
+                ).hexdigest(),
+            }
         )
 
     verified_renames = []
@@ -1117,6 +1203,7 @@ def validate_final_state(objects, new_records, update_records):
         "uniquePrimaryNames": len(folded_name_counts),
         "verifiedVisualUpdates": verified_visual_updates,
         "visualUpdateOverrides": sorted(VISUAL_UPDATE_OVERRIDES),
+        "verifiedObservationReplacements": verified_observation_replacements,
         "verifiedReplacements": verified_replacements,
         "verifiedManualObjects": verified_manual_objects,
         "verifiedRenames": verified_renames,
@@ -1244,6 +1331,9 @@ def main():
     )
     manual_object_summary = apply_manual_objects(objects)
     visual_summary = apply_visual_updates(objects, update_records)
+    manual_observation_replacements = apply_manual_observation_replacements(
+        objects
+    )
 
     # The replacement document already uses the new primary name, but enforce
     # the requested wording if an older phrase survived in any observation.
@@ -1353,6 +1443,7 @@ def main():
         "primaryNameAliasCollisions": primary_alias_collisions,
         "alternateDesignationCollisions": alternate_alias_collisions,
         "visualUpdates": visual_summary,
+        "manualObservationReplacements": manual_observation_replacements,
         "renamedPrimaries": renamed,
         "favoritesRemoved": favorites,
         "duplicatePrimaryMerges": duplicate_merges,
@@ -1394,6 +1485,13 @@ def main():
         "summary": summary,
         "newObjects": new_records,
         "manualObjects": list(MANUAL_NEW_OBJECTS),
+        "manualObservationReplacements": [
+            {
+                "Name": name,
+                "Visual Description": visual_description,
+            }
+            for name, visual_description in MANUAL_OBSERVATION_REPLACEMENTS.items()
+        ],
         "visualUpdates": update_records,
     }
 

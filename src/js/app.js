@@ -10,6 +10,7 @@
     let metadata = {};
     let articles = [];
     let articleMappings = [];
+    let specializedCatalogs = [];
     let filteredData = [];
     let displayedCount = 0;
     const PAGE_SIZE = 50;
@@ -24,6 +25,7 @@
     let renderArticleFilterState = () => {};
     let selectedTypes = [];
     let selectedNames = [];
+    const specializedCatalogMembership = new Map();
     let searchTimer;
     let resizeTimer;
     let blogData = [];
@@ -222,16 +224,24 @@
         // Explorer page: load full database
         if (hasExplorer) {
             try {
-                const [dataRes, metaRes, articleMappingsRes] = await Promise.all([
+                const [dataRes, metaRes, articleMappingsRes, specializedCatalogsRes] = await Promise.all([
                     fetch(assetPath('data.json')),
                     fetch(assetPath('metadata.json')),
-                    fetch(assetPath('article-object-mappings.json'))
+                    fetch(assetPath('article-object-mappings.json')),
+                    fetch(assetPath('specialized-catalogs.json'))
                 ]);
-                if (!dataRes.ok || !metaRes.ok || !articleMappingsRes.ok) throw new Error('Failed to load data');
+                if (!dataRes.ok || !metaRes.ok || !articleMappingsRes.ok || !specializedCatalogsRes.ok) {
+                    throw new Error('Failed to load data');
+                }
                 allData = await dataRes.json();
                 metadata = await metaRes.json();
                 const articleMappingData = await articleMappingsRes.json();
                 articleMappings = articleMappingData.articles || [];
+                const specializedCatalogData = await specializedCatalogsRes.json();
+                specializedCatalogs = specializedCatalogData.catalogs || [];
+                specializedCatalogs.forEach(catalog => {
+                    specializedCatalogMembership.set(catalog.id, new Set(catalog.objectNames || []));
+                });
 
                 allData.forEach(o => dataIndex.set(o.name, o));
                 loadArticleSelectionsFromUrl();
@@ -881,9 +891,18 @@
 
         if (!container || !searchInput || !tagsEl || !dropdown) return;
 
+        const specializedItems = [
+            'Abell planetary nebulae',
+            'Barnard Dark Nebulae',
+            'Galaxy Trios (KTG)',
+            'Hickson Compact Groups (HCG)',
+            'STF Double Stars',
+            'Uppsala Galaxy Catalog (UGC)',
+            ...specializedCatalogs.map(catalog => catalog.filterLabel)
+        ].sort((a, b) => a.localeCompare(b));
         const catalogGroups = [
             { label: 'GENERAL', items: ['Messier', 'NGC', 'IC', 'Orion DeepMap', "Gottlieb's Favorites"] },
-            { label: 'SPECIALIZED', items: ['Abell planetary nebulae', 'Barnard Dark Nebulae', 'Galaxy Trios (KTG)', 'Hickson Compact Groups (HCG)', 'STF Double Stars', 'Uppsala Galaxy Catalog (UGC)'] }
+            { label: 'SPECIALIZED', items: specializedItems }
         ];
         const allCatalogs = catalogGroups.flatMap(g => g.items);
 
@@ -1026,6 +1045,14 @@
         if (!container || !searchInput || !tagsEl || !dropdown) return;
 
         let activeOptionIndex = -1;
+        const publicationOrder = ['Sky & Telescope', 'Astronomy'];
+
+        function articleSelectionLabel(article) {
+            const publication = article.publication === 'Sky & Telescope'
+                ? 'S&T'
+                : article.publication;
+            return `${publication} ${article.filterLabel || article.displayDate}`;
+        }
 
         function setDropdownOpen(isOpen) {
             dropdown.classList.toggle('open', isOpen);
@@ -1061,16 +1088,24 @@
         function renderDropdown(filter) {
             filter = filter || '';
             const filtered = articleMappings.filter(article => {
-                const searchText = `${article.displayDate} ${article.title}`.toLowerCase();
+                const searchText = `${article.filterLabel} ${article.displayDate} ${article.title}`.toLowerCase();
                 return !filter || searchText.includes(filter);
             });
 
             let html = '';
             if (filtered.length > 0) {
-                html += '<div class="catalog-group-header" role="presentation">Sky &amp; Telescope</div>';
-                filtered.forEach((article, index) => {
-                    const isSelected = selectedArticles.includes(article.id);
-                    html += `<div class="multi-select-option${isSelected ? ' selected' : ''}" id="article-option-${index}" data-value="${escAttr(article.id)}" title="${escAttr(article.title)}" role="option" aria-selected="${isSelected}">${escHtml(article.displayDate)}</div>`;
+                let optionIndex = 0;
+                publicationOrder.forEach(publication => {
+                    const publicationArticles = filtered.filter(article => article.publication === publication);
+                    if (publicationArticles.length === 0) return;
+                    html += `<div class="catalog-group-header" role="presentation">${escHtml(publication.toUpperCase())}</div>`;
+                    publicationArticles.forEach(article => {
+                        const isSelected = selectedArticles.includes(article.id);
+                        const metadata = `${article.displayDate} · ${article.title}`;
+                        const ariaLabel = `${article.publication}: ${article.filterLabel}, ${metadata}`;
+                        html += `<div class="multi-select-option${isSelected ? ' selected' : ''}" id="article-option-${optionIndex}" data-value="${escAttr(article.id)}" title="${escAttr(metadata)}" role="option" aria-label="${escAttr(ariaLabel)}" aria-selected="${isSelected}">${escHtml(article.filterLabel)}</div>`;
+                        optionIndex += 1;
+                    });
                 });
             } else {
                 html = '<div class="multi-select-empty" role="status">No matching articles</div>';
@@ -1087,7 +1122,7 @@
             tagsEl.innerHTML = selectedArticles.map(id => {
                 const article = articleMappings.find(item => item.id === id);
                 if (!article) return '';
-                const label = `S&T ${article.displayDate}`;
+                const label = articleSelectionLabel(article);
                 return `<span class="multi-select-tag">${escHtml(label)} <button type="button" data-value="${escAttr(id)}" aria-label="Remove ${escAttr(label)}">&times;</button></span>`;
             }).join('');
             tagsEl.querySelectorAll('button').forEach(btn => {
@@ -1718,7 +1753,11 @@
         if (appliedArticles.length > 0) {
             const articleLabels = appliedArticles.map(id => {
                 const article = articleMappings.find(item => item.id === id);
-                return article ? `S&T ${article.displayDate}` : id;
+                if (!article) return id;
+                const publication = article.publication === 'Sky & Telescope'
+                    ? 'S&T'
+                    : article.publication;
+                return `${publication} ${article.filterLabel || article.displayDate}`;
             });
             filterParts.push('Articles: ' + articleLabels.join(', '));
         }
@@ -1868,10 +1907,16 @@
             const article = articleMappings.find(item => item.id === id);
             if (article) article.objectNames.forEach(name => selectedArticleObjectNames.add(name));
         });
+        const selectedSpecializedCatalogs = specializedCatalogs.filter(catalog =>
+            selectedCatalogs.includes(catalog.filterLabel)
+        );
 
         filteredData = allData.filter(o => {
             if (selectedCatalogs.length > 0) {
                 const refs = o.references || '';
+                const matchesSpecializedCatalog = selectedSpecializedCatalogs.some(catalog =>
+                    specializedCatalogMembership.get(catalog.id).has(o.name)
+                );
                 const matchesCatalog = selectedCatalogs.includes(o.catalog) ||
                     (selectedCatalogs.includes('Messier') && o.isMessier) ||
                     (selectedCatalogs.includes('Orion DeepMap') && o.isOrionAtlas) ||
@@ -1881,7 +1926,8 @@
                     (selectedCatalogs.includes('Abell planetary nebulae') && getAbellDesignation(o) && o.type !== 'GX' && o.type !== 'NF') ||
                     (selectedCatalogs.includes('Barnard Dark Nebulae') && getBarnardDesignation(o)) ||
                     (selectedCatalogs.includes('Galaxy Trios (KTG)') && getKtgDesignation(o) && o.type === 'GX') ||
-                    (selectedCatalogs.includes('STF Double Stars') && getStfDesignation(o));
+                    (selectedCatalogs.includes('STF Double Stars') && getStfDesignation(o)) ||
+                    matchesSpecializedCatalog;
                 if (!matchesCatalog) return false;
             }
             if (appliedArticles.length > 0 && !selectedArticleObjectNames.has(o.name)) return false;
@@ -2223,6 +2269,13 @@
         return observations.filter(o => !(o.text && o.text.startsWith('='))).length;
     }
 
+    function renderSpecializedCatalogBadges(objectName) {
+        return specializedCatalogs
+            .filter(catalog => specializedCatalogMembership.get(catalog.id).has(objectName))
+            .map(catalog => `<span class="badge ${escHtml(catalog.badgeClass)}">${escHtml(catalog.detailLabel)}</span>`)
+            .join('');
+    }
+
     // --- Object Detail (slide-over panel) ---
     function selectObject(name, pushState) {
         if (pushState === undefined) pushState = true;
@@ -2297,6 +2350,7 @@
                     ${obj.isTopObject ? '<span class="badge badge-top">★ Gottlieb\'s Favorites</span>' : ''}
                     ${obj.isOrionAtlas ? '<span class="badge badge-orion">Orion DeepMap</span>' : ''}
                     ${obj.isMessier ? '<span class="badge badge-messier">Messier</span>' : ''}
+                    ${renderSpecializedCatalogBadges(obj.name)}
                     <a href="${simbadUrl}" target="_blank" rel="noopener" class="btn btn-secondary" style="padding:6px 16px;font-size:0.85rem;">
                         SIMBAD ↗
                     </a>
@@ -2525,6 +2579,15 @@
         return m ? m[1] : 'Unknown';
     }
 
+    function normalizeBlogSearchText(value) {
+        return String(value || '')
+            .normalize('NFKC')
+            .toLowerCase()
+            .replace(/[\u2018\u2019\u02bc\uff07]/g, "'")
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
     function renderBlog() {
         const grid = $('#blog-grid');
         if (!grid) return;
@@ -2577,12 +2640,13 @@
         if (!input) return;
 
         input.addEventListener('input', () => {
-            const q = input.value.trim().toLowerCase();
-            blogFiltered = q ? blogData.filter(b =>
-                b.title.toLowerCase().includes(q) ||
-                b.date.toLowerCase().includes(q) ||
-                (b.objects && b.objects.toLowerCase().includes(q))
-            ) : blogData;
+            const q = normalizeBlogSearchText(input.value);
+            blogFiltered = q ? blogData.filter(b => normalizeBlogSearchText([
+                b.title,
+                b.date,
+                b.objects,
+                b.search_text
+            ].filter(Boolean).join(' ')).includes(q)) : blogData;
             blogDisplayed = 0;
             renderBlog();
         });

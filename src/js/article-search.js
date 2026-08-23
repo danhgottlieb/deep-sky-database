@@ -1,28 +1,49 @@
 (function () {
     'use strict';
 
-    const articleIds = new Map([
-        ['38', 'sky-telescope-2025-04'],
-        ['37', 'sky-telescope-2024-04'],
-        ['34', 'sky-telescope-2022-06'],
-        ['25', 'sky-telescope-2017-05'],
-        ['20', 'sky-telescope-2014-09'],
-        ['19', 'sky-telescope-2014-05'],
-        ['18', 'sky-telescope-2013-07'],
-        ['13', 'sky-telescope-2011-05'],
-        ['11', 'sky-telescope-2010-04'],
-        ['8', 'sky-telescope-2003-11'],
-        ['6', 'sky-telescope-2002-04'],
-        ['5', 'sky-telescope-2001-01'],
-        ['4', 'sky-telescope-2000-08'],
-        ['3', 'sky-telescope-2000-05'],
-        ['2', 'sky-telescope-1999-10']
-    ]);
-    const validArticleIds = new Set(articleIds.values());
+    const publicationConfigs = [
+        {
+            listSelector: '#articles-list',
+            articleIds: new Map([
+                ['38', 'sky-telescope-2025-04'],
+                ['37', 'sky-telescope-2024-04'],
+                ['34', 'sky-telescope-2022-06'],
+                ['25', 'sky-telescope-2017-05'],
+                ['20', 'sky-telescope-2014-09'],
+                ['19', 'sky-telescope-2014-05'],
+                ['18', 'sky-telescope-2013-07'],
+                ['13', 'sky-telescope-2011-05'],
+                ['11', 'sky-telescope-2010-04'],
+                ['8', 'sky-telescope-2003-11'],
+                ['6', 'sky-telescope-2002-04'],
+                ['5', 'sky-telescope-2001-01'],
+                ['4', 'sky-telescope-2000-08'],
+                ['3', 'sky-telescope-2000-05'],
+                ['2', 'sky-telescope-1999-10']
+            ])
+        },
+        {
+            listSelector: '#astronomy-articles-list',
+            articleIds: new Map([
+                ['5', 'astronomy-2007-04'],
+                ['4', 'astronomy-2007-03'],
+                ['2', 'astronomy-2006-02'],
+                ['1', 'astronomy-1999-05']
+            ])
+        }
+    ];
+    const validArticleIds = new Set(
+        publicationConfigs.flatMap(config => [...config.articleIds.values()])
+    );
     const selectionStorageKey = 'deepSkySelectedArticles';
 
-    const list = document.getElementById('articles-list');
-    if (!list) return;
+    const publicationConfig = publicationConfigs.find(config =>
+        document.querySelector(config.listSelector)
+    );
+    if (!publicationConfig) return;
+
+    const list = document.querySelector(publicationConfig.listSelector);
+    const articleIds = publicationConfig.articleIds;
 
     function getStoredArticleIds() {
         try {
@@ -79,8 +100,8 @@
             const link = document.createElement('a');
             link.className = 'article-link article-search-link';
             link.dataset.articleId = articleId;
-            link.textContent = 'Search objects';
-            link.setAttribute('aria-label', `Search objects from ${item.querySelector('h4')?.textContent.trim() || articleId}`);
+            link.textContent = 'Objects list';
+            link.setAttribute('aria-label', `Objects list for ${item.querySelector('h4')?.textContent.trim() || articleId}`);
             refreshSearchLink(link);
             link.addEventListener('click', () => {
                 const ids = articleIdsWith(articleId);

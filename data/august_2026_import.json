@@ -1768,6 +1768,22 @@
         }
       ]
     },
+    "manualObservationReplacements": [
+      {
+        "name": "UGC 11804",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "changedThisRun": true,
+        "visualDescriptionSha256": "c835ed2a0625e7b78e030079b60a3145e5f1cdeb3b734702609bedd5426cf9a8"
+      },
+      {
+        "name": "S 698",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "changedThisRun": true,
+        "visualDescriptionSha256": "8bf99165c7d7fd83c90c344e42c03f0474080c8656524d95cda6631a2ce38151"
+      }
+    ],
     "renamedPrimaries": [
       {
         "from": "Herbig-Haro 398",
@@ -1835,12 +1851,24 @@
       },
       "finalCounts": {
         "objects": 25008,
-        "observations": 33605
+        "observations": 33607
       },
       "uniquePrimaryNames": 25008,
       "verifiedVisualUpdates": 141,
       "visualUpdateOverrides": [
         "S 698"
+      ],
+      "verifiedObservationReplacements": [
+        {
+          "name": "UGC 11804",
+          "observationCount": 2,
+          "visualDescriptionSha256": "c835ed2a0625e7b78e030079b60a3145e5f1cdeb3b734702609bedd5426cf9a8"
+        },
+        {
+          "name": "S 698",
+          "observationCount": 2,
+          "visualDescriptionSha256": "8bf99165c7d7fd83c90c344e42c03f0474080c8656524d95cda6631a2ce38151"
+        }
       ],
       "verifiedReplacements": [
         "6 Ser",
@@ -2543,8 +2571,8 @@
     },
     "inputSynchronization": {
       "copiesEqualBeforeRun": true,
-      "dataSha256BeforeRun": "b95d1f30a64b3407d656d0c7b115d577c5f5db18f59c4b8017951ce6ce0eb226",
-      "srcSha256BeforeRun": "b95d1f30a64b3407d656d0c7b115d577c5f5db18f59c4b8017951ce6ce0eb226",
+      "dataSha256BeforeRun": "3caa933b548371b4402115f38562615013014272ffe5915e970d4247e958fc12",
+      "srcSha256BeforeRun": "3caa933b548371b4402115f38562615013014272ffe5915e970d4247e958fc12",
       "recoveryPolicy": "data/data.json is authoritative; deterministic replacement operations resynchronize src/data.json"
     },
     "before": {
@@ -2553,23 +2581,23 @@
     },
     "after": {
       "totalRecords": 25008,
-      "totalObservations": 33605
+      "totalObservations": 33607
     },
     "authoritativeTotals": {
       "baseRecords": 24899,
       "baseObservations": 33388,
       "recordDelta": 109,
-      "observationDelta": 217,
+      "observationDelta": 219,
       "totalRecords": 25008,
-      "totalObservations": 33605,
+      "totalObservations": 33607,
       "derivedFromFinalData": true
     },
     "outputs": {
-      "dataSha256": "3caa933b548371b4402115f38562615013014272ffe5915e970d4247e958fc12",
-      "srcDataSha256": "3caa933b548371b4402115f38562615013014272ffe5915e970d4247e958fc12",
+      "dataSha256": "fa1d19a8a853a2597e592d7e6a7cc106d6d442672f0851bb3c81d50aec60f7b5",
+      "srcDataSha256": "fa1d19a8a853a2597e592d7e6a7cc106d6d442672f0851bb3c81d50aec60f7b5",
       "dataCopiesEqual": true,
-      "metadataSha256": "d034f0ffb8cd997a6bef49c2fc5b88acb57ec8d2efbf015e7b1af01aff1a40b9",
-      "srcMetadataSha256": "d034f0ffb8cd997a6bef49c2fc5b88acb57ec8d2efbf015e7b1af01aff1a40b9",
+      "metadataSha256": "f80ca7f8255c984f66da08127cc04be66548c3d5c5d4c1b6f321a84895755c65",
+      "srcMetadataSha256": "f80ca7f8255c984f66da08127cc04be66548c3d5c5d4c1b6f321a84895755c65",
       "metadataCopiesEqual": true
     }
   },
@@ -4703,6 +4731,16 @@
       "Discovery Date": "",
       "Historical": "",
       "Visual Description": "14.5\" (7/25/26): wide, bright pair of mag 7.2/8.5 star at the center of M21 using 66x."
+    }
+  ],
+  "manualObservationReplacements": [
+    {
+      "Name": "UGC 11804",
+      "Visual Description": "24\" (8/11/26): at 327x and 375x; faint, fairly large low surface brightness oval glow, elongated 2:1 or 5:2 ~E-W. A pair of mag 13-13.5 stars with a separation of ~12\" is at the S edge. UGC 11804 forms an interacting 30\" pair with UGC 11805 at the NE edge (perhaps they were merged in the eyepiece). UGC 11800 is 7' W in a very rich Cygnus star field.\n\n17.5\" (6/28/00): this interacting double system (with UGC 11805) appeared very faint, small (probably viewed core only). Closely bracketed by a close pair of mag 13 stars at the SW edge and a mag 12.5 star to the NE. At moments, there was a strong impression of the close companion attached to the mag 12.5 star [just 32\" between centers]. UGC 11804 was very difficult to track down as it is situated in a rich Milky Way field with a patchy background."
+    },
+    {
+      "Name": "S 698",
+      "Visual Description": "14.5\" (7/25/26): wide, bright pair of mag 7.2/8.5 stars at the center of M21 using 66x.\n\n18\" (8/12/10): In the center of M21 is the brightest member; mag 7.2 HD 164863. This star forms a 30\" pair (S 698) with mag 8.7 HD 313693. A third bright star, mag 8.8 HD 164883 lies 1.2' NE of the brightest star and a short line of stars extending NE contains two additional mag 10 and 11 stars."
     }
   ],
   "visualUpdates": [

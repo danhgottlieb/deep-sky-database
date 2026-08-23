@@ -585,7 +585,7 @@
       "publication": "Sky & Telescope",
       "date": "2000-08",
       "displayDate": "Aug 2000",
-      "filterLabel": "Faint summer GCs",
+      "filterLabel": "Faint summer globulars",
       "title": "A Tour of Obscure Summer Globular Clusters",
       "pdf": "articles/obscure-summer-globular-clusters.pdf",
       "objectNames": [
@@ -994,7 +994,7 @@
       "publication": "Astronomy",
       "date": "1999-05",
       "displayDate": "May 1999",
-      "filterLabel": "Spring GX sampler",
+      "filterLabel": "Spring galaxy sampler",
       "title": "Spirals & Giants & Dwarfs, Oh My!",
       "pdf": "articles/spirals-giants-dwarfs-oh-my.pdf",
       "objectNames": [

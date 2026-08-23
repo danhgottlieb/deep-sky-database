@@ -75,13 +75,13 @@ EXPECTED_FILTER_LABELS = {
     "sky-telescope-2003-11": "NGC/IC Project",
     "sky-telescope-2002-04": "Hya-Cen galaxy cluster",
     "sky-telescope-2001-01": "Psc-Per galaxy cluster",
-    "sky-telescope-2000-08": "Faint summer GCs",
+    "sky-telescope-2000-08": "Faint summer globulars",
     "sky-telescope-2000-05": "CrB galaxy cluster",
     "sky-telescope-1999-10": "Abell 4038 cluster",
     "astronomy-2007-04": "Non-Messier galaxies",
     "astronomy-2007-03": "Winter planetary nebulae",
     "astronomy-2006-02": "Wolf-Rayet Bubbles",
-    "astronomy-1999-05": "Spring GX sampler",
+    "astronomy-1999-05": "Spring galaxy sampler",
 }
 EXPECTED_ASSOCIATIONS = 299
 EXPECTED_SOURCE_ROW_COUNTS = {

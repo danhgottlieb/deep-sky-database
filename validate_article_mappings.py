@@ -76,7 +76,7 @@ EXPECTED_FILTER_LABELS = {
     "sky-telescope-2002-04": "Hya-Cen galaxy cluster",
     "sky-telescope-2001-01": "Psc-Per galaxy cluster",
     "sky-telescope-2000-08": "Faint summer GCs",
-    "sky-telescope-2000-05": "CrB GX cluster",
+    "sky-telescope-2000-05": "CrB galaxy cluster",
     "sky-telescope-1999-10": "Abell 4038 cluster",
     "astronomy-2007-04": "Non-Messier galaxies",
     "astronomy-2007-03": "Winter planetary nebulae",

@@ -709,6 +709,12 @@
     }
 
     // --- Type Legend ---
+    function setLegendState(button, legend, label, expanded) {
+        legend.style.display = expanded ? 'block' : 'none';
+        button.textContent = `${label} ${expanded ? '▴' : '▾'}`;
+        button.setAttribute('aria-expanded', String(expanded));
+    }
+
     function setupLegend() {
         const grid = $('#legend-grid');
         const btn = $('#legend-toggle');
@@ -722,12 +728,6 @@
             `<div class="legend-item"><span class="legend-abbr">${escHtml(abbr)}</span><span class="legend-full">${escHtml(full)}</span></div>`
         ).join('');
 
-        btn.addEventListener('click', () => {
-            const shown = legend.style.display !== 'none';
-            legend.style.display = shown ? 'none' : 'block';
-            btn.textContent = shown ? 'Object Type Abbreviations ▾' : 'Object Type Abbreviations ▴';
-        });
-
         // Catalog abbreviation legend
         const catGrid = $('#catalog-legend-grid');
         const catBtn = $('#catalog-legend-toggle');
@@ -738,13 +738,29 @@
             catGrid.innerHTML = catEntries.map(([abbr, full]) =>
                 `<div class="legend-item"><span class="legend-abbr">${escHtml(abbr)}</span><span class="legend-full">${escHtml(full)}</span></div>`
             ).join('');
-
-            catBtn.addEventListener('click', () => {
-                const shown = catLegend.style.display !== 'none';
-                catLegend.style.display = shown ? 'none' : 'block';
-                catBtn.textContent = shown ? 'Catalog Name Abbreviations ▾' : 'Catalog Name Abbreviations ▴';
-            });
         }
+
+        const legends = [
+            { button: btn, panel: legend, label: 'Object Type Abbreviations' }
+        ];
+        if (catGrid && catBtn && catLegend) {
+            legends.push({ button: catBtn, panel: catLegend, label: 'Catalog Name Abbreviations' });
+        }
+
+        legends.forEach(item => {
+            setLegendState(item.button, item.panel, item.label, false);
+            item.button.addEventListener('click', () => {
+                const shouldOpen = item.button.getAttribute('aria-expanded') !== 'true';
+                legends.forEach(legendItem => {
+                    setLegendState(
+                        legendItem.button,
+                        legendItem.panel,
+                        legendItem.label,
+                        shouldOpen && legendItem === item
+                    );
+                });
+            });
+        });
     }
 
     // --- Build Filter Options ---

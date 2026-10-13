@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Build data pipeline for Gottlieb's Deep Sky Observations website.
-Merges main CSV + Historical text + References into a single JSON file.
+Uses current canonical JSON when durable October updates exist.
+Legacy CSV + Historical + References regeneration requires --from-csv.
 
 The full CSV has unquoted commas in several fields and multi-line
 VisualObservations. We use a two-strategy approach:
@@ -10,6 +11,7 @@ VisualObservations. We use a two-strategy approach:
      to catch records with non-standard coordinate formats.
 """
 
+import argparse
 import re
 import json
 import csv
@@ -34,6 +36,11 @@ AUGUST_IMPORT_MANIFEST = os.path.join(
 AUGUST_COLLISION_BASELINE = os.path.join(
     DATA_DIR, "august_2026_collision_baseline.json"
 )
+OCTOBER_IMPORT_SCRIPT = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "import_october_2026_updates.py",
+)
+OCTOBER_IMPORT_MANIFEST = os.path.join(DATA_DIR, "october_2026_import.json")
 
 # Permissive RA/Dec: RA is HH MM [SS[.s]], Dec is +/-DD [MM [SS]][.d]
 # Separator between RA and Dec can be comma or space (some data-entry errors)
@@ -620,7 +627,16 @@ def _extract_messier(other: str, name: str, is_messier: bool) -> str:
 
 # -- main pipeline -----------------------------------------------------
 
-def build_data():
+def build_data(*, from_csv=False):
+    if not from_csv and os.path.exists(OCTOBER_IMPORT_MANIFEST):
+        print("Preserving current canonical data; legacy CSV sources will not be read.")
+        subprocess.run(
+            [sys.executable, OCTOBER_IMPORT_SCRIPT, "--from-manifest"],
+            check=True,
+        )
+        print("Done!")
+        return
+
     print("=" * 60)
     print("Building data pipeline")
     print("=" * 60)
@@ -849,8 +865,21 @@ def build_data():
             check=True,
         )
 
+    if os.path.exists(OCTOBER_IMPORT_MANIFEST):
+        print("\n[8] Reapplying durable October 2026 updates...")
+        subprocess.run(
+            [sys.executable, OCTOBER_IMPORT_SCRIPT, "--from-manifest"],
+            check=True,
+        )
+
     print("\nDone!")
 
 
 if __name__ == "__main__":
-    build_data()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--from-csv",
+        action="store_true",
+        help="explicitly regenerate from legacy CSV sources instead of current canonical JSON",
+    )
+    build_data(from_csv=parser.parse_args().from_csv)

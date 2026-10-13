@@ -38,9 +38,9 @@ EXPECTED_CATALOGS = {
         "detailLabel": "Night Vision",
         "badgeClass": "badge-night-vision",
         "badgeColor": "#4ade80",
-        "statedCount": 327,
-        "sourceCount": 327,
-        "orderedSourceSha256": "18ae9e5cb7a978f70efcb24ac54662b6bcb8ab84e5afb61a33c2e41d02bf941c",
+        "statedCount": 358,
+        "sourceCount": 358,
+        "orderedSourceSha256": "ce2f39fffbc1666c873b313d8774c7cb1fa593c608932d933eee41283f301cc7",
     },
 }
 
@@ -51,7 +51,6 @@ EXPECTED_SPECIALIZED_OPTIONS = [
     "Galaxy Trios (KTG)",
     "Hercules GX Cluster",
     "Hickson Compact Groups (HCG)",
-    "Night Vision",
     "STF Double Stars",
     "Uppsala Galaxy Catalog (UGC)",
 ]
@@ -181,7 +180,10 @@ def main():
         "Failed to load database. Please refresh.",
         "specializedCatalogs = specializedCatalogData.catalogs || []",
         "new Set(catalog.objectNames || [])",
-        "...specializedCatalogs.map(catalog => catalog.filterLabel)",
+        "...specializedCatalogs",
+        ".filter(catalog => catalog.filterLabel !== 'Night Vision')",
+        ".map(catalog => catalog.filterLabel)",
+        "{ label: 'GENERAL', items: ['Messier', 'NGC', 'IC', 'Orion DeepMap', \"Gottlieb's Favorites\", 'Night Vision'] }",
         "].sort((a, b) => a.localeCompare(b))",
         "{ label: 'SPECIALIZED', items: specializedItems }",
         "selectedCatalogs.includes(catalog.filterLabel)",
@@ -210,7 +212,9 @@ def main():
             specialized_items_match.group(1),
             re.MULTILINE,
         )
-        generated_options = sorted(static_options + manifest_labels)
+        generated_options = sorted(
+            static_options + [label for label in manifest_labels if label != "Night Vision"]
+        )
         if generated_options != EXPECTED_SPECIALIZED_OPTIONS:
             fail(
                 errors,

@@ -41,11 +41,11 @@ def main():
     assert "2.6&quot; separation" in report_html
 
     entries = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
-    assert len(entries) == 134, f"Expected 134 reports, found {len(entries)}"
-    assert len({entry["slug"] for entry in entries}) == 134
-    assert len({entry["filename"] for entry in entries}) == 134
+    assert len(entries) == 136, f"Expected 136 reports, found {len(entries)}"
+    assert len({entry["slug"] for entry in entries}) == 136
+    assert len({entry["filename"] for entry in entries}) == 136
     validate_report_file_set(entries)
-    assert 'app.js?v=66' in REPORTS_PAGE.read_text(encoding="utf-8")
+    assert 'app.js?v=67' in REPORTS_PAGE.read_text(encoding="utf-8")
 
     gssp = next(entry for entry in entries if entry["slug"] == GSSP_SLUG)
     expected_search_text = extract_search_text(report_html, gssp.get("objects", ""))
@@ -60,7 +60,7 @@ def main():
         print(f"PASS search {query!r}: GSSP selected ({len(matches)} result(s))")
 
     print("PASS glyphs: no U+0384/U+00B4; browser-safe &prime; present; arcseconds unchanged")
-    print("PASS index: valid JSON, 134 unique slugs and 134 unique filenames")
+    print("PASS index: valid JSON, 136 unique slugs and 136 unique filenames")
     print("PASS index coverage: every report HTML file is indexed exactly once")
     print("PASS GSSP search text: Barnard's Galaxy and NGC 6822 indexed")
 

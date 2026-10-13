@@ -1,6 +1,6 @@
 {
-  "totalRecords": 25008,
-  "totalObservations": 33607,
+  "totalRecords": 25077,
+  "totalObservations": 33733,
   "constellations": [
     "And",
     "Ant",
@@ -93,33 +93,33 @@
     "Vul"
   ],
   "types": {
-    "GX": 14513,
-    "**": 4152,
-    "OC": 1072,
+    "GX": 14547,
+    "**": 4154,
+    "OC": 1075,
     "PN": 819,
     "Dup": 461,
+    "EN": 382,
     "LMC-OC": 376,
-    "EN": 364,
     "***": 343,
-    "GXPair": 244,
+    "GXPair": 245,
     "*": 197,
     "RN": 171,
     "GXCL": 161,
+    "AST": 157,
     "NF": 157,
-    "AST": 155,
     "GC": 155,
     "GXTrpl": 122,
     "DN": 119,
     "LMC-EN": 101,
     "SMC-OC": 83,
     "LMC-C+N": 75,
+    "SNR": 70,
     "QSR": 66,
-    "SNR": 63,
     "RV": 52,
     "GXGrp": 51,
+    "M31-GC": 47,
     "GXGRP": 46,
-    "M31-GC": 46,
-    "E+R": 33,
+    "E+R": 34,
     "LMC-GC:": 33,
     "OC:": 31,
     "****": 31,
@@ -324,12 +324,12 @@
     "IC2574-GC": 1
   },
   "catalogs": {
-    "Other": 12119,
+    "Other": 12154,
     "NGC": 8270,
-    "IC": 2823,
-    "UGC": 1796
+    "IC": 2826,
+    "UGC": 1827
   },
   "topObjectCount": 304,
   "orionAtlasCount": 441,
-  "lastUpdated": "2026-08-19"
+  "lastUpdated": "2026-10-10"
 }

@@ -1,0 +1,2553 @@
+{
+  "schemaVersion": 1,
+  "updateDate": "2026-10-10",
+  "sources": {
+    "request": {
+      "file": "paste-1791862184790.txt",
+      "sha256": "c452008915b955a0c0c9ebef51c8d91a965c49c29c99545935b7ed95885970cf"
+    },
+    "additionalObject": {
+      "file": "m31-g318.txt",
+      "sha256": "17674132fe7008217b7fa6e11392ac0cf29f594ee4a4b9be168b9ab186aec8a8"
+    }
+  },
+  "newObjects": [
+    {
+      "Name": "UGC 12904",
+      "Other": "MCG +06-01-005 = CGCG 517-012 = CGCG 518-007 = PGC 91",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SBab",
+      "RA2000": "00 01 14.2",
+      "Dec2000": "+34 40 33",
+      "Size": "1.0'x0.8'",
+      "PA": "34",
+      "VMag": "14.1",
+      "BMag": "15.1",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .042 --> Hubble distance ~600 Mly.\n\n2011 by Miskolczi+: \"Tidal streams around galaxies in the SDSS DR7 archive\"\nType 1 tidal stream: \"Features which show clear streams which are not the result of major mergers or other large scale interactions.\"",
+      "Visual Description": "24\" (10/5/26): at 327x; fairly faint, small, round, even surface brightness, 30\" diameter. A mag 15.7 star is 1' SE.  Forms a pair with MCG +06-01-004 2.5' SW.  IC 5376 is 9' S."
+    },
+    {
+      "Name": "IC 5376",
+      "Other": "UGC 12909 = MCG +06-01-007 = CGCG 517-013 = CGCG 518-008 = KAZ 239 = PGC 102",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Sb",
+      "RA2000": "00 01 19.8",
+      "Dec2000": "+34 31 32",
+      "Size": "2.0'x0.3'",
+      "PA": "4",
+      "VMag": "13.9",
+      "BMag": "14.9",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "F, S, Ens, gbM",
+      "Discovery Date": "25 Nov 1899",
+      "Historical": "Stéphane Javelle discovered IC 5376 = J. 3-1467 on 25 Nov 1899. His position is accurate.",
+      "Visual Description": "24\" (10/5/26): at 263x and 327x; between faint and fairly faint, very thin streak 5:1 N-S, ~1.0'x0.2', contains a small bright core and occasional stellar nucleus.  UGC 12904 lies 9' N."
+    },
+    {
+      "Name": "UGC 3",
+      "Other": "MCG +03-01-018 = CGCG 456-021 = PGC 186",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SBa",
+      "RA2000": "00 02 46.4",
+      "Dec2000": "+18 53 10",
+      "Size": "1.3'x0.5'",
+      "PA": "84",
+      "VMag": "13.8",
+      "BMag": "14.8",
+      "SB": "",
+      "Con": "Peg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .026 --> Hubble distance ~360 Mly.\nMean redshift-independent distance = 378 Mly.\n\nOnly 17 SIMBAD references from large surveys.",
+      "Visual Description": "24\" (10/5/26): at 263x and 327x; fairly faint (easily visible), elongated ~5:2 E-W, small brighter core, ~50\"x20\".  A mag 8.6 star is 4' SW. It forms the northern vertex of nearly an equilateral triangle with sides of 3.5' and 4'."
+    },
+    {
+      "Name": "Courtès 107",
+      "Other": "[GS55] 285 = Sh 2-171 = LBN 582/583",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "00 02.6",
+      "Dec2000": "+67 37",
+      "Size": "180'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cep",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Courtès 107: Includes Courtès 105 (Simeis 274), Courtès 108 (Cederblad 215) and Courtès 109 (Cederblad 214).",
+      "Visual Description": "NVD at 1x (9/4/24):  Courtès 107 includes both Ced 214 (south) and Ced 215 (north), which is taken as NGC 7822, along with the connecting nebulosity wreath on the west side.\n\nCed 214 appeared fairly bright with a 6nm H-alpha filter with just the 1x monocular and forms an excellent pair with NGC 7822, which is also prominent.\n\n14.5\" (12/12/23): NVD at 24x; Ced 214 is an excellent high contrast HII region involving mag 5.7 HD 225216 with several prominent rifts and lanes! The outline and structure is highly irregular, but spans roughly 50'x40', extending further N-S.  The highest surface brightness region (LBN 588) is directly west of mag 5.7 star and it extends ~20'x12' in a SW to NE direction. Its northern edge is bordered by a dark, dusty region.\n\nA high contrast dust lane is centered 11' NW of the bright star, midway to the cluster Be 59 (a knot of stars that includes two mag 9.1/9.6 O-types). It extends ~12'x3' N-S with an irregular boundary.  An obvious 3' dark patch is ~8' W of this lane.  To the west of this patch, a dust lane slices into the nebula, nearly cutting off a patch of nebulosity at the NW side of Ced 214.\n\nThe southern side of Ced 214 is fainter and more uniform, reaching mag 6.3 HD 225136, while the northern side (including the cluster and dark features) is irregular."
+    },
+    {
+      "Name": "UGC 97",
+      "Other": "MCG +05-01-045",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "S0",
+      "RA2000": "00 10 35.8",
+      "Dec2000": "+28 40 54",
+      "Size": "1.1'x0.7'",
+      "PA": "68",
+      "VMag": "14.4",
+      "BMag": "15.4",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .027 --> Hubble distance ~375 Mly.",
+      "Visual Description": "24\" (10/5/26): at 375x; fairly faint, small, round, good surface brightness though perhaps viewed core region only, ~20\" diameter.  Situated only 2.7' NE of yellow-orange mag 7.2 HD 598, which compromises the view, and 38' SE of mag 2 Alpheratz.  UGC 108 lies 19' SE and it has a similar redshift."
+    },
+    {
+      "Name": "UGC 108",
+      "Other": "MCG +05-01-051 = CGCG 499-072 = PGC 816",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SBb?",
+      "RA2000": "00 11 45.1",
+      "Dec2000": "+28 29 57",
+      "Size": "0.9'x0.45'",
+      "PA": "51",
+      "VMag": "14.3",
+      "BMag": "15.2",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .027 --> Hubble distance ~370 Mly.\n\nMean redshift-independent distance = 464 Mly.",
+      "Visual Description": "24\" (10/5/26): at 327x; between faint and fairly faint, oval 2:1 SW-NE, ~0.6'x0.3'.  UGC 97 is 19' NW.  UGC 108 is situated 4.7' NNW of mag 7.5 HD 744 and 7' SSW of mag 7.2 HD 755.  Member of the USGC U009 galaxy group."
+    },
+    {
+      "Name": "UGC 139",
+      "Other": "MCG +00-01-043 = CGCG 382-035 = PGC 963",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SAB(s)c?",
+      "RA2000": "00 14 31.9",
+      "Dec2000": "-00 44 15",
+      "Size": "2.1'x1.0'",
+      "PA": "82",
+      "VMag": "14.0",
+      "BMag": "14.7",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .013 --> Hubble flow distance ~175 Mly.\n\nHost of Type Ia SN 1998dk",
+      "Visual Description": "24\" (10/5/26): at 327x; fairly faint, oval 2:1 E-W, at least 1.0'x0.5', diffuse, broad concentration. Situated 8.5' W of SLE 250, a mag 12/14 pair at 14\"."
+    },
+    {
+      "Name": "UGC 147",
+      "Other": "MCG +05-01-057 = CGCG 499-089 = PGC 1046",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "S0/a",
+      "RA2000": "00 15 43.7",
+      "Dec2000": "+29 40 00",
+      "Size": "1.6'x0.3'",
+      "PA": "156",
+      "VMag": "13.8",
+      "BMag": "14.8",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .022 --> Hubble distance ~305 Mly.\n\nSDSS mag: V = 14.1, B = 15.1",
+      "Visual Description": "24\" (10/5/26): at 327x; fairly faint, very elongated 4:1 NNW-SSE, brighter core, ~45\"x12\".  UGC 147 is an outlying member of the NGC 68 group (USGC U012), 40' to the SW."
+    },
+    {
+      "Name": "UGC 151",
+      "Other": "MCG +02-01-028 = CGCG 433-040 = PGC 1074",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "S0",
+      "RA2000": "00 16 14.8",
+      "Dec2000": "+10 19 56",
+      "Size": "1.2'x1.0'",
+      "PA": "132",
+      "VMag": "13.5",
+      "BMag": "14.5",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .017 --> Hubble distance ~235 Mly.",
+      "Visual Description": "24\" (10/5/26): at 327x and 375x; relatively bright, slightly elongated NW-SE, bright core increases to a stellar nucleus, ~45\" diameter.  Three bright stars are in the low power field to the E: a mag 10.3 star 5' ESE, an orange mag 6.5 star 9' SE (HD 1255), and a mag 7.4 star (HD 1283) is 12' ESE."
+    },
+    {
+      "Name": "UGC 155",
+      "Other": "MCG +01-01-047 = CGCG 408-044 = PGC 1106",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Sb",
+      "RA2000": "00 16 44.2",
+      "Dec2000": "+07 04 34",
+      "Size": "1.4'x0.35'",
+      "PA": "4",
+      "VMag": "13.6",
+      "BMag": "14.5",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .013 --> Hubble flow distance ~175 Mly.\n\nHost of core-collapse (type II/IIb) SN 2005mg, discovered 12/27/05 by Jack Newton and Tim Puckett.",
+      "Visual Description": "24\" (10/5/26): at 327x and 375x; very nice edge-on streak 4:1 or 5:1 N-S, ~1.0'x0.25'. A mag 14.8 star is off the E side [0.5' from center] and a mag 15.3 star is 1' SE."
+    },
+    {
+      "Name": "CGCG 499-095",
+      "Other": "PGC 1108",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "S0/a",
+      "RA2000": "00 16 49.0",
+      "Dec2000": "+29 37 10",
+      "Size": "0.5'x0.5'",
+      "PA": "",
+      "VMag": "14.1",
+      "BMag": "15.0",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .023 --> Hubble distance ~315 Mly.",
+      "Visual Description": "24\" (10/5/26): at 327x; fairly faint (very easy), small, round, slightly brighter nucleus, 20\"-24\" diameter. Outlying member of the NGC 68 group (USGC U012) with UGC 147 14' WNW."
+    },
+    {
+      "Name": "IC 1550",
+      "Other": "MCG +06-02-002 = CGCG 519-008 = PGC 1533",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "S0",
+      "RA2000": "00 24 27.6",
+      "Dec2000": "+38 11 08",
+      "Size": "0.7'x0.6'",
+      "PA": "",
+      "VMag": "13.7",
+      "BMag": "14.7",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "R, stell, vFN",
+      "Discovery Date": "22 Jun 1900",
+      "Historical": "Stephane Javelle discovered IC 1550 = J. 3-816 on 22 Jun 1900. His position is accurate.",
+      "Visual Description": "24\" (10/5/26): at 327x; fairly faint (relatively bright), small, round, ~25\" diameter, nearly stellar nucleus.  A mag 14.3 star is just off the NE edge."
+    },
+    {
+      "Name": "UGC 232",
+      "Other": "MCG +05-02-009 = CGCG 500-016 = KUG 0022+329 = PGC 1546",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SB(r)a",
+      "RA2000": "00 24 38.7",
+      "Dec2000": "+33 15 22",
+      "Size": "1.0'x0.7'",
+      "PA": "10",
+      "VMag": "13.7",
+      "BMag": "14.6",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .016 --> Hubble distance ~218 Mly.\nMean redshift-independent distance ~250 Mly.",
+      "Visual Description": "24\" (10/5/26): fairly faint, oval 3:2 N-S, very easy, 0.6'x0.4', weak concentration. A mag 14.6 star is at the S edge and a mag 10.5 star is 4' W."
+    },
+    {
+      "Name": "UGC 355",
+      "Other": "MCG +05-02-027 = CGCG 500-049 = PGC 2147",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SBab",
+      "RA2000": "00 35 54.5",
+      "Dec2000": "+31 52 24",
+      "Size": "1.1'x0.4'",
+      "PA": "123",
+      "VMag": "13.7",
+      "BMag": "14.6",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .021 --> Hubble distance ~290 Mly.",
+      "Visual Description": "24\" (10/5/26): at 327x; fairly faint, oval ~2:1 NW-SE, 0.8'x0.4', brighter core. Located 2.4' SE of a mag 10.8 star."
+    },
+    {
+      "Name": "UGC 364",
+      "Other": "PGC 2194",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Sc",
+      "RA2000": "00 36 45.0",
+      "Dec2000": "+21 33 58",
+      "Size": "1.0'x0.4'",
+      "PA": "57",
+      "VMag": "13.5",
+      "BMag": "14.5",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .030 --> Hubble distance ~410 Mly.",
+      "Visual Description": "24\" (10/5/26): at 229x; faint, elongated SW-NE glow with a low surface brightness. A 13th mag star is attached at the S edge and it detracts from viewing the galaxy."
+    },
+    {
+      "Name": "IC 1571",
+      "Other": "UGC 432 = MCG +00-02-121 = CGCG 383-066 = PGC",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Sb",
+      "RA2000": "00 40 37.9",
+      "Dec2000": "-00 19 50",
+      "Size": "1.1'x0.9'",
+      "PA": "14",
+      "VMag": "13.9",
+      "BMag": "14.6",
+      "SB": "",
+      "Con": "Cet",
+      "NGC Description": "F, pS, R, dif",
+      "Discovery Date": "22 Dec 1897",
+      "Historical": "Stéphane Javelle discovered IC 1571 = J. 3-825 on 22 Dec 1897. His position is accurate.",
+      "Visual Description": "24\" (10/6/26): at 327x; fairly faint, slightly elongated 4:3 N-S, 0.8'x0.6', brighter core. A mag 10.6/11.0 pair at 11\" separation (ARG 58) lies 3.4' S and a mag 9.8 star (HD 3831) is 6' NE."
+    },
+    {
+      "Name": "UGC 470",
+      "Other": "MCG +04-02-052 = CGCG 479-067",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Im?",
+      "RA2000": "00 44 12.7",
+      "Dec2000": "+26 50 42",
+      "Size": "1.0'x0.4'",
+      "PA": "160",
+      "VMag": "14.7",
+      "BMag": "15.3",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .017 --> Hubble distance ~235 Mly.\n\n2015 by Jaskot+: \"From H I to Stars: H I Depletion in Starbursts and Star-forming Galaxies in the ALFALFA H-alpha Survey\"\nThe extended H I disk of UGC 470 may fuel its elevated star formation. In addition, the two most optically asymmetric starbursts, which appear to be in a precoalescent merger stage, do show some evidence for enhanced H I gas fractions.",
+      "Visual Description": "24\" (10/5/26): at 375x; fairly faint, thin edge-on 4:1 NNW-SSE, ~40\"x10\". A 14th mag star is very close to the S end. Situated 7' NW of mag 8.8 HD 4195."
+    },
+    {
+      "Name": "H. V. 82",
+      "Other": "STTA 7",
+      "Type": "**",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "00 47 25",
+      "Dec2000": "+51 05 46",
+      "Size": "57\"",
+      "PA": "",
+      "VMag": "8.0/8.4",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cas",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "24\" (10/5/26): very wide pair of bright mag 8.0/8.4 stars. Picked up while observing UGC 486, which lies 13' S."
+    },
+    {
+      "Name": "UGC 486",
+      "Other": "MCG +08-02-015 = CGCG 550-015 = PGC 2781",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SAB(s)b",
+      "RA2000": "00 47 28.1",
+      "Dec2000": "+50 53 01",
+      "Size": "1.1'x0.9'",
+      "PA": "178",
+      "VMag": "13.4",
+      "BMag": "14.3",
+      "SB": "",
+      "Con": "Cas",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .017 --> Hubble distance ~240 Mly.",
+      "Visual Description": "24\" (10/5/26): at 375x; fairly faint, oval 4:3 N-S, weak concentration, 0.6'x0.4'. Located 14' WSW of mag 4.9 Nu Cas and 13' S of H. V. 82 = STTA 7 (8.0/8.4 at 57\")."
+    },
+    {
+      "Name": "UGC 506",
+      "Other": "MCG +04-03-010 = CGCG 480-011 = PGC 2894",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "S0/a",
+      "RA2000": "00 49 38.9",
+      "Dec2000": "+22 55 56",
+      "Size": "1.4'x1.0'",
+      "PA": "170",
+      "VMag": "13.5",
+      "BMag": "14.4",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .025 --> Hubble distance ~343 Mly.\n\nAll 21 SIMBAD references are from large surveys.",
+      "Visual Description": "24\" (10/6/26): at 375x; moderately bright oval 3:2 N-S, 45\"x30\", strong concentration with a bright, well-defined core. Situated in the middle of a triangle formed by mag 8.0 HD 4719 12' NNW and two mag 9.5 stars 11' SW and 9' SE."
+    },
+    {
+      "Name": "UGC 522",
+      "Other": "MCG +07-02-020 = CGCG 535-023 = KIG 36 = VV 554 = PGC 3011",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SAB(s)c",
+      "RA2000": "00 51 26.8",
+      "Dec2000": "+40 43 31",
+      "Size": "0.9'x0.7'",
+      "PA": "65",
+      "VMag": "15.2",
+      "BMag": "15.3",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .020 --> Hubble distance ~268 Mly.\n\nUGC note: Asymmetric 4 blue condensation superimposed, companion? Companions 3.0', 220, 0.5'x0.2'; and 4.7', 62, 0.8'x0.2' Several extremely faint objects in vicinity.",
+      "Visual Description": "24\" (10/6/26): at 327x; faint, elongated 3:2, diffuse, low even surface brightness, ~40\" diameter. Two mag 12.7/13.2 stars lie 1.5' NE."
+    },
+    {
+      "Name": "UGC 524",
+      "Other": "MCG +05-03-013 = CGCG 501-027 = PGC 3019",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "(R')SB(s)b",
+      "RA2000": "00 51 35.0",
+      "Dec2000": "+29 24 05",
+      "Size": "0.9'x0.9'",
+      "PA": "",
+      "VMag": "14.5",
+      "BMag": "15.4",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .036 --> Hubble distance ~500 Mly.\n\n2026 by Auge+: \"Resolved UV-Optical HST Imaging and Spectral Energy Distribution Modeling of Nearby BAT Active Galactic Nuclei\"\nM_BH = 42 million M_Sun\nSpectral type: Sy1.5\n\n1995 by Kukula+: \"High-resolution radio observations of the CfA Seyfert Sample -I. The observations\"\n\"Type 1. Host galaxy: SB with ring (CPG), SBb (UGC). Radio: this source is faint and unresolved in the C-array map and was not detected by A-array.\"",
+      "Visual Description": "24\" (10/6/26): at 327x and 375x; relatively bright glow between a 12th mag star is at the SE edge and a mag 14.5 star at the opposite edge. Contains a very small, sharply brighter nucleus."
+    },
+    {
+      "Name": "UGC 548",
+      "Other": "MCG +05-03-018 = CGCG 501-036 = PGC 3203",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Sc",
+      "RA2000": "00 54 22.9",
+      "Dec2000": "+31 39 55",
+      "Size": "1.2'x1.0'",
+      "PA": "90",
+      "VMag": "14.0",
+      "BMag": "14.8",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .022 --> Hubble distance ~300 Mly.\n\nThe 27 SIMBAD references are from large surveys (except 1).",
+      "Visual Description": "24\" (10/6/26): fairly faint, oval 4:3 SW-NE, low uniform surface brightness, ~50\" diameter. Located 12' NW of NGC 295."
+    },
+    {
+      "Name": "UGC 566",
+      "Other": "MCG +05-03-026 = CGCG 501-045 = PGC 3269",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SAdm",
+      "RA2000": "00 55 18.3",
+      "Dec2000": "+31 43 49",
+      "Size": "1.0'x1.0'",
+      "PA": "",
+      "VMag": "14.5",
+      "BMag": "15.4",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .021 --> Hubble distance ~288 Mly.\n\nUGC note: Paired with UGC 567 at 1.1' N. UGC 00565 at 3.2\n\nAll 17 SIMBAD references are from large surveys.",
+      "Visual Description": "24\" (10/6/26): at 375x; very faint, very diffuse glow, round, diameter 30\".  Forms a close pair with UGC 567 1.2' N."
+    },
+    {
+      "Name": "UGC 591",
+      "Other": "MCG +04-03-023 = CGCG 480-025 = Mrk 350 = PGC 3420",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "S?",
+      "RA2000": "00 57 19.7",
+      "Dec2000": "+23 53 24",
+      "Size": "0.9'x0.6'",
+      "PA": "164",
+      "VMag": "14.8",
+      "BMag": "15.3",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .016 --> Hubble distance ~217 Mly.\n\nMrk 350: Included in the 1994 \"Universidad Complutense de Madrid survey of emission-line galaxies\" (UCM) and displaying a \"marked emission line\".",
+      "Visual Description": "24\" (10/6/26): at 327x; faint, elongated 3:2 ~N-S, ~30\"x20\", diffuse, even surface brightness. Situated between a mag 11.8 star 1.2' SE and a mag 12.8 star 1.4' NW.\n\nUGC 591 is a member of the USGC U038 trio with UGC 612 23' ESE and NGC 304 22' NW."
+    },
+    {
+      "Name": "UGC 607",
+      "Other": "MCG +02-03-020 = CGCG 435-030 = PGC 3508",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SBb",
+      "RA2000": "00 58 44.9",
+      "Dec2000": "+12 44 54",
+      "Size": "1.0'x1.0'",
+      "PA": "",
+      "VMag": "14.3",
+      "BMag": "15.2",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .039 --> Hubble distance ~544 Mly.",
+      "Visual Description": "24\" (10/6/26): at 327x; fairly faint, round, 0.6' diameter, somewhat diffuse, even surface brightness. A 14th mag star is 1.5' S."
+    },
+    {
+      "Name": "UGC 610",
+      "Other": "MCG +02-03-022 = CGCG 435-003 = PGC 3513",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "E",
+      "RA2000": "00 58 51.1",
+      "Dec2000": "+12 58 22",
+      "Size": "1.8'x1.5'",
+      "PA": "67",
+      "VMag": "13.5",
+      "BMag": "14.5",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .025 --> Hubble distance ~343 Mly.\n\nUGC note: A large number of objects in vicinity, about 15 companions inside 5'. 00 56.5 +12 43 at 3.8', 90°, 0.7'x0.4', compact, m=15.7",
+      "Visual Description": "24\" (10/6/26): at 327x; relatively bright, slightly elongated, bright core with a diffuse halo. A mag 14.8 star is 1' SE of center.  UGC 607 is 13.5' S."
+    },
+    {
+      "Name": "UGC 612",
+      "Other": "MCG +04-03-029 = CGCG 480-028 = PGC 3527",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "S0",
+      "RA2000": "00 59 00.9",
+      "Dec2000": "+23 51 10",
+      "Size": "0.9'x0.4'",
+      "PA": "90",
+      "VMag": "13.8",
+      "BMag": "14.7",
+      "SB": "",
+      "Con": "Psc",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .017 --> Hubble distance ~230 Mly.\n\nAll 33 SIMBAD references are from larger surveys.",
+      "Visual Description": "24\" (10/6/26): at 327x; relatively bright, elongated E-W, well concentrated with a small (rounder) bright core. A 10th mag star (HD 5691) is 3' NW.\n\nUGC 612 is a member of the USGC U038 trio with UGC 591 23' WNW and NGC 304 43' NW (both over the border into Andromeda)."
+    },
+    {
+      "Name": "Sh 2-187",
+      "Other": "Simeis 113 = Sh 1-133 = [GS55] 11 = Sh 2-187 = LBN 630 = GN 01.19.8",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "01 23 09",
+      "Dec2000": "+61 52.4",
+      "Size": "6'x3'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cas",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Discovered by Gaze and Shajn in 1952 and included in the 3rd Simeis catalogue (Simeis 113): \"A small nebula, probably hydrogen.\" Sharpless 1-33 noted a \"Small cluster in center.\"\n\nGalaxyMap: This young (100-200 thousand years) star formation region is most likely ionised by a B0 class star and is surrounded by a 4600 solar mass molecular cloud. It is partially obscured by the Lynds dark nebula LDN 1317 and contains the infrared star cluster [BDS2003] 52. This nebula is prominent in infrared as can be seen in this MSX image.\n\nRusseil lists three potential ionising stars, one with a B2.5V class.\n\nDistance estimates\n1000 pc [2001AJ....122..313J]\n1440 pc +/- 260 [2007A&A...470..161R]\n-----\nCSOG: The emission nebula Simeis 113 is elongated and irregular and is surrounded by the dark nebula LDN 1317.\n-----\n2022 paper: \"Fragmented atomic shell around S187 H II region and its interaction with molecular and ionized gas.\" (2022MNRAS.515.2445Z)\nTo study the atomic hydrogen gas around a H II region, high resolution H I data should be obtained and compared with kinematics, morphology and properties of other species. This paper presents such analysis for the Sh 2-187 environment. This region is well-studied from the optical to the radio wavelengths. The S187 H ii region is driven by a cluster of B0V stars historically named as S187 B or BD52. The region is fairly young with an estimated age of ~500,000 years. The distance estimate is 1.4 ± 0.26 kpc from photometry and ~0.9 kpc from Gaia DR2 data and CO line analysis of associated large-scale structures. The H II region is surrounded by a molecular and atomic gas shell. A number of young stellar objects were detected towards the shell.\n\nThe formation of IRAS 01202+6133 (M ~21 M_Sun, L ~5600 L_Sun) is argued to have been triggered by the expansion of the S187 H II region. A pre-main-sequence object S187 Ha was discovered by Zavagno et al. (1994) with a mass of 25 ± 12 M_Sun nearby to IRAS 01202+6133. A 12CO outflow is associated with S187 Ha and a molecular hydrogen outflow driven by T Tauri star S187 NIRS 1. The existence of such objects is evidence of ongoing star formation in the shell.\n\nWe report the first evidence of a clumpy HI environment in its photodissociation region. The estimated atomic mass fraction of the shell is ~260 M_Sun, the shell size is ~4 pc.  The atomic shell consists of ~100 fragments. The S187 shell has a complex kinematical structure, including the expanding quasi spherical layer, molecular envelope, an atomic sub-bubble inside the shell and two dense cores (S187 SE and S187 NE) at different stages of evolution. The atomic sub-bubble inside the shell is young, contains a Class II young stellar object.",
+      "Visual Description": "24\" (10/6/26): NVD at 34x; Simeis 113 = Sh 2-187 is a small (5'-6' across), but interesting nebula. It consists of a very small knot, just 1.3' in size with a star at the S edge.  To the W and NW is an easily visible short extension or wing and a faint curving arm (bending south) is attached on the W end. A mag 10.3 star is off the NE side.\n\nThe nebula is isolated within the dark nebula LBN 1317. Several 9th mag stars are in the surrounding field, but no bright stars."
+    },
+    {
+      "Name": "Sh 2-198",
+      "Other": "Simeis 5 = [GS55] 23 = LBN 669",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "02 50 01",
+      "Dec2000": "+59 43",
+      "Size": "10'x8'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cas",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Discovered by Gaze and Shajn in 1951 and included in the 1st Simeis catalogue (Simeis 5).\n\nGalaxyMap: Avedisova concludes that Sh 2-198 is ionised by the O9.5 V star LS I +59 153. This star is part of the cluster IC 1848 which also ionises the much larger Sh 2-199 (W5) HII region.\n\nAvedisova places Sh 2-198 in the star formation SFR 137.39+0.19 along with a hydroxyl maser and two young stellar objects.\n\nDistance estimates:\n2900 pc [1982ApJS...49..183B]\n2300 pc ± 300 [1984NInfo..56...59A]\n2490 pc ± 500. Galactic HII regions. I. Stellar distances (Foster+, 2015)\n\nSimeis 5: \"A very small nebula to the southwest of IC 1848; apparently a purely hydrogen formation.\"\n\n1991 by Pismis & Mampaso: \"Infrared studies ofH ii regions: the Sharpless regions S148, 184, 198, 206 and 269\"\nThis scarcely studied diffuse H II region, located towards the south of W5, presents an almost circular shape on the POSS red print, around the 09.5 V star LS I 59153 (Georgelin, Georgelin & Roux 1973; Lahulla 1985). S198-IRS coincides with the central star of the nebula; for a spectral type 09.5V we find D = 2.9 kpc; and no evidence of infrared excess, a barely surprising result given the advanced evolutionary stage of SI98 and the expected absence of dust grains close to the central star. S 198 is in fact one rare example of an H II region without CO emission located in an area particularly rich in molecular complexes",
+      "Visual Description": "24\" (10/6/26): NVD at 34x; Simeis 5 = Sh 2-198 is a fairly bright circular arc about 6' in length that opens towards the NE. It curls about 90° and has a sharp outer edge facing SW and a hazy inner boundary. \n\nThis isolated patch is situated 20' S of a much larger, bright arc at the SW end of IC 1848 = Soul or Baby Nebula. An 11th mag member of the cluster with spectral type O9.5V (LS I +59 153) is at the center of radius of Simeis 5."
+    },
+    {
+      "Name": "Courtès 119 & 124",
+      "Other": "",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "05 26 30",
+      "Dec2000": "-09 05",
+      "Size": "120'x60'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Ori",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "NVD at 1x with 6nm H-alpha (2/25/25 & 11/30/21): This refers to the southern section of Barnard's loop that passes north of mag 5.6 HD 35536 and extends west to Rigel. At 1x, Barnard's Loop crossed the southern part of Orion's outline, passing just N of Kappa Ori (Saiph), continued west (passing N of HD 35536) and ending just east of Rigel."
+    },
+    {
+      "Name": "Simeis 38",
+      "Other": "",
+      "Type": "SNR",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "06 15 24",
+      "Dec2000": "+22 29",
+      "Size": "20'x2'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Gem",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 38: \"A faint nebula in the form of an arc adjacent to the east of Eta Geminorum.\"  This is the westernmost filament (oriented N-S) in the Jellyfish Nebula, IC 443.",
+      "Visual Description": "14.5\" (12/12/23): NVD at 24x;  The westernmost nebulosity of IC 443 (Jellyfish Nebula) is more diffuse but nearly reaches mag 3.3 Eta Gem (Crocus)."
+    },
+    {
+      "Name": "Simeis 39",
+      "Other": "",
+      "Type": "SNR",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "06 16 14",
+      "Dec2000": "+22 17",
+      "Size": "30'x20'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Gem",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 39: \"Annular almost closed to the southeast of Eta Geminorum.\"\n\nThis is the southwestern part of the supernova remnant the \"Jellyfish Nebula\" (Simeis 38, Simeis 39, Simeis 40, IC443 & Simeis 41).",
+      "Visual Description": "14.5\" (12/12/23): NVD at 24x;  Nebulosity is very weak or absent in the central region of IC 443 but is noticeably brighter in a large rectangular region on the SW side with brighter N-S rims on the W and E sides of this region (Simeis 39)."
+    },
+    {
+      "Name": "Simeis 42",
+      "Other": "",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "06 22 10",
+      "Dec2000": "+22 59",
+      "Size": "48'x42'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Gem",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 42: \"A moderately bright nebula to the north of Mu Geminorum\"",
+      "Visual Description": "14.5\" (1/7/24): NVD at 24x;  Continuing just another 1/2° further E from the thin filament that extends E from IC 443, I found a fairly bright and very large field of nebulosity elongated N-S, ~50'x30'. The outline appeared highly irregular with interior dark lanes.\n\nOn the west side is a mag 8.3 star HD 44252.  A thin, irregular dust lane loops south and east from this star and then heads north for ~10', where it nearly reaches a 10th mag star that is surrounded by darker circular region. More prominently, a high contrast, very long and broad dust lane runs N-S near the east edge for roughly 25', with the southern end close to 2.9-magnitude Mu Gem.  Very diffuse nebulosity is on the east side of the lane. The north end of the Sh 2-249 complex was patchy with brighter and darker areas, but no distinct dust lanes."
+    },
+    {
+      "Name": "Strohmeier 28",
+      "Other": "Courtès 141 = LBN 932",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "06 31.8",
+      "Dec2000": "+06 57",
+      "Size": "90'x20'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Mon",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "The western part of the supernova remnant G205.5+0.5 (the \"Monoceros Loop\").\n\nStrohmeier 28: \"Snake in north-south direction, between +7°1337 (5.0m) and NGC 2244.\"\n\nCourtès 141: Forms a whole with Courtès 140 (NGC2237, the \"Rosette Nebula\") and Courtès 147 (NGC2264, the \"Fox Fur Nebula & the Christmas Tree Cluster\").",
+      "Visual Description": "NVD at 1x (1/27/25): the western \"loop\" (Strohmeier 28) of the Monoceros Loop SNR, which extends due N from the Rosette was clearly visible at 1x, although it is less distinct (fainter and thinner) than the eastern arc that extends N to Fox Fur Nebula.\n\nNVD at 3x with 3nm H-alpha (1/20/25): a smaller and thinner loop (than the eastern half of Monoceros Loop SNR) that attached at the N end of the Rosette.  This faint arcing stream extended N and intersected the loop around the southern half of the Fox Fur Nebula at a sharp angle."
+    },
+    {
+      "Name": "McD 42",
+      "Other": "Ced 84A = Strohmeier 24 = Courtès 145",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "06 37 32",
+      "Dec2000": "+08 02",
+      "Size": "120'x40'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Mon",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "CSOG: \"The faint, elongated, filamentary nebulosity in the southern part is the northern part of the supernova remnant \"Monoceros Loop = G205.5+0.5.\"\n\nStruve & Elvey (McD 42): Strong emission. Guiding star BD+8°1438. [OII] 3727 is exceptionally strong; Ha is fairly strong; Hb and Hgamma are weak. The lines are fairly uniform along the slit. This is an extension of the nebula around S Mon.\n\nCederblad (84A): The region is faintly nebulous. According to Struve and Elvey this is an extension of the nebulosity around S Monocerotis.\n\nStrohmeier 24: Edge stars are +7°1780 (8.0m) (BD+07 01380), +8°1417 (8.6m), +8°1449 (9.2m) and +8°1454 (8.8m).\n\nCourtès 145: Forms a whole with Courtès 147 (NGC2264, the \"Fox Fur Nebula & the Christmas Tree Cluster\").",
+      "Visual Description": "NVD at 3x with 3nm H-alpha (1/20/25): with the increased magnification and contrast gain (3nm filter), an obvious outer loop (half of a ring) extends from the S side (where a faint loop extending directly  N from the Rosette nebula intersects) and wraps clockwise for ~180° around the E side of the Fox Fur Nebula.  The eastern portion is not curved. This partial outer ring was also visible at 1x with my 6nm filter, but was not as distinct.\n\nNote: faint, filamentary nebulosity in the southern part of the Fox Fur Nebula is the northern part of the SNR G205.5+0.5 (the \"Monoceros Loop\")."
+    },
+    {
+      "Name": "McD 55",
+      "Other": "Ced 85 = Courtès 146 = Strohmeier 22 = Simeis 168",
+      "Type": "SNR",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "06 42.0",
+      "Dec2000": "+06 21",
+      "Size": "130'x80'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Mon",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Struve, Elvey & Linke (McD 55): \"Strong emission. Guiding star BD+61351 = HD 48099, Sp. O6. This region is south of S Monocerotis. [OII] 3727 is very strong, especially near the eastern end of the slit; Ha is strong; Hb and NI + N2 are both weak and approximately equal.\"\n\nCederblad: \"Nebula associated with mainly one star (which may be multiple) - Star surrounded by a nebulous envelope without conspicuous structure. +6°1351 = HD 48099 = Boss 8747.\"\n\nStrohmeier: \"Stars on edge are +7°1382 (7.4m), +7°1407 (8.4m), +5°1394 (7.8m) and +5°1356 (9.0m).\"",
+      "Visual Description": "NVD at 1x (1/27/25): the eastern arc of the Monoceros Loop SNR that extends N from the Rosette Nebula to the Fox Fur Nebula was fairly easy.\n\nNVD at 3x with 3nm H-alpha (1/20/25):  Increasing to 3x, the brighter loop extending from the E side of the Rosette Nebula to the Fox Fur Nebula (McD 55 = Simeis 168) was easily visible. The two loops that appear to emanate from the Rosette complete a large SNR shell known as the \"Monoceros Loop\" (G205.5+0.5).\n\nNVD at 1x with 6nm H-alpha (1/25/22): besides a very large region of nebulosity surrounding the region of NGC 2264, a dim trail of nebulosity drapes south on the east side and appears to curve and thicken, nearly connecting to the Rosette Nebula!"
+    },
+    {
+      "Name": "UGC 10238",
+      "Other": "CGCG 079-068 = PGC 57365",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "(R')SB(s)b",
+      "RA2000": "16 10 26.5",
+      "Dec2000": "+12 18 20",
+      "Size": "1.4'x0.7'",
+      "PA": "70",
+      "VMag": "14.1",
+      "BMag": "15.0",
+      "SB": "",
+      "Con": "Ser",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .034 --> Hubble distance ~495 Mly.",
+      "Visual Description": "14.5\" (9/7/26): at 158x and 226x; very faint, diffuse, low even surface brightness, oval 3:2 E-W, ~0.6'x0.4', required averted vision.  The compact PN IC 4593 is 24' SE.  Member of a small group (USGC U746), that includes UGC 10239, IC 1198 and CGCG 79-60."
+    },
+    {
+      "Name": "UGC 10264",
+      "Other": "MCG +00-41-006 = CGCG 023-022 = PGC 57505",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SAB(s)cd",
+      "RA2000": "16 12 56.8",
+      "Dec2000": "-00 05 47",
+      "Size": "1.3'x0.7'",
+      "PA": "30",
+      "VMag": "14.1",
+      "BMag": "15.0",
+      "SB": "",
+      "Con": "Ser",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .030 --> Hubble distance ~450 Mly",
+      "Visual Description": "14.5\" (9/7/26): at 132x and 158x; very faint, low surface brightness, diffuse, brighter core (sometimes only part of galaxy visible), seems elongated ~2:1 SW-NE, ~0.6'x0.3'.  Located 12' E of mag 7.9 HD 145680 and just E of a line connecting two mag 13.5 stars to the SSW and NNW."
+    },
+    {
+      "Name": "UGC 10388",
+      "Other": "MCG +03-42-010 = CGCG 109-019 = PGC 58161",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Sa",
+      "RA2000": "16 27 03.0",
+      "Dec2000": "+16 22 56",
+      "Size": "1.6'x0.5'",
+      "PA": "128",
+      "VMag": "13.8",
+      "BMag": "14.7",
+      "SB": "",
+      "Con": "Her",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .015 --> Hubble distance ~225 Mly.\n\n2017: \"Stellar kinematics across the Hubble sequence in the CALIFA survey: general properties and aperture corrections\"\nStellar mass: 65 billion M_Sun.",
+      "Visual Description": "14.5\" (9/7/26): at 158x and 226x; faint, very elongated 3:1 NW-SE, ~0.9'x0.3', brighter core. A mag 12.2 star is 1' NE, a mag 13.8 star is 1.7' NW, and a mag 10.3 star is 5' NW."
+    },
+    {
+      "Name": "UGC 10456",
+      "Other": "MCG +09-27-052 = CGCG 276-027 = PGC 58517",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Sb",
+      "RA2000": "16 34 14.9",
+      "Dec2000": "+52 56 28",
+      "Size": "1.6'x1.0'",
+      "PA": "140",
+      "VMag": "13.9",
+      "BMag": "14.8",
+      "SB": "",
+      "Con": "Dra",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .028 --> Hubble distance ~410 Mly.\n\nUGC notes: Hints of extremely diffuse outer ring. Companion 3.9', 153°, 0.4 x 0.08\n\nAll 22 SIMBAD references are from larg surveys.",
+      "Visual Description": "14.5\" (9/5/26): at 158x and 226x; very faint and diffuse, very low, nearly even surface brightness, appears oval when glimpsed. Located just 2' E of a mag 9.4 star (HD 234319) and 18' W of STF 2078, a 3.1\" pair of mag 5.4/6.4 stars."
+    },
+    {
+      "Name": "UGC 10493",
+      "Other": "MCG +09-27-059 = CGCG 276-034 = PGC 58649",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "E",
+      "RA2000": "16 38 00.5",
+      "Dec2000": "+55 25 37",
+      "Size": "1.1'x0.8'",
+      "PA": "131",
+      "VMag": "13.7",
+      "BMag": "14.6",
+      "SB": "",
+      "Con": "Dra",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .030 --> Hubble distance ~430 Mly.\n\nAll 21 SIMBAD references are from larg surveys.",
+      "Visual Description": "14.5\" (9/5/26): at 158x and 226x; faint, oval 4:3 NW-SE, slightly brighter core, ~30\" diameter. Not difficult at 158x."
+    },
+    {
+      "Name": "UGC 10950",
+      "Other": "MCG +03-45-015 = CGCG 112-028 = PGC 60740",
+      "Type": "GXPair",
+      "Nickname": "",
+      "Class": "E",
+      "RA2000": "17 42 50.7",
+      "Dec2000": "+16 12 50",
+      "Size": "0.8'x0.7'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "15.0",
+      "SB": "",
+      "Con": "Her",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "UGC notes: a) 0.9': x 0.9':, spiral:, disturbed b) 0.8' x 0.2' Separation 0.8'. Several small very faint objects in vicinity {UGC incorrectly notes \"0.8 x 0.2\". H. Corwin}\n\nAll 31 SIMBAD references (for brighter galaxy) are from large surveys.",
+      "Visual Description": "14.5\" (9/5/26): at 158x and 226x; very faint, small, round, 20\"-25\" diameter, low even surface brightness.  Situated 1.2' N of a mag 12.2 star. The galaxy is located 20' NE of mag 5.5 HD 160910.\n\nA distinctive asterism of 6 stars is ~10' SSW. It includes a wide 18\" pair in the middle of a triangle of stars with an even wider pair at the SE vertex."
+    },
+    {
+      "Name": "90 Her",
+      "Other": "BU 130 = ADS 10875",
+      "Type": "**",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "17 53 18.0",
+      "Dec2000": "+40 00 29",
+      "Size": "1.6\"",
+      "PA": "",
+      "VMag": "5.3/8.8",
+      "BMag": "",
+      "SB": "",
+      "Con": "Her",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Discovered by Sherburne Burnham with the 6-inch.  \"A beautiful pair, even with a small aperture (the separation was close to 1.7\" in 1900). The components have a striking difference in color — golden and blue.  Dembowski reported a separation of 1.8\" in 1875 and Burnham measured 1.76\" in 1879.\n\nSpectral class: K3III (yellow-orange).\nUncertain nature.",
+      "Visual Description": "14.5\" (9/15/26): at 395x and 660x; when the seeing was sharpest, the relatively faint mag 8.8 companion was just visible at the ESE edge of the golden mag 5.3 primary (90 Her). I determined the orientation correctly before checking the PA (111°)."
+    },
+    {
+      "Name": "Renou 40",
+      "Other": "",
+      "Type": "AST",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "18 15 30",
+      "Dec2000": "-18 35",
+      "Size": "11'x2'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Sgr",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "14.5\" (9/5/26): at 158x and 226x; this asterism is situated in a rich star field (the M24 star cloud!). Nearly 50 stars in total are resolved, mostly in a thin 8' long chain oriented NW-SE, which includes a faint double star.  At the SE end is a mag 9.4 star that is a part of roughly triangular group of 8 stars forming a \"head\" to the chain. Most of the other stars in the chain are of a similar magnitude (roughly mag 11-12).  Another 3-4 stars further S connect to a 6th magnitude star (HD 167356).  Overall, this is a fairly distinctive group."
+    },
+    {
+      "Name": "Renou 5",
+      "Other": "",
+      "Type": "AST",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "19 47 18",
+      "Dec2000": "+22 36",
+      "Size": "10'x7'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Vul",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "14.5\" (9/5/26): at 176x; roughly 50 stars resolved in a 10' region, elongated SW-NE.  The stars are divided into three main groups. The two brightest stars are mag 9.7 on the W end and mag 9.9 on the N edge. The group doesn't stand out, but is set over a Milky Way patch that has a faintly glowing background."
+    },
+    {
+      "Name": "Teutsch 8",
+      "Other": "",
+      "Type": "OC",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 02 23",
+      "Dec2000": "+35 18 41",
+      "Size": "2'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "2006 by Kronberger: \"New galactic open cluster candidates from DSS and 2MASS imagery\" (2006A&A...447..921K)",
+      "Visual Description": "14.5\" (9/5/26): the multiple star ES 202 = ADS 13292 and a few very nearby stars form a compact cluster. A total of 9 were identified at 226x.  See Espin 202."
+    },
+    {
+      "Name": "Kronberger 72",
+      "Other": "",
+      "Type": "OC",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 12 19",
+      "Dec2000": "+37 53",
+      "Size": "1.5'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "2006 by Kronberger+: \"New galactic open cluster candidates from DSS and 2MASS imagery\"\n\nIncluded in several studies of open clusters.",
+      "Visual Description": "14.5\" (9/5/26): at 226x; this is a small clump of a half-dozen or so stars, including three brighter ones aligned NW to SE (mag 11.5 star). The mag 11.8 star at the NW end is a triple with a close, unequal companion (~8\" separation) and a third star is aligned."
+    },
+    {
+      "Name": "Simeis 107",
+      "Other": "[GS55] 190 = LBN 331 = DWB 171/172/177/178/179",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 15 24",
+      "Dec2000": "+47 45",
+      "Size": "120'x5'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 107: \"Approximately intersecting o2 Cygni, is a system of very fine filaments, extending in general along one another for almost 3 degrees. The location of this nebula is provisionally given by the coordinates o2 Cygni 20h12.3m +47°24' (20:15:24 +47°42'25\" J2000.0). Nebula Simeis 107 is of particular interest. The entire eye consists of separate very thin filaments, more or less equally oriented. The average value of the position angle for all 13 filaments is 75°±5° (when calculating the position angle, we conditionally take the more southern end of each filament as the beginning). The filamentary character of Simeis 107 is very sharply expressed.\"\n\n[GS55] 190: \"Entirely filamentary. System of very thin long filaments in southwest-northeast direction crossing o2 Cygni.\"",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; Simeis 107 is an amazing, huge thin filamentary structure that happens to pass barely north of 4th magnitude Omicron2 Cyg!  It extended WSW to ESE through the entire 1.6° field.  Just 8' W of Omicron2, the main thread passes directly through 7th mag HD 192783 and it also passes directly through an 8th mag SAO 49420, which is 16' ENE of Omicron2. \n\nThe main filament bifurcates at the WSW end with a faint, parallel thread. On the E side of Omicron2, the main filament ends about 10' E of SAO 49420 . But further east are two filaments: one angles NE and passes through a 1' pair of 8th mag stars (one is the carbon star U Cyg), and a second brighter filament stretches E-W to the S of U Cyg."
+    },
+    {
+      "Name": "DWB 114",
+      "Other": "",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 25 06",
+      "Dec2000": "+42 38",
+      "Size": "15'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; brighter patch in a field of nebulosity (on the NW side of the Gamma Cyg complex). The outline is irregular and extends roughly 15'.  Mag 6.9 HD 194708 is involved on the SE side.  The bright reflection nebula NGC 6914 and vdB 132 (NGC 6914B) lie just SW, but they were not noticeable with the H-alpha filter.  But DWB 105, situated 30' SSE, was visible in the field. \n\nJust W of DWB 114 and extending directly south is a broad, high contrast dust lane (LDN 897) that forms a striking contrast."
+    },
+    {
+      "Name": "DWB 105",
+      "Other": "",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 25 45",
+      "Dec2000": "+42 12",
+      "Size": "13'x9'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; fairly bright kidney-shaped patch elongated ~NW-SE. Tapers on the SE end.  Mag 7.8 HD 194669 is at the W tip. Forms a \"pair\" of HII regions with DWB 100 ~20' SE. Both of these are part of larger LBN 279 = Simeis 71 = Courtès 59"
+    },
+    {
+      "Name": "Simeis 71",
+      "Other": "Courtès 59 = [GS55] 205 = DWB 105+110+114",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 26 50",
+      "Dec2000": "+41 55",
+      "Size": "120'x32'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 71 (1951): \"A rather faint nebula adjacent to Simeis 67 to the northwest, possibly forms one whole with it.\"\n[GS55] 205: \"Structured with individual parts, including dark matter.\"",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; I observed this huge stream of nebulosity on the NW side of the Gamma Cyg complex in sections: DWB 105, 100, and 114.\n\nDWB 105: fairly bright kidney-shaped patch elongated ~NW-SE. Tapers on the SE end.  Mag 7.8 HD 194669 is at the W tip. Forms a \"pair\" of HII regions with DWB 100 ~20' SE.\n\nDWB 100:  fairly bright 10' patch of nebulosity elongated N-S and slightly curve. Fainter, diffuse nebulosity spreads to the west. A group of 4 stars (Do 9), including mag 7.1 HD 194684 is off the W side. Forms a pair with DWB 105 ~20' NW.\n\nDWB 114: brighter patch in a field of nebulosity (on the NW side of the Gamma Cyg complex). The outline is irregular and extends roughly 15'.  Mag 6.9 HD 194708 is involved on the SE side.  The bright reflection nebula NGC 6914 and vdB 132 (NGC 6914B) lie just SW, but they were not noticeable with the H-alpha filter.  But DWB 105, situated 30' SSE, was visible in the field. \n\nJust W of DWB 114 and extending directly south is a broad, high contrast dust lane (LDN 897) that forms a striking contrast."
+    },
+    {
+      "Name": "DWB 100",
+      "Other": "",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 26 52",
+      "Dec2000": "+41 55.5",
+      "Size": "20'x10'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; fairly bright 10' patch of nebulosity elongated N-S and slightly curve. Fainter, diffuse nebulosity spreads to the west. A group of 4 stars (Do 9), including mag 7.1 HD 194684 is off the W side. Forms a pair with DWB 105 ~20' NW. The larger stream of nebulosity extending NW-SE is  LBN 279 = Simeis 71."
+    },
+    {
+      "Name": "Simeis 75A",
+      "Other": "YM 17 = LBN 286",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 32 36",
+      "Dec2000": "+41 44",
+      "Size": "12'x6'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Discovered by Gaze and Shajn in 1951 and included in the 1st Simeis catalogue (Simeis 75).\nIndependently discovered in the Yerkes-McDonald survey and published by Johnson in 1955 (\"Symmetric Galactic Nebulae\") as YM 17 (paper submitted in Dec 1954).\n\nvan Wulfen notes that Gaze & Shajn assigned two positions to Simeis 75, separated by 1.3° from south to north. The first, 1951 Simeis 2-66 = Simeis 75 \"A\") with a size of 5'x5' and  [GS55] 210 = Simeis 75 \"B\") with a size of ~70'.",
+      "Visual Description": "24\" (10/6/26): NVD at 34x; YM 17 = Simeis 75A consists primarily of two patches to the SW of mag 7.1 HD 195987 and mag 6.5 HD 196134 (these stars are 13' apart).\n\nThe southern patch is a bright 10'x3' oval, elongated NW-SE, that was brighter on the SE end in a 5'x2' region.  Roughly 10' N is a second oval glow about 6'x3', with a mag 8.7 star (close pair BU 434) just off the N end. It appeared fainter than the southern patch. Both regions seemed nearly connected by low surface brightness nebulosity.\n\nViewed with the dual H-alpha and OIII filter."
+    },
+    {
+      "Name": "Simeis 219",
+      "Other": "[GS55] 219 = LBN 322/323",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 42 46",
+      "Dec2000": "+43 00 48",
+      "Size": "30'x13'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 219: \"A small nebula of moderate brightness\"",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; Simeis 219 consists of two main parts.  LBN 322 on the SE end is a moderately bright irregular patch about 6' diameter with a somewhat uneven surface brightness.  It appeared slightly brighter on the SW end. Immediately north of LBN 322 is a much larger, more diffuse region that extends perhaps 15' towards the NNW. The outline is not well defined but the glow encompasses a wide pair of 9th and 10th mag stars near its NW end.\n\nSimeis 219 is located W of NW end of IC 5068B = Simeis 81, the westernmost of the three elongated patches south of the Pelican Nebula."
+    },
+    {
+      "Name": "Simeis 224",
+      "Other": "",
+      "Type": "SNR",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 47 42",
+      "Dec2000": "+30 37",
+      "Size": "5'x3'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 224: \"A very faint little part.\"",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; fairly faint patch with an irregular outline and a mag 9.8 star at the NE end.  Roughly 4'x3', elongated NE-SW. Two or three stars are visible, even with the H-alpha filter.  Simeis 226 (section J of the Veil) is 10' SE."
+    },
+    {
+      "Name": "Simeis 227",
+      "Other": "",
+      "Type": "SNR",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 48 24",
+      "Dec2000": "+31 54",
+      "Size": "20'x8'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 227: \" A group of small thin filaments to the north of the large known funnel-shaped group Simeis 229 to the northeast of NGC 6960.\"",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; this number refers to the north \"cap\" of Fleming's Triangular Wisp. It extends up to 25' E-W, and 6'-7' N-S.  A number of thin filaments angling NE to SW are in the central part. Further E is a noticeable  darker lane ~N-S with a fairly faint thick arc further beyond the lane to the E. The W side tapers and involves an 8th mag star (HD 198197). The isolated thin filaments Simeis 237 and 233 lie ~20' NNE and NE of center."
+    },
+    {
+      "Name": "Simeis 83",
+      "Other": "",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 48 25",
+      "Dec2000": "+41 43",
+      "Size": "35'x10'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Discovered by Gaze and Shajn in 1951 and included in the 2nd Simeis catalogue (Simeis 83).\n\nSimeis 83: \"Very faint and diffuse\"",
+      "Visual Description": "24\" (10/6/26): NVD at 34x; fairly bright, large, thick stream of nebulosity oriented SW-NE. It widened and brightened somewhat at the SW end. Two bright stars 4.3' apart lie near the center: mag 7.4 HD 198401 and mag 8.1 HD 198364. \n\nThis H II region extended 30' NE to SE with a bend on the SW end to the S for an additional 10'.  So, overall it stretched 45' with an average width of ~10'.  To the N is IC 5068, which sits south of the Pelican Nebula."
+    },
+    {
+      "Name": "Simeis 232",
+      "Other": "",
+      "Type": "SNR",
+      "Nickname": "The Razor Blade",
+      "Class": "",
+      "RA2000": "20 48 54",
+      "Dec2000": "+30 59 36",
+      "Size": "10'x0.25'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 232: \"A thin, very sharp filament.\"",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; Simeis 232 is an extremely thin, long straight filament (like a razor blade!) extending ~10' in length N-S and at most 15\" thick.  It is situated just 2' to 4' W of the \"Thin Thread\". But although it displays a high contrast on the DSS1, it was fairly subtle because it partly blends with nebulosity immediately to the W. With care, it could be clearly identified as a razor thin linear filament."
+    },
+    {
+      "Name": "Simeis 233",
+      "Other": "",
+      "Type": "SNR",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "20 49 04",
+      "Dec2000": "+32 10",
+      "Size": "7'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cyg",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 233: \"A short bright filament to the north of Simeis 227.\"",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; fairly bright thin filament in the Veil SNR, very elongated N-S, ~5' length, tapers at the N end, Sharply defined bowed edge (bulging towards the E) along the W side.  Simeis 237 is 12' SE and the north \"cap\" of Fleming's Triangular Wisp is 20' SSW."
+    },
+    {
+      "Name": "UGC 11723",
+      "Other": "MCG +00-54-012 = CGCG 375-027 = KIG 906 = PGC 66579",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Sb",
+      "RA2000": "21 20 17.5",
+      "Dec2000": "-01 41 04",
+      "Size": "1.8'x0.25'",
+      "PA": "30",
+      "VMag": "14.1",
+      "BMag": "15.1",
+      "SB": "",
+      "Con": "Aqr",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .016 --> Hubble distance ~220 Mly.\n\n2025 paper by Sardaneta+: \"Extraplanar emission in isolated edge-on late-type galaxies - II. The H-alpha kinematics\"\nCIG 906 (UGC 11723): In Paper I, only faint H-alpha clouds resembling knots were identified along the galactic major axis. In this paper, we observed that these clouds trace a rotating H-alpha disc, indicating a general rotational motion.\n\n2024 by Sardaneta+: \"Extraplanar emission in isolated edge-on late-type galaxies - I. The H-alpha distribution versus to the old and young stellar discs\"\nAfter an exposure of 186 min with FP GHASP, only faint H-alpha clouds as knots were detected along the galactic major axis. A faint ionized gas cloud is located over the northern edge of the stellar disc. The NUV and FUV emission display wider and brighter discs than the NIR one, both show filaments all along the edges of the disc and even some detached clouds.",
+      "Visual Description": "24\" (10/5/26): at 327x; edge-on streak extending SW-NE, ~0.9'x0.2'. A mag 14.7 star is off the E edge and a couple of other very faint stars are near. Situated 4.3' NW of mag 8.6 HD 203159."
+    },
+    {
+      "Name": "Teutsch 126",
+      "Other": "DSH J2213.7+5543",
+      "Type": "OC",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "22 13 47",
+      "Dec2000": "+55 43.9",
+      "Size": "3.4'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Cep",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Dias+ 2021 \"Updated parameter of 1743 open clusters based on Gaia DR2\"\nDistance: 1220 ± 99 pc.\nAge: 110 Myr.",
+      "Visual Description": "14.5\" (10/3/26): This small group (diameter 3') includes a dozen starsmag 10-14 at 226x. The central part contains two bright pairs separated by 1.3': STI 2652 (north pair) = 9.8/12.5 at 9\" and STI 2653 (south) = 10.9/12.3 at 11\".  Another 11th mag star 1.6' W of STI 2652 forms a distinctive triangle and a slightly fainter mag 11.2 star inside the triangle makes a rough \"Y\" shape."
+    },
+    {
+      "Name": "LBN 430",
+      "Other": "Part of Simeis 305",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "22 31 10",
+      "Dec2000": "+39 05",
+      "Size": "60'x10'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Lac",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; very long (at least 45') river of nebulosity extending NE-SW through the low power field. The eastern edge had a fairly high contrast and was slightly curved (mild boomerang shape).\n\nLBN 430 is the brightest part of Simeis 305 (Great Lacerta Nebula). It may have continued further NE, but I didn't try to follow the glow."
+    },
+    {
+      "Name": "Simeis 305",
+      "Other": "[GS55] 257 = Sh 2-126 = LBN 428/430/433/437/442",
+      "Type": "EN",
+      "Nickname": "Great Lacerta Nebula",
+      "Class": "",
+      "RA2000": "22 32",
+      "Dec2000": "+38 50",
+      "Size": "210'x60'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Lac",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "[GS55] 257: \"Very elongated nebula, irregular, diffuse. Elongated nebula to the west and southwest of 10 Lacertae.\"\n\nSh 2-126 is positioned 2° to the south of LkHa 233 and the Gecko Nebula (Sh 2-126).  It corresponds with the huge southern half of nebulosity (Simeis 305 = Great Lacerta Nebula) that includes several LBN designations.  Perhaps, most prominent is a long strip of nebulosity oriented SW-NE (LBN 430), with fainter LBN 433 to its east.\n\nGalaxy Map: This relatively close HII region is also called the 10 Lacertae complex after its ionising star, the O9 V multiple star 10 Lacertae, which forms the core of the Lac OB1 association. The nebula also contains the young Orion type variable emission star LkHA 233.\n\nDistance estimates\n600 pc [1982ApJS...49..183B]\n520 pc +/- 20 [2009PASP..121.1045K]\n-----",
+      "Visual Description": "4\" (9/7/26): NVD with 3nm H-alpha at 8x (4.9° field of view) and binoviewer; the brightest part of the Great Lacerta Nebula is the very elongated stream or merged streams of nebulosity (LBN 430), curving SW to NE with a sharper eastern edge and tapering on the SW end. Fainter nebulosity extends further east and brightens slightly on the E end (LBN 433).\n\nThe northern end of Sh 2-126 passes between mag 5.9 HD 213660 and mag 5.7 HD 214168 (8 Lac) and merges with Simeis 306 = LBN 437, which extends the total size to 3.5°-4°."
+    },
+    {
+      "Name": "LBN 437",
+      "Other": "Simeis 306 = [GS55] 258 = DG 187 = LBN 437",
+      "Type": "E+R",
+      "Nickname": "Gecko Nebula",
+      "Class": "",
+      "RA2000": "22 34 37",
+      "Dec2000": "+40 40",
+      "Size": "75'x20'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Lac",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "2025 paper by Aardra+: \"Kinematic study of molecular gas in cometary globule - LBN 437\" (2025MNRAS.540.2279A)\nCometary globules are isolated, relatively small molecular clouds detached from the parental molecular clouds with a cometary or a tear-shaped morphology. CGs are found in the vicinity of OB associations in the HII regions. These interstellar clouds are characterized by a compact, bright-rimmed head and a faintly luminous, diffuse tail extending away from the early-type star. CGs are a subgroup of Bok globules with a size of ~0.1 to 1.0 pc. But the origin of CGs is still uncertain, whether they are the result of pre-existing dense structures in the surrounding interstellar medium advected through the ionization front or flow instabilities.\n\nThe CG LBN 437 is located at the edge of an elongated molecular cloud complex Kh149 at the boundary of H II region, Sh 2-126. The formation of the cometary head of LBN 437 and the triggered star formation occurring in the cloud is attributed to the interaction of the cloud with the ionizing radiation from the Lac OB1 members. The brightest of the Lac OB1 members is the star 10 Lac with a spectral type O9V, located south-east of LBN 437, at an angular distance of ~1.8°. The nuclear region of LBN 437 also coincides with a reflection nebula, DG 187. LBN 437 lacks a prominent tail and resembles a comma-like morphology.\n\nThe molecular concentration named Condensation A in the cometary head is associated with an optical reflection nebula and houses a group of Ha emission line sources, namely LkHa 230, LkHa 231, LkHa 232 and LkHa 233. The formation of these young stars might be triggered by radiation-driven implosion, in which UV radiation from a luminous star such as 10 Lac causes the evaporation and compression of the molecular cloud.\nSummary: The estimated mass infall rate indicates a collapse phase, with accretion rates high enough to facilitate the formation of highmass stars. In conjunction with the presence of LkHa sources, this implies that LBN 437 might be undergoing clustered star formation consistent with models of competitive accretion.",
+      "Visual Description": "24\" (7/14/26): NVD at 34x; very large region of nebulosity, mainly visible as a 2:1 oval glow oriented WNW-ESE, roughly 25' in length. The region contains three bright stars and at least two fainter stars: mag 6.5 HD 213835, mag 7.0 HD 213976, and mag 8.6 HD 214022. The surface brightness is fairly even with very low surface brightness extensions to the east and west. The V375 Lac reflection nebula (HH 398) is a very small, low contrast glow, about 3' E of the mag 8.6 star on the SE end of the main nebula.\n\nThe dusty \"Gecko Nebula\" molecular cloud is involved with LBN 437, but I assume that wasn't seen with the NVD + H-alpha.\n\nNote: Sharpless' position is 2° south (similar to LBN 428), while LBN 437, which contains DG 187 and the molecular cloud Gecko Nebula, is a much better match in position to the nebulosity described above."
+    },
+    {
+      "Name": "Simeis 10",
+      "Other": "Simeis 305 + 306 = [GS55] 259",
+      "Type": "EN",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "22 34 40",
+      "Dec2000": "+39 30",
+      "Size": "360'",
+      "PA": "",
+      "VMag": "",
+      "BMag": "",
+      "SB": "",
+      "Con": "Lac",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "Simeis 10: \"A very faint extensive hydrogen field around 10 Lacertae 4.91, O9s.\"\n[GS55] 259: \"Large field of more or less uniform brightness. Field surrounding 10 Lacertae.\"",
+      "Visual Description": "NVD at 3x (9/7/26): using Mark McCarthy's mirror mount with his modified 3x NVD and 3nm H-alpha filter, the full extent of his huge emission and molecular cloud was revealed. The nebulosity was fairly prominent flowing through the 13° field in sheets and streams for ~6° in length from N to S."
+    },
+    {
+      "Name": "UGC 12156",
+      "Other": "MCG +06-49-074 = CGCG 514-096 = PGC 69498",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "SB(s)c",
+      "RA2000": "22 41 26.4",
+      "Dec2000": "+39 17 32",
+      "Size": "0.9'x0.9'",
+      "PA": "",
+      "VMag": "13.9",
+      "BMag": "14.6",
+      "SB": "",
+      "Con": "Lac",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .017 --> Hubble distance ~234 Mly.",
+      "Visual Description": "24\" (10/5/26): at 327x; faint, fairly small, slightly elongated, ~0.6'x0.45', very diffuse, nearly even surface brightness. Situated 29' NE of mag 4.9 10 Lac (the O9V-type ionizing star of the \"Great Lacerta Nebula\", Sh 2-126.)"
+    },
+    {
+      "Name": "UGC 12795",
+      "Other": "MCG +08-43-006 = CGCG 548-007 = PGC 72510",
+      "Type": "GX",
+      "Nickname": "",
+      "Class": "Scd",
+      "RA2000": "23 49 10.5",
+      "Dec2000": "+46 33 12",
+      "Size": "0.9'x0.45'",
+      "PA": "111",
+      "VMag": "",
+      "BMag": "14.9",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "z = .016 --> Hubble distance ~210 Mly.",
+      "Visual Description": "24\" (10/5/26): at 263x and 327x; faint, fairly small, elongated 5:2 WNW-ESE, 40\"x18\", even surface brightness. An isosceles triangle of 11th mag stars (sides 2.5'-3.0') is immediately E."
+    },
+    {
+      "Name": "M31-G318",
+      "Other": "Bol 383",
+      "Type": "M31-GC",
+      "Nickname": "",
+      "Class": "",
+      "RA2000": "00 46 11.9",
+      "Dec2000": "+41 19 41",
+      "Size": "",
+      "PA": "",
+      "VMag": "15.7",
+      "BMag": "16.6",
+      "SB": "",
+      "Con": "And",
+      "NGC Description": "",
+      "Discovery Date": "",
+      "Historical": "",
+      "Visual Description": "24\" (10/5/26): at 375x; very faint GC in M31, appears non-stellar ~3\"-4\" diameter.  Forms the northern vertex of a small isosceles triangle with a mag 10.3 star 1.5' SW and an 11.4 mag star 1.7' SE."
+    }
+  ],
+  "historicalUpdates": [
+    {
+      "Name": "NGC 2163",
+      "Historical": "Édouard Stephan discovered NGC 2163 = St. 9-6 on 31 Jan 1873.  He made a second observation on 29 Dec 1877 and reduced the position again a week later (6 Jan 1878).  His description reads, \"extremely faint, elongated, diffuse, *11 attached south.\"\n\nIn compiling the NGC, Dreyer accidentally copied the declination of NGC 1741 (Stephan's previous entry in list 9, #5).  Dreyer later caught and corrected his error in the IC 2 Notes/Corrections section (Dreyer added the comment \"my mistake\").  The correction was missed by most later cataloguers, although Esmiol's 1916 re-reduction of Stephan's positions gives the accurate position.\n\nIn 1922, Edwin Hubble reported it as a new \"bright, uncatalogued nebula similar to NGC 2245\" (#15 in a list of \"Diffuse Nebulae with continuous spectra\") and commented \"It is surprising to find that so bright an object has been overlooked by observers.\"  Based on Hubble's listing, Sven Cederblad catalogued it as an \"anonymous\" nebula (#62) in his 1946 catalog of \"Bright Diffuse Galactic Nebulae\", with credit to Hubble.  I also uncovered that E.E. Barnard independently discovered NGC 2163 on 2 Sep 1888. On his first observation he mistook it for Faye's Comet, which he was searching for.  Barnard never published his rediscovery.\n\nModern sources generally identify NGC 2163 as Cederblad 62.  The RNGC labels NGC 2163 as nonexistent and furthermore reverses the sign of the declination.  In addition, a poor RA was given for Ced 62 in Sky Catalogue 2000 and it was misplotted on the Uranometria 2000 (first edition) too far east, though the position was corrected in the second edition.  The Millenium Star Atlas labels this object Ced 62, also at the wrong position."
+    },
+    {
+      "Name": "NGC 2311",
+      "Historical": "According to Wolfgang Steinicke, Caroline Herschel discovered NGC 2311 = H. VIII-60 = h418 on 4 Mar 1783, probably with a small refractor.  She logged, \"in the neighborhood of the 17 Monoceros, a Nebula, very obscure.  Messier has it not.\"  She entered this object as #4 in her discovery log and William checked it immediately with his 6.2\" reflector.  NGC 2311 is situated 1.3° WSW of the star (modern identification 19 Mon), so this identification seems likely.\n\nWilliam Herschel independently discovered NGC 2311 on 26 Nov 1786 (sweep 639) and described \"a cluster of pL scattered stars, not very rich.  The place taken is the most compressed part, but not the middle.  May be a projecting point of the milky way.\"  His position was just northeast of center of this cluster.  William was credited with the discovery in the NGC as he mistakenly identified NGC 2349 (H. VII 27) as Caroline's discovery."
+    },
+    {
+      "Name": "IC 2177",
+      "Historical": "Isaac Roberts discovered IC 2177 photographically in 1898 surrounding mag 7.3 BD -10°1848.  His position (for the mag 7 star) and dimensions of 13' corresponds with the position of vdB 93 = Gum 1 = Sh 2-292, *not* the 2° N-S strip of nebulosity (Seagull Nebula) that is commonly identified as IC 2177 in modern catalogues.\n\nMax Wolf discovered the often-photographed Seagull Nebula (Gum 2 = Sh 2-296) in 1905.  In 1906 he wrote, \"During the past year I found on two plates taken with small lenses a wonderfully beautiful and bright, extended nebulous patch which, as far as I can determine, has until now remained unknown. It lies for the most part in Canis Major; its northern portions extend into Monoceros. The nebula was photographed several times with smaller instruments and then also with the Bruce telescope. It covers many square degrees and encloses the following four Durchmusterung stars: BD -11°1747, -10°1848, -12°1771, and -11°1790.\" He adds \"“The associated cavities adjoin these nebulous masses to the west,\" suggesting an early reference to his \"Cave Nebulae\".  Wolf was quickly notified by Robert's widow of the prior discovery of the northern nebula surrounding BD -10°1848, and Wolf printed a correction noting \"It therefore follows that Dr. Roberts is to be credited with the discovery of this nebula, although he did not know its extensive eastern and southern portions, particularly the almost brightest part around the star -12°1771.\"\n\nDreyer only credited Roberts with the discovery of IC 2177 and his description is basically from Roberts, but his position is 18' SE of BD -10°1848.  Corwin states that he may have been influenced somewhat by Wolf's description of the larger nebula (Stephen O'Meara makes a similar argument), but this is never mentioned so it is speculative.  A strict interpretation of the IC 1 is that IC 2177 refers just to Gum 1.\n\nThe Seagull Nebula was also found on a photograph taken on 1 Apr 1911 by Harry Wood at the Transvaal (Union) Observatory with the 10-inch Franklin-Adams camera.  Wood described a \"large faint straggling region, about 2 1/2° long.\"  He added \"BD -10° 1848 is involved in a bright patch of nebulosity, in which there are two large holes on the S side of the star.\"  It was first catalogued in 1950 in [Str50] 18 and  Gum 1 in 1955.  But Hans Vehrenberg's Atlas of Deep-Sky Splendours described IC 2177 as an H II region more than 3° in extent and the 1985 Sky Catalogue 2000.0 also gave the dimensions of IC 2177 as 120'x40'."
+    },
+    {
+      "Name": "NGC 2349",
+      "Historical": "William Herschel discovered NGC 2349 = H. VII-27 = h436 on 24 Feb 1786 (sweep 529).  He recorded, \"An irregular cluster of extremely small stars, considerably compressed, 9 or 10' long, 4 or 5' broad with an extending branch towards sp.\"  Close to his position (Auwers' reduction) is the group of stars described in my observation.  John Herschel logged this object on 8 Jan 1831 (sweep 318) as a \"a poor straggling cl, place of a double star\", but his position is 1 min of RA too far west and corresponds with a mag 10/11.5 at 30\" separation that is not involved in any clustering.  Unfortunately JH used his own position in the GC and it was repeated by Dreyer in the NGC.\n\nWilliam added the comment to VII 27 (second catalogue) \"Caroline Herschel discovery 1783\".  But according to Wolfgang Steinicke, she never observed this object and William must be referring to NGC 2311 instead, which she discovered on 4 Mar 1783.\n\nBased on Heidelberg plates, Karl Reinmuth noted \"many st in a dense region, very little clustering.\"  RNGC classifies the number nonexistent (Type 7).  See Harold Corwin's identification notes."
+    },
+    {
+      "Name": "NGC 3290",
+      "Historical": "Francis Leavenworth discovered NGC 3290 = LM 2-422 in 1886 and recorded \"mag 15.7, 0.4' dia, little extended 180°, gradually brighter in the middle, * 7.5 n 6'.\"  His position is 1.5 minutes of time to the west of the galaxy (~8 arcminutes) and a mag 8 star is 5' north, so the identification is certain."
+    },
+    {
+      "Name": "IC 5067",
+      "Historical": "Rev. Thomas Espin discovered IC 5067 visually, along with IC 5068 and 5070, on 7 Sep 1899 with his 17.25-inch Calver reflector. He simply noted it was \"faint\".  There is nothing at his position, about 37' west of the neck of the Pelican Nebula (IC 5070).  Harold Corwin suggests that if Espin's declination was off by 1.4°, then IC 5067 corresponds with IC 5068B, described here.  Espin's positions for IC 5068 and 5070 are good, so otherwise IC 5067 is lost without additional information, but Corwin notes that IC 5068B is the brightest nebula in the region that he might have picked up. Another option is that Espin picked up the neck of the Pelican Nebula and made an error in RA."
+    }
+  ],
+  "visualUpdates": [
+    {
+      "Name": "Stock 18",
+      "Visual Description": "17.5\" (12/16/95): at 100x, appears as just a very scattered asterism of five mag 10/11 stars roughly in a 10' string E-W with a few faint stars surrounding the mag 10 star LS I +64 11 = AG+64 1262 (O9.5-type).  At 220x, a small group of a half-dozen mag 13-14 stars are within 1' of the 10th mag central star with one of these stars a close double.  This multiple star is bracketed by a mag 10 star 1.7' E and a mag 11 star 2.8' W.  The central part does not span 5' diameter visually.\n\nThe cluster is in the center of Sh 2-170, an extremely faint, 20' HII region that was not seen visually (though see NVD observation)."
+    },
+    {
+      "Name": "M31-G001",
+      "Visual Description": "24\" (10/5/26): at 327x; G1 is a fairly prominent ~10\" glow surrounding a bright nucleus. Two mag 14.5-15 star 8\" NW and 8\" SW (at the edge of the halo) form \"Mickey Mouse Ears\" attached to the compact glow.\n\n24\" (8/7/13):  M31-G1 was viewed at 175x, 375x and 562x (4mm ZAO).  At the middle power, the two fainter mag 14.5-15 stars 8\" NW and 8\" SW that form an small isosceles triangle were easily \"resolved\" from G1.  With direct vision a bright quasi-stellar nucleus dominated the fainter halo, but with averted vision an 8\"-10\" halo was equally evident.  A mag 15.8 stars lies 25\" NE and a mag 16.7 star was glimpsed 35\" NE (the two dim stars form a 10\" pair).  The tight isosceles trio that contains G1 also forms an isosceles triangle with a mag 12.5 star 2' NE and an 18\" pair of mag 13-13.5 stars 2' N.\n\n18\" (12/8/07): easily the most prominent globular in M31 and resolves into an 8\" knot with a quasi-stellar core with direct vision.  Two close companions 8\" NW and SW confuse the view.  The trio forms the SW vertex of an isosceles triangle with two mag 12/12.5 stars 2' N and 2' NE.  Nearby objects include G2 situated 10' SE and UGC 330 11' ESE.\n\n18\" (10/13/07): viewed at 450x and easily resolved the tight triple \"star\" that contains G1.  The mag 13.5-14 globular was clearly nonstellar, though very small, ~8\" diameter with a bright, quasi-stellar center and fainter halo.  With direct vision the brighter center dominates and the halo fades.  The globular forms the east vertex of a tiny equilateral triangle with two mag 14.5/15 stars 8\" NW and SW.\n\n18\" (9/20/03): at 215x appears as a slightly out of focus \"star\" forming a tight triple with two faint stars.  At 323x it resolves into a very small, 14th magnitude knot, ~10\" diameter, forming a tight triangle with two mag 14/15 stars at the SW and NW edges, less than 10\" from the center.  M31-G1 and its two stellar companions form a near equilateral triangle with two mag 12/13 stars ~2' NNE and NE.\n\n17.5\" (8/22/98 and 9/28/02): easily picked up sweeping at 220x because on first glance it appears to be a close but cleanly resolved mag 14 triple star!  On closer viewing, the central \"star\" is soft or slightly nebulous and surrounded by a very faint and small halo ~10\" diameter.  The foreground mag 14.5-15 companion stars are situated at the NW and SW edges of the halo just 8\" and 9\" from the center of the globular, respectively.  UGC 330 lies 11' ESE and M31-G2, another faint M31 globular, lies 10' SE.\n\n17.5\" (10/21/95): this is the brightest globular cluster within M31 and appears as a fuzzy mag 14 object about 10\" diameter with a bright quasi-stellar nucleus.  The view is confused by a mag 14.5-15 star at the SW end and a fainter more difficult star at the NW edge of the halo.  G1 is situated 2.5° SW of the center of M31!\n\n8\" (8/18/01): seen in Matt Marcus' C8, though it was difficult to make out in the field at high power.  I doubt the attached stars were resolved."
+    },
+    {
+      "Name": "M31-G002",
+      "Visual Description": "24\" (10/5/26): at 327x; this M31 globular appeared as a faint, soft, non-stellar glow ~3\" in diameter. Situated 2' SW of UGC 330 and 0.8' SSW of a mag 14.5 star.  G1 lies 10' WNW.\n\n18\" (12/8/07): at 300x as a very faint mag 15.5-15.8 \"star (perhaps slightly easier than listed V mag of 15.8).  Located just 2' SW of UGC 330 and 10' ESE of M31-G1.\n\n17.5\" (9/28/02): at 324x, this M31 globular appears as a mag 15.5 \"star\" (V = 15.8) just 51\" SSW of a mag 14 star and 2' SW of UGC 330!  M31-G1, the brightest globular in M31, lies 10' WNW."
+    },
+    {
+      "Name": "UGC 330",
+      "Visual Description": "24\" (10/5/26): at 327x; fairly faint, very elongated 3:1 NW-SE, ~0.6'x0.2', small bright core.  A mag 14.5 star is 1.4' SW and the faint M31 globular cluster G2 is 2' SW.\n\n18\" (12/8/07): faint, small, elongated 2:1 NW-SE, ~30\"x15\", broad weak concentration to a rounder 15\" core with fainter extensions.  This galaxy is located 11' WSW of the bright M31 globular G1 and is good reference point for the faint gc G2, situated just 2' SW.\n\n17.5\" (9/28/02): very faint, small, elongated 2:1 NW-SE, 0.5'x0.2', very small brighter core.  A mag 14 star lies 1.3' SW and M31-G2 is 2' SW!  Located in the field of M31-G1 11' WNW.\n\n17.5\" (10/17/98): very faint, small, slightly elongated NW-SE, weak concentration (I probably only viewed the core).  A couple of mag 14.5 stars are within 1.5' including one 1.3' SW and a star a similar distance to the north.  Located 4' SSW of mag 8.8 SAO 53990 and 11' ESE of M31-G1, the brightest globular in M31!"
+    },
+    {
+      "Name": "LEDA 2152244",
+      "Visual Description": "24\" (10/5/26): at 327x; this galaxy (originally classified as a M31 globular) appeared as a faint to very faint non-stellar glow, just 6\" or so in diameter. Situated 2.3' S of a mag 10.8 star, which is an unequal 15\" pair.\n\n18\" (12/8/07): appears as a mag 15.6 \"star\" to the east of G1 and G2 and between the very faint galaxies UGC 338 and UGC 344.  There are a couple of brighter stars nearby including a mag 10.5 star 2.2' N that makes pinpointing the position easy."
+    },
+    {
+      "Name": "NGC 225",
+      "Visual Description": "24\" (1/4/14): bright, large, scattered group of ~50 stars in 10' group.  Includes 15-18 brighter stars that stand out (mag 9.5-11).  A ragged N-S string of stars defines the eastern border of the cluster.  There are no rich subgroups and there's a lack of faint stars.\n\nA detached group of stars is off the N side, but these stars do not appear to be part of the cluster.  vdB 4, a very faint reflection nebula, is involved with these stars though it was not noticed.\n\n17.5\" (11/2/91): about two dozen stars at 100x in a 12' diameter.  Bright but scattered.  Outline forms an isosceles triangle with the vertex at west edge and the long base on the east side.  Most stars are mag 10-11 and evenly spaced.  The cluster appears completely resolved.  Only one fairly close double star in group.  Just ENE of the main group is a line of five mag 9 stars oriented N-S.\n\n8\": two dozen stars in a cluster, fairly bright but scattered, no dense spots.\n\n15x50mm (10/14/23): large, 12'-15' diameter, partially resolved with a half-dozen mag 9.5-10.5 stars"
+    },
+    {
+      "Name": "M31-G318",
+      "Visual Description": "24\" (10/5/26): at 375x; very faint GC in M31, appears non-stellar ~3\"-4\" diameter.  Forms the northern vertex of a small isosceles triangle with a mag 10.3 star 1.5' SW and an 11.4 mag star 1.7' SE."
+    },
+    {
+      "Name": "UGC 529",
+      "Visual Description": "24\" (10/6/26): at 375x; moderately bright, very elongated at least 3:1 E-W, ~45\"x15\", strong concentration with a bright bulge.  A 10\" pair of mag 11.5 stars is 2.7' WSW."
+    },
+    {
+      "Name": "UGC 540",
+      "Visual Description": "24\" (10/6/26): at 375x; fairly faint (relatively bright UGC), elongated NW-SE, ~0.6'x0.4', brighter core. The galaxy appeared clumpy with a hint of spiral structure (curved brightening in the halo). A mag 14.8 star is just off the NE edge and a mag 15.5 star is 50\" SW of center.  The galaxy is located 2.7' SSE of a mag 8.8 star. \n\n24\" (11/24/14): at 375x; fairly faint, fairly small, roughly 3:2 NW-SE, but seems to change orientation slightly with averted vision, fairly even surface brightness, ~27\"x18\".  Located 2.7' SSE of mag 8.8 SAO 74336 and 9' WSW of mag 7.3 HD 5138.  Picked up while observing edge-on UGC 542 located 15' NNE."
+    },
+    {
+      "Name": "UGC 567",
+      "Visual Description": "24\" (10/6/26): at 327x; fairly faint, elongated SW-NE, a small bright core dominates over the faint extensions. A mag 14.9 star is 0.6' N.  Forms a pair with UGC 566 just 1.2' S.\n\n17.5\" (11/25/87): faint, very small, round, small bright core.  A mag 14 star is 1' NNW.  Located 13' NNE of NGC 296.  Brightest of three with UGC 566 1' S (not seen) and (R)NGC 296 = UGC 565 3' S (not seen)."
+    },
+    {
+      "Name": "UGC 2855",
+      "Visual Description": "24\" (1/13/26): at 263x; large oval glow WNW-ESE, low surface brightness, ~2.5'x 1.2'. An 11th mag star is superimposed on the northern edge and detracts from viewing. The portion of the galaxy west of the star is more evident. Situated 6' SE of mag 8.3 HD 23102.  UGC 2866 is 10' ESE.\n\nIn 1954, Gaze and Shajn discovered this galaxy during a survey of emission nebulae and catalogued it as Simeis 284."
+    },
+    {
+      "Name": "Sh 2-232",
+      "Visual Description": "14.5\" (1/7/24): NVD at 24x; Sh 2-232 is by far the largest of four HII regions in a group with Sh 2-231, 2-233 and 2-235.  Overall, Sh 2-232 has a moderate and fairly low surface brightness over its 35' diameter. Nevertheless,this is a fascinating object with a wreath-like appearance and a fairly bright, long filament or band stretching E to W for 30' on the south side and passing 8' S of the mag 8.1 ionizing star HD 37737. The band is slightly brighter at the west end where there is a perpendicular (N-S) brightening.  The northern side has a weak filamentary appearance with darker areas. The high-surface-brightness HII region Sh 2-235 is 27' SW of HD 37737."
+    },
+    {
+      "Name": "Sh 2-249",
+      "Visual Description": "14.5\" (1/7/24): NVD at 24x;  Courtès 138 = Sh 2-249 is a huge and interesting HII region about 1° ENE of the IC 443 supernova remnant. Previously I had noticed a long, thin filament extending east from IC 443 (part of Simeis 41). Continuing just another 1/2° further E, I found a fairly bright and very large field of nebulosity elongated N-S (Simeis 42), ~50'x30'. The outline appeared highly irregular with interior dark lanes.\n\nOn the west side is a mag 8.3 star HD 44252.  A thin, irregular dust lane loops south and east from this star and then heads north for ~10', where it nearly reaches a 10th mag star that is surrounded by darker circular region. More prominently, a high contrast, very long and broad dust lane runs N-S near the east edge for roughly 25', with the southern end close to 2.9-magnitude Mu Gem.  Very diffuse nebulosity is on the east side of the lane. The north end of the Sh 2-249 complex was patchy with brighter and darker areas, but no distinct dust lanes."
+    },
+    {
+      "Name": "IC 4593",
+      "Visual Description": "14.5\" (9/7/26): bright, very small, bluish, but clearly non-stellar at 158x. At 395x, appeared slightly elongated ~N-S and the bright central star was visible in moments of good seeing.  UGC 10238 lies 24' NW.\n\n24\" (6/30/22): at 109x; shows a distinct \"blinking\" effect.  Staring directly emphasizes the bright blue central star, but with averted a small halo is prominent.  Increasing to 457x, a prominent central star is encased in a very well defined, slightly elongated halo ~4:3 in a N-S orientation.\n\n14.5\" (7/11/21): identified very easily at 140x as a fairly bright, fuzzy blue \"star\".  Good, but not excellent, contrast gain with an OIII filter. At 226x, a small 10\" disc surrounds a clearly seen central star in the high surface brightness glow. Increasing to 352x, the central star was much more prominent and the halo was slightly elongated NNW-SSE and seemed irregular.  A mag 9.4 star is 5' NW and the double star STF 2016 is 11' SE.  The planetary is along the line connecting these objects.\n\n18\" (7/20/06): at 160x the 10.5-mag central star is encased by a small, oval halo, elongated NNW-SSE, ~10\"x7\".  The planetary has the characteristic blue glow seen in this class of objects.  Good response to OIII blinking at this power.  The central star is more prominent at 225x and 325x but there were no additional details visible in fairly poor seeing.\n\n17.5\" (5/10/86): at 286x a bright 11th magnitude central star is visible surrounded by a small, slightly elongated halo, bluish color.  Located 11' NW of double star STF 2016 = 8.5/9.6 at 7\".\n\n8\" (6/30/22): at 109x, IC 4593 was easily identified as a blue 11th mag fuzzy star situated 5' SE of a brighter mag 9.4 star.  Adding a NPB filter provides an excellent contrast gain and the planetary appears to outshine the star.\n\n8\" (6/81): stellar at 100x but a slightly elongated disc is easy to view at 220x-350x.  Located 12' NW of a mag 9 star."
+    },
+    {
+      "Name": "Abell 39",
+      "Visual Description": "24\" (7/7/13): easily visible unfiltered at 200x as a large, round, low surface brightness disc.  The mag 15-15.5 central star was visible at this power or higher (used 282x) as well as a superimposed mag 15.5-16 on the south side [50\" SSW of the central star].  Best view was at 125x using a UHC filter.  With this combination, this Abell planetary was clearly annular with a narrow, unevenly lit rim.  A small brighter segment is at the S end and the rim is brighter in a thin strip along the entire E side.\n\n24\" (7/19/12): viewed at 200x with an NPB filter.  The rim of this large planetary is slightly brighter in an unevenly lit thin ring.  The brightest arc is along the E and SE rim (roughly a 70°-80° arc).  A narrow strip of the rim is also enhanced along the W and SW side (roughly an 80°-90° arc), mostly S of a mag 14 star just off the W side of the planetary (1.8' W of center).  The rim is perhaps weakest along the NW edge.  A faint galaxy, MCG +05-39-003, lies 12' ENE.\n\n18\" (7/14/07): Abell 39 was easily picked up at 115x with an OIII filter. It appeared as a weakly annular, sharply defined disc, nearly 3' in diameter.  The rim appeared unevenly lit with a couple of slightly brighter arc segments when I let the planetary drift through the field.  Abell 39 was faintly visible unfiltered, though there was a crisper view with a narrowband filter.\n\n18\" (7/20/06): visible unfiltered at 115x as a large, low surface brightness, roundish glow 2'-3' in diameter.  Adding an OIII filter gave more definition and structure though the contrast gain was not dramatic.  The thick rim is slightly brighter, though not uniform around, giving a weak annular appearance with an ill-defined, slightly darker center.\n\n18\" (7/18/04): viewed at 115x (20 Nagler) and an OIII filter.  Appeared as a faint, fairly large, well-defined disc.  With averted vision and concentration the rim is slightly brighter (possibly in arcs along the west and east sides), giving a weakly annular appearance.  Very faintly visible unfiltered at 115x, though the shape is more formless without a crisp boundary, but it was now noticeable that the planetary is set in a rich star field.\n\n18\" (6/20/04): swept up immediately at 115x using an OIII filter.  Visible continuously as a crisp-edged disc, round, ~2.5' in diameter.  Although there was no annularity there were subtle irregularities in the surface brightness.  Barely visible unfiltered, though the glow seemed to merge into the background sky without a distinct edge.  Also, excellent view at 73x and OIII filter as the planetary was easily viewed continuously with direct vision.\n\n17.5\" (8/21/98): picked up at 100x with an OIII filter.  Once identified, it was visible continuously with direct vision as a round, sharp-edged disc at least 2.5' in diameter.  It appeared slightly brighter along the following edge.  The planetary was even faintly visible unfiltered at 100x, though not as sharp-edged or well-defined and several faint stars were superimposed.\n\n13.1\" (6/18/85): faint, fairly large, round.  This planetary can just be held steadily with averted vision using an OIII filter which provided a superior view to the Daystar 300."
+    },
+    {
+      "Name": "NGC 6240",
+      "Visual Description": "48\" (4/6/13 and 5/21/23): NGC 6240, a highly disrupted merger, appeared fairly bright, moderately large, elongated 3:2 SSW-NNE, ~1.2'x0.8', irregular shape!  A prominent, thin extension or spike extends 4:1 or 5:1 to the NNE from the central region.  This wing is sharply defined and narrow.  A short, bright, broader extension juts out to the SSW, in the opposite direction of the NNE wing.  Finally, a faint short wing (~15\"x5\") extends S from the central region on the E side (on the DSS, this branch curves at the south end).  A mag 13.5 star is 30\" E, a mag 15.5-16 star is 0.8' SSE and a 12\" pair of mag 13.5/15 stars lies 1.5' S.\n\nLEDA 214549, located 4' NNE, was easily seen as a thin edge-on SW-NE, ~0.7'x0.1', with a slightly brighter core.\n\n24\" (7/22/14): the Rumpled Starfish appeared fairly faint to moderately bright, moderately large, irregular but roughly elongated 3:2 SSW-NNE, ~60\"x40\", though it increased in size with averted vision.  The surface brightness is irregular, with a mottled texture.  The brightest portion had an offset nucleus or knot on the east side.  On the NE side, a faint narrow wing extended to the N.  A very short extension was also glimpsed on the SE side.  A mag 13.5 star is 0.6' NE and a mag 15.7 star is 50\" SSE of center.\n\n24\" (8/15/12): this irregular galaxy appeared fairly faint, moderately large, elongated 2:1 SSW-NNE, ~1.0'x0.5', broad concentration with a slightly brighter core.  The shape is unusual as the NNE end is narrow, like an edge-on, while the SSW end appears wider. With careful viewing, a very faint extension branches south from the central region, creating a forked appearance with the brighter portion trending SSW.  A mag 13.5 star is 0.6' NE and a mag 15.5 star is 0.8' SE of center.\n\n18\" (7/22/03): fairly faint, fairly small, elongated 2:1 SSW-NNE, 0.8'x0.4', weak concentration, appears slightly brighter along the major axis.  With extended viewing, there is an impression of an irregular shape with a very faint extension off the main bar near the center.\n\n17.5\" (6/8/91): fairly faint, small, elongated 2:1 SW-NE, even surface brightness.  A mag 13 star is at the NE edge 0.6' from center."
+    },
+    {
+      "Name": "Haute-Provence 1",
+      "Visual Description": "24\" (7/4/24): Night-vision at 34x (unfiltered); HP 1 is a fairly prominent small glow.  Just increasing to 56x (41mm Panoptic), the view was significantly improved. The nucleus was obvious as a stellar or quasi-stellar knot at the center and at least a half-dozen stars were resolved over the glow of the halo.\n\n24\" (7/4/24): at 327x; HP 1 is an easy soft glow, ~1.5' diameter with a small brighter nucleus. The globular is cradled around the north side by an equally spaced trio of mag 12.5-13 stars with a brighter mag 10.7 star 2.5' NE.  The diameter of the halo is roughly the distance between the outer stars in the trio [measured later at 1.5'].  Only a few stars were detected within the disk.  HP 1 is projected at only 3.3° from the Galactic center\n\n24\" (7/29/16): HP 1 was obvious in the field at 200x, just south of a shallow arc of three mag 12.5-13 stars, 1.5'-2' diameter, roundish, small slightly brighter nucleus.  The view was improved at 375x.  The core region stood out better and 1 or 2 stars were resolved at the edge of the nucleus.  Also 1 or 2 stars were resolved around the edges of the halo and a couple more sparkles within the halo.\n\n17.5\" (6/3/00): extremely faint, small roundish glow visible with averted vision only, 1.0'-1.5' in diameter.  Situated just south of a shallow arc of three mag 13 stars.  A mag 10.7 star lies 2.5' NE.  The highly reddened globular is set against an unresolved Milky Way background and is just brighter than the background glow.  Located 49' ESE of 4.3-magnitude 45 Ophiuchi."
+    },
+    {
+      "Name": "M 1-88",
+      "Visual Description": "17.5\" (7/18/01): picked up at 64x using a UHC filter as a moderately bright, 3'x2.5' glow, slightly elongated N-S.  The eastern side has a sharper, linear border.  Also viewed at 220x unfiltered and a group of a half dozen mag 12-13 stars extended N-S in a string are superimposed near the eastern boundary.  This obscure, but relatively easy nebula is located 30' N of NGC 6604 and Sh 2-54 (a large, faint HII region encasing the cluster)."
+    },
+    {
+      "Name": "M 3-34",
+      "Visual Description": "14.5\" (9/15/26): I first identified M 3-34 at just 66x by blinking the fairly rich star field with an OIII filter. At 158x, it appeared as a soft blue star with an excellent contrast gain using a NPB filter. The PN is aligned with a mag 12.6 star 3' SW and a 10th mag star 6' SW.\n\nIncreasing to 395x displayed an obvious bluish disc perhaps 5\"-8\" diameter. Occasionally, I seemed to get a flash of a central star, though it is listed at only 16th magnitude.  At 660x, the disc was round with a pale blue color and fuzzy edges.\n\n17.5\" (8/1/86): at 220x with OIII filter a small disc less than 10\" diameter is visible.  Bright and pretty view at 286x unfiltered."
+    },
+    {
+      "Name": "Czernik 41",
+      "Visual Description": "14.5\" (9/5/26): at 226x; fairly distinctive 8' group with three bright mag 9.6 (HD 339022), 9.9 (HD 339023), and 10.0 (HD 339021) stars. Also includes a quadrilateral of mag 10-12 stars on the W side, along with two 14th mag stars.  A 10\" pair of mag 13.5/14.2 stars is on the E side.  About a dozen stars in total were identified."
+    },
+    {
+      "Name": "NGC 6830",
+      "Visual Description": "14.5\" (9/7/26): over 50 stars resolved at 226x in the central region. Many of the stars are aligned in chains, including two oriented WSW-ENE and NNW-SSE that intersect near the center at right angles. The NNW includes a group of half-dozen stars. The two brightest stars are mag 10.0 and 10.8, both along these intersecting arms. \n\n17.5\" (8/8/91): 30-35 stars in the central 5' diameter.  Most stars are mag 11-12 and arranged in two rows forming a rough \"X\" shape.  The richest group is at the NW corner and a very faint group is off the SW corner.  The brightest star is just SW of the intersection point of the \"X\".  Located 30' N of 4.9-magnitude 12 Vulpeculae."
+    },
+    {
+      "Name": "NGC 6834",
+      "Visual Description": "14.5\" (9/7/26): NGC 6834 is an attractive cluster at 132x with the brighter stars aligned WSW-ENE and passing just north of the center of the cluster. At 226x, this cluster is rich and contains 50-60 stars in a 6' circle.  Quite a number of fainter stars huddle around the brightest mag 9.8 star (triple WSI 13). A faint arc of stars is at the S edge of the cluster.\n\n17.5\" (8/7/91): 40 visible stars in a 8' diameter.  A mag 10 star is in the middle of a line of seven mag 13 stars oriented SW-NE and also at the center of four mag 11/12 stars on a line oriented E-W.  Sprays of stars emanate from the bright star to the SW and SE.  A small clump of five stars lies 4' S of the mag 10 star.  Planetary nebula NGC 6842 lies 38' ESE."
+    },
+    {
+      "Name": "Harvard 20",
+      "Visual Description": "14.5\" (9/5/26): up to 50 stars are resolved at 226x in a 8'x4' group, elongated roughly WNW-ESE.  The two brightest stars are mag 8.9 HD 350801 (N of center) and mag 9.2 HD 350800 on the W end. A 14\" matched pair is at the E end, and an unequal 11\" pair is just over 1' to its W. In total, there are 8 or 9 brighter stars and the cluster is set in a rich star field. The cluster is located 24' SE of mag 6.3 9 Sge and 28' SSW of M71.\n\n17.5\" (7/28/92): about three dozen stars in a 6'x3' field, elongated ~E-W.  Two bright mag 9 stars are off the west side but the cluster is dominated by 20 mag 12/13 stars.  Also includes a scattering of faint mag 14-15 stars.  A pretty evenly matched mag 12.5/12.5 double star is at the E end and an uneven mag 12/14 double star is to the west of the well matched double."
+    },
+    {
+      "Name": "NGC 6837",
+      "Visual Description": "14.5\" (9/5/26): at 226x; about 15 stars within 5' are resolved in this asterism. A string of three mag 12-13 stars (oriented NW-SE) is at the S end.  A mag 11.8 star is close to the center of the group, and a clump of 4-5 stars over haze is N of center.\n\n17.5\" (6/24/95): this asterism only stands out reasonably well at 100x.  Consists of roughly 15 mag 12-14 stars in a 4' group elongated E-W.  There is a small rich subgroup bulging out on the north side in a semi-circular arrangement (better resolved at 225x).  Listed as nonexistent in RNGC."
+    },
+    {
+      "Name": "NGC 6846",
+      "Visual Description": "14.5\" (9/5/26): at 226x; appears as a small, faint mottled patch about 1' diameter, but there was no clear resolution. About 2.5' NW is a small group of 8 stars with the brightest mag 11.8 star at the NE end. This group was more eye-catching than the glowing patch.\n\n17.5\" (9/7/91): at 225x appears as a small, faint clump of stars over unresolved haze.  Elongated about 3:2 E-W with dimensions 1.5'x1.0'.  A mag 13.5 star is off the NW edge, a mag 14 star is at the W edge and three additional mag 14 stars in a clump are just visible over of the haze, although clean resolution is difficult.\n\nK 4-41, an extremely faint stellar planetary is situated just 2' NE!  It wasn't visible without a filter, even using the ESO-Strausberg finder chart.  But adding an OIII filter, I was able to glimpse it several times about 15\" S of a mag 14 star. It appeared stellar and roughly mag 16.0-16.5V."
+    },
+    {
+      "Name": "Berkeley 49",
+      "Visual Description": "14.5\" (9/5/26): at 226x; Berkeley 49 appeared as a small glowing patch, perhaps 2' across. Only a couple of very faint stars were resolved, and a mag 14.7 star at the W edge. Located 7.5' E of mag 8.6 HD 226922."
+    },
+    {
+      "Name": "Espin 202",
+      "Visual Description": "14.5\" (9/5/26): excellent multiple star or compact cluster at 226x with 4 main components. The brightest mag 9.2 component is at the NW end.  The star at the NE side is a close, unbalanced pair making 5 stars. Two fainter stars extended SW and a couple more are separated about 1' ESE. So, there are at least 7 in the main knot plus two detached at the E edge.\n\n18\" (10/8/05): striking knot of stars including mag 9.2 HD 227247 at the NW side.  Three brighter stars to the east form a pretty quadruple though the NE star has a fainter companion.  The four stars following the mag 9 star form a trapezoid with one short base (the double).  To the SW are a string of 3 stars (one very close to the lucida), making a total of 8 stars in the knot.\n\n17.5\" (7/18/01): pretty quadruple kite-shape group with brightest star at the NW corner (SAO 69299).  The NE star also has a close, faint companion at 220x and heading SW from the bright star is a close perfectly collinear string of three mag 13.5-14 stars.  Appears almost like a tiny open cluster.  Mentioned in Aug 1998 Sky & Tel and described as a \"baseball diamond\".  Appears to be involved with the HII region Sh 2-101."
+    },
+    {
+      "Name": "Do 36",
+      "Visual Description": "14.5\" (9/5/26): at 176x; about 60 scattered stars resolved in a 12' circle. This is a fairly nice group with most of the stars roughly forming a squashed oval about 9' by 5'.  The brightest star in this part is mag 9.4. At the northern end is another mag 9.4 star that forms a wide pair (~30\") and a few others nearby.  About 4' to its east is another mag 9.5 (V420 Cyg) and a wide pair is just to its W.  A faint E-W chain of stars is on the NW side of the group."
+    },
+    {
+      "Name": "NGC 6858",
+      "Visual Description": "14.5\" (9/7/26): at 226x, very elongated group oriented SW-NE (wider at the SW end and tapering at the NE end). A total of 30-32 stars were resolved just W of mag 9.2 HD 356626. Includes a linear string of 4 stars NW-SE on the S side that includes an 11th mag star.  The string \"points\" to a very small clump of faint stars to its NW. Near the center is HJ 1466, a 10\" pair of mag 12.6/12.8 stars. Another short string of 3 stars SW-NE is at the NE end of the cluster.  \n\n17.5\" (9/23/95): this is an elongated group of 35 stars in a 10'x4' group oriented N-S which precedes a mag 9 star at 20 03 16 +11 16.4 (2000).  Fairly uniform in brightness and distribution with no dense spots but includes a couple of nice doubles.  Most stars are mag 12-13 with a scattering of fainter stars."
+    },
+    {
+      "Name": "NGC 6866",
+      "Visual Description": "14.5\" (9/7/26): excellent, rich cluster at 132x and 226x, with ~50 stars in the central part including several pairs. Many of the stars are in generally E-W stream. ES 85, a triple star just N of center, consists of a mag 10.5 primary and two mag 12.5/13.1 companions at 11\".  A faint mag 14.5 star is 0.6' E. Another trio of stars (not in ADS) is just 1' SE.  Another small clump of 3-4 stars is 3' SE of ES 85.\n\n17.5\" (9/7/91): about 100 stars in a 20'x10' region are visible at 100x.  Appears rich and very appealing.  The main string is very elongated roughly E-W and contains a brighter intersecting subgroup 8'x2' NW-SE of about 45 stars with a close triple star (ES 85) on the NW end consisting of a mag 10.5 primary (itself a 2.2\" pair) and two faint mag 12.5 and 13.1 companions, both at 11\".  Two mag 11/11.5 stars are at the SE end of this string.  The western end of the main string curves north into a nice semi-circle."
+    },
+    {
+      "Name": "Berkeley 84",
+      "Visual Description": "14.5\" (9/5/26): at 226x; fairly small glowing patch with 6 or 7 faint stars resolved. A mag 10.6 star (HD 227483) is just off the W edge."
+    },
+    {
+      "Name": "IC 4954",
+      "Visual Description": "14.5\" (9/5/26): at 176x, very small, round glow surrounding a star at the N end of the stellar group Roslund 4. A group of at least 3 stars 1.5' S also appears to be faintly glowing. A parallel line of 3 stars another 1' S does not appear nebulous.\n\n17.5\" (9/26/92): this moderately bright reflection nebulosity forms a fairly striking compact pair with IC 4955 4' SE.  Very small, round, 15\"-20\" diameter.  Appears to surround a mag 13 star.  A distinctive group of five stars (part of Roslund 4) just south are arranged in two parallel rows of three stars and two stars.  No contrast gain with OIII or Deep Sky filter."
+    },
+    {
+      "Name": "IC 4955",
+      "Visual Description": "14.5\" (9/5/26): at 176x; fairly prominent, irregular reflection glow surrounding a 12th mag star, along with three or four fainter stars. IC 4954 is 4' NW. Both are within the cluster Roslund 4, which has a total of 18-20 stars.\n\n17.5\" (9/26/92): at 140x appears as the larger and slightly brighter of a pair of reflection nebulae with IC 4954 4' NW.  Surrounds a mag 12 star, elongated 2:1 SW-NE, 1' diameter.  A line of three mag 13.5 stars is close southeast.  No contrast enhancement with OIII or Deep Sky filter."
+    },
+    {
+      "Name": "Roslund 4",
+      "Visual Description": "14.5\" (9/5/26): at 226x; the cluster consists of two main parts, each accompanied by a reflection nebula (IC 4954 and IC 4955).  The NW group includes a close double (~7\" separation) and a third star about 20\" NW. Just over 1' N is a small reflection glow surrounding a singe star (IC 4954).  Just over 1' S of the triple star is a line of three mag 11.5-12.5 stars oriented NW-SE.\n\nThe SE group consists of a mag 11-12 star surrounded by a relatively bright glow (IC 4955), along with 3-4 fainter stars.  In total the cluster has a total of 18-20 stars in a 6' circle.\n\n17.5\" (9/26/92): small group of stars that illuminate the reflection nebulae IC 4954 and 4955.  Includes a group of 5 stars aligned in two parallel rows of two and three stars along with the illuminating stars of the reflection nebulae."
+    },
+    {
+      "Name": "DoDz 10",
+      "Visual Description": "14.5\" (9/5/26): at 176x; this is a fairly large, scattered, and very elongated group of stars oriented N-S for ~18'. Mag 7.2 HD 190812 lies just off the N end. A 5' subgroup is at the S end with a triple star in its center. Towards the middle of DoDz 10 is a mag 9.3 star with a ~12\" pair 1.3' to its SE. Another subgroup is at the NE end and it includes two mag 10.1 and 10.4 stars.  Roughly 70 stars were counted within these two subgroups and the main N-S stream of stars."
+    },
+    {
+      "Name": "IC 1318(b)",
+      "Visual Description": "24\" (8/20/25): NVD at 34x; IC 1318(b) — called IC 1318a by Gaze/Shajn and Cederblad — which connects to DWB 59 on the SW end, is an extremely large, gorgeous region of nebulosity (high surface brightness, brightness variations, and very irregular shape) is located 2° NW of Gamma Cyg.  This section of the Gamma Cyg complex extends 1.0° from SW-NE with the more narrow SW end angled SSW and faintly connected to DWB 59.  The large, broader central region is elongated from WSW to ENE and contains two mag 7.9 and 9.5 stars with a mag 9.1 just off the W side.\n\nFrom the central region, slightly fainter nebulosity spreads north for nearly 15' and brightens a little at the N end.  A thinner, fainter arm extends ~15' further ENE from the central region, and a faint detached piece of nebulosity, ~6'x3', is off the S side of this arm.  In general, all of the nebulosity in the entire region (IC 1318(b) and LBN 239) visible on the DSS could be seen within two eyepiece fields.\n\n14.5\" (10/5/23, Albany): NVD at 24x.  IC 1318(b) is a very impressive section of the Gamma Cyg nebula and was strikingly prominent, even in the very bright skies at home. The entire outline shown on MegaStar was easily visible, stretching 1° from SW to NE and nearly filling the low power field.  The main body is quite elongated and includes a thin fainter \"finger\" of nebulosity at the east end. A small 3'x2' patch off its south side is cut off by a dark lane.  A bulbous extension, ~10' diameter, is on the north side.  The west side bends towards the south and thins at the SW end, nearly connecting with DWB 59, a fainter region of nebulosity further SW.\n\n18\" (8/11/07): This large section is situated roughly two degrees NW of Gamma Cyg (Sadr) and possibly the brightest region of the complex.  It was easily picked up in my 80mm finder at 12.5x using a H-beta filter.  Switching to my 18-inch at 73x (with a H-beta or UHC filter) it appeared very extended SW-NE or WSW-ENE, roughly 40'x8' and involved a mag 8 star.  The brightest portion is to the NE of the star and a number of similar magnitude stars are involved with this portion.  Removing the filter, this section was still visible though the contrast was higher using a UHC filter.  To the SW of the star, this river of nebulosity takes a mild bend and flows more towards the south.  Another fainter section of nebulosity (not included in the size estimate) spreads out to the NNW of the mag 8 star."
+    },
+    {
+      "Name": "vdB 130",
+      "Visual Description": "14.5\" (9/5/26): at 176x; this cluster mostly consists of a NW-SE string of ~8 stars. It includes a wide pair and a third star. The brightest member is mag 10.25 HD 228789.\n\nThe group is situated at the NW edge of the section of the IC 1318 complex that I've called IC 1318(f). This piece is labeled as Sh 2-108 in the Uranometria 2000.0.  The surrounding region is rich and at low power the cluster did not stand out at all, so I needed a chart to identify the stars."
+    },
+    {
+      "Name": "Simeis 226",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; this section of the Veil lies W of the southern portion of the \"Thin Thread\" and E of the main southern end of NGC 6960. It appeared bright, irregular, elongated NW-SE, ~4'x3', with 3 stars involved.  Simeis 224 is 10' NW.\n\n24\" (6/26/25): NVD at 34x; section \"J\" is a bright, oval glow ~4' diameter. This isolated patch is situated W of the S end of the \"thin thread\" and 15' NW of section \"I\".\n\n18\" (8/3/11): this is a very dim, isolated patch of the Veil Nebula about 15' NW of section \"I\".  At 108x and OIII filter it appears as a very faint glow encompassing a small group of stars, ~3' diameter.  Would easily pass over this patch without noticing if not looking carefully.  Plotted on Megastar as a separate patch and on MSA as part of a western side extension at the southern end of Pickering's Wedge that includes section \"I\"."
+    },
+    {
+      "Name": "Simeis 237",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; Simeis 237 is a similar filament as Simeis 22, which is 12' NW. With a 6nm H-alpha filter, it was thin and very elongated N-S, ~3' in length, very good surface brightness.\n\n24\" (6/26/25): NVD at 34x; very thin short filament, isolated off the W side of the northern end of NGC 6979. Perhaps 2.5'-3' in length and oriented NNW-SSE.\n\n18\" (8/2/11): this anonymous filament in the Veil Nebula is detached off the NW end of NGC 6979 near the north-central end of the entire Cygnus loop.  At 108x and OIII filter it was easily visible as very elongated wisp oriented NNW-SSE, ~2.5'x0.5' in length."
+    },
+    {
+      "Name": "Simeis 239",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; fairly faint but easily identified, thin filament between a mag 10.6 star at the SSE end and a mag 9.2 star just E of the north end.   The filament fades here and faintly continues to the NNW.\n\n18\" (8/27/11): easily picked up at 73x using an OIII filter as a fairly large, thin streamer oriented SSE to NNW.  The filament begins at a 10.5-magnitude star located at 20h 50m 51s +31° 27.2' and flows to the NNW.  It passes to the west of 9th magnitude SAO 70569 and fades and possibly spreads out as the thread continues to the NW.  The southern end of NGC 6974 lies in the field to the NE and the northern end of Pickering's Wisp is to the west, but this filament appears detached from both."
+    },
+    {
+      "Name": "Veil Nebula (H)",
+      "Visual Description": "14.5\" (10/3/26): NVD at 24x; bright, small, isolated patch with the H-alpha filter, about 2.5' in length. Elongated N-S and tapers on the N end, creating a small wedge.\n\n18\" (8/2/11): this is a small patch about 35' S of the feathery side branches at the southern end of NGC 6992 (the main eastern section).  It was easily swept up at 108x using an OIII filter as a fairly bright but fairly small patch, roughly triangular shaped and ~2'x1.2' diameter.  A few faint stars are superimposed including one at the SW end.  Not plotted on Megastar nor MSA but shown on the U2000 atlas."
+    },
+    {
+      "Name": "Sh 2-113",
+      "Visual Description": "24\" (10/6/26): NVD at 34x; Sh 2-113 is the southern end of a large, irregular ring-like nebula, extending over 45' N-S, with Sh 2-114 at the N apex. Just off the SW side of the ring is mag 5.9 HD 203156.\n\nThe brightest part of Sh 2-113 is a fairly faint, elongated patch SW-NE, 5'-6' in length. One or two stars are involved and a few more are along the eastern edge. HD 203156 is ~24' WNW."
+    },
+    {
+      "Name": "NGC 7209",
+      "Visual Description": "8\" (10/6/26): at 109x; NGC 7209 resides in an extremely rich 55' field. It is fairly rich, though not dense, and the western half partially divided by a starless lane that is oriented SE to NW.  The cluster contains many 11th mag stars and features a curving chain of stars oriented WNW to ESE.  Mag 10-10.5 SS Lac is on the SW side of the cluster, and 1.7 to its S is BRT 1157, a mag 11.1/12 pair at 7\". At total of ~75 stars were counted at 229x.\n\n14.5\" (10/3/26): moderately rich cluster of 100-120 stars mag 9.5-14 at 132x in a 20' field. The most eye-catching subgroup is a striking, irregular chain with a number of 10th-11th mag stars on the N side that winds ESE to WNW. Just S of this chain are starless holes.  Additional 10th-11th mag stars are on the S side, including the 10th mag former eclipsing variable SS Lac.  The cluster calls for a low power as it is spread out and within a rich region of the Milky Way.\n\n24\" (8/12/26): very nice, low power Milky Way cluster and field. At 125x, at least 125 stars resolve, including numerous 10th and 11th mag stars with some brighter stars around the periphery. The cluster extends roughly 20', but there is no distinct boundary to measure. The most distinctive feature is a winding stream of 10th and 11th mag stars that start at the SE end, extend to the north, and then bend to the W. The stream can be broken into three distinct sections or groups at the SE side, E side and NW side (\"Y\" shaped in eyepiece).\n\n15x50 IS binoculars (6/19/09): while observing Barnard 168, the fairly prominent, long dark lane that begins near M39 and heads east in the direction of the Cocoon Nebula (IC 5146), I picked up this fairly faint, round, diffuse patch that was easily visible in binoculars.  NGC 7209 is perhaps two degrees further ESE and collinear with the B168 dark lane.\n\n17.5\" (10/12/85): 100-125 stars are resolved, bright, large.  Located in a very rich field so does not stand out conspicuously. \n\n13.1\" (9/22/84): about 75 stars, bright, fairly scattered. \n\n8\": fairly large, spread out, similar magnitudes.  Framed by an 8th magnitude star."
+    },
+    {
+      "Name": "IC 1434",
+      "Visual Description": "8\" (10/5/26): the main cluster includes four mag 9.5, 10, 10.5, and 11 stars on the S side and a faint NW-SE string of stars through the center.  A long chain of stars extends well beyond the cluster on the E side, angling to the ENE. A total of 30-35 stars are resolved in an 8' region at 263x.\n\n14.5\" (9/7/26): At 122x, IC 1434 is a rich cluster in a densely packed Lacerta star field!  At 158x, roughly 175 stars are resolved in a 12' region, many from mag 13-14.  The 4 brightest stars shine at mag 9.6, 9.9, 10.5, and 11.1 – all on the S side, with the latter 3 forming a triangle with sides of length 1.2' to 2.2'.\n\nMany of the stars are arranged in 4 main long chains with offshoots that intersect N of center, where there are 3 mag 11.0-12.6 stars.  A 10' long chain heads ENE (beyond the cluster's boundary) from these stars. Another string extends 6' to the WSW (essentially continuing the first one to a total length of 16') and it includes a triple star near its WSW end. A 7' chain meanders 7' WSW from center and a 4th chain extends  4' ENE. The latter two also appear to join near the 3 brighter stars. The general region is quite rich, so the cluster is not well detached.\n\n17.5\" (7/29/92): about 100 stars in a 15' diameter.  Three mag 9 stars form a triangle on the south side.  The extensions almost fill the 20' field.  Long sprays of stars intersect near the center at a mag 10.5 star.  A long ray extends ENE for 11' and contains 30 stars.  A ray to the WSW of 11' length has 16 stars including a close triple star.  There are two more sprays to the NW of 6' length.  The cluster has no distinct borders.  The surrounding Lacerta Milky Way region is breathtaking, scanning with a 20 mm Nagler.  Located 2.1° WNW of mag 4.4 Beta Lacertae.\n\n8\" (8/12/83): ~50 stars over haze at 200x. Includes two strings on the east side, brighter stars at the south edge."
+    },
+    {
+      "Name": "NGC 7235",
+      "Visual Description": "14.5\" (10/3/26): at 226x; at least two dozen stars are resolved in a 5'x3' group, extemded roughly E-W.  The brightest mag 8.7 star, which forms the NW vertex of a distinctive triangle, is somewhat isolated on the SE side. Most of the stars lie just N along a stream that extends ENE to WSW. It includes a mag 10.1 star near the ENE end (1' N of the mag 8.7 star) and a mag 10.6 star at the WSW end.\n\n18\" (8/17/04): at 225x, nearly three dozen stars are resolved in a 4'x3' group, slightly extended E-W.  The brightest mag 9 star is at the east end.  A rich stream of faint stars over haze is the north side and angling WSW towards a mag 10.5 star on the west end.\n\n17.5\" (11/2/91): two dozen stars mag 9-15 in a 4' diameter at 220x.  This moderately concentrated group is elongated WNW-ESE and includes several fairly bright stars.  A mag 9 star is at the east end and there are eight other mag 10-11 stars.  Just west of the mag 9 star is a 1.5' circular hole with no stars.  A mag 10 star at the extreme west edge has 6 faint stars mag 13/14 close following.\n\nA compact group of faint stars 13' S appears as a small, partially resolved nebulous glow at 100x.  At 220x, 7 stars are resolved from mag 14-15.5 within a 1.5' diameter.  I had taken this as NGC 7234 but Corwin's re-reduced position from William Herschel indicates that NGC 7234 is identical to NGC 7235."
+    },
+    {
+      "Name": "NGC 7243",
+      "Visual Description": "8\" (10/6/26): at 109x, NGC 7243 is an attractive, large cluster that appears detached in the 55' eyepiece field.  Overall, it is fairly scattered (no rich subgroups) with a mostly starless region on the N side. The brighter 9th to 11th mag stars roughly form a \"butterfly\" outline with open wings (using some imagination). At the center is the 9\" pair STF 2890, forming the vertex of a triangle with similar stars.  Increasing to 229x, a total of 80-100 stars were resolved.\n\n14.5\" (9/7/26): at 132x, NGC 7243 appeared large, fairly rich, with at least 175 stars resolved in a 21' field. The cluster mainly consists of three subgroups with a mostly star-free lane oriented SW-NE that divides the cluster. The NE subgroup includes several brighter stars mag 9.3/9.3/10.1/10.2, and 10.6. Right in the center is nice triangle (with a 4th star) and the SE vertex is STF 2890, a 9\" pair of matched mag 9.4/9.7 stars.  Three brighter mag 8.5/8.7/10.5 stars are directly W.  On the S end is a larger, scattered subgroup that includes a 9th mag star and two 10th mag stars.\n\n17.5\" (10/12/85): at 83x, 150-200 stars are visible in a 20' field.  This is a striking cluster at low power and includes a number of fairly bright stars.  Near the center is the nice pair STF 2890 = 9.4/9.7 at 9\".  The cluster is irregularly distributed into subgroups.\n\n13.1\" (9/22/84): about 80 stars resolved, rich, fairly large, excellent low power field, includes double star STF 2890."
+    },
+    {
+      "Name": "NGC 7245",
+      "Visual Description": "8\" (10/6/26): at 229x; a glowing knot with several very faint stars resolved sits at the center of this compact open cluster. A long chain of stars from mag 11.3-13.5 begins ~1.5' W of the knot and extends ~4.4' NW, ending outside the cluster.  A total of 15-20 stars were resolved in a 4' circle.\n\n14.5\" (10/3/26): at 226x; fairly small 4' group, rich in faint stars. Nearly three dozen stars counted at 226x. At the center, is a rich, glowing clump of stars 1' across that is partially resolved. This knot lies along the N side of a triangle containing a mag 8.8 star (off the NE end of the cluster), a mag 10.7 star (S end of cluster), and a mag 11.3 star (1.5' W of center). King 9, a smaller rich group, is just 5' NNE.\n\n18\" (8/27/05): small, rich group at 323x with at least three dozen stars resolved within the borders of an isosceles triangle (long sides ~4') formed by a mag 8.9 star (HD 235771) at the NE corner and two mag 10.7/10.9 stars on the W and S sides.  Contains a rich, 1' ball of stars that follows the brighter star on the W side.\n\nKing 9 is close NE.  At 323x, this rich, distant cluster appeared as a very small, faint knot of stars is just south of a mag 13.5-14 stars.  Perhaps a half-dozen stars were resolved, though these may be superimposed field stars as the brightest cluster members are ~16.5.\n\n17.5\" (8/5/94): about two dozen stars in a 2.5' diameter bordered by a mag 11 star on the west edge, a mag 10 star on the SSE edge and a mag 9 star (SAO 34240) off the NE side.  A small 1' diameter core is richer.  A large dust lane appears to cut through the 20' field SW-NE and passes the E side of cluster.  At low power, other dark patches are evident.  Open cluster IC 1442 is in the low power field 20' SE.\n\n13.1\" (9/9/83): about 20 fainter stars mostly in a string.  Other rich enhancements are near in this Milky Way field.  \n\n8\": 15 faint stars elongated N-S with a double star at the north edge.  Includes three brighter stars mag 8-10 around the edges but the rest of the stars are mag 13 or fainter."
+    },
+    {
+      "Name": "King 9",
+      "Visual Description": "14.5\" (10/3/26): King 9 lies only 5' NNE of NGC 7245 in a very rich Milky Way field, but it lies far in the background (~25,000 l.y.) and is 2.5-3.0 billion years old. At 226x, I noticed a faint, small elongated glow, just 1' in length N-S. Only 2 or 3 stars were resolved including the brightest mag 13.5 star at or just off the N end. The brightest member stars, though, are 17th-18th mag.\n\n18\" (8/27/05): this rich, distant cluster is close NNE of NGC 7245.  At 323x, a very small, faint knot of stars is just south of a mag 13.5-14 star.  Perhaps a half-dozen stars were resolved, though these may be superimposed field stars as the brightest cluster members are ~16.5."
+    },
+    {
+      "Name": "IC 1442",
+      "Visual Description": "14.5\" (9/7/26): at 226x, IC 1442 is an elongated, rich cluster extending SW to NE, over a glowing background of unresolved stars. Roughly 30 stars were counted in a 5' region. A fairly distinctive circlet of star (1.5' diameter) is at the NE end and a second partial ring of stars (1.5' across) is on the SW end.  A few stars seem to connect the two rings. A mag 9.2 star (HD 235778) is off the NE side and mag 8.7 HD 235777 is off the SE side.\n\n17.5\" (8/5/94): about three dozen stars in a distinctive curving row oriented SW-NE about 4' diameter with fainter loops at both ends.  A mag 9 star SAO 34248 is off the SE and a mag 10 star SAO 34250 is off the NE end.  The cluster is not concentrated, but it stands out well at low power (100x).  Located 20' SE of NGC 7245 (misplotted on MegaStar).\n\n8\" (10/5/26): at 263x; 15 stars resolved in a 5' region including a circular loop on the NE end.\n\nC-8 (from El Cerrito): 20 stars mag 8-12 in 9' field, spread out, not rich.  Located 20' SSE of NGC 7245."
+    },
+    {
+      "Name": "NGC 7296",
+      "Visual Description": "8\" (10/5/26): 20-24 stars resolved at 263x including a single brighter mag 9.7 star at the WNW end.  Three chains of stars extend to the NE, SE, and E (the latter splits into two), creating a walking stick figure, with the brighter star representing the head.\n\n14.5\" (10/3/26): at 132x; small, elongated group of 25-30 stars, rich in faint stars. A mag 9.7 star is on the WNW end. At 226x, 30-35 stars are resolved in a 4' circle. A chain of 4 stars (each about 1' apart) extends E, then NE, from the mag 9.7 star. About 1' NE of the bright star is a small, rich clump, and another rich knot is S of center. The cluster is situated within a rich Lacerta star field, so it isn't isolated or eye-catching.\n\n17.5\" (10/5/91): compact group of roughly 30 stars in a 3'x2' area elongated N-S.  A mag 9 star is at the NW edge.  Most stars are arranged in a curved arc roughly N-S.  A string of four perfectly collinear stars trail from this arc to the NE.  Not particularly distinctive as located in a rich star field.  Contains about ten faint stars mag 14-14.5.  Located 40' E of Beta Lacertae (V = 4.4).\n\n8\" (11/8/80): 15 stars extended N-S between two mag 8.7 and 9.7 stars to the S and NNW, respectively.  Appears faint and small with an unresolved background haze."
+    },
+    {
+      "Name": "Berkeley 96",
+      "Visual Description": "14.5\" (9/7/26): at 226x; a total of 8-10 stars were resolved in a small 2.5' circle. The main attraction is the triple star Stein 2801, which includes a mag 10.5 primary and two mag 12 companions 7\" N and 10\" NE.  An 11th mag star is at the SW edge and another mag 11.8 star is at the N edge."
+    },
+    {
+      "Name": "Me 2-2",
+      "Visual Description": "14.5\" (9/7/26): Me 2-2 was easy to pinpoint using mag 4.4 5 Lac, which is just 23' away. It forms a \"double\" with a mag 11.8 star 32\" WNW. Unfiltered, the PN is comparable or slightly brighter than this star.  Excellent contrast gain blinking with a NPB filter at 158x as Me 2-2 appears up to 3 magnitudes brighter than the comparison star.  It appears very small, but non-stellar at 395x, particularly with averted vision, which causes the halo to slightly swell. The tiny disc was easier to see at 566x, but only seemed a couple of arcseconds in diameter. Situated in a rich star field.\n\n18\" (11/17/08): I starhopped over to Me 2-2 from 4.4-magnitude 5 Lacertae, located 23' WSW, and identified the planetary by blinking with an OIII filter at 175x.  Without a filter, the planetary had a slightly soft appearance and a very pale, blue color.  A good comparison star is located just 32\" WNW.  Me 2-2 is slightly brighter than this star unfiltered but up to 3 magnitudes brighter using an OIII filter.  A faint star is sandwiched midway between the planetary and the star 32\" WNW.  No additional details were visible at 323x - just a soft bluish star, perhaps 1.5\" diameter.  Situated in a rich star field.\n\n13.1\" (9/11/85, El Cerrito): visible unfiltered at 144x as a mag 12 \"star\".  Excellent contrast gain with OIII filter compared to a similar star just 30\" NW of Me 2-2 and the planetary is quite prominent.  Situated in a rich star field with a mag 11.5 star 1.4' SE."
+    },
+    {
+      "Name": "NGC 7331",
+      "Visual Description": "48\" (10/24/14): at 488x, the long dust lane along the west side (running N-S) was very evident as the galaxy is sharply cut off at the bright edge of a thin inner spiral arm (the arm itself was not resolved). A clearly visible outer spiral arm curves sharply counterclockwise around the south side of the halo and shoots directly north.  It continues or merges into a fairly narrow arm just west of the dust lane and extends north of the central region on the west side.\n\n24\" (7/21/12): at 322x this showpiece galaxy appeared very bright, very elongated 3:1 NNW-SSE, ~9'x3'.  Contains a very bright, elongated core that is sharply concentrated with an intense stellar nucleus.  The galaxy exhibits subtle spiral structure in the outer halo and the brighter edge of the inner western arm is sharply defined as it shoots north.  Just west of this arm the light drops off sharply due to a long dust lane and the dim glow of the outer halo is clearly visible west of the lane.  Arm structure is also evident at the north and south ends of the central region.  The four background companions to the east fit snugly in the field.\n\n18\" (8/1/08): The sharp light cut-off (dust lane) was evident, running along the west side of the galaxy, and the outer halo had subtle structure and variations in brightness that suggested spiral structure.\n\n13.1\" (many dates 7/16/82 to 7/27/84): very bright, very elongated 3:1 NNW-SSE, 9'x2.5', very bright elongated core, substellar nucleus.  The west side has a sharper edge due to dust.  Four (background) companions are close following with the brightest three NGC 7335 3.5' ENE, NGC 7337 5.2' SE, NGC 7336 5.3' NE and NGC 7340 8.1' E of center.  Stephan's Quintet lies 30' SSW.  NGC 7331 is the brightest in a small group including NGC 7320 (in Stephan's Quintet).\n\n8\" (8/28/81): very bright, large, nucleus bulge, very elongated.  Two extremely faint companions to the east are just visible.\n\n80mm (9/29/84): faint streak at 16x in the finder.\n\n24\" (7/22/25 and 7/23/25): viewed Type Ia SN 2025rbs, discovered on July 14th (one week earlier) at 17th mag. The SN is just 12\" N and 4.5\" W of the nucleus.  It was immediately seen at full aperture, appearing like a second stellar nucleus (brighter than NGC 7331's, which is slightly non-stellar) and was also fairly easy with the 8\" off-axis mask at 229x. The next night it appeared roughly mag 12.6-12.8V and easy using the 8\" aperture. (The SN peaked at 12th mag.)\n\n24\" (8/20/25): SN 2025rbs is clearly declining in brightness and roughly a magnitiude fainter than last month.\n\n14.5\" (9/5/26, 9/7/26, 9/15/26): at 176x, I viewed the Type Ia SN 2026aaiv, which was discovered just 4 days earlier on 9/1/26. With a rapid rise in brightness, it appeared as a 14th mag star 20\" E and 20\" S of center, at the edge of the bright core region. It was easily seen when the seeing was sharper and appeared brighter than a mag 14.06 star 1.5' NE of center. Just two nights later, the supernova had noticeably brightened, and seemed mag 13-13.5.  On 9/15/26, the SN seemed slightly brighter than a mag 12.1 star 4.6' NW of the center of the galaxy.  So, it was probably between mag 11.8-12.0."
+    },
+    {
+      "Name": "Berkeley 98",
+      "Visual Description": "14.5\" (9/7/26): at 132x and 226x, several faint stars were resolved over a glowing background.  Includes about a dozen stars in 5' roughly circular group. Two 11th mag stars are just off the NE end.\n\n18\" (9/11/10): at 285x, I resolved roughly 15-20 faint stars (mostly mag 13.5-15) in a 4’ group. The apparent members were bracketed between two mag 10 stars at the NE end and a mag 10.5 star at the SW end.  The group is unimpressive as most of the cluster members are probably too faint to resolve.  Berkeley 98 is located 20' WSW of mag 6.4 HD 215518."
+    },
+    {
+      "Name": "Sh 2-161",
+      "Visual Description": "24\" (7/23/25): NVD at 34x; fairly faint but easily visible wide stream of nebulosity extending through the field from NW to SE with a length of 55'.  It passes directly through mag 6.5 HD 219634 (B0-type).  A slightly brighter circular patch of ~8' diameter is centered ~13' NW of the bright star. The nebulosity also brightens somewhat on the SE end and otherwise is a bit patchy due to dust.\n\nNGC 7538 = Sh 2-158 is ~35' SW.  The SE end leads roughly to NGC 7635, the showpiece \"Bubble Nebula\", which is ~55' SE of Sh 2-161."
+    }
+  ],
+  "otherUpdates": [
+    {
+      "Name": "Sh 2-170",
+      "Other": "Courtès 106 = Simeis 105 = Sh 1-117 = [GS55] 284 = Sh 2-170 = DG 192 = LBN 577"
+    },
+    {
+      "Name": "NGC 7822",
+      "Other": "Ced 215 = Courtès 108 = Simeis 3-248 = [GS55] 283 = LBN 587 = LBN 589"
+    },
+    {
+      "Name": "Ced 214",
+      "Other": "NGC 7822? = Courtès 109 = Simeis 278 = [GS55] 286 = DG 1 = LBN 581/584/586/588"
+    },
+    {
+      "Name": "Sh 2-173",
+      "Other": "Simeis 21 = Sh 1-121 = [GS55] 3 = Sh 2-173 = LBN 592/593"
+    },
+    {
+      "Name": "IC 1795",
+      "Other": "Ced 6C = Simeis 1-4 = Courtès 110 = [GS55] 15 = LBN 647"
+    },
+    {
+      "Name": "Sh 2-194",
+      "Other": "Simeis 116 = Sh 1-140 = [GS55] 20"
+    },
+    {
+      "Name": "UGC 2855",
+      "Other": "MCG +12-04-004 = CGCG 327-006 = PGC 13880 = Simeis 284 = [GS55] 33"
+    },
+    {
+      "Name": "NGC 1499",
+      "Other": "[Hubble22] II-4 = Ced 26 = Courtès 114 = [SO52] 7 = Simeis 3-20 = [GS55] 37 = Sh 2-220 = LBN 756"
+    },
+    {
+      "Name": "Sh 2-220",
+      "Other": "NGC 1499 = [Hubble22] II-4 = Ced 26 = Courtès 114 = [SO52] 7 = Simeis 3-20 = [GS55] 37 = Sh 2-220 = LBN 756"
+    },
+    {
+      "Name": "IC 361",
+      "Other": "Mel 24 = Cr 48 = Simeis 27 = OCL-393 = C 0414+581"
+    },
+    {
+      "Name": "Sh 2-208",
+      "Other": "Simeis 287 = [GS55] 41"
+    },
+    {
+      "Name": "Sh 2-207",
+      "Other": "Simeis 28 = [GS55] 42 = Sh 2-207 = VV 1-2 = LBN 708 = PK 151+02.1"
+    },
+    {
+      "Name": "Sh 2-211",
+      "Other": "Simeis 120 = YM 21 = [GS55] 45 = Sh 2-211 = [SS62] 27 = LBN 717"
+    },
+    {
+      "Name": "Sh 2-212",
+      "Other": "NGC 1624 = [GS55] 46 = LBN 722"
+    },
+    {
+      "Name": "Sh 2-226",
+      "Other": "Simeis 123 = [GS55] 51 = LBN 780"
+    },
+    {
+      "Name": "Simeis 126",
+      "Other": "Courtès 115 = Simeis 3-32"
+    },
+    {
+      "Name": "IC 405",
+      "Other": "Ced 42 = Courtès 116 = [SO52] 6 = [GS55] 54 = Sh 2-229 = LBN 795 = vdB 34"
+    },
+    {
+      "Name": "Sh 2-229",
+      "Other": "IC 405 = Ced 42 = Courtès 116 = [SO52] 6 = Simeis 3-33 = [GS55] 54 = Sh 2-229 = LBN 795 = vdB 34"
+    },
+    {
+      "Name": "IC 410",
+      "Other": "Ced 43 = Courtès 118 = [SO52] 5 = Simeis 3-35 = [GS55] 55 = Sh 2-236 = LBN 807"
+    },
+    {
+      "Name": "Sh 2-236",
+      "Other": "IC 410 = Ced 43 = M 2-59 = Courtès 118 = [SO52] 5 = Simeis 3-35 = [GS55] 55 = Sh 2-236 = LBN 807"
+    },
+    {
+      "Name": "Sh 2-234",
+      "Other": "IC 417 = Ced 46 = Simeis 133/134/135 = [GS55] 60 = Sh 2-234 = LBN 804"
+    },
+    {
+      "Name": "Sh 2-237",
+      "Other": "NGC 1931 = Ced 49 = [GS55] 62 = Sh 2-237 = LBN 810"
+    },
+    {
+      "Name": "Lambda Orionis Nebula",
+      "Other": "McD 4 (N section) = Courtès 121 & 128 = Simeis 153 = Simeis 139 & 140 (refer to N and NW section) = Ced 54 = Strohmeier 39/41/42 = [SO52] 4 = [GS55] 64 = Sh 2-264 = LBN 865"
+    },
+    {
+      "Name": "Sh 2-233",
+      "Other": "Simeis 145 = [GS55] 71 = Sh 2-233 = [SS62] 43 = LBN 802"
+    },
+    {
+      "Name": "Sh 2-231",
+      "Other": "Simeis 146 = [GS55] 73 = Sh 2-231 = LBN 803?"
+    },
+    {
+      "Name": "Sh 2-235",
+      "Other": "M 1-82 = [GS55] 76 = LBN 808"
+    },
+    {
+      "Name": "Sh 2-232",
+      "Other": "Courtès 130 = Simeis 152 = [GS55] 78 = Sh 2-232 = LBN 805"
+    },
+    {
+      "Name": "Simeis 147-E",
+      "Other": "Sh 2-240 = LBN 822 = SNR 180.0-1.7"
+    },
+    {
+      "Name": "NGC 2163",
+      "Other": "[Hubble22] I-15 = Ced 62 = Herbig 9 = DG 87 = Parsamian 6 = LBN 855 = PP 54 = GN 06.04.9"
+    },
+    {
+      "Name": "Sh 2-247",
+      "Other": "Simeis 33 = [GS55] 85 = Sh 2-247 = LBN 843"
+    },
+    {
+      "Name": "Lower's Nebula",
+      "Other": "McD 43 = Ced 64 = Strohmeier 31 = Simeis 34 = Courtès 135 = [GS55] 86 = Sh 2-261 = LBN 862/863/864"
+    },
+    {
+      "Name": "Sh 2-252",
+      "Other": "NGC 2174/2175 = [Hubble22] II-13 - Ced 67A = Strohmeier 30 = Simeis 1-11 = Courtès 136 = [GS55] 87 = LBN 854"
+    },
+    {
+      "Name": "NGC 2175",
+      "Other": "[Hubble22] II-13 = Ced 67A = Simeis 1-11 = Courtès 136 = Sh 2-252 = LBN 854 = Cr 84"
+    },
+    {
+      "Name": "Sh 2-270",
+      "Other": "LBN 877 = Neckel-Staude 8"
+    },
+    {
+      "Name": "Ced 71",
+      "Other": "Helwân 127 = Ced 71 = DG 96 = Parsamian 8 = LBN 1000 =vdB 74 = PP 55"
+    },
+    {
+      "Name": "Sh 2-254",
+      "Other": "Simeis 35 = [GS55] 88 = LBN 858"
+    },
+    {
+      "Name": "Sh 2-269",
+      "Other": "M 1-83 = [GS55] 92 = LBN 876"
+    },
+    {
+      "Name": "Sh 2-271",
+      "Other": "YM 25 = Sh 2-271 = V-V 1-4 = Parsamian 10 = PK 197-02.1"
+    },
+    {
+      "Name": "Sh 2-267",
+      "Other": "Simeis 289 = YM 24 = [GS55] 93 = Sh 2-267 = V-V 1-5 = LBN 875 = PK 196-01.1"
+    },
+    {
+      "Name": "UGCA 128",
+      "Other": "YM 44 = MCG -03-17-002 = VV 1158 = ESO 556-015 = KTS 32A = PGC 18858"
+    },
+    {
+      "Name": "Sh 2-249",
+      "Other": "Courtès 138 = Simeis 41/42 = [GS55] 96 = DG 101 = LBN 841/845"
+    },
+    {
+      "Name": "IC 446",
+      "Other": "IC 2167 = [Hubble22] I-16 = Ced 77 = [SS62] 51 = DG 102 = LBN 898 = [B77] 91 = Neckel-Staude 9 = GN 06.28.4"
+    },
+    {
+      "Name": "Monoceros Loop SNR",
+      "Other": "McD 52 (central) + McD 55 (eastern half) = Ced 82 + Ced 85 = Strohmeier 28 (western half) + Simeis 168 (eastern rim) = Courtès 151 (east) = SNR G205.5+0.5 = SNR G205.6-00.1 = VMT-10"
+    },
+    {
+      "Name": "Sh 2-289",
+      "Other": "YM 34 = LBN 1014"
+    },
+    {
+      "Name": "NGC 2313",
+      "Other": "Parsamian 17 = PP 67 = Neckel-Staude 13 = GN 06.55.6.02 = V565 Mon"
+    },
+    {
+      "Name": "Simeis 290",
+      "Other": "Simeis 290 = YM 35 = [GS55] 105 = Münch 6 = DG 114 = LBN 1023 = vdB 87 = PP 69 = GN 06.58.1"
+    },
+    {
+      "Name": "Sh 2-293",
+      "Other": "Helwan 130 = Simeis 169 = [GS55] 107 = Sh 2-293 = LBN 1030 = vdB 88 = GN 06.59.4"
+    },
+    {
+      "Name": "Sh 2-295",
+      "Other": "Helwan 131 = Simeis 170 = [GS55] 107 = Sh 2-295 = LBN 1035 = vdB 90"
+    },
+    {
+      "Name": "IC 2177",
+      "Other": "Ced 89C = Strohmeier18 = Simeis 3-96 = [GS55] 109 = Gum 1 = Sh 2-292 = Herbig 15 = RCW 2 = LBN 1027 = vdB 93"
+    },
+    {
+      "Name": "Gum 1",
+      "Other": "IC 2177 = Ced 89C = Strohmeier 18 = Simeis 3-96 = [GS55] 109 = Gum 1 = Sh 2-292 = Herbig 15 = RCW 2 = LBN 1027 = vdB 93"
+    },
+    {
+      "Name": "Sh 2-296",
+      "Other": "McD 45, 46 & 56 = Ced 89 = [Str 50] 17 & 19 = Sharpless-Osterbrock 1 = Simeis 172 = [GS55] 111 = Gum 2 = Sh 2-296 = RCW 1 = LBN 1033 & 1037"
+    },
+    {
+      "Name": "NGC 2359",
+      "Other": "Ced 94B = Strohmeier 7 = Simeis 3-103 = Gum 4 = Münch 10 = Sh 2-298 = RCW 5 = LBN 1041"
+    },
+    {
+      "Name": "Sh 2-302",
+      "Other": "Strohmeier 2 = Gum 6 = Sh 2-302 = RCW 7 = DG 121 = LBN 1046 = [BBW86] 41"
+    },
+    {
+      "Name": "Sh 2-307",
+      "Other": "M 1-85 = Gum 7 = Münch 12 = Sh 2-307 = Parsamian 20 = LBN 1051 = RCW 12 = PP 77 = ESO 560-1"
+    },
+    {
+      "Name": "NGC 6256",
+      "Other": "YM 6 = vdB-Ha 208 = ESO 391-006 = Lund 1104"
+    },
+    {
+      "Name": "Sh 2-3",
+      "Other": "Sh 1-2 = YM 7 = Gum 58 = Sh 2-3 = RCW 120"
+    },
+    {
+      "Name": "Sh 2-6",
+      "Other": "NGC 6302 = Ced 139 = Sh 1-3 = Sh 2-6 = PK 349+1.1 = Gum 60 = RCW 124 = PN G349.5+01.0"
+    },
+    {
+      "Name": "Sh 2-12",
+      "Other": "McD 69 = Ced 147 = Courtès 4 = [SO52] 16 = Sh 1-11 = BBW 32301 = Gum 67 = [GS55] 121 = RCW 132 = LBN 1117"
+    },
+    {
+      "Name": "Sh 2-18",
+      "Other": "Sh 1-14 = BBW 32701 = RCW 139 = LBN 1125"
+    },
+    {
+      "Name": "M 1-41",
+      "Other": "Hen 2-355 = PK 6-2.1 = PN G006.7-02.2 = VV 152 = ESO 521-039 = Neckel-Staude 15"
+    },
+    {
+      "Name": "Sh 2-43",
+      "Other": "Sh 1-34 = [GS55] 136 = RCW 156"
+    },
+    {
+      "Name": "Sh 2-53",
+      "Other": "Simeis 195 = Sh 1-45 = Sh 2-53 = [GS55] 147 = RCW 166"
+    },
+    {
+      "Name": "Sh 2-58",
+      "Other": "Sh 1-49 = [GS55] 151 = RCW 171= LBN 79"
+    },
+    {
+      "Name": "Sh 2-64",
+      "Other": "Simeis 292 = YM 14 = [GS55] 152 = Sh 2-64 = LBN 90 = RCW 174 = Bernes 10"
+    },
+    {
+      "Name": "Sh 2-60",
+      "Other": "Simeis 198 = Sh 1-52 = BBW 35201 = [GS55] 154 = RCW 173 = LBN 82"
+    },
+    {
+      "Name": "Sh 2-59",
+      "Other": "Sh 1-53 = YM 13 = [GS55] 155 = RCW 172 = LBN 80"
+    },
+    {
+      "Name": "Sh 2-69",
+      "Other": "Sh 1-55 = Simeis 293 = [GS55] 156 = Sh 2-69 = RCW 177 = LBN 99"
+    },
+    {
+      "Name": "Sh 2-66",
+      "Other": "Sh 1-56 = Simeis 294 = [GS55] 158 = Sh 2-66 = RCW 176 = LBN 92"
+    },
+    {
+      "Name": "Sh 2-65",
+      "Other": "Sh 1-57 = Simeis 296 = [GS55] 159 = Sh 2-65 = RCW 175 = LBN 91"
+    },
+    {
+      "Name": "Abell 62",
+      "Other": "Simeis 297 = [GS55] 164 = Abell 62 = PK 47-4.1 = PN G047.1-04.2"
+    },
+    {
+      "Name": "Sh 2-86",
+      "Other": "Courtès 32 = Simeis 199 = Sh 1-65 = [GS55] 166 = Sh 2-86 = LBN 135 =  PP 89"
+    },
+    {
+      "Name": "Sh 2-88",
+      "Other": "Simeis 43 = Sh 1-66 = [GS55] 168 = LBN 139"
+    },
+    {
+      "Name": "Sh 2-92",
+      "Other": "Courtès 33 = Simeis 44 = Sh 1-68= [GS55] 169 = LBN 145"
+    },
+    {
+      "Name": "Sh 2-97",
+      "Other": "Sh 1-73 = LBN 151"
+    },
+    {
+      "Name": "Sh 2-99",
+      "Other": "M 1-96 = Simeis 3-156 = Sh 2-99 = LBN 160 = Kazarian 1-2 = PK 69+01.1"
+    },
+    {
+      "Name": "Sh 2-105",
+      "Other": "NGC 6888 = Ced 179 = Sh 1-76 = [GS55] 185 = LBN 203"
+    },
+    {
+      "Name": "Barnard 343",
+      "Other": "LDN 880"
+    },
+    {
+      "Name": "Propeller Nebula",
+      "Other": "Courtès 53 = Simeis 57 = [GS55] 191 = DWB 111/118/119"
+    },
+    {
+      "Name": "IC 1318(b)",
+      "Other": "Ced 176C = [GS55] 193 = LBN 251 = DWB 82"
+    },
+    {
+      "Name": "Sh 2-104",
+      "Other": "Simeis 59 = Sh 1-77 = [GS55] 195 = Sh 2-104 = LBN 195 = DWB 14"
+    },
+    {
+      "Name": "IC 1318(f)",
+      "Other": "M 3-61 = Courtès 56 - Simeis 61 = LBN 234 = DWB 30/34/36/37/38/39/40"
+    },
+    {
+      "Name": "IC 1318(c)",
+      "Other": "Courtès 55 = Simeis 60 = LBN 241 = DWB 64/65/68"
+    },
+    {
+      "Name": "IC 1318",
+      "Other": "Ced 176 = Simeis 62/66/68/70 = Sh 2-108 = LBN 223 = LBN 234 = LBN 245 = LBN 251"
+    },
+    {
+      "Name": "Abell 71",
+      "Other": "Simeis 76 = Sh 1-80 = [GS55] 209 = Abell 71 = Sh 2-116 = PK 85+4.1 = PN G084.9+04.4"
+    },
+    {
+      "Name": "Sh 2-116",
+      "Other": "Simeis 76 = Sh 1-80 = [GS55] 209 = Abell 71 = PK 85+4.1 = PN G084.9+04.4"
+    },
+    {
+      "Name": "Sh 2-115",
+      "Other": "Courtès 63 = Simeis 78 = Sh 1-82 = [GS55] 215 = Sh 2-115 = LBN 357 = DWB 180/181/182/183/184/187"
+    },
+    {
+      "Name": "IC 5067",
+      "Other": "IC 5068B = Courtès 70B = Simeis 81 = LBN 329"
+    },
+    {
+      "Name": "Sh 2-103",
+      "Other": "NGC 6960/6992/6995 = Ced 182 = [GS55] 221/224/227/228/231/232"
+    },
+    {
+      "Name": "IC 5070",
+      "Other": "Ced 183C = M 2-69 = Simeis 1-16 = Courtès 75 = LBN 350/353"
+    },
+    {
+      "Name": "NGC 7000",
+      "Other": "Ced 183D = Simeis 1-17 = Courtès 78 = [SO52] 11 = LBN 373"
+    },
+    {
+      "Name": "Sh 2-129",
+      "Other": "Ced 190 = Simeis 86 = Courtès 83 = [GS55] 238 = Sh 2-129 = LBN 449"
+    },
+    {
+      "Name": "vdB 141",
+      "Other": "Simeis 260 = [GS55] 241 = Sh 2-136 = DG 172 = LBN 495 = vdB 141 = GN 21.15.8"
+    },
+    {
+      "Name": "Sh 2-119",
+      "Other": "Simeis 88 = [GS55] 240 = LBN 391 = LBN 390"
+    },
+    {
+      "Name": "Sh 2-114",
+      "Other": "Simeis 298 = [GS55] 242 = Sh 2-114 = LBN 347"
+    },
+    {
+      "Name": "Sh 2-133",
+      "Other": "Simeis 261 = Sh 2-133 = LBN 476"
+    },
+    {
+      "Name": "Sh 2-124",
+      "Other": "Simeis 92 = Sh 1-90 = [GS55] 244 = Sh 2-124 = KR 7 = LBN 423"
+    },
+    {
+      "Name": "Sh 2-125",
+      "Other": "IC 5146 = Ced 198 = [GS55] 246 = LBN 424"
+    },
+    {
+      "Name": "Sh 2-134",
+      "Other": "McD 19 = Ced 199 = Simeis 8 = [GS55] 248 = Sh 2-134 = LBN 490"
+    },
+    {
+      "Name": "Sh 2-135",
+      "Other": "M 2-72 = Simeis 9 = Simeis 93/94 = Sh 1-92 = [GS55] 253 = Sh 2-135 = LBN 492/493"
+    },
+    {
+      "Name": "Sh 2-141",
+      "Other": "Simeis 267 = [GS55] 256 = Sh 2-141 = LBN 509/510"
+    },
+    {
+      "Name": "Sh 2-150",
+      "Other": "Simeis 268 = Sh 2-150 = LBN 520"
+    },
+    {
+      "Name": "V375 Lac Nebula",
+      "Other": "Herbig 25 = Bernes [B77] 35 = PP 103 = GN 22.32.5 = LkHa 233 = Mrk 914 = PGC 69208"
+    },
+    {
+      "Name": "Sh 2-139",
+      "Other": "Simeis 96 = Sh 1-94 = [GS55] 260 = Sh 2-139 = LBN 502"
+    },
+    {
+      "Name": "Sh 2-154",
+      "Other": "Courtès 97 = Simeis 98 = Sh 1-99 = [GS55] 154 = LBN 521"
+    },
+    {
+      "Name": "Sh 2-152",
+      "Other": "M 1-101 = Sh 1-104 = [GS55] 267 = LBN 519"
+    },
+    {
+      "Name": "Sh 2-153",
+      "Other": "Simeis 11 = Sh 1-105 = [GS55] 268 = Sh 2-153 = LBN 518"
+    },
+    {
+      "Name": "Sh 2-151",
+      "Other": "Courtès 100 = Simeis 269 = [GS55] 269 = Sh 2-151= LBN 517"
+    },
+    {
+      "Name": "Sh 2-160",
+      "Other": "Courtès 101= Simeis 99 = [GS55] 271 = Sh 2-160"
+    },
+    {
+      "Name": "Sh 2-161",
+      "Other": "Courtès 103 = Simeis 100/272 = LBN 547"
+    },
+    {
+      "Name": "Simeis 16",
+      "Other": "[GS55] 276 = LBN 544"
+    },
+    {
+      "Name": "Sh 2-162",
+      "Other": "NGC 7635 = Hb 11 = [Hubble22] II-29 = Ced 210 = Simeis 1-33 = Simeis 18/19 = Courtès 104 = Sh 1-110 = [GS55] 277 = LBN 548 = LBN 549"
+    },
+    {
+      "Name": "Sh 2-164",
+      "Other": "Simeis 273 = Sh 1-112 = [GS55] 279 = Sh 2-164 = [SS62] 73 = LBN 554"
+    },
+    {
+      "Name": "Sh 2-165",
+      "Other": "Simeis 103 = Sh 1-113 = [GS55] 280 = LBN 565"
+    },
+    {
+      "Name": "Sh 2-168",
+      "Other": "M 2-74 = Simeis 104 = Sh 1-115 = [GS55] 281 = Sh 2-168 = LBN 568"
+    }
+  ],
+  "primaryRenames": [
+    {
+      "oldName": "Simeis 3-132",
+      "newName": "M 1-88",
+      "other": "Simeis 3-132 = Gum 85 = [Sh 2-54]"
+    },
+    {
+      "oldName": "DWB 70",
+      "newName": "Simeis 68",
+      "other": "DWB 70"
+    },
+    {
+      "oldName": "ADS 13292",
+      "newName": "Espin 202"
+    },
+    {
+      "oldName": "vdB 87",
+      "newName": "Simeis 290"
+    }
+  ],
+  "otherUpdateTargets": {
+    "Simeis 16": "LBN 544"
+  },
+  "nicknameUpdates": [
+    {
+      "Name": "Simeis 22",
+      "Nickname": "Shrimp Nebula = Dolphin Nebula"
+    }
+  ],
+  "nightVisionNames": [
+    "Sh 2-173",
+    "Sh 2-187",
+    "Courtès 119 & 124",
+    "Simeis 38",
+    "Simeis 39",
+    "Simeis 42",
+    "Strohmeier 28",
+    "McD 42",
+    "McD 55",
+    "Simeis 107",
+    "DWB 114",
+    "DWB 105",
+    "Simeis 71",
+    "DWB 100",
+    "Simeis 75A",
+    "Simeis 219",
+    "Simeis 224",
+    "Simeis 227",
+    "Simeis 83",
+    "Simeis 232",
+    "Simeis 233",
+    "Simeis 239",
+    "Veil Nebula (H)",
+    "Sh 2-114",
+    "Sh 2-113",
+    "LBN 430",
+    "LBN 437",
+    "Simeis 10",
+    "Simeis 305",
+    "Courtès 107",
+    "Sh 2-198"
+  ],
+  "sourceRecordsSha256": "d6c20614f58f1a0aea771d24ec685b21bab7ff4b725563c13d61d7da2e1fce02",
+  "baseline": {
+    "totalRecords": 25008,
+    "totalObservations": 33607,
+    "unchangedRecordCount": 24840,
+    "unchangedRecordsSha256": "45036eb1d61f5c1832c13c6b6b4a1771860c66eeb2ab387d9a645ec8756c32ef"
+  },
+  "summary": {
+    "insertedThisRun": [
+      "UGC 12904",
+      "IC 5376",
+      "UGC 3",
+      "Courtès 107",
+      "UGC 97",
+      "UGC 108",
+      "UGC 139",
+      "UGC 147",
+      "UGC 151",
+      "UGC 155",
+      "CGCG 499-095",
+      "IC 1550",
+      "UGC 232",
+      "UGC 355",
+      "UGC 364",
+      "IC 1571",
+      "UGC 470",
+      "H. V. 82",
+      "UGC 486",
+      "UGC 506",
+      "UGC 522",
+      "UGC 524",
+      "UGC 548",
+      "UGC 566",
+      "UGC 591",
+      "UGC 607",
+      "UGC 610",
+      "UGC 612",
+      "Sh 2-187",
+      "Sh 2-198",
+      "Courtès 119 & 124",
+      "Simeis 38",
+      "Simeis 39",
+      "Simeis 42",
+      "Strohmeier 28",
+      "McD 42",
+      "McD 55",
+      "UGC 10238",
+      "UGC 10264",
+      "UGC 10388",
+      "UGC 10456",
+      "UGC 10493",
+      "UGC 10950",
+      "90 Her",
+      "Renou 40",
+      "Renou 5",
+      "Teutsch 8",
+      "Kronberger 72",
+      "Simeis 107",
+      "DWB 114",
+      "DWB 105",
+      "Simeis 71",
+      "DWB 100",
+      "Simeis 75A",
+      "Simeis 219",
+      "Simeis 224",
+      "Simeis 227",
+      "Simeis 83",
+      "Simeis 232",
+      "Simeis 233",
+      "UGC 11723",
+      "Teutsch 126",
+      "LBN 430",
+      "Simeis 305",
+      "LBN 437",
+      "Simeis 10",
+      "UGC 12156",
+      "UGC 12795",
+      "M31-G318"
+    ],
+    "newObjectCount": 69,
+    "newObjectObservationCount": 73,
+    "historicalUpdateCount": 6,
+    "visualUpdateCount": 55,
+    "visualObservationDelta": 53,
+    "visualObservationChanges": [
+      {
+        "name": "Stock 18",
+        "beforeCount": 1,
+        "afterCount": 1,
+        "delta": 0
+      },
+      {
+        "name": "M31-G001",
+        "beforeCount": 7,
+        "afterCount": 8,
+        "delta": 1
+      },
+      {
+        "name": "M31-G002",
+        "beforeCount": 2,
+        "afterCount": 3,
+        "delta": 1
+      },
+      {
+        "name": "UGC 330",
+        "beforeCount": 3,
+        "afterCount": 4,
+        "delta": 1
+      },
+      {
+        "name": "LEDA 2152244",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "NGC 225",
+        "beforeCount": 4,
+        "afterCount": 4,
+        "delta": 0
+      },
+      {
+        "name": "M31-G318",
+        "beforeCount": 1,
+        "afterCount": 1,
+        "delta": 0
+      },
+      {
+        "name": "UGC 529",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "UGC 540",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "UGC 567",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "UGC 2855",
+        "beforeCount": 1,
+        "afterCount": 1,
+        "delta": 0
+      },
+      {
+        "name": "Sh 2-232",
+        "beforeCount": 1,
+        "afterCount": 1,
+        "delta": 0
+      },
+      {
+        "name": "Sh 2-249",
+        "beforeCount": 1,
+        "afterCount": 1,
+        "delta": 0
+      },
+      {
+        "name": "IC 4593",
+        "beforeCount": 6,
+        "afterCount": 7,
+        "delta": 1
+      },
+      {
+        "name": "Abell 39",
+        "beforeCount": 8,
+        "afterCount": 8,
+        "delta": 0
+      },
+      {
+        "name": "NGC 6240",
+        "beforeCount": 1,
+        "afterCount": 5,
+        "delta": 4
+      },
+      {
+        "name": "Haute-Provence 1",
+        "beforeCount": 4,
+        "afterCount": 4,
+        "delta": 0
+      },
+      {
+        "name": "M 1-88",
+        "beforeCount": 1,
+        "afterCount": 1,
+        "delta": 0
+      },
+      {
+        "name": "M 3-34",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "Czernik 41",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "NGC 6830",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "NGC 6834",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "Harvard 20",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "NGC 6837",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "NGC 6846",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "Berkeley 49",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "Espin 202",
+        "beforeCount": 2,
+        "afterCount": 3,
+        "delta": 1
+      },
+      {
+        "name": "Do 36",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "NGC 6858",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "NGC 6866",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "Berkeley 84",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "IC 4954",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "IC 4955",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "Roslund 4",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "DoDz 10",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "IC 1318(b)",
+        "beforeCount": 3,
+        "afterCount": 3,
+        "delta": 0
+      },
+      {
+        "name": "vdB 130",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "Simeis 226",
+        "beforeCount": 2,
+        "afterCount": 3,
+        "delta": 1
+      },
+      {
+        "name": "Simeis 237",
+        "beforeCount": 2,
+        "afterCount": 3,
+        "delta": 1
+      },
+      {
+        "name": "Simeis 239",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "Veil Nebula (H)",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "Sh 2-113",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "NGC 7209",
+        "beforeCount": 5,
+        "afterCount": 7,
+        "delta": 2
+      },
+      {
+        "name": "IC 1434",
+        "beforeCount": 2,
+        "afterCount": 4,
+        "delta": 2
+      },
+      {
+        "name": "NGC 7235",
+        "beforeCount": 2,
+        "afterCount": 3,
+        "delta": 1
+      },
+      {
+        "name": "NGC 7243",
+        "beforeCount": 2,
+        "afterCount": 4,
+        "delta": 2
+      },
+      {
+        "name": "NGC 7245",
+        "beforeCount": 4,
+        "afterCount": 6,
+        "delta": 2
+      },
+      {
+        "name": "King 9",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "IC 1442",
+        "beforeCount": 1,
+        "afterCount": 3,
+        "delta": 2
+      },
+      {
+        "name": "NGC 7296",
+        "beforeCount": 2,
+        "afterCount": 4,
+        "delta": 2
+      },
+      {
+        "name": "Berkeley 96",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "delta": 1
+      },
+      {
+        "name": "Me 2-2",
+        "beforeCount": 2,
+        "afterCount": 3,
+        "delta": 1
+      },
+      {
+        "name": "NGC 7331",
+        "beforeCount": 8,
+        "afterCount": 9,
+        "delta": 1
+      },
+      {
+        "name": "Berkeley 98",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "delta": 1
+      },
+      {
+        "name": "Sh 2-161",
+        "beforeCount": 1,
+        "afterCount": 1,
+        "delta": 0
+      }
+    ],
+    "otherUpdateCount": 114,
+    "primaryRenameCount": 4,
+    "nightVisionAddedThisRun": [
+      "Sh 2-173",
+      "Sh 2-187",
+      "Courtès 119 & 124",
+      "Simeis 38",
+      "Simeis 39",
+      "Simeis 42",
+      "Strohmeier 28",
+      "McD 42",
+      "McD 55",
+      "Simeis 107",
+      "DWB 114",
+      "DWB 105",
+      "Simeis 71",
+      "DWB 100",
+      "Simeis 75A",
+      "Simeis 219",
+      "Simeis 224",
+      "Simeis 227",
+      "Simeis 83",
+      "Simeis 232",
+      "Simeis 233",
+      "Simeis 239",
+      "Veil Nebula (H)",
+      "Sh 2-114",
+      "Sh 2-113",
+      "LBN 430",
+      "LBN 437",
+      "Simeis 10",
+      "Simeis 305",
+      "Courtès 107",
+      "Sh 2-198"
+    ],
+    "nightVisionCount": 358,
+    "nightVisionOrderedNamesSha256": "ce2f39fffbc1666c873b313d8774c7cb1fa593c608932d933eee41283f301cc7",
+    "totalRecords": 25077,
+    "totalObservations": 33733,
+    "unchangedRecordCount": 24840,
+    "unchangedRecordsSha256": "45036eb1d61f5c1832c13c6b6b4a1771860c66eeb2ab387d9a645ec8756c32ef"
+  }
+}

@@ -5,18 +5,25 @@ new title, date, and body so output matches this repo's conventions exactly.
 Also extracts an `objects` list (catalog designations) for blog search and
 appends entries to blog_index.json.
 
-Each source .docx starts with two non-empty paragraphs: date, then title.
+Legacy sources start with date and title; title-only sources accept explicit metadata.
 """
 
+import argparse
 import os
 import re
 import json
 import html
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
 
 from docx import Document
+from rebuild_blog_index import extract_search_text
 
 SRC_DIR = r"C:\Users\dagottl\Downloads\observing reports"
-BLOG_DIR = r"C:\Users\dagottl\Projects\deep-sky-database\src\blog"
+BLOG_DIR = str(ROOT / "src" / "blog")
 IMG_DIR = os.path.join(BLOG_DIR, "img")
 REFERENCE = os.path.join(BLOG_DIR, "or-lake-sonoma-on-jan-19-2026.html")
 
@@ -65,7 +72,7 @@ def run_to_html(run):
     text = run.text
     if not text:
         return ""
-    out = html.escape(text)
+    out = html.escape(text).replace("\n", "<br>")
     if run.italic:
         out = f"<i>{out}</i>"
     if run.bold:
@@ -103,7 +110,7 @@ def build_post_html(reference_html, title, date, content_inner):
     t_esc = html.escape(title)
     d_esc = html.escape(date)
     out = re.sub(r"<title>.*?</title>",
-                 lambda m: f"<title>{t_esc} \u2014 Steve Gottlieb's Deep Sky</title>",
+                 lambda m: f"<title>{t_esc} - Steve Gottlieb's Deep Sky</title>",
                  reference_html, count=1, flags=re.S)
     out = re.sub(r'(<h1 class="blog-title">).*?(</h1>)',
                  lambda m: m.group(1) + t_esc + m.group(2), out, count=1, flags=re.S)
@@ -115,7 +122,7 @@ def build_post_html(reference_html, title, date, content_inner):
     return out
 
 
-def process_docx(path, reference_html):
+def process_docx(path, reference_html, *, title=None, date=None):
     doc = Document(path)
     rels = doc.part.rels
     img_web_path = {}
@@ -123,9 +130,18 @@ def process_docx(path, reference_html):
 
     paragraphs = doc.paragraphs
     nonempty_idx = [i for i, p in enumerate(paragraphs) if p.text.strip()]
-    date = paragraphs[nonempty_idx[0]].text.strip()
-    title = paragraphs[nonempty_idx[1]].text.strip()
-    skip = {nonempty_idx[0], nonempty_idx[1]}
+    if (title is None) != (date is None):
+        raise ValueError("Provide both title and date overrides")
+    if title is not None:
+        if not nonempty_idx or paragraphs[nonempty_idx[0]].text.strip() != title:
+            raise ValueError(f"{path}: source title does not match the supplied title")
+        skip = {nonempty_idx[0]}
+    else:
+        if len(nonempty_idx) < 2:
+            raise ValueError(f"{path}: source has no date/title paragraphs")
+        date = paragraphs[nonempty_idx[0]].text.strip()
+        title = paragraphs[nonempty_idx[1]].text.strip()
+        skip = {nonempty_idx[0], nonempty_idx[1]}
     slug = make_slug(title)
 
     def save_image(rid):
@@ -133,7 +149,7 @@ def process_docx(path, reference_html):
             return img_web_path[rid]
         rel = rels.get(rid)
         if rel is None or "image" not in rel.reltype:
-            return None
+            raise ValueError(f"{path}: invalid image relationship {rid}")
         part = rel.target_part
         ct = (getattr(part, "content_type", "") or "").lower()
         ext = EXT_FROM_CT.get(ct, os.path.splitext(part.partname)[1].lower() or ".jpg")
@@ -162,9 +178,9 @@ def process_docx(path, reference_html):
             para_html.append(run_to_html(run))
         if i in skip:
             continue
-        text = "".join(para_html).strip()
+        text = "".join(para_html)
         text = re.sub(r"</(b|i|u)>(\s*)<\1>", r"\2", text)
-        if text:
+        if text.strip():
             blocks.append(f"<p>{text}</p>")
             plain_parts.append(p.text)
 
@@ -186,6 +202,7 @@ def process_docx(path, reference_html):
         "filename": filename,
         "images": saved_count[0],
         "content_length": len(content_inner),
+        "search_text": extract_search_text(post_html, objects),
     }
     if objects:
         entry["objects"] = objects
@@ -193,6 +210,16 @@ def process_docx(path, reference_html):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("docx_files", type=Path, nargs="*")
+    parser.add_argument("--title")
+    parser.add_argument("--date")
+    args = parser.parse_args()
+    if (args.title is None) != (args.date is None):
+        parser.error("Provide both --title and --date")
+    if args.title is not None and len(args.docx_files) != 1:
+        parser.error("Metadata overrides require exactly one DOCX file")
+
     os.makedirs(IMG_DIR, exist_ok=True)
     with open(REFERENCE, "r", encoding="utf-8") as f:
         reference_html = f.read()
@@ -203,11 +230,16 @@ def main():
     existing_slugs = {e["slug"] for e in existing}
 
     new_entries = []
-    for fname in sorted(os.listdir(SRC_DIR)):
-        if not fname.lower().endswith(".docx") or fname.startswith("~$"):
-            continue
-        print(f"\nProcessing: {fname}")
-        entry = process_docx(os.path.join(SRC_DIR, fname), reference_html)
+    sources = args.docx_files or [
+        Path(SRC_DIR) / fname
+        for fname in sorted(os.listdir(SRC_DIR))
+        if fname.lower().endswith(".docx") and not fname.startswith("~$")
+    ]
+    for path in sources:
+        if not path.is_file() or path.suffix.lower() != ".docx":
+            raise ValueError(f"Not a DOCX file: {path}")
+        print(f"\nProcessing: {path.name}")
+        entry = process_docx(path, reference_html, title=args.title, date=args.date)
         if entry["slug"] in existing_slugs:
             print(f"  WARNING: slug '{entry['slug']}' exists, replacing")
             existing = [e for e in existing if e["slug"] != entry["slug"]]
